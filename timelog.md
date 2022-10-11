@@ -37,3 +37,4 @@
 ### 11 Oct 2022
 
 * *1 hour* Setup GitHub repository and edited template files
+* *0.5 hour* Got GitHub student, created and set up wiki, converted first meeting minutes to markdown format
