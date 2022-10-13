@@ -8,9 +8,26 @@ This is the repository for my Level 4 Individual project for computing science, 
 * [Technologies Used](#technologies-used)
 
 ## Motivation
-TODO
+My supervisor has worked on a project called [BioCaster](http://www.biocaster.org/) which uses news articles to identify disease outbreaks across the world. However, the systems available for news sources (RSS subscription feeds) are limited in the news they can provide, only allowing for popular news sources, with limited coverage in many minority languages. I am trying to use web-scraping to design a more flexible system for obtaining news, using NLP to translate different languages into English and filter biomedical articles, to facilitate more accurate and complete identification of disease outbreaks.
 ## Overview
-TODO
+The project consists of several key features
+  * Flexible web-crawlers to be used for different news sources around the world (e.g. in different languages and formats)
+  * NLP [huggingface](https://huggingface.co/) pipelines for machine translation and classification (biomedical vs non-biomedical articles)
+  * Possible NER/Linking to categorise diseases and link different disease names into one disease object
+  * Possible visualisation of data through tools such as [Elastic Kibana](https://www.elastic.co/kibana/)
+
+The languages being considered for this project are:
+* English
+* French
+* Spanish
+* Chinese
+* Russian
+* Portuguese
+* Indonesian
+* Swahili
+* Korean
+* Arabic
+
 ## Build Instructions
 TODO
 ## Technologies used
