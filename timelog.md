@@ -38,3 +38,7 @@
 
 * *1 hour* Setup GitHub repository and edited template files
 * *0.5 hour* Got GitHub student, created and set up wiki, converted first meeting minutes to markdown format
+
+### 14 Oct 2022
+
+* *0.5 hour* Filled in project details and personal details on shared Notion notebook
