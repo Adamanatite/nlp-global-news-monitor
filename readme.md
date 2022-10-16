@@ -1,27 +1,34 @@
-# Guidance
-This is a suggested template for a project. You can modify it as you please, but
-but remember to keep:
+# Global news monitoring system using NLP
+This is the repository for my Level 4 Individual project for computing science, "A real-time global news monitoring system based on Natural Language Processing (NLP) technology" Supervised by [Dr. Zaiqiao Meng](https://www.gla.ac.uk/schools/computing/staff/zaiqiaomeng/)
 
-* a timelog, updated regularly in the `timelog.md` format;
-* all source under version control;
-* data well organised and with appropriate ethical approval (for human subject data);
+## Table of Contents
+* [Motivation](#motivation)
+* [Overview](#overview)
+* [Build Instructions](#build-instructions)
+* [Technologies Used](#technologies-used)
 
-Here's an overview of the structure as it stands:
+## Motivation
+My supervisor has worked on a project called [BioCaster](http://www.biocaster.org/) which uses news articles to identify disease outbreaks across the world. However, the systems available for news sources (RSS subscription feeds) are limited in the news they can provide, only allowing for popular news sources, with limited coverage in many minority languages. I am trying to use web-scraping to design a more flexible system for obtaining news, using NLP to translate different languages into English and filter biomedical articles, to facilitate more accurate and complete identification of disease outbreaks.
+## Overview
+The project consists of several key features
+  * Flexible web-crawlers to be used for different news sources around the world (e.g. in different languages and formats)
+  * NLP [huggingface](https://huggingface.co/) pipelines for machine translation and classification (biomedical vs non-biomedical articles)
+  * Possible NER/Linking to categorise diseases and link different disease names into one disease object
+  * Possible visualisation of data through tools such as [Elastic Kibana](https://www.elastic.co/kibana/)
 
-* `timelog.md` The time log for your project.
-* `plan.md` A skeleton week-by-week plan for the project. 
-* `data/` data you acquire during the project
-* `src/` source code for your project
-* `status_report/` the status report submitted in December
-* `meetings/` Records of the meetings you have during the project.
-* `dissertation/` source and for your project dissertation
-* `presentation/` your presentation
+The languages being considered for this project are:
+* English
+* French
+* Spanish
+* Chinese
+* Russian
+* Portuguese
+* Indonesian
+* Swahili
+* Korean
+* Arabic
 
-* Make sure you add a `.gitignore` or similar for your VCS for the tools you are using!
-* Add any appropriate continuous integration (e.g. Travis CI) in this directory.
-
-* Remove this `readme.md` file from any repository and replace it with something more appropriate!
-
-## Important
-* It should be easy to rebuild and run your project and your dissertation
-        * Include clear instructions in the relevant directories to make this possible
+## Build Instructions
+TODO
+## Technologies used
+TODO
