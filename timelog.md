@@ -46,3 +46,7 @@
 ### 15 Oct 2022
 
 * *2.5 hour* Research on news sources around the world (mostly English for now)
+
+### 16 Oct 2022
+
+* *1.5 hour* Environment setup, installation of libraries, had some trouble with pip and recognising my GPU.
