@@ -42,3 +42,7 @@
 ### 14 Oct 2022
 
 * *0.5 hour* Filled in project details and personal details on shared Notion notebook
+
+### 15 Oct 2022
+
+* *2.5 hour* Research on news sources around the world (mostly English for now)
