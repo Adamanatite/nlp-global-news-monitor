@@ -54,3 +54,4 @@
 ### 17 Oct 2022
 
 * *0.5 hour* Began planning the comparison of different web crawling sources
+* *1 hour* Added more newspapers to the list being collected
