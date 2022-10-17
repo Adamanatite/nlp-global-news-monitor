@@ -50,3 +50,7 @@
 ### 16 Oct 2022
 
 * *1.5 hour* Environment setup, installation of libraries, had some trouble with pip and recognising my GPU.
+
+### 17 Oct 2022
+
+* *0.5 hour* Began planning the comparison of different web crawling sources
