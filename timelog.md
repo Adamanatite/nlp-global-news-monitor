@@ -59,3 +59,4 @@
 ### 18 Oct 2022
 
 * *2 hour* Added more news sources to document
+* *1 hour* Added news sources from the remaining languages to research document
