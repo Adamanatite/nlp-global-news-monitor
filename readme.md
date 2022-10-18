@@ -29,7 +29,7 @@ The languages being considered for this project are:
 * Arabic
 
 ## Build Instructions
-* Ensure TensorFlow CUDA Toolkits are installed
+* Ensure TensorFlow CUDA Toolkits are installed e.g.
 ```conda install -c conda-forge cudatoolkit=11.2 cudnn=8.1.0```
 * Create a pip environment from `requirements.txt` in src
 * * ```python -m pip install -r requirements.txt```
