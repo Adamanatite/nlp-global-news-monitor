@@ -61,4 +61,4 @@
 * *2 hour* Added more news sources to document
 * *1 hour* Added news sources from the remaining languages to research document
 * *0.5 hour* Preparation for next supervisor meeting, updating GitHub
-* *0.5 hour* Second meeting with supervisor, revising minutes
+* *1 hour* Second meeting with supervisor, revising minutes and updating shared notes
