@@ -29,6 +29,10 @@ The languages being considered for this project are:
 * Arabic
 
 ## Build Instructions
-TODO
+* Ensure TensorFlow CUDA Toolkits are installed e.g.
+```conda install -c conda-forge cudatoolkit=11.2 cudnn=8.1.0```
+* Create a pip environment from `requirements.txt` in src
+* * ```python -m pip install -r requirements.txt```
 ## Technologies used
-TODO
+* [TensorFlow v2.10](https://github.com/tensorflow/tensorflow/releases/tag/v2.10.0)
+* [Huggingface Transformers v4.23.1](https://huggingface.co/transformers)
