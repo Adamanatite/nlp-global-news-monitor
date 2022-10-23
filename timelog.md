@@ -33,7 +33,6 @@
 * *0.5 hour* Initial meeting with supervisor
 * *0.5 hour* Rewritten minutes into more sorted and easy-to-understand form
 
-
 ### 11 Oct 2022
 
 * *1 hour* Setup GitHub repository and edited template files
@@ -51,6 +50,8 @@
 
 * *1.5 hour* Environment setup, installation of libraries, had some trouble with pip and recognising my GPU.
 
+## Week 5
+
 ### 17 Oct 2022
 
 * *0.5 hour* Began planning the comparison of different web crawling sources
@@ -62,3 +63,6 @@
 * *1 hour* Added news sources from the remaining languages to research document
 * *0.5 hour* Preparation for next supervisor meeting, updating GitHub
 * *1 hour* Second meeting with supervisor, revising minutes and updating shared notes
+
+### 23 Oct 2022
+* *1 hour* Preparation for python analysis of current news scrapers

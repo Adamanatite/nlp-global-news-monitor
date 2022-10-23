@@ -1,0 +1,120 @@
+ENG
+AP News https://apnews.com/ USA
+Reuters https://www.reuters.com/ USA
+BBC News https://www.bbc.co.uk/news UK
+Stat News https://www.statnews.com/ USA
+CNN https://edition.cnn.com/ USA
+NY Times https://www.nytimes.com/ USA
+ITV News https://www.itv.com/news/ UK
+Google News https://news.google.com/ GLB
+The Guardian https://www.theguardian.com/uk UK
+CBC News https://www.cbc.ca/news/ CAN
+Global News https://globalnews.ca/ CAN
+Telegraph https://www.telegraph.co.uk/ UK
+ABC News https://abcnews.go.com/ AUS
+9News https://www.9news.com.au/ AUS
+Scoop https://www.scoop.co.nz/ NZ
+Stuff.co https://www.stuff.co.nz/ NZ
+RTE News https://www.rte.ie/news/ IRE
+Jamaica Observer https://www.jamaicaobserver.com/ JAM
+Trinidad express https://trinidadexpress.com/ T&T
+Loop Trinidad https://tt.loopnews.com/ T&T
+The East African https://www.theeastafrican.co.ke/ KEN
+Monitor https://www.monitor.co.ug/ UGA
+WHO https://www.who.int/emergencies/disease-outbreak-news/ UN
+CDC https://www.cdc.gov/eis/media-publications/news-articles.html USA
+The BMJ https://www.bmj.com/ UK
+Reliefweb https://reliefweb.int/ USA
+New Scientist https://www.newscientist.com/subject/health/ UK
+Medical Independent https://www.medicalindependent.ie/ IRE
+CMAJ News https://cmajnews.com/ CAN
+FRA
+Le Figaro https://www.lefigaro.fr/ FRA
+Le Monde https://www.lemonde.fr/ FRA
+Liberation https://www.liberation.fr/ FRA
+L'Express https://www.lexpress.fr/ FRA
+La Presse https://www.lapresse.ca/ CAN
+Le Devoir https://www.ledevoir.com/ CAN
+Le Nouvelliste https://www.lenouvelliste.ch/ SUI
+La presse.tn https://lapresse.tn/ TUN
+Mediacongo https://www.mediacongo.net//articles.html DRC
+Congo Independent http://www.congoindependant.com/ DRC
+Le Matin du Sahara er du Maghreb https://lematin.ma/ MOR
+ESP
+El Universal https://www.eluniversal.com.mx/ MEX
+El Mundo https://www.elmundo.es/ ESP
+ABC https://www.abc.es/ ESP
+El Pais https://elpais.com/ ESP
+La Nacion https://www.lanacion.com.ar/ ARG
+El nacional https://www.elnacional.com/ VEN
+Pulso https://www.pulsoslp.com.mx/ MEX
+La Jornada https://www.jornada.com.mx/ MEX
+El Tiempo https://www.eltiempo.com/ COL
+El Espectador https://www.elespectador.com/ COL
+ZHO
+Sina https://www.sina.com.cn/ CHI
+Huanqiu https://www.huanqiu.com/ CHI
+Beijing News http://www.bjnews.com.cn/ CHI
+China Daily http://cn.chinadaily.com.cn/ CHI
+Ming Pao https://www.mingpao.com/ HK
+Liberty https://www.ltn.com.tw/ TAI
+China Times https://www.chinatimes.com/ TAI
+Lianhe Zaobao https://www.zaobao.com.sg/ SNG
+Health news network https://www.jkb.com.cn/ CHI
+RUS
+TASS https://tass.ru/ RUS
+RIA Novosti https://ria.ru/ RUS
+Interfax https://www.interfax.ru/ RUS
+REGNUM https://regnum.ru/ RUS
+Komsomolskaya Pravda https://www.kp.ru/ RUS
+New times https://newtimes.ru/ RUS
+Nur.kz https://www.nur.kz/ KAZ
+DSNews https://www.dsnews.ua/ UKR
+BELTA https://www.belta.by/ BEL
+POR
+Publico https://www.publico.pt/ POR
+Diário de Notícias https://www.dn.pt/ POR
+Jornal de Notícias https://www.jn.pt/ POR
+Folha De S.Paulo https://www.folha.uol.com.br/ BRA
+Rede Globo Noticias https://www.globo.com/ BRA
+Terra https://www.terra.com.br/noticias/ BRA
+O Democrata https://www.odemocratagb.com/ GBS
+Radio Jovem https://radiojovem.info/ GBS
+Expresso das Ilhas https://expressodasilhas.cv/ CBV
+Jornal Noticias https://jornalnoticias.co.mz/ MOZ
+IND
+Kompas https://www.kompas.com/ IDN
+Republika https://www.republika.co.id/ IDN
+Jawa Pos https://www.jawapos.com/ IDN
+Pikiran Rakyat https://www.pikiran-rakyat.com/ IDN
+Bali post https://www.balipost.com/ IDN
+SWA
+Habari Leo https://habarileo.co.tz/ TNZ
+MTanzania https://mtanzania.co.tz/ TNZ
+IPP Media https://www.ippmedia.com/sw TNZ
+Global Publishers https://globalpublishers.co.tz/ TNZ
+Tuko https://kiswahili.tuko.co.ke/ KEN
+Taiga Leo https://taifaleo.nation.co.ke/ KEN
+BBC News Swahili https://www.bbc.com/swahili UK
+KOR
+Dong-a Ilbo https://www.donga.com/ KOR
+Joongang Ilbo https://www.joongang.co.kr/ KOR
+Chosun Iibo https://www.chosun.com/ KOR
+Yonhap News Agency https://www.yna.co.kr/ KOR
+Kyunghyang Shinmun https://www.khan.co.kr/ KOR
+Ohmynews http://www.ohmynews.com/ KOR
+ARA
+Al Jazeera https://www.aljazeera.net/ QAT
+Al-ahram https://gate.ahram.org.eg/ EGY
+Al Waft https://alwafd.news/ EGY
+Elkhabar https://www.elkhabar.com/ ALG
+Al Bayan https://www.albayan.ae/ UAE
+EAl-Akhbar https://www.al-akhbar.com/ LEB
+Alquds https://alquds.com/ar ISR
+Erm News https://www.eremnews.com/ UAE
+Alintibaha https://alintibaha.net/online/ SUD
+Shafaq News https://shafaq.com/ar IRQ
+Assabah https://assabah.ma/ MOR
+Okaz https://www.okaz.com.sa/ KSA
+CNN Arabic https://arabic.cnn.com/ USA
+BBC Arabic https://www.bbc.com/arabic UK
