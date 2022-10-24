@@ -71,3 +71,4 @@
 
 ### 24 Oct 2022
 * *2.5 hour* Collected news articles to use for testing for every source, updated considerations
+* *3 hour* Installed scraping libraries, began writing scripts to perform experiment
