@@ -66,3 +66,8 @@
 
 ### 23 Oct 2022
 * *1 hour* Preparation for python analysis of current news scrapers
+
+## Week 6
+
+### 24 Oct 2022
+* *2.5 hour* Collected news articles to use for testing for every source, updated considerations
