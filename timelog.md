@@ -76,3 +76,4 @@
 ### 25 Oct 2022
 * *2 hour* More work on experiment, not much progress
 * *4.5 hour* Completed timed experiment, updated report
+* *1 hour* Meeting preparation, supervisor meeting, cleaning up of minutes
