@@ -75,3 +75,4 @@
 
 ### 25 Oct 2022
 * *2 hour* More work on experiment, not much progress
+* *4 hour* Completed timed experiment, updated report
