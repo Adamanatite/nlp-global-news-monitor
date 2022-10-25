@@ -132,3 +132,5 @@ dmypy.json
 data_dump/
 # Error file
 src/errors.txt
+#Temporary outputs
+src/outputs/
