@@ -77,3 +77,7 @@
 * *2 hour* More work on experiment, not much progress
 * *4.5 hour* Completed timed experiment, updated report
 * *1 hour* Meeting preparation, supervisor meeting, cleaning up of minutes
+
+### 26 Oct 2022
+* *0.5 hour* Some work on considering individual sources and evaluating scraper performance (closer inspection of metadata)
+* *1 hour* Preparation for, attendance of (as a guest) and minutes for BioCaster weekly meeting 
