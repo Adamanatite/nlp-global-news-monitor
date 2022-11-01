@@ -81,3 +81,8 @@
 ### 26 Oct 2022
 * *0.5 hour* Some work on considering individual sources and evaluating scraper performance (closer inspection of metadata)
 * *1 hour* Preparation for, attendance of (as a guest) and minutes for BioCaster weekly meeting 
+
+## Week 7
+
+### 31 Oct 2022
+* *3.5 hour* Completed report (experiments were very slow), installed mysql and related python packages, setup test database
