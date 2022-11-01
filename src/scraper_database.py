@@ -1,15 +1,14 @@
 from mysql.connector import connect, Error
+import json
 
-#TODO: Replace variables with input from file
-hostname = "localhost"
-username = "root"
-password = ""
-db_name = "news_scraper"
+with open("config.json") as f:
+    data = json.load(f)
+    db_name = data["db_name"]
 
 try:
-    connection = connect(host = hostname,
-                        user = username,
-                        password=password)
+    connection = connect(host = data["host"],
+                        user = data["username"],
+                        password=data["password"])
     c = connection.cursor(buffered=True)
 except Error as e:
     print(e)
@@ -39,11 +38,14 @@ def CreateDB():
         url VARCHAR(700) PRIMARY KEY,
         title VARCHAR(300),
         text VARCHAR(50000),
-        publish_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+        publish_date DATETIME,
+        scrape_date DATETIME DEFAULT CURRENT_TIMESTAMP,
         source VARCHAR(100),
         CONSTRAINT FK_source FOREIGN KEY (source) REFERENCES sources(url) ON DELETE CASCADE);""")
     except Error as e:
         print(e)
+
+    print("Successfully created Database")
 
 def GetCursor():
      return c
@@ -52,8 +54,46 @@ def GetDBConnection():
      return connection
 
 #TODO: Write this function so that it can determine the other fields
-def add_source(url):
+def AddSource(url):
     pass
 
-def add_source(url, name, country, lang, active):
-    pass
+def AddSource(url, name, country, lang):
+    if(not SourceExists(url)):
+        query = "INSERT INTO " + db_name + ".sources (url,name,country,language,active) VALUES(%s,%s,%s,%s,%s)"
+        try:
+            params = (url, name, country, lang, True)
+            c.execute(query, params)
+            connection.commit()
+        except Error as e:
+            print(e)
+        return True
+    return False
+
+def SourceExists(url):
+    query = "SELECT url FROM " + db_name + ".sources WHERE url = %s"
+    params = [url]
+    c.execute(query, params)
+    if(c.fetchall()):
+        return True
+    return False
+
+def AddArticle(url, title, text, date, source):
+    #TODO: Deal with articles which update?
+    if(not ArticleExists(url)):
+        query = "INSERT INTO " + db_name + ".articles (url,title,text,publish_date,source) VALUES(%s,%s,%s,%s,%s)"
+        try:
+            params = (url, title, text, date, source)
+            c.execute(query, params)
+            connection.commit()
+        except Error as e:
+            print(e)
+        return True
+    return False
+
+def ArticleExists(url):
+    query = "SELECT url FROM " + db_name + ".articles WHERE url = %s"
+    params = [url]
+    c.execute(query, params)
+    if(c.fetchall()):
+        return True
+    return False
