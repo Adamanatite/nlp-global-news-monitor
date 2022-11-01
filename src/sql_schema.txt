@@ -1,0 +1,28 @@
+Sources:
+URL (VARCHAR) PK
+Name (VARCHAR)
+Country (VARCHAR)
+Language (VARCHAR)
+Active (Binary)
+
+Articles:
+URL (VARCHAR) PK
+Title (VARCHAR)
+Text (VARCHAR)
+Publish date (DATETIME)
+Source (FK to Sources)
+
+Settings:
+Stale-duration: (INT) # How long since last new article until we decide an article is stale
+
+---------------------------------------------------------------------------------------------------------------
+
+Challenges:
+    -How do we validate if a url works
+    -How do we determine language abd country without explicitly stating it (through ML?)
+    -How do we determine source name?
+    -What do we do with publish date when we can't scrape it?
+    -How to represent broken links (null text field?)
+    -How to calculate stale fields? (get publish date of articles and check latest one?)
+    -Should we assume monolanguage sources? (Can we allow sources who publish in multiple languages, if so how do we represent this? Instead store language in article?)
+    -More experimentation is required to decide the max length for e.g. article title

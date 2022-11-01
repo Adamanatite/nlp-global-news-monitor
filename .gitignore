@@ -128,9 +128,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-#Temporary data dump
-data_dump/
 # Error file
-src/errors.txt
+research/errors.txt
 #Temporary outputs
-src/outputs/
+research/outputs/
