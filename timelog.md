@@ -91,3 +91,4 @@
 ### 1 Nov 2022
 * *2.5 hour* Planned and set up database schema on mySQL (many errors but finally working)
 * *1 hour* Added functions for adding and removing news articles and sources
+* *1 hour* Began work on getting newspaper3k to scrape whole websites, unsuccessful. Also planned meeting.
