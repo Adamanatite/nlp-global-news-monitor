@@ -86,3 +86,4 @@
 
 ### 31 Oct 2022
 * *3.5 hour* Completed report (experiments were very slow), installed mysql and related python packages, setup test database
+* *0.5 hour* Created wireframe for scraper dashboard (https://www.figma.com/file/FxrC6tJwUa0Xq3iqChES7B/Scraper-Dashboard?node-id=0%3A1)
