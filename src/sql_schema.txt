@@ -11,10 +11,6 @@ Title (VARCHAR)
 Text (VARCHAR)
 Publish date (DATETIME)
 Source (FK to Sources)
-
-Settings:
-Stale-duration: (INT) # How long since last new article until we decide an article is stale
-
 ---------------------------------------------------------------------------------------------------------------
 
 Challenges:
