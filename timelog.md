@@ -93,3 +93,6 @@
 * *1 hour* Added functions for adding and removing news articles and sources
 * *1 hour* Began work on getting newspaper3k to scrape whole websites, unsuccessful. Also planned meeting.
 * *1 hour* Customer meeting, research into elastic and refactoring/extending of minutes
+
+### 6 Nov 2022
+* *1 hour* Installed Elasticsearch (had some installation problems and had to reset pip environment)
