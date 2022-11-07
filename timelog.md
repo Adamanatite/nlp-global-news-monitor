@@ -101,3 +101,4 @@
 
 ### 7 Nov 2022
 * *1.5 hour* Attempted to connect elasticsearch python library to local setup, unsuccessful (HTTPS security errors), planned some visualisations
+* *0.5 hour* Update project info
