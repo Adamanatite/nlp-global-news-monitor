@@ -11,10 +11,12 @@ This is the repository for my Level 4 Individual project for computing science, 
 My supervisor has worked on a project called [BioCaster](http://www.biocaster.org/) which uses news articles to identify disease outbreaks across the world. However, the systems available for news sources (RSS subscription feeds) are limited in the news they can provide, only allowing for popular news sources, with limited coverage in many minority languages. I am trying to use web-scraping to design a more flexible system for obtaining news, using NLP to translate different languages into English and filter biomedical articles, to facilitate more accurate and complete identification of disease outbreaks.
 ## Overview
 The project consists of several key features
-  * Flexible web-crawlers to be used for different news sources around the world (e.g. in different languages and formats)
-  * NLP [huggingface](https://huggingface.co/) pipelines for machine translation and classification (biomedical vs non-biomedical articles)
+  * A scheduler built on [Newspaper3k](https://github.com/codelucas/newspaper) to scrape news articles in 10 different languages
+  * NLP [huggingface](https://huggingface.co/) pipelines for machine translation and multi-label classification
+  * An [Elasticsearch](https://www.elastic.co/elasticsearch/) database to store results of web-crawling
+  * Visualisation of data through [Elastic Kibana](https://www.elastic.co/kibana/)
   * Possible NER/Linking to categorise diseases and link different disease names into one disease object
-  * Possible visualisation of data through tools such as [Elastic Kibana](https://www.elastic.co/kibana/)
+
 
 The languages being considered for this project are:
 * English
@@ -34,5 +36,8 @@ The languages being considered for this project are:
 * Create a pip environment from `requirements.txt` in src
 * * ```python -m pip install -r requirements.txt```
 ## Technologies used
-* [TensorFlow v2.10](https://github.com/tensorflow/tensorflow/releases/tag/v2.10.0)
-* [Huggingface Transformers v4.23.1](https://huggingface.co/transformers)
+* [Newspaper3k](https://github.com/codelucas/newspaper) v0.2.8
+* [TensorFlow](https://github.com/tensorflow/tensorflow/releases/tag/v2.10.0) v2.10
+* [Huggingface Transformers](https://huggingface.co/transformers) v4.23.1
+* [Elasticsearch](https://www.elastic.co/elasticsearch/) v8.5.0
+* [Elastic Kibana](https://www.elastic.co/kibana/) v8.5.0
