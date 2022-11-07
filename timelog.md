@@ -96,3 +96,8 @@
 
 ### 6 Nov 2022
 * *1 hour* Installed Elasticsearch (had some installation problems and had to reset pip environment)
+
+## Week 8
+
+### 7 Nov 2022
+* *1.5 hour* Attempted to connect elasticsearch python library to local setup, unsuccessful (HTTPS security errors), planned some visualisations

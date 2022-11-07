@@ -8,7 +8,7 @@ print(tf.reduce_sum(tf.random.normal([1000, 1000])))
 
 #Check tensorflow recognises GPU (from https://www.tensorflow.org/install/pip#windows-native)
 print(tf.config.list_physical_devices('GPU'))
-#Expected output: A list containing a GPU (e.g. [PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')])
+#Expected output: A list containing at least one GPU, assuming GPU's are installed properly (e.g. [PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')])
 
 #Test huggingface pipeline (from https://huggingface.co/docs/transformers/installation)
 print(pipeline('sentiment-analysis')('we love you'))
