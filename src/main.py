@@ -1,6 +1,7 @@
 from elasticsearch_database import CreateDB, AddArticle, AddSource
 import newspaper
 import re
+import time
 
 def cleanup(text):
     #Check if lines has at least one alphanumeric digit (adapted from https://stackoverflow.com/a/6676843)
@@ -40,8 +41,15 @@ with open("sources.txt") as f:
 scrapers = []
 for source in sources[:10]:
     print(source[0], source[3])
-    scrapers.append(newspaper.build(source[0], language=source[3]))
+    scrapers.append(newspaper.build(source[0], language=source[3], memoize_articles=False))
     # AddSource(source[0], source[1], source[2], source[3])
 
 for scraper in scrapers:
-    print(len(scraper.articles))
+    print(scraper.size())
+
+print("Sleeping...")
+time.sleep(120)
+print("Waking up")
+
+for scraper in scrapers:
+    print(scraper.size())
