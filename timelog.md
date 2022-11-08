@@ -102,3 +102,4 @@
 ### 7 Nov 2022
 * *1.5 hour* Attempted to connect elasticsearch python library to local setup, unsuccessful (HTTPS security errors), planned some visualisations
 * *0.5 hour* Update project info
+* *3 hour* Set up elasticsearch and kibana on docker without security, adapted mysql code to elasticsearch, kibana doesn't connect yet
