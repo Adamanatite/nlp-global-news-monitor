@@ -103,3 +103,6 @@
 * *1.5 hour* Attempted to connect elasticsearch python library to local setup, unsuccessful (HTTPS security errors), planned some visualisations
 * *0.5 hour* Update project info
 * *3 hour* Set up elasticsearch and kibana on docker without security, adapted mysql code to elasticsearch, kibana doesn't connect yet
+
+### 8 Nov 2022
+* *1.5 hour* Robots.txt / legal implications of web scraping research, more testing on newspaper3k full website scraping and other options, meeting prep

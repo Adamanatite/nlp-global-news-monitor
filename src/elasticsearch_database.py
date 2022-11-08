@@ -1,14 +1,19 @@
 from elasticsearch import Elasticsearch
 from datetime import datetime
 
-try:
-    es = Elasticsearch("http://localhost:9200")
-except Exception as e:
-    print(str(e))
-    exit(-1)
+# Return es connection, or None if it failed
+def ESConnect():
+    try:
+        es = Elasticsearch("http://localhost:9200")
+    except Exception as e:
+        print(str(e))
+        return None
 
-print("Connected to elasticsearch server")
+    # From https://stackoverflow.com/a/31644507
+    if not es.ping():
+        return None
 
+es = ESConnect()
 
 # Code is adapted from https://dylancastillo.co/elasticsearch-python/
 
@@ -54,7 +59,7 @@ def AddSource(url, name, country, lang):
     }
 
     try:
-        es.index(index="sources", id=1, document=doc)
+        es.index(index="sources", document=doc)
         print("Added source " + name)
         return True
     except Exception as e:
@@ -72,7 +77,7 @@ def AddArticle(url, title, text, date, source):
     }
 
     try:
-        es.index(index="articles", id=1, document=doc)
+        es.index(index="articles", document=doc)
         print("Added article " + title)
         return True
     except Exception as e:
