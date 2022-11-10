@@ -107,3 +107,6 @@
 ### 8 Nov 2022
 * *1.5 hour* Robots.txt / legal implications of web scraping research, more testing on newspaper3k full website scraping and other options, meeting prep
 * *1 hour* Supervisor meeting, notes cleanup and wiki update
+
+### 10 Nov 2022
+* *0.5 hour* Research on possible datasets for multi-label news article classification
