@@ -5,7 +5,7 @@ import json
 # Return es connection, or None if it failed
 def ESConnect():
 
-    # Adapted from https://www.elastic.co/guide/en/elasticsearch/client/python-api/master/connecting.html
+    # Get data from JSON file
     with open("db_info.json") as f:
         data = json.load(f)
 
@@ -13,8 +13,7 @@ def ESConnect():
     ELASTIC_PASSWORD = data["password"]
     CERT_PATH = data["cert_path"]
 
-    print(ELASTIC_USERNAME, ELASTIC_PASSWORD, CERT_PATH)   
-
+    # Connect to database (adapted from https://www.elastic.co/guide/en/elasticsearch/client/python-api/master/connecting.html)
     try:
         es = Elasticsearch(
         "https://localhost:9200",
@@ -28,9 +27,10 @@ def ESConnect():
     # From https://stackoverflow.com/a/31644507
     if not es.ping():
         return None
-        
+
     return es
 
+# Get DB connection instance
 es = ESConnect()
 
 # Code is adapted from https://dylancastillo.co/elasticsearch-python/
@@ -42,6 +42,7 @@ def CreateDB():
         print("Couldn't connect to elasticsearch")
         return
 
+    # Create source index
     source_mappings = {
             "properties": {
                 "url": {"type": "text"},
@@ -55,8 +56,8 @@ def CreateDB():
     if not es.indices.exists(index="sources"):
         es.indices.create(index="sources", mappings=source_mappings)
         print("Created sources index")
-    # Create article index
 
+    # Create article index
     article_mappings = {
             "properties": {
                 "url": {"type": "text"},
@@ -72,7 +73,7 @@ def CreateDB():
         es.indices.create(index="articles", mappings=article_mappings)
         print("Created articles index")
 
-def AddSource(url, name, country, lang):
+def AddSource(url, name, country, lang, scraper_type, index=None):
 
     if not es:
         return
@@ -82,18 +83,22 @@ def AddSource(url, name, country, lang):
         "name": name,
         "country": country,
         "language": lang,
+        "scraper_type": scraper_type,
         "active": True
     }
 
     try:
-        es.index(index="sources", id=1, document=doc)
+        if index:
+            es.index(index="sources", id=index, document=doc)
+        else:
+            es.index(index="sources", document=doc)
         print("Added source " + name)
         return True
     except Exception as e:
         print(str(e))
         return False
 
-def AddArticle(url, title, text, date, source):
+def AddArticle(url, title, text, date, source, index=None):
     
     if not es:
         return
@@ -108,9 +113,22 @@ def AddArticle(url, title, text, date, source):
     }
 
     try:
-        es.index(index="articles", id=1, document=doc)
+        if index:
+            es.index(index="articles", id=index, document=doc)
+        else:
+            es.index(index="articles", document=doc)
         print("Added article " + title)
         return True
     except Exception as e:
         print(str(e))
         return False
+
+# Delete all indices (Reset DB)
+def ResetDB():
+
+    if not es:
+        print("Couldn't connect to elasticsearch")
+        return
+
+    es.options(ignore_status=[400,404]).indices.delete(index='sources')
+    es.options(ignore_status=[400,404]).indices.delete(index='articles')
