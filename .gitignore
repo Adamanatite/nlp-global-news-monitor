@@ -134,4 +134,5 @@ research/errors.txt
 research/outputs/
 # Config file with DB connection information
 src/db_info.json
+# Certification file
 src/cert/
