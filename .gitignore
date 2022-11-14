@@ -130,5 +130,5 @@ dmypy.json
 
 # Error file
 research/errors.txt
-#Temporary outputs
+# Temporary outputs
 research/outputs/
