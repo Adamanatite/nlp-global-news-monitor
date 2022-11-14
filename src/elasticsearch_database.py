@@ -1,10 +1,26 @@
 from elasticsearch import Elasticsearch
 from datetime import datetime
+import json
 
 # Return es connection, or None if it failed
 def ESConnect():
+
+    # Adapted from https://www.elastic.co/guide/en/elasticsearch/client/python-api/master/connecting.html
+    with open("db_info.json") as f:
+        data = json.load(f)
+
+    ELASTIC_USERNAME = data["username"]
+    ELASTIC_PASSWORD = data["password"]
+    CERT_PATH = data["cert_path"]
+
+    print(ELASTIC_USERNAME, ELASTIC_PASSWORD, CERT_PATH)   
+
     try:
-        es = Elasticsearch("http://localhost:9200")
+        es = Elasticsearch(
+        "https://localhost:9200",
+        ca_certs=CERT_PATH,
+        basic_auth=(ELASTIC_USERNAME, ELASTIC_PASSWORD)
+        )
     except Exception as e:
         print(str(e))
         return None
@@ -12,6 +28,8 @@ def ESConnect():
     # From https://stackoverflow.com/a/31644507
     if not es.ping():
         return None
+        
+    return es
 
 es = ESConnect()
 

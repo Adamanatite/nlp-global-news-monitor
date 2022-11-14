@@ -116,3 +116,8 @@
 
 ### 13 Nov 2022
 * *1 hour* Trying to set up elasticsearch and kibana again, trying new method (secure connection with newest version)
+
+## Week 9
+
+### 14 Nov 2022
+* *2 hour* Successfully set up elasticsearch + kibana

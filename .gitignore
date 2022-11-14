@@ -132,3 +132,6 @@ dmypy.json
 research/errors.txt
 # Temporary outputs
 research/outputs/
+# Config file with DB connection information
+src/db_info.json
+src/cert/
