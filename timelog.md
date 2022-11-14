@@ -110,3 +110,9 @@
 
 ### 10 Nov 2022
 * *0.5 hour* Research on possible datasets for multi-label news article classification
+
+### 11 Nov 2022
+* *1 hour* Trying to set up elasticsearch and kibana so they work together, some progress
+
+### 13 Nov 2022
+* *1 hour* Trying to set up elasticsearch and kibana again, trying new method (secure connection with newest version)

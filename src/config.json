@@ -1,6 +1,5 @@
 {
-"host": "localhost",
-"username": "root",
-"password": "",
-"db_name": "news_scraper"
+"username": "elastic",
+"password": "Put password here",
+"cert_path": "Put path to http_ca.crt here"
 }

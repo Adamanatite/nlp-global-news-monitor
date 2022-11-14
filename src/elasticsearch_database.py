@@ -19,6 +19,11 @@ es = ESConnect()
 
 # Create indexes
 def CreateDB():
+
+    if not es:
+        print("Couldn't connect to elasticsearch")
+        return
+
     source_mappings = {
             "properties": {
                 "url": {"type": "text"},
@@ -50,6 +55,10 @@ def CreateDB():
         print("Created articles index")
 
 def AddSource(url, name, country, lang):
+
+    if not es:
+        return
+
     doc = {
         "url": url,
         "name": name,
@@ -59,7 +68,7 @@ def AddSource(url, name, country, lang):
     }
 
     try:
-        es.index(index="sources", document=doc)
+        es.index(index="sources", id=1, document=doc)
         print("Added source " + name)
         return True
     except Exception as e:
@@ -67,6 +76,10 @@ def AddSource(url, name, country, lang):
         return False
 
 def AddArticle(url, title, text, date, source):
+    
+    if not es:
+        return
+
     doc = {
         "url": url,
         "title": title,
@@ -77,7 +90,7 @@ def AddArticle(url, title, text, date, source):
     }
 
     try:
-        es.index(index="articles", document=doc)
+        es.index(index="articles", id=1, document=doc)
         print("Added article " + title)
         return True
     except Exception as e:
