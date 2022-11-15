@@ -37,11 +37,13 @@ class NewspaperScraper:
         self.name = name
         self.language = lang
         self.country = country
-        
-        self.scraper = newspaper.build(self.url, language=self.language)
-
-        AddSource(self.url, self.name, self.country, self.language, self.scrape_type)
-        print("Initialised " + self.name + " scraper")
+        try:
+            self.scraper = newspaper.build(self.url, language=self.language)
+        except Exception as e:
+            print("Cannot add source " + url)
+        else:
+            AddSource(self.url, self.name, self.country, self.language, self.scrape_type)
+            print("Initialised " + self.name + " scraper")
 
     def scrape(self):
         new_articles = False

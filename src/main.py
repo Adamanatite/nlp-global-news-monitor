@@ -1,5 +1,6 @@
 from elasticsearch_database import CreateDB
 from sources.newspaper3k_scraper import NewspaperScraper
+from sources.feed_scraper import FeedScraper
 import time
 
 CreateDB()
@@ -20,6 +21,14 @@ with open("sources.txt") as f:
             continue
         # Create source object
         source = NewspaperScraper(url=data[-5], name=" ".join(data[:-5]), country=data[-4], lang=current_lang)
+        if source:
+            scrapers.append(source)
+
+with open("rss_feeds.txt") as f:
+    for line in f:
+        data = line.strip()
+        # Create source object
+        source = FeedScraper(url=data, name="Test", country="UK", lang="en")
         scrapers.append(source)
 
 while True:

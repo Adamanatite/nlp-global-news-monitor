@@ -126,3 +126,5 @@
 
 ### 15 Nov 2022
 * *2.5 hour* Fixed elasticsearch docker memory bug, fixed kibana visualisations and created test visualisation, work and testing on web scraper, research/start on RSS parser
+* *1 hour* RSS feed testing and fixes (should work now), 
+* *1 hour* Meeting preparation, supervisor meeting and meeting note collation

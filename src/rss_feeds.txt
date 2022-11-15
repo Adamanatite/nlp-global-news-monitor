@@ -1,0 +1,5 @@
+http://feeds.bbci.co.uk/news/world/rss.xml
+http://feeds.bbci.co.uk/news/health/rss.xml
+http://feeds.bbci.co.uk/news/uk/rss.xml
+https://rss.iol.io/iol/news
+https://rss.iol.io/iol/news/south-africa
