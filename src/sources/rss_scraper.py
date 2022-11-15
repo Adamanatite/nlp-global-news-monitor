@@ -1,22 +1,6 @@
-import newspaper
-import re
+import feedparser
 from datetime import datetime
-import time
 from elasticsearch_database import AddArticle, AddSource
-
-def cleanup(text):
-    #Check if lines has at least one alphanumeric digit (adapted from https://stackoverflow.com/a/6676843)
-    return "\n".join([l for l in text.split("\n") if l and bool(re.search('[a-z0-9]', l, re.IGNORECASE))])
-
-#Function for newspaper3k to create a parsed article
-def article_parse(url,language=None):
-    if language:
-        article = newspaper.Article(url,language=language)
-    else:
-        article = newspaper.Article(url)
-    article.download()
-    article.parse()
-    return article
 
 stale_days = 7
 

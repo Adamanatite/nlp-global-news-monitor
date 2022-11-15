@@ -35,7 +35,7 @@ es = ESConnect()
 
 # Code is adapted from https://dylancastillo.co/elasticsearch-python/
 
-# Create indexes
+# Create indices
 def CreateDB():
 
     if not es:
@@ -45,11 +45,12 @@ def CreateDB():
     # Create source index
     source_mappings = {
             "properties": {
-                "url": {"type": "text"},
-                "name": {"type": "text"},
-                "country": {"type": "text"},
-                "language": {"type": "text"},
-                "active": {"type": "boolean"}
+                "URL": {"type": "text"},
+                "Name": {"type": "text"},
+                "Country": {"type": "keyword"},
+                "Language": {"type": "keyword"},
+                "Data Source": {"type": "keyword"},
+                "Active": {"type": "boolean"}
         }
     }
 
@@ -60,12 +61,12 @@ def CreateDB():
     # Create article index
     article_mappings = {
             "properties": {
-                "url": {"type": "text"},
-                "title": {"type": "text", "analyzer": "standard"},
-                "text": {"type": "text", "analyzer": "standard"},
-                "publish_date": {"type": "text"},
-                "scrape_date": {"type": "text"},
-                "source": {"type": "text"}
+                "URL": {"type": "text"},
+                "Headline": {"type": "text", "analyzer": "standard"},
+                "Body": {"type": "text", "analyzer": "standard"},
+                "Published": {"type": "date"},
+                "Retrieved": {"type": "date"},
+                "Source": {"type": "keyword"}
         }
     }
 
@@ -79,12 +80,12 @@ def AddSource(url, name, country, lang, scraper_type, index=None):
         return
 
     doc = {
-        "url": url,
-        "name": name,
-        "country": country,
-        "language": lang,
-        "scraper_type": scraper_type,
-        "active": True
+        "URL": url,
+        "Name": name,
+        "Country": country,
+        "Language": lang,
+        "Data Source": scraper_type,
+        "Active": True
     }
 
     try:
@@ -104,12 +105,12 @@ def AddArticle(url, title, text, date, source, index=None):
         return
 
     doc = {
-        "url": url,
-        "title": title,
-        "text": text,
-        "publish_date": date,
-        "scrape_date": datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-        "source": source
+        "URL": url,
+        "Headline": title,
+        "Body": text,
+        "Published": date,
+        "Retrieved": datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "Source": source
     }
 
     try:
@@ -117,7 +118,7 @@ def AddArticle(url, title, text, date, source, index=None):
             es.index(index="articles", id=index, document=doc)
         else:
             es.index(index="articles", document=doc)
-        print("Added article " + title)
+        print(source + " added article " + title)
         return True
     except Exception as e:
         print(str(e))

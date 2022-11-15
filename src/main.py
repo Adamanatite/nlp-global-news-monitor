@@ -23,7 +23,9 @@ with open("sources.txt") as f:
         scrapers.append(source)
 
 while True:
+    #TODO: Functionality to remove disabled scrapers from scheduler
     for scraper in scrapers:
-        scraper.scrape()
+        if scraper.enabled:
+            scraper.scrape()
     print("Sleeping...\n\n")
     time.sleep(120)

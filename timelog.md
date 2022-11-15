@@ -123,3 +123,6 @@
 * *2 hour* Successfully set up elasticsearch + kibana
 * *2 hour* work on automatically scraping web sources for DB, not yet tested
 * *1 hour^ testing new scraping system and fixing elasticsearch setup bug
+
+### 15 Nov 2022
+* *2.5 hour* Fixed elasticsearch docker memory bug, fixed kibana visualisations and created test visualisation, work and testing on web scraper, research/start on RSS parser
