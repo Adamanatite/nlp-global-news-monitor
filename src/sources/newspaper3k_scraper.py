@@ -1,6 +1,6 @@
 import newspaper
 import re
-import datetime
+from datetime import datetime
 import time
 from elasticsearch_database import AddArticle, AddSource
 
@@ -38,13 +38,16 @@ class NewspaperScraper:
         self.scraper = newspaper.build(self.url, language=self.language)
 
         AddSource(self.url, self.name, self.country, self.language, "Newspaper3k")
-        print("Created " + self.name + " scraper!")
+        print("Initialised " + self.name + " scraper")
     
     def scrape(self):
         new_articles = False
+
+        print(self.scraper.size())
+
         # Get all new articles
-        #TODO: remove limit of 3
-        for article in self.scraper.articles[:3]:
+        #TODO: remove limit of 2
+        for article in self.scraper.articles[:2]:
             if article.url == self.last_url:
                 break
             try:
@@ -65,8 +68,12 @@ class NewspaperScraper:
             time.sleep(2)
 
         #Update parameter
-        self.last_url = self.scraper.articles[0].url
+        if self.scraper.articles:
+            self.last_url = self.scraper.articles[0].url
+
+        if not self.last_scrape_time:
+            return
 
         #Set as stale
-        if (not new_articles and datetime.now() - self.last_scrape_time).days > stale_days:
+        if not new_articles and (datetime.now() - self.last_scrape_time).days > stale_days:
             self.is_stale = True

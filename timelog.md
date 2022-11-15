@@ -121,4 +121,5 @@
 
 ### 14 Nov 2022
 * *2 hour* Successfully set up elasticsearch + kibana
-* *2 hour^ work on automatically scraping web sources for DB, not yet tested
+* *2 hour* work on automatically scraping web sources for DB, not yet tested
+* *1 hour^ testing new scraping system and fixing elasticsearch setup bug

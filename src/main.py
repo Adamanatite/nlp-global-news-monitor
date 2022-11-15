@@ -7,8 +7,13 @@ CreateDB()
 with open("sources.txt") as f:
     # Parse source file
     scrapers = []
- 
+    
+    i = 0
+
     for line in f:
+        i += 1
+        if i >= 11:
+            break
         data = line.strip().split(" ")
         if len(data) == 1:
             current_lang = data[0]
