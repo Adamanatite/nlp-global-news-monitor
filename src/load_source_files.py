@@ -1,6 +1,8 @@
 from sources.newspaper3k_scraper import NewspaperScraper
 from sources.feed_scraper import FeedScraper
-from elasticsearch_database import AddSource
+from elasticsearch_database import CreateDB, AddSource
+
+CreateDB()
 
 with open("sources.txt", encoding="utf8") as f:
     # Parse source file
@@ -14,9 +16,9 @@ with open("sources.txt", encoding="utf8") as f:
         # Create source object
         AddSource(data[-5], " ".join(data[:-5]), data[-4], current_lang, "Web scraper")
 
-with open("rss_feeds.txt") as f:
+with open("rss_feeds.txt", encoding="utf8") as f:
     for line in f:
         data = line.strip().split(",")
         # Create source object
         #TODO: Manually do country or workout way to automatically do country
-        AddSource(data[1], data[2], None, data[3], "RSS/Atom Feed")
+        AddSource(data[1], data[2], "Unknown", data[3], "RSS/Atom Feed")
