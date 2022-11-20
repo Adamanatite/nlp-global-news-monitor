@@ -7,24 +7,27 @@ stale_days = 7
 
 class FeedScraper:
 
-    scrape_type = "RSS/Atom Feeds"
+    scrape_type = "RSS/Atom Feed"
     #TODO: get all this data from database
     last_scrape_time = datetime(month=1, day=1, year=2000)
     is_stale = False
     enabled = True
 
     #TODO: Determine when self is stale (last scraped date over a certain threshold)
-    def __init__(self, url, name=None, country=None, lang=None):
+    def __init__(self, url, name=None, country=None, lang=None, exists=True):
         self.url = url
         #TODO: Determine these parameters from the url (or the database if it already exists)
         self.name = name
         self.language = lang
         self.country = country
-
-        AddSource(self.url, self.name, self.country, self.language, self.scrape_type)
+        if not exists:
+            AddSource(self.url, self.name, self.country, self.language, self.scrape_type)
         print("Initialised " + self.name + " feed")
 
     def scrape(self):
+
+        if not self.enabled:
+            return
 
         parsed = feedparser.parse(self.url)
 

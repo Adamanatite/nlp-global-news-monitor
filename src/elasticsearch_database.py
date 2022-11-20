@@ -2,6 +2,8 @@ from elasticsearch import Elasticsearch
 from datetime import datetime
 import json
 
+MAX_ACTIVE_SCRAPERS = 1000
+
 # Return es connection, or None if it failed
 def ESConnect():
 
@@ -45,7 +47,7 @@ def CreateDB():
     # Create source index
     source_mappings = {
             "properties": {
-                "URL": {"type": "text"},
+                "URL": {"type": "keyword"},
                 "Name": {"type": "text"},
                 "Country": {"type": "keyword"},
                 "Language": {"type": "keyword"},
@@ -61,7 +63,7 @@ def CreateDB():
     # Create article index
     article_mappings = {
             "properties": {
-                "URL": {"type": "text"},
+                "URL": {"type": "keyword"},
                 "Headline": {"type": "text", "analyzer": "standard"},
                 "Body": {"type": "text", "analyzer": "standard"},
                 "Published": {"type": "date"},
@@ -90,14 +92,14 @@ def AddSource(url, name, country, lang, scraper_type, index=None):
 
     try:
         if index:
-            es.index(index="sources", id=index, document=doc)
+            res = es.index(index="sources", id=index, document=doc)
         else:
-            es.index(index="sources", document=doc)
+            res = es.index(index="sources", document=doc)
         print("Added source " + name)
-        return True
+        return res
     except Exception as e:
         print(str(e))
-        return False
+        return None
 
 def AddArticle(url, title, text, date, source, index=None):
     
@@ -115,14 +117,55 @@ def AddArticle(url, title, text, date, source, index=None):
 
     try:
         if index:
-            es.index(index="articles", id=index, document=doc)
+            res = es.index(index="articles", id=index, document=doc)
         else:
-            es.index(index="articles", document=doc)
+            res = es.index(index="articles", document=doc)
         print(source + " added article " + title)
-        return True
+        return res
     except Exception as e:
         print(str(e))
-        return False
+        return None
+
+#TODO
+def GetSource(url):
+
+    query_body = {
+        "query": {
+            "term": {
+                "URL": {
+                    "value": url
+                }
+            }
+        }
+    }
+
+    results = es.search(index="sources", body=query_body)
+
+    if results["hits"]["hits"]:
+        return results["hits"]["hits"][0]
+    return None
+
+def GetActiveSources():
+
+    query_body = {
+        "size": MAX_ACTIVE_SCRAPERS,
+        "query": {
+            "match": {
+                "Active": True
+            }
+        }
+    }
+
+    results = es.search(index="sources", body=query_body)
+
+    if results["hits"]["hits"]:
+        return results["hits"]["hits"]
+    return None
+
+def GetNewestArticle(source):
+    pass
+
+
 
 # Delete all indices (Reset DB)
 def ResetDB():

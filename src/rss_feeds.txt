@@ -1,5 +1,1 @@
-http://feeds.bbci.co.uk/news/world/rss.xml
-http://feeds.bbci.co.uk/news/health/rss.xml
-http://feeds.bbci.co.uk/news/uk/rss.xml
-https://rss.iol.io/iol/news
-https://rss.iol.io/iol/news/south-africa
+Replace this with a list of RSS Feeds (I have chosen not to share the list used by BioCaster as I do not have permission)
