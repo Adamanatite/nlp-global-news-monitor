@@ -131,3 +131,4 @@
 
 ### 19 Nov 2022
 * *2 hour* Getting elasticsearch queries to work and beginning to run scraper on its own
+* *0.5 hour* Added own sources to database from files, error at end of file
