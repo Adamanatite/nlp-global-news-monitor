@@ -6,7 +6,7 @@ from time import mktime
 
 # Get data from JSON file
 #TODO: Remove re-used code
-with open("config.json") as f:
+with open("../config.json") as f:
     data = json.load(f)
     try:
         STALE_DAYS = int(data["empty_days_until_stale"])

@@ -136,3 +136,4 @@
 
 ### 20 Nov 2022
 * *1 hour* Work on improving scraper functionality to begin creating scheduler, started running automatically
+* *1.5 hour^ Running scraper, researching automatic country, language detection and better scraping methods to avoid duplicates
