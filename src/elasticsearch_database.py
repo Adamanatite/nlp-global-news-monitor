@@ -2,7 +2,11 @@ from elasticsearch import Elasticsearch
 from datetime import datetime
 import json
 
-MAX_ACTIVE_SCRAPERS = 1000
+# Get data from JSON file
+with open("sources/config.json") as f:
+    conf = json.load(f)
+
+MAX_ACTIVE_SCRAPERS = int(conf["max_active_scrapers"])
 
 # Return es connection, or None if it failed
 def ESConnect():
@@ -52,6 +56,7 @@ def CreateDB():
                 "Country": {"type": "keyword"},
                 "Language": {"type": "keyword"},
                 "Data Source": {"type": "keyword"},
+                "Last Retrieved": {"type": "date"},
                 "Active": {"type": "boolean"}
         }
     }
@@ -66,6 +71,8 @@ def CreateDB():
                 "URL": {"type": "keyword"},
                 "Headline": {"type": "text", "analyzer": "standard"},
                 "Body": {"type": "text", "analyzer": "standard"},
+                "Country": {"type": "keyword"},
+                "Language": {"type": "keyword"},
                 "Published": {"type": "date"},
                 "Retrieved": {"type": "date"},
                 "Source": {"type": "keyword"}
@@ -87,21 +94,25 @@ def AddSource(url, name, country, lang, scraper_type, index=None):
         "Country": country,
         "Language": lang,
         "Data Source": scraper_type,
+        "Last Retrieved": None,
         "Active": True
     }
 
     try:
-        if index:
-            res = es.index(index="sources", id=index, document=doc)
-        else:
-            res = es.index(index="sources", document=doc)
-        print("Added source " + name)
-        return res
+        if not GetSource(url):
+            if index:
+                res = es.index(index="sources", id=index, document=doc)
+            else:
+                res = es.index(index="sources", document=doc)
+            print("Added source " + name)
+            return res
+        return None
     except Exception as e:
         print(str(e))
         return None
 
-def AddArticle(url, title, text, date, source, index=None):
+
+def AddArticle(url, title, text, country, lang, date, source, index=None):
     
     if not es:
         return
@@ -110,23 +121,27 @@ def AddArticle(url, title, text, date, source, index=None):
         "URL": url,
         "Headline": title,
         "Body": text,
+        "Country": country,
+        "Language": lang,       
         "Published": date,
         "Retrieved": datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
         "Source": source
     }
 
     try:
-        if index:
-            res = es.index(index="articles", id=index, document=doc)
-        else:
-            res = es.index(index="articles", document=doc)
-        print(source + " added article " + title)
-        return res
+        if not GetArticle(url):
+            if index:
+                res = es.index(index="articles", id=index, document=doc)
+            else:
+                res = es.index(index="articles", document=doc)
+            print(source + " added article " + title)
+            return res
+        return None
     except Exception as e:
         print(str(e))
         return None
 
-#TODO
+
 def GetSource(url):
 
     query_body = {
@@ -162,8 +177,22 @@ def GetActiveSources():
         return results["hits"]["hits"]
     return None
 
-def GetNewestArticle(source):
-    pass
+def GetArticle(url):
+    query_body = {
+        "query": {
+            "term": {
+                "URL": {
+                    "value": url
+                }
+            }
+        }
+    }
+
+    results = es.search(index="articles", body=query_body)
+
+    if results["hits"]["hits"]:
+        return results["hits"]["hits"][0]
+    return None
 
 
 
@@ -176,3 +205,8 @@ def ResetDB():
 
     es.options(ignore_status=[400,404]).indices.delete(index='sources')
     es.options(ignore_status=[400,404]).indices.delete(index='articles')
+    print("Database reset")
+
+def UpdateLastScraped(id, time):
+    es.update(index='sources',id=id,
+        body={"doc": {"Last Retrieved": time.strftime("%Y-%m-%dT%H:%M:%SZ")}}) 

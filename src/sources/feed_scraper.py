@@ -6,7 +6,7 @@ from time import mktime
 
 # Get data from JSON file
 #TODO: Remove re-used code
-with open("../config.json") as f:
+with open("sources/config.json") as f:
     data = json.load(f)
     try:
         STALE_DAYS = int(data["empty_days_until_stale"])
@@ -59,9 +59,9 @@ class FeedScraper:
             self.last_scrape_time = datetime.fromtimestamp(mktime(new_items[0].updated_parsed))
             for item in new_items:
                 if len(item.summary) > 0:
-                    AddArticle(item.link, item.title, item.summary, datetime.fromtimestamp(mktime(item.updated_parsed)).strftime("%Y-%m-%dT%H:%M:%SZ"), self.name)
+                    AddArticle(item.link, item.title, item.summary, self.country, self.language, datetime.fromtimestamp(mktime(item.updated_parsed)).strftime("%Y-%m-%dT%H:%M:%SZ"), self.name)
                 else:
-                    AddArticle(item.link, item.title, None, datetime.fromtimestamp(mktime(item.updated_parsed)).strftime("%Y-%m-%dT%H:%M:%SZ"), self.name)
+                    AddArticle(item.link, item.title, None, self.country, self.language, datetime.fromtimestamp(mktime(item.updated_parsed)).strftime("%Y-%m-%dT%H:%M:%SZ"), self.name)
         else:
             #Set as stale
             if (datetime.now() - self.last_scrape_time).days > STALE_DAYS:

@@ -3,7 +3,7 @@ import json
 import re
 from datetime import datetime
 import time
-from elasticsearch_database import AddArticle, AddSource
+from elasticsearch_database import AddArticle, AddSource, UpdateLastScraped
 
 def cleanup(text):
     #Check if lines has at least one alphanumeric digit (adapted from https://stackoverflow.com/a/6676843)
@@ -20,7 +20,7 @@ def article_parse(url,language=None):
     return article
 
 # Get data from JSON file
-with open("config.json") as f:
+with open("sources/config.json") as f:
     data = json.load(f)
     try:
         STALE_DAYS = int(data["empty_days_until_stale"])
@@ -43,14 +43,15 @@ class NewspaperScraper:
     enabled = True
     no_consecutive_failures = 0
 
-    def __init__(self, url, name=None, country=None, lang=None, exists=True):
+    def __init__(self, url, name=None, country=None, lang=None, source_id=None, exists=True):
         self.url = url
+        self.source_id = source_id
         #TODO: Determine these parameters from the url (or the database if it already exists)
         self.name = name
         self.language = lang
         self.country = country
         if not exists:
-            AddSource(self.url, self.name, self.country, self.language, self.scrape_type)
+            self.source_id = AddSource(self.url, self.name, self.country, self.language, self.scrape_type)
         print("Initialised " + self.name + " scraper")
 
     def scrape(self):
@@ -62,14 +63,18 @@ class NewspaperScraper:
 
         # Get all new articles
         for article in self.scraper.articles:
-            # Assumes articles scraped are in date order, newest first (to be proved)
+            # Assumes articles scraped are in date order, newest first (to be proven)
             if article.url == self.last_url:
                 break
+
+            # Remove duplicate URL's (with URL parameters)
+            if '#' in article.url:
+                continue
+
             try:
                 # Parse and add
-                news = article_parse(article.url, language="en")
-                if news and news.title:
-                    AddArticle(news.url, news.title, cleanup(news.text), news.publish_date, self.name)
+                news = article_parse(article.url, language=self.language)
+                if news and news.title and AddArticle(news.url, news.title, cleanup(news.text), self.country, self.language, news.publish_date, self.name):
                     # Update to reflect new source found
                     self.last_scrape_time = datetime.now()
                     self.is_stale = False
@@ -94,3 +99,6 @@ class NewspaperScraper:
             self.is_stale = True
             if AUTO_DISABLE_STALE_SOURCES:
                 self.enabled = False
+
+    #Update self
+    UpdateLastScraped(self.source_id, self.last_scrape_time)
