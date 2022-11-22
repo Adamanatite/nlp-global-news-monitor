@@ -215,9 +215,12 @@ def UpdateLastScraped(id, time):
     es.update(index='sources',id=id,
         body={"doc": {"Last Retrieved": time.strftime("%Y-%m-%dT%H:%M:%SZ")}})
 
+
 def EnableSource(id):
     es.update(index='sources',id=id,
         body={"doc": {"Active": True}})
+
+
 def DisableSource(id):
     es.update(index='sources',id=id,
         body={"doc": {"Active": False}})

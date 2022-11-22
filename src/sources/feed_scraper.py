@@ -1,7 +1,7 @@
 import feedparser
 import json
 from datetime import datetime
-from elasticsearch_database import AddArticle, AddSource, UpdateLastScraped
+from elasticsearch_database import AddArticle, AddSource, UpdateLastScraped, DisableSource
 from time import mktime
 
 # Get data from JSON file
@@ -53,6 +53,7 @@ class FeedScraper:
             print(str(e))
             if self.no_consecutive_failures > FAILURES_UNTIL_DISABLE:
                 self.enabled = False
+                DisableSource(self.id)
             return
         # Adapted from https://stackoverflow.com/a/59615563
         new_items = [entry for entry in parsed.entries if
@@ -75,4 +76,5 @@ class FeedScraper:
                 self.is_stale = True
                 if AUTO_DISABLE_STALE_SOURCES:
                     self.enabled = False
+                    DisableSource(self.id)
         

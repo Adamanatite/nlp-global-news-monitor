@@ -1,6 +1,6 @@
 from elasticsearch_database import CreateDB, GetActiveSources
-from sources.newspaper3k_scraper import NewspaperScraper
-from sources.feed_scraper import FeedScraper
+from sources.newspaper3k_subclass import NewspaperScraper
+from sources.feed_subclass import FeedScraper
 
 def InitialiseActiveSources():
     scrapers = []
@@ -33,5 +33,7 @@ while True:
     for scraper in scrapers:
         if scraper.enabled:
             scraper.scrape()
+        else:
+            print(scraper.name + " disabled")
     #TODO: Rate limiting system
-    print("Completed one loop. Checking again...")
+    # print("Completed one loop. Checking again...")

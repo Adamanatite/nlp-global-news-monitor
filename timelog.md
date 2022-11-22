@@ -149,3 +149,4 @@
 * *1 hour* Bug fixes and research on translation and classification transformers
 * *2 hour* Learning how to make a fine-tuned BERT model with huggingface, metting planning
 * *1 hour* Supervisor meeting and note collation
+* *2 hour* Entering countries correctly for RSS and Web scraper data (2 letter ISO code), methods for determining country and name of source, subclassing to remove code duplication in scraper classes

@@ -3,7 +3,7 @@ import json
 import re
 from datetime import datetime
 import time
-from elasticsearch_database import AddArticle, GetArticle, AddSource, UpdateLastScraped
+from elasticsearch_database import AddArticle, GetArticle, AddSource, UpdateLastScraped, DisableSource
 
 def cleanup(text):
     #Check if lines has at least one alphanumeric digit (adapted from https://stackoverflow.com/a/6676843)
@@ -53,10 +53,9 @@ class NewspaperScraper:
         if not exists:
             self.source_id = AddSource(self.url, self.name, self.country, self.language, self.scrape_type)
         if last_scraped:
-            print(last_scraped)
             self.last_scrape_time = datetime.strptime(last_scraped, "%Y-%m-%dT%H:%M:%SZ")
         # Build scraper once to add old articles to cache (so we only scrape new ones)
-        self.scraper = newspaper.build(self.url, language=self.language, fetch_images=False)
+        # self.scraper = newspaper.build(self.url, language=self.language, fetch_images=False)
 
         print("Initialised " + self.name + " scraper")
 
@@ -78,7 +77,7 @@ class NewspaperScraper:
                 # Parse and add
                 news = article_parse(article.url, language=self.language)
                 if news and news.title:
-                    AddArticle(news.url, news.title, cleanup(news.text), self.country, self.language, news.publish_date, self.name, self.scrape_type, skip_verification=True)
+                    AddArticle(news.url, news.title, cleanup(news.text), self.country, self.language, news.publish_date, self.name, self.scrape_type)
                     # Update to reflect new source found
                     self.last_scrape_time = datetime.now()
                     self.is_stale = False
@@ -89,17 +88,18 @@ class NewspaperScraper:
                 self.no_consecutive_failures += 1
                 if self.no_consecutive_failures > FAILURES_UNTIL_DISABLE:
                     self.enabled = False
+                    DisableSource(self.id)
+                print("Updating " + self.name)
+                UpdateLastScraped(self.source_id, self.last_scrape_time)
                 break
 
-        #Update last url
-        if self.scraper.articles:
-            self.last_url = self.scraper.articles[0].url
+        #Update self
+        print("Updating " + self.name)
+        UpdateLastScraped(self.source_id, self.last_scrape_time)
 
         #Set as stale
         if (datetime.now() - self.last_scrape_time).days > STALE_DAYS:
             self.is_stale = True
             if AUTO_DISABLE_STALE_SOURCES:
                 self.enabled = False
-
-        #Update self
-        UpdateLastScraped(self.source_id, self.last_scrape_time)
+                DisableSource(self.id)
