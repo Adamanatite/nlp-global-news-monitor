@@ -18,7 +18,8 @@ def InitialiseActiveSources():
         try:
             scraper = constructors[scraper_type](url, name, country, lang, source_id, last_scrape_time)
             scrapers.append(scraper)
-        except:
+        except Exception as e:
+            print(str(e))
             continue
 
     return scrapers

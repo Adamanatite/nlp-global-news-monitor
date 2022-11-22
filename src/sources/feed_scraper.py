@@ -27,7 +27,7 @@ class FeedScraper:
     enabled = True
     no_consecutive_failures = 0
 
-    def __init__(self, url, name=None, country=None, lang=None, source_id=None, last_scrape_time=None, exists=True):
+    def __init__(self, url, name=None, country=None, lang=None, source_id=None, last_scraped=None, exists=True):
         self.url = url
         #TODO: Determine these parameters from the url (or the database if it already exists)
         self.name = name
@@ -36,8 +36,8 @@ class FeedScraper:
         self.source_id=source_id
         if not exists:
             self.source_id=AddSource(self.url, self.name, self.country, self.language, self.scrape_type)
-        if last_scrape_time:
-            self.last_scrape_time=datetime(self.last_scrape_time)
+        if last_scraped:
+            self.last_scrape_time=datetime.strptime(last_scraped, "%Y-%m-%dT%H:%M:%SZ")
         print("Initialised " + self.name + " feed")
 
     def scrape(self):
@@ -48,11 +48,12 @@ class FeedScraper:
         try:
             parsed = feedparser.parse(self.url)
             self.no_consecutive_failures = 0
-        except:
+        except Exception as e:
             self.no_consecutive_failures += 1
+            print(str(e))
             if self.no_consecutive_failures > FAILURES_UNTIL_DISABLE:
                 self.enabled = False
-
+            return
         # Adapted from https://stackoverflow.com/a/59615563
         new_items = [entry for entry in parsed.entries if
                 datetime.fromtimestamp(mktime(entry.updated_parsed)) > self.last_scrape_time]

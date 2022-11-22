@@ -43,7 +43,7 @@ class NewspaperScraper:
     enabled = True
     no_consecutive_failures = 0
 
-    def __init__(self, url, name=None, country=None, lang=None, source_id=None, last_scrape_time=None, exists=True):
+    def __init__(self, url, name=None, country=None, lang=None, source_id=None, last_scraped=None, exists=True):
         self.url = url
         self.source_id = source_id
         #TODO: Determine these parameters from the url (or the database if it already exists)
@@ -52,8 +52,9 @@ class NewspaperScraper:
         self.country = country
         if not exists:
             self.source_id = AddSource(self.url, self.name, self.country, self.language, self.scrape_type)
-        if last_scrape_time:
-            self.last_scrape_time = datetime(last_scrape_time)
+        if last_scraped:
+            print(last_scraped)
+            self.last_scrape_time = datetime.strptime(last_scraped, "%Y-%m-%dT%H:%M:%SZ")
         # Build scraper once to add old articles to cache (so we only scrape new ones)
         self.scraper = newspaper.build(self.url, language=self.language, fetch_images=False)
 

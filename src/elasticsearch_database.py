@@ -70,7 +70,7 @@ def CreateDB():
             "properties": {
                 "URL": {"type": "keyword"},
                 "Headline": {"type": "keyword"},
-                "Body": {"type": "text", "analyzer": "standard"},
+                "Body": {"type": "keyword"},
                 "Country": {"type": "keyword"},
                 "Language": {"type": "keyword"},
                 "Published": {"type": "date"},
