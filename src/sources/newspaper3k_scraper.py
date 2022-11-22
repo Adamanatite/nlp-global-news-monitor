@@ -43,7 +43,7 @@ class NewspaperScraper:
     enabled = True
     no_consecutive_failures = 0
 
-    def __init__(self, url, name=None, country=None, lang=None, source_id=None, exists=True):
+    def __init__(self, url, name=None, country=None, lang=None, source_id=None, last_scrape_time=None, exists=True):
         self.url = url
         self.source_id = source_id
         #TODO: Determine these parameters from the url (or the database if it already exists)
@@ -52,6 +52,8 @@ class NewspaperScraper:
         self.country = country
         if not exists:
             self.source_id = AddSource(self.url, self.name, self.country, self.language, self.scrape_type)
+        if last_scrape_time:
+            self.last_scrape_time = datetime(last_scrape_time)
         print("Initialised " + self.name + " scraper")
 
     def scrape(self):
@@ -88,7 +90,7 @@ class NewspaperScraper:
                 break
 
             #TODO: Create better rate limiting system
-            time.sleep(2)
+            time.sleep(1)
 
         #Update last url
         if self.scraper.articles:
@@ -100,5 +102,5 @@ class NewspaperScraper:
             if AUTO_DISABLE_STALE_SOURCES:
                 self.enabled = False
 
-    #Update self
-    UpdateLastScraped(self.source_id, self.last_scrape_time)
+        #Update self
+        UpdateLastScraped(self.source_id, self.last_scrape_time)

@@ -8,14 +8,15 @@ def InitialiseActiveSources():
                     "RSS/Atom Feed": FeedScraper}
 
     for source in GetActiveSources():
+        source_id = source["_id"]
         scraper_type = source["_source"]["Data Source"]
         url = source["_source"]["URL"]
         name = source["_source"]["Name"]
         country = source["_source"]["Country"]
         lang = source["_source"]["Language"]
-
+        last_scrape_time = source["_source"]["Last Retrieved"]
         try:
-            scraper = constructors[scraper_type](url, name, country, lang)
+            scraper = constructors[scraper_type](url, name, country, lang, source_id, last_scrape_time)
             scrapers.append(scraper)
         except:
             continue

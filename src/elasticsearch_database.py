@@ -105,7 +105,7 @@ def AddSource(url, name, country, lang, scraper_type, index=None):
             else:
                 res = es.index(index="sources", document=doc)
             print("Added source " + name)
-            return res
+            return res["_id"]
         return None
     except Exception as e:
         print(str(e))
@@ -135,7 +135,7 @@ def AddArticle(url, title, text, country, lang, date, source, index=None):
             else:
                 res = es.index(index="articles", document=doc)
             print(source + " added article " + title)
-            return res
+            return res["_id"]
         return None
     except Exception as e:
         print(str(e))

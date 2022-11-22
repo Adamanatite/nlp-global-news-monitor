@@ -140,3 +140,4 @@
 
 ### 21 Nov 2022
 * *2 hour* Work on removing duplicate articles and tracking scraper staleness, needs to be run automatically again
+* *1 hour* Fixed issues and began running scraper automatically

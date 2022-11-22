@@ -1,7 +1,7 @@
 import feedparser
 import json
 from datetime import datetime
-from elasticsearch_database import AddArticle, AddSource
+from elasticsearch_database import AddArticle, AddSource, UpdateLastScraped
 from time import mktime
 
 # Get data from JSON file
@@ -27,20 +27,24 @@ class FeedScraper:
     enabled = True
     no_consecutive_failures = 0
 
-    def __init__(self, url, name=None, country=None, lang=None, exists=True):
+    def __init__(self, url, name=None, country=None, lang=None, source_id=None, last_scrape_time=None, exists=True):
         self.url = url
         #TODO: Determine these parameters from the url (or the database if it already exists)
         self.name = name
         self.language = lang
         self.country = country
+        self.source_id=source_id
         if not exists:
-            AddSource(self.url, self.name, self.country, self.language, self.scrape_type)
+            self.source_id=AddSource(self.url, self.name, self.country, self.language, self.scrape_type)
+        if last_scrape_time:
+            self.last_scrape_time=datetime(self.last_scrape_time)
         print("Initialised " + self.name + " feed")
 
     def scrape(self):
 
         if not self.enabled:
             return
+
         try:
             parsed = feedparser.parse(self.url)
             self.no_consecutive_failures = 0
@@ -62,9 +66,12 @@ class FeedScraper:
                     AddArticle(item.link, item.title, item.summary, self.country, self.language, datetime.fromtimestamp(mktime(item.updated_parsed)).strftime("%Y-%m-%dT%H:%M:%SZ"), self.name)
                 else:
                     AddArticle(item.link, item.title, None, self.country, self.language, datetime.fromtimestamp(mktime(item.updated_parsed)).strftime("%Y-%m-%dT%H:%M:%SZ"), self.name)
+            #Update self
+            UpdateLastScraped(self.source_id, self.last_scrape_time)
         else:
             #Set as stale
             if (datetime.now() - self.last_scrape_time).days > STALE_DAYS:
                 self.is_stale = True
                 if AUTO_DISABLE_STALE_SOURCES:
                     self.enabled = False
+        
