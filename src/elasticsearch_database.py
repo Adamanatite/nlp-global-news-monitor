@@ -69,13 +69,15 @@ def CreateDB():
     article_mappings = {
             "properties": {
                 "URL": {"type": "keyword"},
-                "Headline": {"type": "text", "analyzer": "standard"},
+                "Headline": {"type": "keyword"},
                 "Body": {"type": "text", "analyzer": "standard"},
                 "Country": {"type": "keyword"},
                 "Language": {"type": "keyword"},
                 "Published": {"type": "date"},
                 "Retrieved": {"type": "date"},
-                "Source": {"type": "keyword"}
+                "Source": {"type": "keyword"},
+                "Data Source": {"type": "keyword"},
+                "Category": {"type": "keyword"}
         }
     }
 
@@ -112,7 +114,7 @@ def AddSource(url, name, country, lang, scraper_type, index=None):
         return None
 
 
-def AddArticle(url, title, text, country, lang, date, source, index=None):
+def AddArticle(url, title, text, country, lang, date, source, scraper, index=None, skip_verification=False):
     
     if not es:
         return
@@ -125,11 +127,13 @@ def AddArticle(url, title, text, country, lang, date, source, index=None):
         "Language": lang,       
         "Published": date,
         "Retrieved": datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
-        "Source": source
+        "Source": source,
+        "Data Source": scraper,
+        "Category": None        
     }
 
     try:
-        if not GetArticle(url):
+        if skip_verification or not GetArticle(url):
             if index:
                 res = es.index(index="articles", id=index, document=doc)
             else:
@@ -209,4 +213,11 @@ def ResetDB():
 
 def UpdateLastScraped(id, time):
     es.update(index='sources',id=id,
-        body={"doc": {"Last Retrieved": time.strftime("%Y-%m-%dT%H:%M:%SZ")}}) 
+        body={"doc": {"Last Retrieved": time.strftime("%Y-%m-%dT%H:%M:%SZ")}})
+
+def EnableSource(id):
+    es.update(index='sources',id=id,
+        body={"doc": {"Active": True}})
+def DisableSource(id):
+    es.update(index='sources',id=id,
+        body={"doc": {"Active": False}})

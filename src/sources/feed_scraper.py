@@ -63,9 +63,9 @@ class FeedScraper:
             self.last_scrape_time = datetime.fromtimestamp(mktime(new_items[0].updated_parsed))
             for item in new_items:
                 if len(item.summary) > 0:
-                    AddArticle(item.link, item.title, item.summary, self.country, self.language, datetime.fromtimestamp(mktime(item.updated_parsed)).strftime("%Y-%m-%dT%H:%M:%SZ"), self.name)
+                    AddArticle(item.link, item.title, item.summary, self.country, self.language, datetime.fromtimestamp(mktime(item.updated_parsed)).strftime("%Y-%m-%dT%H:%M:%SZ"), self.name, self.scrape_type)
                 else:
-                    AddArticle(item.link, item.title, None, self.country, self.language, datetime.fromtimestamp(mktime(item.updated_parsed)).strftime("%Y-%m-%dT%H:%M:%SZ"), self.name)
+                    AddArticle(item.link, item.title, None, self.country, self.language, datetime.fromtimestamp(mktime(item.updated_parsed)).strftime("%Y-%m-%dT%H:%M:%SZ"), self.name, self.scrape_type)
             #Update self
             UpdateLastScraped(self.source_id, self.last_scrape_time)
         else:

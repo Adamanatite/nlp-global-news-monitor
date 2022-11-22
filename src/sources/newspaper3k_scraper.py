@@ -3,7 +3,7 @@ import json
 import re
 from datetime import datetime
 import time
-from elasticsearch_database import AddArticle, AddSource, UpdateLastScraped
+from elasticsearch_database import AddArticle, GetArticle, AddSource, UpdateLastScraped
 
 def cleanup(text):
     #Check if lines has at least one alphanumeric digit (adapted from https://stackoverflow.com/a/6676843)
@@ -54,6 +54,9 @@ class NewspaperScraper:
             self.source_id = AddSource(self.url, self.name, self.country, self.language, self.scrape_type)
         if last_scrape_time:
             self.last_scrape_time = datetime(last_scrape_time)
+        # Build scraper once to add old articles to cache (so we only scrape new ones)
+        self.scraper = newspaper.build(self.url, language=self.language, fetch_images=False)
+
         print("Initialised " + self.name + " scraper")
 
     def scrape(self):
@@ -65,18 +68,16 @@ class NewspaperScraper:
 
         # Get all new articles
         for article in self.scraper.articles:
-            # Assumes articles scraped are in date order, newest first (to be proven)
-            if article.url == self.last_url:
-                break
 
             # Remove duplicate URL's (with URL parameters)
-            if '#' in article.url:
+            if '#' in article.url or '?' in article.url or GetArticle(article.url):
                 continue
 
             try:
                 # Parse and add
                 news = article_parse(article.url, language=self.language)
-                if news and news.title and AddArticle(news.url, news.title, cleanup(news.text), self.country, self.language, news.publish_date, self.name):
+                if news and news.title:
+                    AddArticle(news.url, news.title, cleanup(news.text), self.country, self.language, news.publish_date, self.name, self.scrape_type, skip_verification=True)
                     # Update to reflect new source found
                     self.last_scrape_time = datetime.now()
                     self.is_stale = False
@@ -88,9 +89,6 @@ class NewspaperScraper:
                 if self.no_consecutive_failures > FAILURES_UNTIL_DISABLE:
                     self.enabled = False
                 break
-
-            #TODO: Create better rate limiting system
-            time.sleep(1)
 
         #Update last url
         if self.scraper.articles:
