@@ -2,6 +2,7 @@ import re
 import json
 from datetime import datetime
 from elasticsearch_database import AddSource, AddArticle, UpdateLastScraped, DisableSource
+from sources.parse_config import ParseBoolean
 
 # Given a URL, returns the ISO 3166-1 alpha-2 country code
 def GetCountry(url):
@@ -39,9 +40,11 @@ with open("sources/config.json") as f:
     try:
         STALE_DAYS = int(data["empty_days_until_stale"])
         FAILURES_UNTIL_DISABLE = int(data["failures_until_disable"])
-        AUTO_DISABLE_STALE_SOURCES = json.loads(data["auto_disable_stale_sources"])
+        AUTO_DISABLE_STALE_SOURCES = ParseBoolean(data["auto_disable_stale_sources"])
+        print("Auto",AUTO_DISABLE_STALE_SOURCES)
     except:
         # Default values
+        print("Error in config")
         STALE_DAYS = 7
         FAILURES_UNTIL_DISABLE = 5
         AUTO_DISABLE_STALE_SOURCES = False
