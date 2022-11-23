@@ -3,6 +3,7 @@ import json
 from datetime import datetime
 from elasticsearch_database import AddSource, AddArticle, UpdateLastScraped, DisableSource
 from sources.parse_config import ParseBoolean
+import time
 
 # Given a URL, returns the ISO 3166-1 alpha-2 country code
 def GetCountry(url):
@@ -104,6 +105,8 @@ class Scraper:
             DisableSource(self.source_id)
 
         UpdateLastScraped(self.source_id, self.last_scrape_time)
+        # Wait 5 seconds in case we're sending too many requests
+        time.sleep(5)
 
 
     def scrape(self):
