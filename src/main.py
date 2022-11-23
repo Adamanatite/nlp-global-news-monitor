@@ -12,7 +12,6 @@ with open("sources/config.json") as f:
     try: 
         USE_CONCURRENCY = ParseBoolean(data["concurrent"])
         NO_WORKERS = int(data["no_workers"])
-        print(USE_CONCURRENCY)
     except Exception as e:
         print("Error in config")
         USE_CONCURRENCY=False

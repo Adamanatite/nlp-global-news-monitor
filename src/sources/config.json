@@ -1,6 +1,6 @@
 {
     "concurrent": "True",
-    "no_workers": "10",
+    "no_workers": "8",
     "empty_days_until_stale": "7",
     "failures_until_disable": "5",
     "auto_disable_stale_sources": "False",

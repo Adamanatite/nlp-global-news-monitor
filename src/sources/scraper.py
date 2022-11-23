@@ -41,7 +41,6 @@ with open("sources/config.json") as f:
         STALE_DAYS = int(data["empty_days_until_stale"])
         FAILURES_UNTIL_DISABLE = int(data["failures_until_disable"])
         AUTO_DISABLE_STALE_SOURCES = ParseBoolean(data["auto_disable_stale_sources"])
-        print("Auto",AUTO_DISABLE_STALE_SOURCES)
     except:
         # Default values
         print("Error in config")
@@ -108,6 +107,9 @@ class Scraper:
 
 
     def scrape(self):
+
+        print(f'Scraping {self.name}')
+
         if not self.enabled:
             return
 

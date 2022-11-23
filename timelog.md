@@ -153,3 +153,4 @@
 
 ### 23 Nov 2022
 * *1.5 hour* Made scraper work with multiple threads
+* *1 hour* Bug fixes and investigating random freezing

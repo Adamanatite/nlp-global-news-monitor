@@ -85,7 +85,7 @@ def CreateDB():
         es.indices.create(index="articles", mappings=article_mappings)
         print("Created articles index")
 
-def AddSource(url, name, country, lang, scraper_type, index=None):
+def AddSource(url, name, country, lang, scraper_type):
 
     if not es:
         return
@@ -102,10 +102,7 @@ def AddSource(url, name, country, lang, scraper_type, index=None):
 
     try:
         if not GetSource(url):
-            if index:
-                res = es.index(index="sources", id=index, document=doc)
-            else:
-                res = es.index(index="sources", document=doc)
+            res = es.index(index="sources", document=doc)
             print("Added source " + name)
             return res["_id"]
         return None
@@ -114,7 +111,7 @@ def AddSource(url, name, country, lang, scraper_type, index=None):
         return None
 
 
-def AddArticle(url, title, text, country, lang, date, source, scraper, index=None, skip_verification=False):
+def AddArticle(url, title, text, country, lang, date, source, scraper, skip_verification=False):
     
     if not es:
         return
@@ -134,10 +131,7 @@ def AddArticle(url, title, text, country, lang, date, source, scraper, index=Non
 
     try:
         if skip_verification or not GetArticle(url):
-            if index:
-                res = es.index(index="articles", id=index, document=doc)
-            else:
-                res = es.index(index="articles", document=doc)
+            res = es.index(index="articles", document=doc)
             print(source + " added article " + title)
             return res["_id"]
         return None
