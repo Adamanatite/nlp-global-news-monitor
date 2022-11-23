@@ -1,8 +1,9 @@
 {
     "concurrent": "True",
     "no_workers": "8",
+    "min_seconds_per_scrape": "120",
     "empty_days_until_stale": "7",
-    "failures_until_disable": "5",
+    "failures_until_disable": "10",
     "auto_disable_stale_sources": "False",
     "max_active_scrapers": "1000"
 }

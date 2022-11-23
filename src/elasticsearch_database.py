@@ -107,7 +107,7 @@ def AddSource(url, name, country, lang, scraper_type):
             return res["_id"]
         return None
     except Exception as e:
-        print(str(e))
+        print("Couldn't add source " + name)
         return None
 
 
@@ -126,16 +126,17 @@ def AddArticle(url, title, text, country, lang, date, source, scraper, skip_veri
         "Retrieved": datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
         "Source": source,
         "Data Source": scraper,
-        "Category": None        
+        "Category": "Unknown"
     }
 
     try:
-        if skip_verification or not GetArticle(url):
+        if skip_verification or not GetArticle(title,source):
             res = es.index(index="articles", document=doc)
             print(source + " added article " + title)
             return res["_id"]
         return None
     except Exception as e:
+        print(source + " couldn't add article " + title)
         print(str(e))
         return None
 
@@ -175,7 +176,7 @@ def GetActiveSources():
         return results["hits"]["hits"]
     return None
 
-def GetArticle(url):
+def GetArticleURL(url):
     query_body = {
         "query": {
             "term": {
@@ -192,7 +193,31 @@ def GetArticle(url):
         return results["hits"]["hits"][0]
     return None
 
+def GetArticle(title, source):
+    query_body = {
+        "query": {
+            "bool": {
+                "must": [
+                {
+                    "match": {
+                        "Headline": title
+                    }
+                },
+                {
+                    "match": {
+                        "Source": source
+                    }
+                }
+                ]
+            }
+        }
+    }
 
+    results = es.search(index="articles", body=query_body)
+
+    if results["hits"]["hits"]:
+        return results["hits"]["hits"][0]
+    return None
 
 # Delete all indices (Reset DB)
 def ResetDB():

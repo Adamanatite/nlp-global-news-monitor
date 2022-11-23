@@ -82,7 +82,7 @@ class Scraper:
         print("Initialised " + self.name + " scraper")
 
 
-    def AddNewArticle(self, url, title, text, publish_date, update_time=True, skip_verification=True):
+    def AddNewArticle(self, url, title, text, publish_date, update_time=True, skip_verification=False):
         AddArticle(url, title, text, self.country, self.language, publish_date, self.name, self.scrape_type, skip_verification)
         
         if not update_time:
@@ -96,9 +96,9 @@ class Scraper:
     
 
     def HandleError(self, e):
-        print(self.name + " error: " + str(e))
         #TODO: system for re-enabling (in case of internet error etc)
         self.no_consecutive_failures += 1
+        print(self.name + f" error ({self.no_consecutive_failures}): " + str(e))
         if self.no_consecutive_failures > FAILURES_UNTIL_DISABLE:
             self.enabled = False
             DisableSource(self.source_id)
@@ -107,8 +107,6 @@ class Scraper:
 
 
     def scrape(self):
-
-        print(f'Scraping {self.name}')
 
         if not self.enabled:
             return

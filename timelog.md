@@ -154,3 +154,4 @@
 ### 23 Nov 2022
 * *1.5 hour* Made scraper work with multiple threads
 * *1 hour* Bug fixes and investigating random freezing
+* *3 hour* Fixed random freezing (by making shared queue non-blocking) and added rate limiter and better duplicate checking
