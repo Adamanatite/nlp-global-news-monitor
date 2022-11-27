@@ -36,14 +36,11 @@ class NewspaperScraper(Scraper):
                 # Parse and add
                 news = self.article_parse(article.url)
                 if news and news.title:
-                    if news.text:
-                        self.AddNewArticle(news.url, news.title, cleanup(news.text), news.publish_date)
-                    else:
-                        # If we're using the wrong language, try to re-parse in correct language
-                        lang = detect(news.title)[:2]
-                        if not lang == self.language:
-                            news = self.article_parse(article.url, lang)
-                            self.AddNewArticle(news.url, news.title, cleanup(news.text), news.publish_date, language=lang)
+                    lang = detect(news.title)[:2]
+                    # Re-parse article if we have chosen the wrong language (for multilignual sources)
+                    if not news.text and not lang == self.language:
+                        news = self.article_parse(article.url, lang)
+                    self.AddNewArticle(news.url, news.title, cleanup(news.text), news.publish_date, language=lang)
             except Exception as e:
                 err = str(e)
                 # If the URL doesn't work, simply skip the article. Otherwise if there is a connection issue stop scraping until the next loop
