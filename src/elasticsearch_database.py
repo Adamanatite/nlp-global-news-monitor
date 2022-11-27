@@ -3,7 +3,7 @@ from datetime import datetime
 import json
 
 # Get data from JSON file
-with open("sources/config.json") as f:
+with open("data/config.json") as f:
     conf = json.load(f)
 
 MAX_ACTIVE_SCRAPERS = int(conf["max_active_scrapers"])
@@ -12,7 +12,7 @@ MAX_ACTIVE_SCRAPERS = int(conf["max_active_scrapers"])
 def ESConnect():
 
     # Get data from JSON file
-    with open("db_info.json") as f:
+    with open("data/db_info.json") as f:
         data = json.load(f)
 
     ELASTIC_USERNAME = data["username"]

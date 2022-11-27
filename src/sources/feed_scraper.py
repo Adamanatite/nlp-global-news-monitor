@@ -9,20 +9,22 @@ class FeedScraper(Scraper):
 
     def __init__(self, url, name=None, country=None, lang=None, source_id=None, last_scraped=None):
         self.scrape_type = "RSS/Atom Feed"
-
-        d = feedparser.parse(url)
+        
+        # Try to determine name and language from feed details
+        if not name or not lang:
+            d = feedparser.parse(url)
 
         if not name:
-            self.name= d.get("title", None)
+            name= d.get("title", None)
         if not lang:
-            self.language= d.get("language", None)
-            if not self.language:
-                if self.entries:
-                    self.language = detect(self.entries[0].title)[:2]
+            lang= d.get("language", None)
+            if not lang:
+                if d.entries:
+                    lang = detect(self.entries[0].title)[:2]
             else:
-                self.language = self.language[:2]
+                lang = lang[:2]
 
-        super().__init__(url, self.name, country, self.language, source_id, last_scraped)
+        super().__init__(url, name, country, lang, source_id, last_scraped)
 
     def GetNewArticles(self):
         try:

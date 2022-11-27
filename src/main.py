@@ -1,7 +1,7 @@
 from elasticsearch_database import CreateDB, GetActiveSources
 from sources.newspaper3k_scraper import NewspaperScraper
 from sources.feed_scraper import FeedScraper
-from sources.parse_config import ParseBoolean
+from utils.parse_config import ParseBoolean
 import threading
 import queue
 import json
@@ -9,7 +9,7 @@ import random
 from datetime import datetime
 import time
 
-with open("sources/config.json") as f:
+with open("data/config.json") as f:
     data = json.load(f)
     try: 
         USE_CONCURRENCY = ParseBoolean(data["concurrent"])

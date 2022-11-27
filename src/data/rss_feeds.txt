@@ -1,0 +1,97 @@
+1,http://feeds.bbci.co.uk/news/world/rss.xml,BBC News; World,en,GB
+2,http://feeds.bbci.co.uk/news/health/rss.xml,BBC News; Health,en,GB
+3,http://feeds.bbci.co.uk/news/uk/rss.xml,BBC News; UK,en,GB
+4,https://rss.iol.io/iol/news,Independent Media,en,ZA
+5,https://rss.iol.io/iol/news/south-africa,Independent Media; South Africa,en,ZA
+6,http://www.people.com.cn/rss/politics.xml	,人民网; China,zh,CN
+7,http://www.people.com.cn/rss/world.xml	,人民网; World,zh,CN
+8,http://www.bbc.co.uk/zhongwen/simp/index.xml,BBC中文网,zh,GB
+9,http://www.bbc.co.uk/zhongwen/simp/world/index.xml,BBC中文网; World,zh,GB
+10,http://www.bbc.co.uk/zhongwen/trad/science/index.xml,BBC中文网; Health,zh,GB
+11,http://www.bbc.co.uk/zhongwen/simp/china/index.xml,BBC中文网; China,zh,GB
+12,http://www.chinanews.com/rss/scroll-news.xml,中新网; Recent,zh,CN
+13,http://www.chinanews.com/rss/health.xml,中新网; Health,zh,CN
+14,http://www.chinanews.com/rss/china.xml,中新网; China,zh,CN
+15,http://www.chinanews.com/rss/world.xml,中新网; World,zh,CN
+16,https://rsshub.app/infzm/2,南方周末; News,zh,CN
+17,https://rsshub.app/zaobao/realtime/china,联合早报; China,zh,SG
+18,https://rsshub.app/zaobao/realtime/world,联合早报; World,zh,SG
+19,https://rsshub.app/zaobao/realtime/singapore,联合早报; Singapore,zh,SG
+20,https://rsshub.app/thepaper/featured ,澎湃新闻,zh,CN
+21,https://rsshub.app/cna/aopl,台湾中央通讯社;World,zh,CN
+22,https://rsshub.app/cna/acn,台湾中央通讯社;China,zh,CN
+23,https://rsshub.app/asahichinese-j/society,朝日新聞中文网; Japan,zh,JP
+24,https://rsshub.app/icable/all,有線新聞,zh,HK
+25,https://rsshub.app/cna/aall,中央社,zh,CN
+26,https://rsshub.app/fjnews/fj/30,福建新闻,zh,CN
+27,https://news.un.org/feed/subscribe/en/news/topic/health/feed/rss.xml,United Nations; Health,en,US
+28,https://news.un.org/feed/subscribe/en/news/region/middle-east/feed/rss.xml,United Nations; Middle East,en,US
+29,https://news.un.org/feed/subscribe/en/news/region/africa/feed/rss.xml,United Nations; Africa,en,US
+30,https://news.un.org/feed/subscribe/en/news/region/europe/feed/rss.xml,United Nations; Europe,en,US
+31,https://news.un.org/feed/subscribe/en/news/region/americas/feed/rss.xml,United Nations; Americas,en,US
+32,https://news.un.org/feed/subscribe/en/news/region/asia-pacific/feed/rss.xml,United Nations; Asia Pacific,en,US
+33,https://www.thenews.com.pk/rss/1/1,thenews.com.pk; Pakistan,en,PK
+34,https://www.thenews.com.pk/rss/1/2,thenews.com.pk; World,en,PK
+35,https://www.thenews.com.pk/rss/2/13,thenews.com.pk; World,en,PK
+36,https://www.thenews.com.pk/rss/1/12,thenews.com.pk; Health,en,PK
+37,https://www.cbc.ca/cmlink/rss-topstories,Canadian Broadcasting Corp.; Top stories,en,CA
+38,https://www.cbc.ca/cmlink/rss-world,Canadian Broadcasting Corp.; World,en,CA
+39,https://www.cbc.ca/cmlink/rss-canada,Canadian Broadcasting Corp.; Canada,en,CA
+40,https://www.cbc.ca/cmlink/rss-health,Canadian Broadcasting Corp.; Health,en,CA
+41,https://www.cbc.ca/cmlink/rss-canada-toronto,Canadian Broadcasting Corp.; Toronto,en,CA
+42,https://www.cbc.ca/cmlink/rss-canada-britishcolumbia,Canadian Broadcasting Corp.; BC,en,CA
+43,https://www.cbc.ca/cmlink/rss-canada-montreal,Canadian Broadcasting Corp.; Montreal,en,CA
+44,https://www.usaid.gov/rss/press-releases.xml,usaid.gov; Press releases,en,US
+45,https://www.ecdc.europa.eu/en/taxonomy/term/1310/feed,ECDC; Epidemiological updates,en,SE
+46,https://www.ecdc.europa.eu/en/taxonomy/term/2942/feed,ECDC; Covid updates,en,SE
+47,https://www.ecdc.europa.eu/en/taxonomy/term/1505/feed,ECDC; Risk assessments,en,SE
+48,https://www.france24.com/en/health/rss,France24; Health,en,FR
+49,https://www.france24.com/en/rss,France24; World,en,FR
+50,https://www.france24.com/en/europe/rss,France24; Europe,en,FR
+51,https://www.france24.com/en/france/rss,France24; France,en,FR
+52,https://www.france24.com/en/africa/rss,France24; Africa,en,FR
+53,https://www.france24.com/en/middle-east/rss,France24; Middle East,en,FR
+54,https://www.france24.com/en/americas/rss,France24; Americas,en,FR
+55,https://www.france24.com/en/asia-pacific/rss,France24; Asia Pacific,en,FR
+56,https://www.diplomatie.gouv.fr/spip.php?page=backend-fd,France Diplomatie News,fr,FR
+57,http://www.aljazeera.com/xml/rss/all.xml,Al Jazeera News,en,QA
+58,https://www.rt.com/rss/news/,RT News,en,RU
+59,https://e00-elmundo.uecdn.es/elmundo/rss/internacional.xml,El Mundo; World,es,ES
+60,https://e00-elmundo.uecdn.es/elmundo/rss/union_europea.xml,El Mundo; EU,es,ES
+61,https://e00-elmundo.uecdn.es/elmundo/rss/espana.xml,El Mundo; Spain,es,ES
+62,https://e00-elmundo.uecdn.es/elmundo/rss/portada.xml,El Mundo; Top News,es,ES
+63,https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/portada,El Pais; Spain,es,ES
+64,https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/america/portada,El Pais; America,es,ES
+65,https://feeds.elpais.com/mrss-s/pages/ep/site/brasil.elpais.com/portada,El Pais; Brazil,es,ES
+66,https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/internacional/portada,El Pais; International,es,ES
+67,https://www.bbc.com/mundo/ultimas_noticias/index.xml,BBC News; World,es,GB
+68,https://www.albawaba.com/rss/ar-all,Al Bawaba; Full Feed,ar,JO
+69,https://www.albawaba.com/rss/%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1,Al Bawaba; News,ar,JO
+70,https://www.albawaba.com/rss/all,Al Bawaba; Full Feed,en,JO
+71,https://www.albawaba.com/rss/news,Al Bawaba; News,en,JO
+72,https://www.alarabiya.net/.mrss/ar.xml,Al Arabiya,ar,AE
+73,https://www.alarabiya.net/.mrss/ar/arab-and-world.xml,Al Arabiya; World,ar,AE
+74,https://www.alarabiya.net/.mrss/ar/saudi-today.xml,Al Arabiya; Saudi,ar,AE
+75,https://rss.dw.com/rdf/rss-kis-all,Deutsche Welle; Swahili,sw,DE
+76,https://www.voanews.com/taxonomy/term/562841/feed,Voice of America; Africa,en,US
+77,https://www.voanews.com/taxonomy/term/578891/feed,Voice of America; COVID,en,US
+78,https://www.voanews.com/taxonomy/term/562821/feed,Voice of America; Asia Pacific,en,US
+79,https://www.voanews.com/taxonomy/term/32686/feed,Voice of America; Europe,en,US
+80,https://www.antaranews.com/rss/top-news.xml,Antara News;Top News,id,ID
+81,https://www.antaranews.com/rss/dunia.xml,Antara News; World,id,ID
+82,https://www.antaranews.com/rss/dunia-asean.xml,Antara News; Asean,id,ID
+83,https://www.antaranews.com/rss/dunia-internasional.xml,Antara News; International,id,ID
+84,https://www.europe1.fr/rss/international.xml,Europe1; International,fr,FR
+85,https://www.europe1.fr/rss/sante.xml,Europe1; Health,fr,FR
+86,https://allafrica.com/tools/headlines/rdf/latest/headlines.rdf,All Africa; Latest,en,US
+87,https://allafrica.com/tools/headlines/rdf/africa/headlines.rdf,All Africa; Africa,en,US
+88,https://allafrica.com/tools/headlines/rdf/centralafrica/headlines.rdf,All Africa; Central Africa,en,US
+89,https://allafrica.com/tools/headlines/rdf/eastafrica/headlines.rdf,All Africa; East Africa,en,US
+90,https://allafrica.com/tools/headlines/rdf/northafrica/headlines.rdf,All Africa; North Africa,en,US
+91,https://allafrica.com/tools/headlines/rdf/southernafrica/headlines.rdf,All Africa; Southern Africa,en,US
+92,https://allafrica.com/tools/headlines/rdf/westafrica/headlines.rdf,All Africa; West Africa,en,US
+93,https://allafrica.com/tools/headlines/rdf/ebola/headlines.rdf,All Africa; Ebola,en,US
+94,https://allafrica.com/tools/headlines/rdf/coronavirus/headlines.rdf,All Africa; Coronavirus,en,US
+95,https://allafrica.com/tools/headlines/rdf/health/headlines.rdf,All Africa; Health,en,US
+96,https://allafrica.com/tools/headlines/rdf/ngo/headlines.rdf,All Africa; NGOs,en,US
+97,https://allafrica.com/tools/headlines/rdf/tuberculosis/headlines.rdf,All Africa; Tuberculosis,en,US

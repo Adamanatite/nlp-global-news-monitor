@@ -2,8 +2,21 @@ import re
 import json
 from datetime import datetime
 from elasticsearch_database import AddSource, AddArticle, UpdateLastScraped, DisableSource
-from sources.parse_config import ParseBoolean
-import time
+from utils.parse_config import ParseBoolean
+
+# Get data from JSON file
+with open("data/config.json") as f:
+    data = json.load(f)
+    try:
+        STALE_DAYS = int(data["empty_days_until_stale"])
+        FAILURES_UNTIL_DISABLE = int(data["failures_until_disable"])
+        AUTO_DISABLE_STALE_SOURCES = ParseBoolean(data["auto_disable_stale_sources"])
+    except:
+        # Default values
+        print("Error in config")
+        STALE_DAYS = 7
+        FAILURES_UNTIL_DISABLE = 5
+        AUTO_DISABLE_STALE_SOURCES = False
 
 # Given a URL, returns the ISO 3166-1 alpha-2 country code
 def GetCountry(url):
@@ -35,26 +48,11 @@ def GetCountry(url):
 def GetDefaultName(url):
     return re.search("://([a-zA-Z0-9]|\.|-)*/", url).group()[3:-1]
 
-# Get data from JSON file
-with open("sources/config.json") as f:
-    data = json.load(f)
-    try:
-        STALE_DAYS = int(data["empty_days_until_stale"])
-        FAILURES_UNTIL_DISABLE = int(data["failures_until_disable"])
-        AUTO_DISABLE_STALE_SOURCES = ParseBoolean(data["auto_disable_stale_sources"])
-    except:
-        # Default values
-        print("Error in config")
-        STALE_DAYS = 7
-        FAILURES_UNTIL_DISABLE = 5
-        AUTO_DISABLE_STALE_SOURCES = False
-
 class Scraper:
 
     def __init__(self, url, name, country=None, lang=None, source_id=None, last_scraped=None):
 
         self.enabled = True
-        self.no_consecutive_failures = 0
 
         self.url = url
         self.source_id = source_id
@@ -64,8 +62,10 @@ class Scraper:
         else:
             self.name=GetDefaultName(self.url)
 
-        #TODO: Determine this parameter from the url
-        self.language = lang
+        if lang:
+            self.language = lang
+        else:
+            self.language = "Unknown"
 
         if country:
             self.country = country
@@ -83,8 +83,12 @@ class Scraper:
         print("Initialised " + self.name + " scraper")
 
 
-    def AddNewArticle(self, url, title, text, publish_date, update_time=True, skip_verification=False):
-        AddArticle(url, title, text, self.country, self.language, publish_date, self.name, self.scrape_type, skip_verification)
+    def AddNewArticle(self, url, title, text, publish_date, language=None, update_time=True, skip_verification=False):
+
+        if not language:
+            language = self.language
+
+        AddArticle(url, title, text, self.country, language, publish_date, self.name, self.scrape_type, skip_verification)
         
         if not update_time:
             return

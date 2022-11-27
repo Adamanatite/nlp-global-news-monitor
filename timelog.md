@@ -158,3 +158,4 @@
 
 ### 26 Nov 2022
 * *1 hour* Updated error detection and RSS feed automatic language/name detection
+* *1 hour* File cleanup and newspaper3k consistency improvements
