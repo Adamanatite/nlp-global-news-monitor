@@ -159,13 +159,13 @@ def GetSource(url):
         return results["hits"]["hits"][0]
     return None
 
-def GetActiveSources():
+def GetActiveSources(value=True):
 
     query_body = {
         "size": MAX_ACTIVE_SCRAPERS,
         "query": {
             "match": {
-                "Active": True
+                "Active": value
             }
         }
     }

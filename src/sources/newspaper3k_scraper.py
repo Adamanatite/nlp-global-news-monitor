@@ -7,17 +7,17 @@ def cleanup(text):
     #Check if lines has at least one alphanumeric digit (adapted from https://stackoverflow.com/a/6676843)
     return "\n".join([l for l in text.split("\n") if l and bool(re.search('[a-z0-9]', l, re.IGNORECASE))])
 
-#Function for newspaper3k to create a parsed article
-def article_parse(url,language=None):
-    if language:
-        article = newspaper.Article(url,language=language)
-    else:
-        article = newspaper.Article(url)
-    article.download()
-    article.parse()
-    return article
-
 class NewspaperScraper(Scraper):
+
+    #Function for newspaper3k to create a parsed article
+    def article_parse(self, url):
+        if self.language:
+            article = newspaper.Article(url,language=self.language)
+        else:
+            article = newspaper.Article(url)
+        article.download()
+        article.parse()
+        return article
 
     def __init__(self, url, name=None, country=None, lang=None, source_id=None, last_scraped=None):
         self.scrape_type = "Web scraper"
@@ -33,11 +33,15 @@ class NewspaperScraper(Scraper):
 
             try:
                 # Parse and add
-                news = article_parse(article.url, language=self.language)
+                news = self.article_parse(article.url)
                 if news and news.title:
                     self.AddNewArticle(news.url, news.title, cleanup(news.text), news.publish_date)
                 self.no_consecutive_failures = 0
             except Exception as e:
-                self.HandleError(e)
-                continue
-        
+                err = str(e)
+                # If the URL doesn't work, simply skip the article. Otherwise if there is a connection issue stop scraping until the next loop
+                if "404 Client Error" in err or "403 Client Error" in err:
+                    continue
+                else:
+                    break
+
