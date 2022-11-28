@@ -136,3 +136,5 @@ research/outputs/
 src/db_info.json
 # Certification file
 src/cert/
+# Locally stored models
+src/classifier

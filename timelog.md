@@ -165,3 +165,4 @@
 
 ### 28 Nov 2022
 * *2.5 hour* Completing Kibana visualisation based on figma wireframe
+* *3 hour* Trying out googletrans language translation and importing bert-multilingual through huggingface
