@@ -159,3 +159,9 @@
 ### 26 Nov 2022
 * *1 hour* Updated error detection and RSS feed automatic language/name detection
 * *1 hour* File cleanup and newspaper3k consistency improvements
+
+### 27 Nov 2022
+* *0.5 hour* Improving RSS feed scraper by cleaning up summary data
+
+### 28 Nov 2022
+* *2.5 hour* Completing Kibana visualisation based on figma wireframe

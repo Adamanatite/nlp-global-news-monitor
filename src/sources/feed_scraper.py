@@ -3,7 +3,17 @@ import feedparser
 from datetime import datetime
 from time import mktime
 from langdetect import detect
+import re
 
+def cleanup(text):
+    # Remove HTML tags (from https://medium.com/@jorlugaqui/how-to-strip-html-tags-from-a-string-in-python-7cb81a2bbf44)
+    tags = re.compile('<.*?>')
+    text = re.sub(tags, '', text)
+    # Remove multiple spaces, tabs, and newlines
+    text = re.sub("( +) | (\t+)", " ", text)
+    text = re.sub("(\s|\t)*\n", "\n", text)
+    text = re.sub("\n(\n|\s|\t)*", "\n", text)
+    return text.strip()
 
 class FeedScraper(Scraper):
 
@@ -40,7 +50,7 @@ class FeedScraper(Scraper):
         if len(new_items) > 0:
             new_items.sort(reverse=True, key=lambda x: x.updated_parsed)
             for item in new_items:
-                self.AddNewArticle(item.link, item.title, item.summary, datetime.fromtimestamp(mktime(item.updated_parsed)),update_time=False,skip_verification=True)
+                self.AddNewArticle(item.link, item.title, cleanup(item.summary), datetime.fromtimestamp(mktime(item.updated_parsed)),update_time=False,skip_verification=True)
             self.last_scrape_time = datetime.fromtimestamp(mktime(new_items[0].updated_parsed))
                 
         
