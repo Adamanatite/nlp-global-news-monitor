@@ -163,6 +163,9 @@
 ### 27 Nov 2022
 * *0.5 hour* Improving RSS feed scraper by cleaning up summary data
 
+## Week 11
+
 ### 28 Nov 2022
 * *2.5 hour* Completing Kibana visualisation based on figma wireframe
 * *3 hour* Trying out googletrans language translation and importing bert-multilingual through huggingface
+* *1 hour* Experimenting with machine translation options

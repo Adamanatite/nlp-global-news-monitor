@@ -1,5 +1,8 @@
 import json
-from googletrans import Translator
+from transformers import AutoTokenizer, TFAutoModelForSeq2SeqLM
+
+
+
 
 data = []
 
@@ -8,25 +11,22 @@ with open("classifier/datasets/en.json") as f:
         d = json.loads(line)
         data.append((d["Text"], d["Category"]))
 
-t = Translator()  
+languages = ["fr", "es", "pt", "ru", "zh-C", "sw", "id", "ar", "ko"]
 
-languages = ["fr", "es", "pt", "ru", "zh-CN", "sw", "id", "ar", "ko"]
-all_data = {}
-
-#batch_size = 100
-#n = len(data) // batch_size
-
-batch_size = 5
-n = 2
+# batch_size = 100
+# n = len(data) // batch_size
 
 sentences = [d[0] for d in data]
 categories = [d[1] for d in data]
 
-for lang in languages:
-    lang_data = []
-    for i in range(3):
-        print(lang)
-        trans = t.translate(sentences[i], src="en", dest=lang)
-        lang_data.append((trans.text, categories[i]))
-    all_data[lang] = lang_data
-print(all_data)
+# print(sentences[:10])
+
+for lang in languages[:2]:
+    tokenizer = AutoTokenizer.from_pretrained(f"Helsinki-NLP/opus-mt-en-{lang}")
+    model = TFAutoModelForSeq2SeqLM.from_pretrained(f"Helsinki-NLP/opus-mt-en-{lang}")
+
+    batch = tokenizer(sentences[:2], return_tensors="tf", padding=True, truncation=True)
+
+    generated_ids = model.generate(**batch)
+    translated_batch = tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
+    print(translated_batch)
