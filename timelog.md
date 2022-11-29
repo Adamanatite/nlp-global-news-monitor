@@ -170,3 +170,8 @@
 * *3 hour* Trying out googletrans language translation and importing bert-multilingual through huggingface
 * *1 hour* Experimenting with machine translation options
 * *1 hour* Attempt at getting classifier to work, not complete
+
+### 29 Nov 2022
+* *0.5 hour* Meeting preparation and some bug fixing on classifier
+* *0.5 hour* Supervisor meeting
+* *0.5 hour* Note collation from supervisor meeting

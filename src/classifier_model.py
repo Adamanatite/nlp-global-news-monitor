@@ -11,10 +11,10 @@ LOCAL_DIR = "./classifier/"
 
 # Load dataset
 try:
-    dataset = load_from_disk(LOCAL_DIR + "/datasets/en")
+    dataset = load_from_disk(LOCAL_DIR + "/datasets/en", split="train")
     print("Loaded local dataset")
 except:
-    dataset = load_dataset(BASE_DATASET)
+    dataset = load_dataset(BASE_DATASET, split="train")
     dataset.save_to_disk(LOCAL_DIR + "/datasets/en")
     print("Loaded dataset from huggingface")
 
