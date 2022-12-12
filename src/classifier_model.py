@@ -21,6 +21,7 @@ except Exception as e:
 
 print(dataset.features)
 
+# Adapted from https://discuss.huggingface.co/t/how-to-create-custom-classlabels/13650
 text_category = ClassLabel(num_classes = 8,names=["negative", "neutral", "positive"])
 
 # Split dataset based on fractions
