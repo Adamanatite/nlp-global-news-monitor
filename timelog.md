@@ -175,3 +175,8 @@
 * *0.5 hour* Meeting preparation and some bug fixing on classifier
 * *0.5 hour* Supervisor meeting
 * *0.5 hour* Note collation from supervisor meeting
+
+## Week 13
+
+### 12 Dec 2022
+* *1.5 hour* Debugging classifier, getting somewhere but still not working

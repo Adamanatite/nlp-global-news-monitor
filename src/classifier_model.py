@@ -11,25 +11,28 @@ LOCAL_DIR = "./classifier/"
 
 # Load dataset
 try:
-    dataset = load_from_disk(LOCAL_DIR + "/datasets/en", split="train")
+    dataset = load_from_disk(LOCAL_DIR + "/datasets/en")
     print("Loaded local dataset")
-except:
+except Exception as e:
+    print(str(e))
     dataset = load_dataset(BASE_DATASET, split="train")
     dataset.save_to_disk(LOCAL_DIR + "/datasets/en")
     print("Loaded dataset from huggingface")
+
+print(dataset.features)
+
+text_category = ClassLabel(num_classes = 8,names=["negative", "neutral", "positive"])
 
 # Split dataset based on fractions
 train_split, test_split = 0.8, 0.2
 
 # Split train
-train_test = dataset.train_test_split(test=test_split)
+train_test = dataset.train_test_split(test_size=test_split)
 # Split test and validation
 # Final data dict
 split_dataset = DatasetDict({
     'train': train_test['train'],
     'test': train_test['test']})
-
-print(split_dataset["test"][0])
 
 # Load tokenizer
 try:
@@ -45,6 +48,8 @@ def tokenize_function(examples):
     return tokenizer(examples["Text"], truncation=True)
 
 tokenized_dataset = split_dataset.map(tokenize_function, batched=True)
+print(tokenized_dataset["train"][0]["Category"])
+
 data_collator = DataCollatorWithPadding(tokenizer=tokenizer, return_tensors="tf")
 
 label2id = {"World": 0, "Politics" : 1, "Tech": 2, "Entertainment": 3, "Sports": 4, "Business": 5, "Health" : 6, "science": 7,}
@@ -88,8 +93,8 @@ def compute_metrics(eval_pred):
 
 # Train model
 model.compile(optimizer=optimizer)
-metric_callback = KerasMetricCallback(metric_fn=compute_metrics, eval_dataset=tf_validation_set)
+metric_callback = KerasMetricCallback(metric_fn=compute_metrics, eval_dataset=tf_validation_set, label_cols=["Category"])
 model.fit(x=tf_train_set, validation_data=tf_validation_set, epochs=3, callbacks=[metric_callback])
 
 # Save model
-model.save_pretrained(LOCAL_DIR + "model/")
+model.save_pretrained(LOCAL_DIR + "trained_model/")
