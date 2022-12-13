@@ -184,3 +184,4 @@
 
 ### 13 Dec 2022
 * *2 hour* Dissertation planning and preparation for machine translation of sentences
+* 0.5 hour* Work on integrating classifier without training for now

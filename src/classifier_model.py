@@ -7,7 +7,7 @@ import tensorflow as tf
 
 BASE_MODEL = "bert-base-multilingual-cased"
 BASE_DATASET = "valurank/News_Articles_Categorization"
-LOCAL_DIR = "./classifier/"
+LOCAL_DIR = "./.ml/"
 
 # Load dataset
 try:
