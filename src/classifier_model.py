@@ -1,6 +1,6 @@
 from transformers import AutoTokenizer, TFAutoModelForSequenceClassification, DataCollatorWithPadding, create_optimizer
 from transformers.keras_callbacks import KerasMetricCallback, PushToHubCallback
-from datasets import load_dataset, load_from_disk, DatasetDict
+from datasets import load_dataset, load_from_disk, DatasetDict, ClassLabel
 import evaluate
 import numpy as np
 import tensorflow as tf
@@ -9,20 +9,32 @@ BASE_MODEL = "bert-base-multilingual-cased"
 BASE_DATASET = "valurank/News_Articles_Categorization"
 LOCAL_DIR = "./classifier/"
 
+# Hide GPU from visible devices
+tf.config.set_visible_devices([], 'GPU')
+
 # Load dataset
 try:
     dataset = load_from_disk(LOCAL_DIR + "/datasets/en")
     print("Loaded local dataset")
 except Exception as e:
-    print(str(e))
+    # Adapted from https://discuss.huggingface.co/t/how-to-create-custom-classlabels/13650
+    label2id = {"World": 0, "Politics" : 1, "Tech": 2, "Entertainment": 3, "Sports": 4, "Business": 5, "Health" : 6, "science": 7}
+    def label_to_id(batch):
+        batch["label"] = [label2id[cat] for cat in batch["label"]]
+        return batch
+
     dataset = load_dataset(BASE_DATASET, split="train")
+    dataset = dataset.rename_column("Text", "text")
+    dataset = dataset.rename_column("Category", "label")
+
+    features = dataset.features.copy()
+    text_category = ClassLabel(num_classes = 8, names=["World", "Politics", "Technology", "Entertainment", "Sports", "Business", "Health", "Science"])
+    features["label"] = text_category
+    dataset = dataset.map(label_to_id, batched=True, features=features)
+
     dataset.save_to_disk(LOCAL_DIR + "/datasets/en")
     print("Loaded dataset from huggingface")
 
-print(dataset.features)
-
-# Adapted from https://discuss.huggingface.co/t/how-to-create-custom-classlabels/13650
-text_category = ClassLabel(num_classes = 8,names=["negative", "neutral", "positive"])
 
 # Split dataset based on fractions
 train_split, test_split = 0.8, 0.2
@@ -46,14 +58,12 @@ except:
 
 #From https://huggingface.co/docs/transformers/main/en/training
 def tokenize_function(examples):
-    return tokenizer(examples["Text"], truncation=True)
+    return tokenizer(examples["text"], truncation=True)
 
 tokenized_dataset = split_dataset.map(tokenize_function, batched=True)
-print(tokenized_dataset["train"][0]["Category"])
-
 data_collator = DataCollatorWithPadding(tokenizer=tokenizer, return_tensors="tf")
 
-label2id = {"World": 0, "Politics" : 1, "Tech": 2, "Entertainment": 3, "Sports": 4, "Business": 5, "Health" : 6, "science": 7,}
+label2id = {"World": 0, "Politics" : 1, "Technology": 2, "Entertainment": 3, "Sports": 4, "Business": 5, "Health" : 6, "Science": 7,}
 id2label = {v:k for k, v in label2id.items()}
 
 
@@ -94,7 +104,7 @@ def compute_metrics(eval_pred):
 
 # Train model
 model.compile(optimizer=optimizer)
-metric_callback = KerasMetricCallback(metric_fn=compute_metrics, eval_dataset=tf_validation_set, label_cols=["Category"])
+metric_callback = KerasMetricCallback(metric_fn=compute_metrics, eval_dataset=tf_validation_set)
 model.fit(x=tf_train_set, validation_data=tf_validation_set, epochs=3, callbacks=[metric_callback])
 
 # Save model
