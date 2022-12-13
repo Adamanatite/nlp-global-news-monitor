@@ -9,9 +9,6 @@ BASE_MODEL = "bert-base-multilingual-cased"
 BASE_DATASET = "valurank/News_Articles_Categorization"
 LOCAL_DIR = "./classifier/"
 
-# Hide GPU from visible devices
-tf.config.set_visible_devices([], 'GPU')
-
 # Load dataset
 try:
     dataset = load_from_disk(LOCAL_DIR + "/datasets/en")
@@ -49,10 +46,10 @@ split_dataset = DatasetDict({
 
 # Load tokenizer
 try:
-    tokenizer = AutoTokenizer.from_pretrained(LOCAL_DIR + "model/")
+    tokenizer = AutoTokenizer.from_pretrained(LOCAL_DIR + "model/", model_max_length=512)
     print("Tokenizer loaded from local directory")
 except:
-    tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL)
+    tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL, model_max_length=512)
     tokenizer.save_pretrained(LOCAL_DIR + "model/")
     print("Tokenizer loaded from huggingface")
 

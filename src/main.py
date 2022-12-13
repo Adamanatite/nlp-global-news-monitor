@@ -1,6 +1,6 @@
 from elasticsearch_database import CreateDB, GetActiveSources
-from sources.newspaper3k_scraper import NewspaperScraper
-from sources.feed_scraper import FeedScraper
+from scrapers.newspaper3k_scraper import NewspaperScraper
+from scrapers.feed_scraper import FeedScraper
 from utils.parse_config import ParseBoolean
 import threading
 import queue

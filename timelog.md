@@ -181,3 +181,6 @@
 ### 12 Dec 2022
 * *1.5 hour* Debugging classifier, getting somewhere but still not working
 * *1.5 hour* Fixed classifier bugs, don't have enough memory to train with BERT multilingual
+
+### 13 Dec 2022
+* *2 hour* Dissertation planning and preparation for machine translation of sentences
