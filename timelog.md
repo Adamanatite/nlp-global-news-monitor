@@ -186,3 +186,6 @@
 * *2 hour* Dissertation planning and preparation for machine translation of sentences
 * 0.5 hour* Work on integrating classifier without training for now
 * 1 hour^ Supervisor meeting prep, supervisor meeting, sorting out GPU shared usage and collating notes
+
+### 15 Dec 2022
+* *1.5 hour* Written status report
