@@ -189,3 +189,8 @@
 
 ### 15 Dec 2022
 * *1.5 hour* Written status report
+
+## Week 16
+
+### 7 Jan 2023
+* *1 hour* Further integrating classifier into scraping system

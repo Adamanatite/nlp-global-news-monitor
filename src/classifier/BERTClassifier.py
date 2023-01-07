@@ -1,4 +1,4 @@
-from transformers import AutoTokenizer, TFAutoModelForSequenceClassification, DataCollatorWithPadding, create_optimizer
+from transformers import AutoTokenizer, TFAutoModelForSequenceClassification, DataCollatorWithPadding, create_optimizer, pipeline
 from transformers.keras_callbacks import KerasMetricCallback, PushToHubCallback
 from datasets import load_dataset, load_from_disk, DatasetDict, ClassLabel
 import evaluate
@@ -10,7 +10,7 @@ class BERTClassifier:
     def __init__(self, model_path, data_src="valurank/News_Articles_Categorization", model_src="bert-base-multilingual-cased"):
         self.path = model_path
         self.datasrc = data_src
-        self.modelsrc = modelsrc
+        self.modelsrc = model_src
         self.tokenizer = self.load_tokenizer()
         self.model = self.load_model()
 
@@ -127,4 +127,8 @@ class BERTClassifier:
         return model
 
     def classify(self, batch, commit=True):
-        pass
+        # Do this outside classify method
+        classifier = pipeline("text-classification", model=self.path + "trained_model/")
+        results = classifier(batch)
+        categories = [i["label"] for i in results]
+        return categories

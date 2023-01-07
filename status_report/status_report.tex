@@ -4,7 +4,7 @@
     \usepackage{fullpage}
     
     \title{ NLP Global News Monitoring }
-    \author{ Adam Fairlie - 2361352F }
+    \author{ Adam Fairlie - 2461352F }
 
     \begin{document}
     \maketitle
@@ -17,21 +17,22 @@
 \subsection{Proposal}\label{proposal}
 
 \subsubsection{Motivation}\label{motivation}
-My supervisor works in a research group called BioCaster, which classifies disease outbreaks worldwide. They currently rely on old systems based on RSS feeds to retrieve news data and produce visualisations. This method is very limited as it can collect only from sources which publish and maintain their own feed. I am developing a system that combines multiple sources of news data and automatically collects it for visualisation and analysis, which can help navigate the different information-sharing methods and languages of different regions around the world, with updated visualisations. This allows the ability to collect data from underrepresented languages and regions with less standardised news publication, which are very hard to collect from in the current system and thus news from these regions may be missed. I am also developing a multi-label classification system built on Natural Language Processing to better understand the news found by the news collection system than the current binary classification system (Biomedical vs non-Biomedical) used in BioCaster.
+My supervisor works in a research group called BioCaster, which classifies disease outbreaks worldwide. They currently rely on old systems based on RSS feeds to retrieve news data and produce visualisations. This method is very limited as it can collect only from sources which publish and maintain their own feed. I am developing a system that combines multiple sources of news data and automatically collects it for real-time updated visualisation and analysis, which can help navigate the different information-sharing methods and languages of different regions around the world. This allows the ability to collect data from underrepresented languages and regions with less standardised news publication, which are very hard to collect from in the current system and thus news from these regions may be missed. I am also developing a multi-label classification system built on Natural Language Processing to better understand the news found by the news collection system, as BioCaster currently use a binary classification system (Biomedical vs non-Biomedical).
 
 \subsubsection{Aims}\label{aims}
 
-I am developing a system which will automatically collect and classify news information from two main sources; RSS/Atom feeds and news webpages, in 10 different languages. These sources will be configurable through a webpage interface. The data will be automatically classified and real-time visualisations will be produced. The classifier will be validated experimentally against a range of possible models, and usability tests will be conducted with end users to determine the success of the visualisations and user interface.
+I am developing a system which will automatically collect and classify news information from two main sources; RSS/Atom feeds and news webpages, in 10 different languages, but with flexibility for more sources and languages to be added. These sources will be configurable through a webpage interface. The data will be automatically classified and real-time visualisations will be produced. The classifier will be validated experimentally against a range of possible models, and usability tests will be conducted with end users to determine the success of the visualisations and user interface.
 
 \subsection{Progress}\label{progress}
 \begin{itemize}
     \tightlist
-\item Experiments conducted on python web-scraping libraries and feed scraping and web scraping libraries chosen.
-\item Worldwide news sources to collect data from in 10 languages selected after research
+\item  Experiments conducted on python web-scraping libraries and data retrieval libraries chosen.
+\item  Worldwide news sources to collect data from in 10 languages selected after research
 \item  Database system chosen and configured
 \item  Visualisation system connected to database
 \item  Visualisations and User interface design planned through interactive wireframes
 \item  Visualisation from wireframes implemented into final system
+\item  Automatic multi-source news article scraping system completed
 \item  Research into datasets for classifier completed and data chosen
 \item  Experimentation on classifier types have begun and integration into data collection system is mostly complete
 \end{itemize}
@@ -52,7 +53,7 @@ So far in the project, the following problems have arisen:
 \begin{itemize}
 \tightlist
 \item There are no datasets for the model in more than one of the 10 required languages \textbf{Mitigation}: Use a machine translation server to translate the sentences from one language into the others, as a form of back-translation.
-\item  The more intensive BERT models require too much memory to train on my computer \textbf{Mitigation}: Use a shared online jupyter notebook area through a university VPN.
+\item  The more intensive BERT models require too much memory to train on my computer \textbf{Mitigation}: Use a shared online jupyter notebook area from my supervisor through a university VPN.
 \item It can be expensive to host the content (database/visualisation server and scraper with interface) online so that they can be accessed for the usability tests \textbf{Mitigation}: Use free credits from GitHub Pro to temporarily host for the testing period.
 \end{itemize}
 
@@ -83,7 +84,7 @@ So far in the project, the following problems have arisen:
       Week 5-6: Quantitative and qualitative analysis on questionnaire responses
       \textbf{Deliverable:} Analyses on end-user evaluation, including possible tables/graphs, qualitative coding and any other relevant evaluations.
     \item
-      Week 7-10: Dissertation write-up.
+      Week 6-10: Dissertation write-up.
       \textbf{Deliverable:} First draft submitted to supervisor two weeks before deadline.
     \end{itemize}
  

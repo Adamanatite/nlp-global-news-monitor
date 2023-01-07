@@ -102,7 +102,8 @@ def compute_metrics(eval_pred):
 # Train model
 model.compile(optimizer=optimizer)
 metric_callback = KerasMetricCallback(metric_fn=compute_metrics, eval_dataset=tf_validation_set)
-model.fit(x=tf_train_set, validation_data=tf_validation_set, epochs=3, callbacks=[metric_callback])
+#model.fit(x=tf_train_set, validation_data=tf_validation_set, epochs=3, callbacks=[metric_callback])
 
 # Save model
 model.save_pretrained(LOCAL_DIR + "trained_model/")
+model.push_to_hub("test-multilabel-news")
