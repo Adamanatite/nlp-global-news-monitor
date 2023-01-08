@@ -13,7 +13,8 @@ class BERTClassifier:
         self.datasrc = data_src
         self.modelsrc = model_src
         self.tokenizer = self.load_tokenizer()
-        self.model = self.load_model()
+        # self.model = self.load_model()
+        self.model = None
         print("Initialised Classifier")
 
     def load_dataset(self, test_split=0.2):
@@ -68,7 +69,8 @@ class BERTClassifier:
             model = TFAutoModelForSequenceClassification.from_pretrained(
             self.path + "trained_model/", num_labels=8, id2label=id2label, label2id=label2id, local_files_only=True)
             print("Model loaded from local file")
-        except:
+        except Exception as e:
+            print(str(e))
             if not self.allow_model_training:
                 print("Couldn't load model")
                 return None
@@ -132,10 +134,13 @@ class BERTClassifier:
         return model
 
     def classify(self, batch):
-        if not self.model:
-            return
+        if self.model is None:
+            return ["Unknown" for i in range(len(batch))]
         # Do this outside classify method
         classifier = pipeline("text-classification", model=self.path + "trained_model/")
-        results = classifier(batch)
-        categories = [i["label"] for i in results]
+        inputs = [(a[1] + " " + a[2]) for a in batch]
+        inputs = [i[:512] for i in inputs[:16]]
+        results = classifier(inputs)
+        categories = [r["label"] for r in results]
+        print("Classified", len(batch), "articles.")
         return categories

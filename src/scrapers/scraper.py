@@ -1,11 +1,15 @@
 import re
 import json
 from datetime import datetime
-from elasticsearch_database import AddSource, AddArticle, UpdateLastScraped, DisableSource
+from database.elasticsearch_database import AddSource, AddArticle, UpdateLastScraped, DisableSource
 from utils.parse_config import ParseBoolean
+import os
+# Get current directory from project tree
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
 
 # Get data from JSON file
-with open("data/config.json") as f:
+with open(str(parentdir) + "/config.json") as f:
     data = json.load(f)
     try:
         STALE_DAYS = int(data["empty_days_until_stale"])
@@ -83,21 +87,12 @@ class Scraper:
         print("Initialised " + self.name + " scraper")
 
 
-    def AddNewArticle(self, url, title, text, publish_date, language=None, update_time=True, skip_verification=False):
-
-        if not language:
-            language = self.language
-
-        AddArticle(url, title, text, self.country, language, publish_date, self.name, self.scrape_type, skip_verification)
-        
-        if not update_time:
-            return
-
+    def UpdateTime(self, publish_date):
         # Update to reflect new source found
         if not publish_date:
             self.last_scrape_time = datetime.now()
         else:
-            self.last_scrape_time = publish_date
+            self.last_scrape_time = max(publish_date, self.last_scrape_time)
 
 
     def scrape(self):
@@ -105,7 +100,7 @@ class Scraper:
         if not self.enabled:
             return
 
-        self.GetNewArticles()
+        articles = self.GetNewArticles()
 
         #Update self
         UpdateLastScraped(self.source_id, self.last_scrape_time)
@@ -115,7 +110,8 @@ class Scraper:
             self.enabled = False
             print("Disabling " + self.name + str(AUTO_DISABLE_STALE_SOURCES))
             DisableSource(self.source_id)
+        return articles
 
     def GetNewArticles(self):
-        pass
+        return []
 

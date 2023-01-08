@@ -195,3 +195,7 @@
 ### 7 Jan 2023
 * *1 hour* Further integrating classifier into scraping system
 * *1 hour* More integration of classifier
+
+### 8 Jan 2023
+* *2 hour* Refactoring code and allowing for bulk classification and insertion
+* *2 hour* Troubleshooting issues with scraper

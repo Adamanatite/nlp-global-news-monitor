@@ -37,6 +37,7 @@ class FeedScraper(Scraper):
         super().__init__(url, name, country, lang, source_id, last_scraped)
 
     def GetNewArticles(self):
+        articles = []
         try:
             parsed = feedparser.parse(self.url)
             self.no_consecutive_failures = 0
@@ -50,7 +51,8 @@ class FeedScraper(Scraper):
         if len(new_items) > 0:
             new_items.sort(reverse=True, key=lambda x: x.updated_parsed)
             for item in new_items:
-                self.AddNewArticle(item.link, item.title, cleanup(item.summary), datetime.fromtimestamp(mktime(item.updated_parsed)),update_time=False,skip_verification=True)
+                print(self.name + ": " + item.title)
+                articles.append((item.link, item.title, cleanup(item.summary), self.country, self.language, datetime.fromtimestamp(mktime(item.updated_parsed)), self.name, self.scrape_type))
             self.last_scrape_time = datetime.fromtimestamp(mktime(new_items[0].updated_parsed))
-                
+        return articles
         

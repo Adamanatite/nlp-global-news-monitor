@@ -1,18 +1,17 @@
-from elasticsearch import Elasticsearch
+from elasticsearch import Elasticsearch, helpers
 from datetime import datetime
 import json
-
-# Get data from JSON file
-with open("data/config.json") as f:
-    conf = json.load(f)
-
-MAX_ACTIVE_SCRAPERS = int(conf["max_active_scrapers"])
+import os
+# Get current directory from project tree
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+this_dir = str(parentdir) + "/database/"
 
 # Return es connection, or None if it failed
 def ESConnect():
 
     # Get data from JSON file
-    with open("data/db_info.json") as f:
+    with open(this_dir + "data/db_info.json") as f:
         data = json.load(f)
 
     ELASTIC_USERNAME = data["username"]
@@ -23,7 +22,7 @@ def ESConnect():
     try:
         es = Elasticsearch(
         "https://localhost:9200",
-        ca_certs=CERT_PATH,
+        ca_certs=this_dir + CERT_PATH,
         basic_auth=(ELASTIC_USERNAME, ELASTIC_PASSWORD)
         )
     except Exception as e:
@@ -140,6 +139,35 @@ def AddArticle(url, title, text, country, lang, date, source, scraper, skip_veri
         print(str(e))
         return None
 
+def AddArticles(articles, categories):
+    
+    if not es:
+        return
+
+    actions = [
+        {
+        "_index": "articles",
+        "_source": {
+            "URL": article[0],
+            "Headline": article[1],
+            "Body": article[2],
+            "Country": article[3],
+            "Language": article[4],       
+            "Published": article[5],
+            "Retrieved": datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "Source": article[6],
+            "Data Source": article[7],
+            "Category": category
+            }
+        } 
+    for article, category in zip(articles, categories)]
+
+    try:
+        helpers.bulk(es, actions)
+        print("Added", len(articles), "articles")
+    except Exception as e:
+        print("Couldn't add articles: ")
+        print(str(e))
 
 def GetSource(url):
 
@@ -159,10 +187,13 @@ def GetSource(url):
         return results["hits"]["hits"][0]
     return None
 
-def GetActiveSources(value=True):
+def GetActiveSources(value=True, max_scrapers=1000):
+
+    if not es:
+        return
 
     query_body = {
-        "size": MAX_ACTIVE_SCRAPERS,
+        "size": max_scrapers,
         "query": {
             "match": {
                 "Active": value

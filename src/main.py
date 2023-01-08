@@ -1,4 +1,4 @@
-from elasticsearch_database import CreateDB, GetActiveSources
+from database.elasticsearch_database import CreateDB, GetActiveSources, AddArticles
 from scrapers.newspaper3k_scraper import NewspaperScraper
 from scrapers.feed_scraper import FeedScraper
 from utils.parse_config import ParseBoolean
@@ -10,24 +10,26 @@ import random
 from datetime import datetime
 import time
 
-with open("data/config.json") as f:
+with open("config.json") as f:
     data = json.load(f)
     try: 
         USE_CONCURRENCY = ParseBoolean(data["concurrent"])
         TRAIN_MODEL = ParseBoolean(data["train_model"])
         NO_WORKERS = int(data["no_workers"])
         MIN_SECONDS_PER_SCRAPE = int(data["min_seconds_per_scrape"])
+        MAX_ACTIVE_SCRAPERS = int(data["max_active_scrapers"])
     except Exception as e:
-        print("Error in config")
+        print("Error in config.json file")
         USE_CONCURRENCY=False
         MIN_SECONDS_PER_SCRAPE = 300
+        MAX_ACTIVE_SCRAPERS = 1000
 
 def InitialiseActiveSources():
     scrapers = []
     constructors = {"Web scraper": NewspaperScraper,
                     "RSS/Atom Feed": FeedScraper}
 
-    for source in GetActiveSources():
+    for source in GetActiveSources(True, MAX_ACTIVE_SCRAPERS):
         source_id = source["_id"]
         scraper_type = source["_source"]["Data Source"]
         url = source["_source"]["URL"]
@@ -73,6 +75,7 @@ def scrape_sources(id, l, q, scrapers):
         with l:
             categories = classifier.classify(results)
             # Add to DB
+            
 
         # Wait minimum time
         time_elapsed = (datetime.now() - begin_time).seconds
@@ -84,29 +87,38 @@ def scrape_sources(id, l, q, scrapers):
 
 # Main function
 print(f"Beginning to scrape from {len(scrapers)} sources")
-if USE_CONCURRENCY:
-    random.shuffle(scrapers)
-    lock = threading.Lock()
-    # Split sources into threads
-    n = len(scrapers) // NO_WORKERS
-    threads = list()
-    remaining = queue.Queue()
-    # Create queue of newly activated sources
-    for elt in scrapers[n*NO_WORKERS:]:
-        remaining.put(elt)
-    # Start threads
-    for i in range(NO_WORKERS):
-        x = threading.Thread(target=scrape_sources, args=(i, lock, remaining,scrapers[n*i:n*(i+1)]))
-        threads.append(x)
-        x.start()
+# if USE_CONCURRENCY:
+#     random.shuffle(scrapers)
+#     lock = threading.Lock()
+#     # Split sources into threads
+#     n = len(scrapers) // NO_WORKERS
+#     threads = list()
+#     remaining = queue.Queue()
+#     # Create queue of newly activated sources
+#     for elt in scrapers[n*NO_WORKERS:]:
+#         remaining.put(elt)
+#     # Start threads
+#     for i in range(NO_WORKERS):
+#         x = threading.Thread(target=scrape_sources, args=(i, lock, remaining,scrapers[n*i:n*(i+1)]))
+#         threads.append(x)
+#         x.start()
 
-    for t in threads:
-        t.join()
-else:
-    # Non-concurrent version
-    while scrapers:
-        for scraper in scrapers:
-            if scraper.enabled:
-                scraper.scrape()
-            else:
-                scrapers.pop(scraper)
+#     for t in threads:
+#         t.join()
+# else:
+#     # Non-concurrent version
+#     while scrapers:
+#         for scraper in scrapers:
+#             if scraper.enabled:
+#                 scraper.scrape()
+#             else:
+#                 scrapers.pop(scraper)
+while scrapers:
+    for scraper in scrapers:
+        if scraper.enabled:
+            articles = scraper.scrape()
+            if articles:
+                categories = classifier.classify(articles)
+                AddArticles(articles, categories)
+        else:
+            scrapers.pop(scraper)
