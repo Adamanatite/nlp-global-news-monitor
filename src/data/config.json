@@ -1,5 +1,6 @@
 {
     "concurrent": "True",
+    "train_model": "False",
     "no_workers": "8",
     "min_seconds_per_scrape": "120",
     "empty_days_until_stale": "7",

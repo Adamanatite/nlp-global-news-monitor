@@ -6,13 +6,15 @@ import numpy as np
 import tensorflow as tf
 
 class BERTClassifier:
-    
-    def __init__(self, model_path, data_src="valurank/News_Articles_Categorization", model_src="bert-base-multilingual-cased"):
+
+    def __init__(self, model_path, allow_model_training, data_src="valurank/News_Articles_Categorization", model_src="bert-base-multilingual-cased"):
         self.path = model_path
+        self.allow_model_training = allow_model_training
         self.datasrc = data_src
         self.modelsrc = model_src
         self.tokenizer = self.load_tokenizer()
         self.model = self.load_model()
+        print("Initialised Classifier")
 
     def load_dataset(self, test_split=0.2):
         # Load dataset
@@ -45,7 +47,7 @@ class BERTClassifier:
         split_dataset = DatasetDict({
             'train': train_test['train'],
             'test': train_test['test']})
-        return dataset
+        return split_dataset
 
     def load_tokenizer(self):
         # Load tokenizer
@@ -67,6 +69,9 @@ class BERTClassifier:
             self.path + "trained_model/", num_labels=8, id2label=id2label, label2id=label2id, local_files_only=True)
             print("Model loaded from local file")
         except:
+            if not self.allow_model_training:
+                print("Couldn't load model")
+                return None
             # Load model
             model = TFAutoModelForSequenceClassification.from_pretrained(
             self.modelsrc, num_labels=8, id2label=id2label, label2id=label2id)
@@ -126,7 +131,9 @@ class BERTClassifier:
         model.save_pretrained(self.path + "trained_model/")
         return model
 
-    def classify(self, batch, commit=True):
+    def classify(self, batch):
+        if not self.model:
+            return
         # Do this outside classify method
         classifier = pipeline("text-classification", model=self.path + "trained_model/")
         results = classifier(batch)
