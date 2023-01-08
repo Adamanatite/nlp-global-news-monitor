@@ -135,6 +135,6 @@ research/outputs/
 # Config file with DB connection information
 src/db_info.json
 # Certification file
-src/cert/
+# src/database/cert/
 # Locally stored models
 src/.ml

@@ -66,10 +66,7 @@ class Scraper:
         else:
             self.name=GetDefaultName(self.url)
 
-        if lang:
-            self.language = lang
-        else:
-            self.language = "Unknown"
+        self.language = lang
 
         if country:
             self.country = country

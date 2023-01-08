@@ -14,7 +14,7 @@ class NewspaperScraper(Scraper):
     def article_parse(self, url, lang=None):
         if lang:
             article = newspaper.Article(url,language=lang)
-        elif self.language != "Unknown":
+        elif self.language:
             article = newspaper.Article(url,language=self.language)
         else:
             article = newspaper.Article(url)
