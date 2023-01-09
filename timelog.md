@@ -200,6 +200,9 @@
 * *2 hour* Refactoring code and allowing for bulk classification and insertion
 * *2 hour* Troubleshooting issues with scraper
 * *1 hour* More work with bug fixing
+
+### 9 Jan 2023
 * *2 hour* Work on web interface, not much progress, trouble authenticating kibana
 * *1.5 hour* Meeting prep, frontend work
 * *1 hour* Customer meeting and note collation
+* *1 hour* Work on frontend, python integration now working
