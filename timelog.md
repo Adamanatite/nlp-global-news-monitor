@@ -200,3 +200,4 @@
 * *2 hour* Refactoring code and allowing for bulk classification and insertion
 * *2 hour* Troubleshooting issues with scraper
 * *1 hour* More work with bug fixing
+* *2 hour* Work on web interface, not much progress, trouble authenticating kibana
