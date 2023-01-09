@@ -9,6 +9,7 @@ import json
 import random
 from datetime import datetime
 import time
+import eel
 
 with open("config.json") as f:
     data = json.load(f)
@@ -113,6 +114,14 @@ print(f"Beginning to scrape from {len(scrapers)} sources")
 #                 scraper.scrape()
 #             else:
 #                 scrapers.pop(scraper)
+
+@eel.expose
+def get_no_sources():
+    return len(scrapers)
+
+eel.init('interface')
+eel.start('index.html')
+
 while scrapers:
     for scraper in scrapers:
         if scraper.enabled:
@@ -122,3 +131,6 @@ while scrapers:
                 AddArticles(articles, categories)
         else:
             scrapers.pop(scraper)
+
+
+

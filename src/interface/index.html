@@ -2,10 +2,20 @@
 <html>
     <head>
         <title>Scraper Interface</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <meta http-equiv="Content-Security-Policy" content="script-src 'self' http://xxxx 'unsafe-inline' 'unsafe-eval';">
+        <script type="text/javascript" src="/eel.js"></script>
+        <script type="text/javascript" src="/index.js"></script>
     </head>
     <body>
-        <p>Scraper Active</p>
-        <p id="website-count"> Scraping ... websites </p>
+        <div class="content" id="title-div">
+            <h2>Scraper Active</h2>
+            <p id="website-count"> Scraping ... websites </p>
+            <button class="action-button" id="start-scraping">Start scraping</button>
+            <button class="action-button" id="manage-sources">Manage sources</button>
+        </div>
+
+
 
         <iframe src="http://localhost:5601/app/dashboards#/view/58e94720-6ec1-11ed-8097-5d04160d4074?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-1M%2Cto%3Anow))&hide-filter-bar=true" height="1080" width="1920"></iframe>
 </html>
