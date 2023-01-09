@@ -199,3 +199,4 @@
 ### 8 Jan 2023
 * *2 hour* Refactoring code and allowing for bulk classification and insertion
 * *2 hour* Troubleshooting issues with scraper
+* *0.5 hour* More work with bug fixing

@@ -89,7 +89,7 @@ class Scraper:
         if not publish_date:
             self.last_scrape_time = datetime.now()
         else:
-            self.last_scrape_time = max(publish_date, self.last_scrape_time)
+            self.last_scrape_time = publish_date
 
 
     def scrape(self):
