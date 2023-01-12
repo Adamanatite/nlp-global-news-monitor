@@ -2,23 +2,22 @@
 <html>
     <head>
         <title>Scraper Interface</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="style.css">
         <!--script type="text/javascript" src="/eel.js"></script-->
         <script type="text/javascript" src="index.js"></script>
     </head>
     <body>
         <div class="content" id="title-div">
-            <h2>Scraper Active</h2>
-            <p id="website-count"> Scraping ... websites </p>
-            <button class="action-button" id="start-scraping">Start scraping</button>
-            <button class="action-button" id="manage-sources">Manage sources</button>
+            <h1>Scraper Active</h2>
+            <h2 id="website-count"> Scraping ... websites </h2>
+            <button class="action-btn toggle-scrape-btn-enabled" id="toggle-scrape-btn" onclick="toggleScraper()">Stop scraping</button>
+            <button class="action-btn" id="manage-sources-btn">Manage sources</button>
             <div class="toggle-box">
-                <button class="action-button" id="toggle-button" onclick="toggleVisualisation()">Show visualisation</button>
+                <button class="action-btn" id="toggle-visualisation-btn" onclick="toggleVisualisation()">Show visualisation</button>
             </div>
         </div>
-
-
-
         <iframe id="kibana-visualisation" src="http://localhost:5601/app/dashboards#/view/58e94720-6ec1-11ed-8097-5d04160d4074?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-1M%2Cto%3Anow))&hide-filter-bar=true" height="1080" width="100%"></iframe>
 </html>
 

@@ -206,3 +206,6 @@
 * *1.5 hour* Meeting prep, frontend work
 * *1 hour* Customer meeting and note collation
 * *1 hour* Work on frontend, python integration now working
+
+### 12 Jan 2023
+* *1.5 hour* Work on UI for scraper web interface

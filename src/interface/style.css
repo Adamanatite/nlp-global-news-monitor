@@ -1,10 +1,44 @@
-.action-button {
+:root {
+    --main-colour: #0c2e8a;
+    --stop-colour: #8a0c0c;
+    --accent-colour: #50d8af;
+    --third-colour: #4f4f4f
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 500;
+    width: 100%;
+    padding: 0%;
+    margin: 0%;
+}
+
+h1 {
+    font-weight: 700;
+    font-size: 3em;
+    color: var(--accent-colour)
+}
+
+h2 {
+    font-weight: 500;
+}
+
+.action-btn {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 500;
+    font-size: 1.1em;
     cursor: pointer;
     height: 60px;
     width: 250px;
     margin: 10px;
     border: none;
     border-radius: 10px;
+    color: white;
+    transition: 0.5s;
+}
+
+.action-btn:hover {
+    transform: scale(1.05);
 }
 
 .content {
@@ -12,12 +46,52 @@
     padding: 10px 30px;
 }
 
-#start-scraping {
-    background-color: aquamarine;
-    cursor: pointer;
+
+
+.toggle-scrape-btn-disabled {
+    background: var(--main-colour);
+    border: 2px solid var(--main-colour);
 }
 
-#manage-sources {
-    background-color: yellow;
-    cursor: pointer;
+.toggle-scrape-btn-disabled:hover {
+    background: none;
+    color: var(--main-colour);
+}
+
+
+
+.toggle-scrape-btn-enabled {
+    background: var(--stop-colour);
+    border: 2px solid var(--stop-colour);
+}
+
+
+
+.toggle-scrape-btn-enabled:hover {
+    background: none;
+    color: var(--stop-colour);
+}
+
+#manage-sources-btn {
+    background-color: var(--accent-colour);
+    border: 2px solid var(--accent-colour);
+}
+
+#manage-sources-btn:hover {
+    background: none;
+    color: var(--accent-colour);
+}
+
+#toggle-visualisation-btn {
+    background-color: var(--third-colour);
+    border: 2px solid var(--third-colour);
+}
+
+#toggle-visualisation-btn:hover {
+    background: none;
+    color: var(--third-colour);
+}
+
+#kibana-visualisation {
+    display: none;
 }
