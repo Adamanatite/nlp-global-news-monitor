@@ -156,7 +156,22 @@ td a:hover {
     padding: 10px 20px;
 }
 
+#manage-content {
+    display: none;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+}
 
 #stale-table td {
     background-color: var(--stale-bg-colour);
+}
+
+.manage-page-btn {
+    margin-top: 40px;
 }

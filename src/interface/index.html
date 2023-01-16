@@ -16,11 +16,104 @@
             <div class="heading-bar"></div>
             <h2 id="subheading"> Scraping ... websites </h2>
             <button class="action-btn homepage-btn disable-btn toggle-scrape-btn-enabled" id="toggle-scrape-btn" onclick="toggleScraper()">Stop scraping</button>
-            <a href="manage.html"><button class="action-btn homepage-btn accent-btn" id="manage-sources-btn">Manage sources</button></a>
+            <button class="action-btn homepage-btn accent-btn" id="manage-sources-btn" onclick="goToManage()">Manage sources</button>
             <div class="toggle-box">
                 <button class="action-btn homepage-btn" id="toggle-visualisation-btn" onclick="toggleVisualisation()">Show visualisation</button>
             </div>
         </div>
         <iframe id="kibana-visualisation" src="http://localhost:5601/app/dashboards#/view/58e94720-6ec1-11ed-8097-5d04160d4074?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-1M%2Cto%3Anow))&hide-filter-bar=true" height="1080" width="100%"></iframe>
+
+        <div class="content" id="manage-content">
+            <h1>Manage page</h1>
+            <div class="heading-bar"></div>
+            <a href="index.html"><button class="action-btn main-btn add-source-btn manage-page-btn" id="add-source-btn">Add source</button></a>
+            <button class="action-btn accent-btn dashboard-btn manage-page-btn" id="dashboard-btn" onclick="goToDashboard()">Back to dashboard</button>
+            <button onclick="addTableRow('stale-table', 'name', '#', 'ES', '99', '3 days ago', true)">Add table row</button>
+            <div id="stale-table-container">
+                <h2 class="table-title">Stale</h2>
+                <div class="heading-bar"></div>
+                <table id="stale-table" cellspacing="0">
+                    <tr>
+                        <th>Source</th>
+                        <th>Language</th>
+                        <th>Articles today</th>
+                        <th>Last article</th>
+                    </tr>
+                    <tr id="bbc-1" class="stale-row">
+                        <td><a href="https://www.bbc.co.uk/news">BBC News</a></td>
+                        <td>EN</td>
+                        <td>150</td>
+                        <td>2 mins ago</td>
+                        <td><button id = "bbc-1-toggle" class="action-btn table-btn disable-btn" onclick="toggleSource(this)">Disable</button></td>
+                        <td><button id = "bbc-1-delete" class="action-btn table-btn delete-btn" onclick="deleteSource(this)">Delete</button></td>
+                    </tr>
+                    <tr id="sina-1" class="stale-row">
+                        <td><a href="https://www.sina.com.cn">Sina</a></td>
+                        <td>ZH</td>
+                        <td>44</td>
+                        <td>3 hours ago</td>
+                        <td><button id = "sina-1-toggle" class="action-btn table-btn disable-btn" onclick="toggleSource(this)">Disable</button></td>
+                        <td><button id = "sina-1-delete" class="action-btn table-btn delete-btn" onclick="deleteSource(this)">Delete</button></td>
+                    </tr>
+                </table>
+            </div>
+            <div id="active-table-container">
+                <h2 class="table-title">Active</h2>
+                <div class="heading-bar"></div>
+                <table id="active-table" cellspacing="0">
+                    <tr>
+                        <th>URL</th>
+                        <th>Language</th>
+                        <th>Articles today</th>
+                        <th>Last article</th>
+                    </tr>
+                    <tr id="cnn">
+                        <td><a href="https://edition.cnn.com">CNN</a></td>
+                        <td>EN</td>
+                        <td>111</td>
+                        <td>2 mins ago</td>
+                        <td><button id = "bbc-2-toggle" class="action-btn table-btn disable-btn" onclick="toggleSource(this)">Disable</button></td>
+                        <td><button id = "bbc-2-delete" class="action-btn table-btn delete-btn" onclick="deleteSource(this)">Delete</button></td>
+                    </tr>
+                    <tr id="ria-novosti">
+                        <td><a href="https://ria.ru">RIA Novosti</a></td>
+                        <td>RU</td>
+                        <td>67</td>
+                        <td>5 mins ago</td>
+                        <td><button id = "sina-2-toggle" class="action-btn table-btn disable-btn" onclick="toggleSource(this)">Disable</button></td>
+                        <td><button id = "sina-2-delete" class="action-btn table-btn delete-btn" onclick="deleteSource(this)">Delete</button></td>
+                    </tr>
+                </table>
+            </div>
+            <div id="disabled-table-container">
+                <h2 class="table-title">Disabled</h2>
+                <div class="heading-bar"></div>
+                <table id="disabled-table" cellspacing="0">
+                    <tr>
+                        <th>URL</th>
+                        <th>Language</th>
+                        <th>Articles today</th>
+                        <th>Last article</th>
+                    </tr>
+                    <tr id="folha">
+                        <td><a href="https://www1.folha.uol.com.br/internacional/en/">Folha</a></td>
+                        <td>PT</td>
+                        <td>--</td>
+                        <td>2 weeks ago</td>
+                        <td><button id = "bbc-3-toggle" class="action-btn table-btn accent-btn" onclick="toggleSource(this)">Enable</button></td>
+                        <td><button id = "bbc-3-delete" class="action-btn table-btn delete-btn" onclick="deleteSource(this)">Delete</button></td>
+                    </tr>
+                    <tr id="chosun-ilbo">
+                        <td><a href="https://www1.folha.uol.com.br/internacional/en/">Chosun Ilbo</a></td>
+                        <td>KO</td>
+                        <td>--</td>
+                        <td>Yesterday</td>
+                        <td><button id = "sina-3-toggle" class="action-btn table-btn accent-btn" onclick="toggleSource(this)">Enable</button></td>
+                        <td><button id = "sina-3-delete" class="action-btn table-btn delete-btn" onclick="deleteSource(this)">Delete</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
 </html>
 

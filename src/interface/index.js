@@ -59,6 +59,7 @@ function toggleSource(btn){
     btn.classList.add("toggle-source-btn-disabled")
     btn.classList.add("accent-btn")
     btn.innerHTML = "Enable"
+    moveTable(btn, "disabled-table")
   }
   else {
     btn.classList.remove("toggle-source-btn-disabled")
@@ -66,20 +67,15 @@ function toggleSource(btn){
     btn.classList.add("toggle-source-btn-enabled")
     btn.classList.add("disable-btn")
     btn.innerHTML = "Disable"
+    //TODO: Check for staleness
+    moveTable(btn, "active-table")
   }
   // TODO: Actually toggle source
 }
 
 function deleteSource(btn) {
-  console.log(btn.parentElement.parentElement.parentElement.parentElement.nodeName)
   let row = btn.parentElement.parentElement
-  let table = row.parentElement.parentElement
-  row.remove()
-  var n = table.rows.length
-  if (n === 1){
-    table.parentElement.remove()
-  }
-  console.log(n)
+  deleteRow(row)
   //var n = 
   //TODO: Actually delete source
 }
@@ -95,4 +91,82 @@ function toggleVisualisation(){
         v.style.display = "none";
         b.innerHTML = "Show visualisation";
       }
+}
+
+// Adapted from https://www.w3schools.com/jsref/met_table_insertrow.asp
+function addTableRow(table_id, name, url, lang, no_articles, last, isEnabled) {
+  var table = document.getElementById(table_id);
+  if (!table){
+    addTable(table_id)
+    table = document.getElementById(table_id);
+  }
+  var row = table.insertRow(1);
+  var srcCell = row.insertCell(0);
+  var langCell = row.insertCell(1);
+  var articlesCell = row.insertCell(2);
+  var lastCell = row.insertCell(3);
+  var disableCell = row.insertCell(4);
+  var deleteCell = row.insertCell(5);
+
+
+  srcCell.innerHTML = `<a href="${url}">${name}</a>`;
+  langCell.innerHTML = lang;
+  articlesCell.innerHTML = no_articles
+  lastCell.innerHTML = last
+  lower = name.toLowerCase()
+  if (isEnabled){
+    disableCell.innerHTML = `<td><button id = "${lower}-toggle" class="action-btn table-btn disable-btn" onclick="toggleSource(this)">Disable</button></td>`
+  } else {
+    disableCell.innerHTML = `<td><button id = "${lower}-toggle" class="action-btn table-btn accent-btn" onclick="toggleSource(this)">Enable</button></td>`
+  }
+
+  deleteCell.innerHTML = `<td><button id = "${lower}-delete" class="action-btn table-btn delete-btn" onclick="deleteSource(this)">Delete</button></td>`
+}
+
+function addTable(table_id){
+  // Adapted from https://flexiple.com/javascript/javascript-capitalize-first-letter/
+  let title = table_id.charAt(0).toUpperCase() + table_id.substring(1, table_id.length - 6)
+  tableHTML = `            <h2 class="table-title">${title}</h2>
+  <div class="heading-bar"></div>
+  <table id="${table_id}" cellspacing="0">
+      <tr>
+          <th>Source</th>
+          <th>Language</th>
+          <th>Articles today</th>
+          <th>Last article</th>
+      </tr>
+  </table>`
+
+  let div = document.getElementById(table_id + "-container");
+  if(div){
+    div.innerHTML = tableHTML
+  }
+
+}
+
+function deleteRow(row){
+  let table = row.parentElement.parentElement
+  row.remove()
+  var n = table.rows.length
+  if (n === 1){
+    table.parentElement.innerHTML = ""
+  }
+}
+
+function moveTable(btn, to_table){
+  let row = btn.parentElement.parentElement;
+  var source = row.cells[0].firstChild;
+
+  console.log("BBC News Swahili".toLowerCase().replace(/ /g, "-"))
+
+  addTableRow(to_table, source.innerHTML, source.href, row.cells[1].innerHTML, row.cells[2].innerHTML, row.cells[3].innerHTML, row.cells[4].firstChild.classList.contains("disable-btn"));
+  deleteRow(btn.parentElement.parentElement);
+}
+
+function goToDashboard(){
+  document.getElementById("manage-content").style.display = "none"
+}
+
+function goToManage(){
+  document.getElementById("manage-content").style.display = "block"
 }

@@ -213,3 +213,6 @@
 ### 15 Jan 2023
 * *1 hour^ Work on the managing sources page
 * *2.5 hour* Work on GUI and javascript events
+
+### 16 Jan 2023
+* *2 hour* Work on Javascript functions for interactive dashboard page
