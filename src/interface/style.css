@@ -1,8 +1,12 @@
 :root {
     --main-colour: #0c2e8a;
-    --stop-colour: #8a0c0c;
+    --disable-colour: #f33434;
+    --delete-colour: #c10909;
     --accent-colour: #50d8af;
-    --third-colour: #4f4f4f
+    --accent-highlight-colour: #239b77;
+    --third-colour: #4f4f4f;
+    --stale-bg-colour: #fdffb0;
+    --stale-bg-colour-2: #fcffa4;
 }
 
 body {
@@ -16,8 +20,18 @@ body {
 h1 {
     font-weight: 700;
     font-size: 3em;
-    color: var(--accent-colour)
+    color: var(--main-colour)
 }
+
+.heading-bar {
+    display: block;
+    margin: auto;
+    width: 150px;
+    height: 5px;
+    background: var(--accent-colour);
+    border-radius: 10px;
+    margin-top: -10px;
+  }
 
 h2 {
     font-weight: 500;
@@ -26,11 +40,7 @@ h2 {
 .action-btn {
     font-family: 'Open Sans', sans-serif;
     font-weight: 500;
-    font-size: 1.1em;
     cursor: pointer;
-    height: 60px;
-    width: 250px;
-    margin: 10px;
     border: none;
     border-radius: 10px;
     color: white;
@@ -41,43 +51,54 @@ h2 {
     transform: scale(1.05);
 }
 
+.homepage-btn {
+    height: 60px;
+    width: 250px;
+    margin: 10px;
+    font-size: 1.1em;
+}
+
 .content {
     text-align: center;
     padding: 10px 30px;
 }
 
-
-
-.toggle-scrape-btn-disabled {
+.main-btn{
     background: var(--main-colour);
     border: 2px solid var(--main-colour);
 }
 
-.toggle-scrape-btn-disabled:hover {
+.main-btn:hover{
     background: none;
     color: var(--main-colour);
 }
 
-
-
-.toggle-scrape-btn-enabled {
-    background: var(--stop-colour);
-    border: 2px solid var(--stop-colour);
+.disable-btn {
+    background: var(--disable-colour);
+    border: 2px solid var(--disable-colour);
 }
 
-
-
-.toggle-scrape-btn-enabled:hover {
+.disable-btn:hover {
     background: none;
-    color: var(--stop-colour);
+    color: var(--disable-colour);
 }
 
-#manage-sources-btn {
+.delete-btn {
+    background: var(--delete-colour);
+    border: 2px solid var(--delete-colour);
+}
+
+.delete-btn:hover {
+    background: none;
+    color: var(--delete-colour);
+}
+
+.accent-btn {
     background-color: var(--accent-colour);
     border: 2px solid var(--accent-colour);
 }
 
-#manage-sources-btn:hover {
+.accent-btn:hover {
     background: none;
     color: var(--accent-colour);
 }
@@ -94,4 +115,48 @@ h2 {
 
 #kibana-visualisation {
     display: none;
+}
+
+table {
+    margin: auto;
+    max-width: 100%;
+}
+
+td, th {
+    padding: 5px 10px;
+    text-overflow: ellipsis;
+}
+
+.table-btn {
+    font-size: 0.9em;
+    padding: 8px 25px;
+}
+
+.table-title {
+    color: var(--main-colour);
+    font-weight: 700;
+    font-size: 1.7em;
+}
+
+td a {
+    color: var(--accent-colour)
+}
+
+td a:hover {
+    color: var(--accent-highlight-colour)
+}
+
+.dashboard-btn {
+    font-size: 1.5em;
+    padding: 10px 20px;
+}
+
+.add-source-btn {
+    font-size: 1.5em;
+    padding: 10px 20px;
+}
+
+
+#stale-table td {
+    background-color: var(--stale-bg-colour);
 }

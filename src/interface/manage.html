@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Scraper Interface</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <!--script type="text/javascript" src="/eel.js"></script-->
+        <script type="text/javascript" src="index.js"></script>
+    </head>
+    <body>
+    <div class="content" id="title-div">
+        <h1>Manage page</h1>
+        <a href="index.html"><button class="action-btn main-btn add-source-btn" id="dashboard-btn">Add source</button></a>
+        <a href="index.html"><button class="action-btn accent-btn dashboard-btn" id="dashboard-btn">Back to dashboard</button></a>
+        <div id="stale-table">
+            <h2 class="table-title">Stale</h2>
+            <div class="heading-bar"></div>
+            <table cellspacing="0">
+                <tr>
+                    <th>Source</th>
+                    <th>Language</th>
+                    <th>Articles today</th>
+                    <th>Last article</th>
+                </tr>
+                <tr id="bbc-1" class="stale-row">
+                    <td><a href="#">BBC</a></td>
+                    <td>EN</td>
+                    <td>150</td>
+                    <td>2 mins ago</td>
+                    <td><button id = "bbc-1-toggle" class="action-btn table-btn disable-btn" onclick="toggleSource(this)">Disable</button></td>
+                    <td><button id = "bbc-1-delete" class="action-btn table-btn delete-btn" onclick="deleteSource(this)">Delete</button></td>
+                </tr>
+                <tr id="sina-1" class="stale-row">
+                    <td>www.sina.cn</td>
+                    <td>ZH</td>
+                    <td>44</td>
+                    <td>Yesterday</td>
+                    <td><button id = "sina-1-toggle" class="action-btn table-btn disable-btn" onclick="toggleSource(this)">Disable</button></td>
+                    <td><button id = "sina-1-delete" class="action-btn table-btn delete-btn" onclick="deleteSource(this)">Delete</button></td>
+                </tr>
+            </table>
+        </div>
+        <div id="active-table">
+            <h2 class="table-title">Active</h2>
+            <div class="heading-bar"></div>
+            <table cellspacing="0">
+                <tr>
+                    <th>URL</th>
+                    <th>Language</th>
+                    <th>Articles today</th>
+                    <th>Last article</th>
+                </tr>
+                <tr id="bbc-2">
+                    <td>www.bbc.co.uk</td>
+                    <td>EN</td>
+                    <td>150</td>
+                    <td>2 mins ago</td>
+                    <td><button id = "bbc-2-toggle" class="action-btn table-btn disable-btn" onclick="toggleSource(this)">Disable</button></td>
+                    <td><button id = "bbc-2-delete" class="action-btn table-btn delete-btn" onclick="deleteSource(this)">Delete</button></td>
+                </tr>
+                <tr id="sina-2">
+                    <td>www.sina.cn</td>
+                    <td>ZH</td>
+                    <td>44</td>
+                    <td>Yesterday</td>
+                    <td><button id = "sina-2-toggle" class="action-btn table-btn disable-btn" onclick="toggleSource(this)">Disable</button></td>
+                    <td><button id = "sina-2-delete" class="action-btn table-btn delete-btn" onclick="deleteSource(this)">Delete</button></td>
+                </tr>
+            </table>
+        </div>
+        <div id="disabled-table">
+            <h2 class="table-title">Disabled</h2>
+            <div class="heading-bar"></div>
+            <table cellspacing="0">
+                <tr>
+                    <th>URL</th>
+                    <th>Language</th>
+                    <th>Articles today</th>
+                    <th>Last article</th>
+                </tr>
+                <tr id="bbc-3">
+                    <td>www.bbc.co.uk</td>
+                    <td>EN</td>
+                    <td>150</td>
+                    <td>2 mins ago</td>
+                    <td><button id = "bbc-3-toggle" class="action-btn table-btn accent-btn" onclick="toggleSource(this)">Enable</button></td>
+                    <td><button id = "bbc-3-delete" class="action-btn table-btn delete-btn" onclick="deleteSource(this)">Delete</button></td>
+                </tr>
+                <tr id="sina-3">
+                    <td>www.sina.cn</td>
+                    <td>ZH</td>
+                    <td>44</td>
+                    <td>Yesterday</td>
+                    <td><button id = "sina-3-toggle" class="action-btn table-btn accent-btn" onclick="toggleSource(this)">Enable</button></td>
+                    <td><button id = "sina-3-delete" class="action-btn table-btn delete-btn" onclick="deleteSource(this)">Delete</button></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</html>
+

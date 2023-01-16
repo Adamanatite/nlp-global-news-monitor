@@ -10,12 +10,15 @@
     </head>
     <body>
         <div class="content" id="title-div">
-            <h1>Scraper Active</h2>
-            <h2 id="website-count"> Scraping ... websites </h2>
-            <button class="action-btn toggle-scrape-btn-enabled" id="toggle-scrape-btn" onclick="toggleScraper()">Stop scraping</button>
-            <button class="action-btn" id="manage-sources-btn">Manage sources</button>
+            <h1>
+                Scraper Active
+            </h1>
+            <div class="heading-bar"></div>
+            <h2 id="subheading"> Scraping ... websites </h2>
+            <button class="action-btn homepage-btn disable-btn toggle-scrape-btn-enabled" id="toggle-scrape-btn" onclick="toggleScraper()">Stop scraping</button>
+            <a href="manage.html"><button class="action-btn homepage-btn accent-btn" id="manage-sources-btn">Manage sources</button></a>
             <div class="toggle-box">
-                <button class="action-btn" id="toggle-visualisation-btn" onclick="toggleVisualisation()">Show visualisation</button>
+                <button class="action-btn homepage-btn" id="toggle-visualisation-btn" onclick="toggleVisualisation()">Show visualisation</button>
             </div>
         </div>
         <iframe id="kibana-visualisation" src="http://localhost:5601/app/dashboards#/view/58e94720-6ec1-11ed-8097-5d04160d4074?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-1M%2Cto%3Anow))&hide-filter-bar=true" height="1080" width="100%"></iframe>

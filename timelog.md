@@ -209,3 +209,7 @@
 
 ### 12 Jan 2023
 * *1.5 hour* Work on UI for scraper web interface
+
+### 15 Jan 2023
+* *1 hour^ Work on the managing sources page
+* *2.5 hour* Work on GUI and javascript events
