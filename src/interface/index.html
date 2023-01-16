@@ -9,6 +9,7 @@
         <script type="text/javascript" src="index.js"></script>
     </head>
     <body>
+        <div id="homepage-content">
         <div class="content" id="title-div">
             <h1>
                 Scraper Active
@@ -22,9 +23,9 @@
             </div>
         </div>
         <iframe id="kibana-visualisation" src="http://localhost:5601/app/dashboards#/view/58e94720-6ec1-11ed-8097-5d04160d4074?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-1M%2Cto%3Anow))&hide-filter-bar=true" height="1080" width="100%"></iframe>
-
+        </div>
         <div class="content" id="manage-content">
-            <h1>Manage page</h1>
+            <h1>Manage sources</h1>
             <div class="heading-bar"></div>
             <a href="index.html"><button class="action-btn main-btn add-source-btn manage-page-btn" id="add-source-btn">Add source</button></a>
             <button class="action-btn accent-btn dashboard-btn manage-page-btn" id="dashboard-btn" onclick="goToDashboard()">Back to dashboard</button>

@@ -11,9 +11,25 @@
     <body>
     <div class="content" id="title-div">
         <h1>Manage page</h1>
-        <a href="index.html"><button class="action-btn main-btn add-source-btn" id="dashboard-btn">Add source</button></a>
+        <button class="action-btn main-btn add-source-btn" id="dashboard-btn" onclick="toggleAddSource()">Add source</button>
         <a href="index.html"><button class="action-btn accent-btn dashboard-btn" id="dashboard-btn">Back to dashboard</button></a>
         <button onclick="addTableRow('stale-table', 'name', '#', 'ES', '99', '3 days ago', true)">Add table row</button>
+        <div id="toggle-source-box">
+            <h3>Add new source</h3>
+            <form>
+                <label for="url">URL:</label><br>
+                <input type="text" id="url" name="url"><br>
+                <label for="src-name">Name (if known):</label><br>
+                <input type="text" id="src-name" name="src-name"><br>                
+                <label for="language">Language (if known):</label><br>
+                <input type="text" id="language" name="language"><br>
+                <label for="country">Country (if known):</label><br>
+                <input type="text" id="country" name="country"><br>
+                <label for="src-type">Source type (if known):</label><br>
+                <input type="text" id="src-type" name="src-type"><br>
+                <input type="submit" value="Submit">
+              </form>
+        </div>
         <div id="stale-table-container">
             <h2 class="table-title">Stale</h2>
             <div class="heading-bar"></div>

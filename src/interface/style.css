@@ -175,3 +175,7 @@ td a:hover {
 .manage-page-btn {
     margin-top: 40px;
 }
+
+#toggle-source-box {
+    display: none;
+}

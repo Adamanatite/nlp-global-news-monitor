@@ -165,8 +165,19 @@ function moveTable(btn, to_table){
 
 function goToDashboard(){
   document.getElementById("manage-content").style.display = "none"
+  document.getElementById("homepage-content").style.display = "block"
 }
 
 function goToManage(){
   document.getElementById("manage-content").style.display = "block"
+  document.getElementById("homepage-content").style.display = "none"
+}
+
+function toggleAddSource() {
+  var box = document.getElementById("toggle-source-box");
+  if (box.style.display === "block") {
+    box.style.display = "none"
+  } else {
+    box.style.display = "block"
+  }
 }
