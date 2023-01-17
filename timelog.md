@@ -222,3 +222,4 @@
 ### 17 Jan 2023
 * *2 hour* Final touches on UI, started presentation
 * *0.5 hour* Added functionality for adding sources
+* *1.5 hour* Work on presentation and online hosting
