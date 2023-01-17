@@ -38,27 +38,28 @@
                     <input type="text" id="src-name" name="src-name"><br>                
                     <label for="language"><b>Language</b> (if known):</label><br>
                     <select name="language" id="language">
-                        <option value="unknown">Select</option>
-                        <option value="ar">Arabic</option>
-                        <option value="zh">Chinese</option>
-                        <option value="en">English</option>
-                        <option value="fr">French</option>
-                        <option value="id">Indonesian</option>
-                        <option value="ko">Korean</option>
-                        <option value="pt">Portuguese</option>
-                        <option value="ru">Russian</option>
-                        <option value="es">Spanish</option>
-                        <option value="sw">Swahili</option>
+                        <option value="Unknown">Select</option>
+                        <option value="AR">Arabic</option>
+                        <option value="ZH">Chinese</option>
+                        <option value="EN">English</option>
+                        <option value="FR">French</option>
+                        <option value="ID">Indonesian</option>
+                        <option value="KO">Korean</option>
+                        <option value="PT">Portuguese</option>
+                        <option value="RU">Russian</option>
+                        <option value="ES">Spanish</option>
+                        <option value="SW">Swahili</option>
                     </select><br>
-                    <label for="country"><b>Country</b> (if known):</label><br>
-                    <input list="countries"></input><br>
+                    <label for="countries"><b>Country</b> (if known):</label><br>
+                    <input id="countries" list="country-list" ></input><br>
                     <label for="src-type"><b>Source type</b> (if known):</label><br>
                     <select name="src-type" id="src-type">
-                            <option value="unknown">Select</option>
-                            <option value="web-scraper">Website</option>
-                            <option value="rss-atom-feed">RSS/Atom Feed</option>
+                            <option value="Unknown">Select</option>
+                            <option value="Web-scraper">Website</option>
+                            <option value="RSS/Atom-feed">RSS/Atom Feed</option>
                     </select><br>
                   </form>
+                  <p id="error-text">Error: Please enter a URL</p>
                   <button onclick="addSource()" class="action-btn accent-btn" id="add-source-submit-btn">Submit</button>
             </div>
             <div id="stale-table-container">
@@ -147,7 +148,7 @@
             </div>
         </div>
 
-        <datalist id="countries">
+        <datalist id="country-list">
             <option value="Afghanistan">
             <option value="Albania">
             <option value="Algeria">
@@ -187,7 +188,7 @@
             <option value="Colombia">
             <option value="Comoros">
             <option value="Congo">
-            <option value="Congo {Democratic Rep}">
+            <option value="Democratic Republic of Congo">
             <option value="Costa Rica">
             <option value="Croatia">
             <option value="Cuba">
@@ -227,7 +228,7 @@
             <option value="Indonesia">
             <option value="Iran">
             <option value="Iraq">
-            <option value="Ireland {Republic}">
+            <option value="Republic of Ireland">
             <option value="Israel">
             <option value="Italy">
             <option value="Ivory Coast">
@@ -237,8 +238,6 @@
             <option value="Kazakhstan">
             <option value="Kenya">
             <option value="Kiribati">
-            <option value="Korea North">
-            <option value="Korea South">
             <option value="Kosovo">
             <option value="Kuwait">
             <option value="Kyrgyzstan">
@@ -269,7 +268,7 @@
             <option value="Montenegro">
             <option value="Morocco">
             <option value="Mozambique">
-            <option value="Myanmar, {Burma}">
+            <option value="Myanmar">
             <option value="Namibia">
             <option value="Nauru">
             <option value="Nepal">
@@ -279,6 +278,7 @@
             <option value="Niger">
             <option value="Nigeria">
             <option value="Norway">
+            <option value="North Korea">
             <option value="Oman">
             <option value="Pakistan">
             <option value="Palau">
@@ -311,6 +311,7 @@
             <option value="Solomon Islands">
             <option value="Somalia">
             <option value="South Africa">
+            <option value="South Korea">
             <option value="South Sudan">
             <option value="Spain">
             <option value="Sri Lanka">

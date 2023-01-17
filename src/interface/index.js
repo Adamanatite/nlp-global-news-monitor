@@ -92,7 +92,7 @@ function toggleVisualisation(){
 }
 
 // Adapted from https://www.w3schools.com/jsref/met_table_insertrow.asp
-function addTableRow(table_id, name, url, lang, no_articles, last, isEnabled) {
+function addTableRow(table_id, name, url, lang, srcType, last, isEnabled) {
   var table = document.getElementById(table_id);
   if (!table){
     addTable(table_id)
@@ -101,7 +101,7 @@ function addTableRow(table_id, name, url, lang, no_articles, last, isEnabled) {
   var row = table.insertRow(1);
   var srcCell = row.insertCell(0);
   var langCell = row.insertCell(1);
-  var articlesCell = row.insertCell(2);
+  var srcTypeCell = row.insertCell(2);
   var lastCell = row.insertCell(3);
   var disableCell = row.insertCell(4);
   var deleteCell = row.insertCell(5);
@@ -109,7 +109,7 @@ function addTableRow(table_id, name, url, lang, no_articles, last, isEnabled) {
 
   srcCell.innerHTML = `<a href="${url}">${name}</a>`;
   langCell.innerHTML = lang;
-  articlesCell.innerHTML = no_articles
+  srcTypeCell.innerHTML = srcType
   lastCell.innerHTML = last
   lower = name.toLowerCase()
   if (isEnabled){
@@ -185,9 +185,31 @@ function toggleAddSource() {
     btn.classList.add("disable-btn")
     btn.innerHTML = "Cancel"
   }
+
+  document.getElementById("url").value = ""
+  document.getElementById("src-name").value = ""
+  document.getElementById("language").value = "Unknown"
+  document.getElementById("countries").value = "" 
+  document.getElementById("src-type").value = "Unknown" 
+  document.getElementById("error-text").style.display = "none"
 }
 
 function addSource(){
+  let url = document.getElementById("url").value;
+  if(!url){
+    document.getElementById("error-text").style.display = "block";
+    return;
+  }
+  let srcName = document.getElementById("src-name").value
+  if (!srcName){
+    srcName = "Unnamed"
+  }
+  let language = document.getElementById("language").value
+  if (!language){
+    language = "EN"
+  }
+  let srcType = document.getElementById("src-type").value.replace("-", " ")
+
+  addTableRow("active-table", srcName, url, language, srcType, "--", true)
   toggleAddSource();
-  console.log(document.getElementById("language").value)
 }
