@@ -17,17 +17,22 @@
         <div id="toggle-source-box">
             <h3>Add new source</h3>
             <form>
-                <label for="url">URL:</label><br>
+                <label for="url"><b>URL:</b></label><br>
                 <input type="text" id="url" name="url"><br>
-                <label for="src-name">Name (if known):</label><br>
+                <label for="src-name"><b>Name</b> (if known):</label><br>
                 <input type="text" id="src-name" name="src-name"><br>                
-                <label for="language">Language (if known):</label><br>
+                <label for="language"><b>Language</b> (if known):</label><br>
                 <input type="text" id="language" name="language"><br>
-                <label for="country">Country (if known):</label><br>
+                <label for="country"><b>Country</b> (if known):</label><br>
                 <input type="text" id="country" name="country"><br>
-                <label for="src-type">Source type (if known):</label><br>
-                <input type="text" id="src-type" name="src-type"><br>
-                <input type="submit" value="Submit">
+                <label for="src-type"><b>Source type</b> (if known):</label><br>
+                <select name="src-type" id="src-type">
+                        <option value="unknown">Select</option>
+                        <option value="web-scraper">Website</option>
+                        <option value="rss-atom-feed">RSS/Atom Feed</option>
+                </select><br>
+                <button onclick="toggleAddSource()" class="action-btn accent-btn" id="add-source-submit-btn">Submit</button>
+                <input class="action-btn accent-btn" id="add-source-submit-btn" type="submit" value="Submit">
               </form>
         </div>
         <div id="stale-table-container">

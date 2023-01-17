@@ -27,9 +27,40 @@
         <div class="content" id="manage-content">
             <h1>Manage sources</h1>
             <div class="heading-bar"></div>
-            <a href="index.html"><button class="action-btn main-btn add-source-btn manage-page-btn" id="add-source-btn">Add source</button></a>
+            <button class="action-btn main-btn add-source-btn manage-page-btn" id="add-source-btn" onclick="toggleAddSource()">Add source</button>
             <button class="action-btn accent-btn dashboard-btn manage-page-btn" id="dashboard-btn" onclick="goToDashboard()">Back to dashboard</button>
-            <button onclick="addTableRow('stale-table', 'name', '#', 'ES', '99', '3 days ago', true)">Add table row</button>
+            <div id="toggle-source-box">
+                <h3>Add new source</h3>
+                <form>
+                    <label for="url"><b>URL:</b></label><br>
+                    <input type="text" id="url" name="url"><br>
+                    <label for="src-name"><b>Name</b> (if known):</label><br>
+                    <input type="text" id="src-name" name="src-name"><br>                
+                    <label for="language"><b>Language</b> (if known):</label><br>
+                    <select name="language" id="language">
+                        <option value="unknown">Select</option>
+                        <option value="ar">Arabic</option>
+                        <option value="zh">Chinese</option>
+                        <option value="en">English</option>
+                        <option value="fr">French</option>
+                        <option value="id">Indonesian</option>
+                        <option value="ko">Korean</option>
+                        <option value="pt">Portuguese</option>
+                        <option value="ru">Russian</option>
+                        <option value="es">Spanish</option>
+                        <option value="sw">Swahili</option>
+                    </select><br>
+                    <label for="country"><b>Country</b> (if known):</label><br>
+                    <input list="countries"></input><br>
+                    <label for="src-type"><b>Source type</b> (if known):</label><br>
+                    <select name="src-type" id="src-type">
+                            <option value="unknown">Select</option>
+                            <option value="web-scraper">Website</option>
+                            <option value="rss-atom-feed">RSS/Atom Feed</option>
+                    </select><br>
+                  </form>
+                  <button onclick="addSource()" class="action-btn accent-btn" id="add-source-submit-btn">Submit</button>
+            </div>
             <div id="stale-table-container">
                 <h2 class="table-title">Stale</h2>
                 <div class="heading-bar"></div>
@@ -37,13 +68,13 @@
                     <tr>
                         <th>Source</th>
                         <th>Language</th>
-                        <th>Articles today</th>
+                        <th>Source type</th>
                         <th>Last article</th>
                     </tr>
                     <tr id="bbc-1" class="stale-row">
                         <td><a href="https://www.bbc.co.uk/news">BBC News</a></td>
                         <td>EN</td>
-                        <td>150</td>
+                        <td>Web scraper</td>
                         <td>2 mins ago</td>
                         <td><button id = "bbc-1-toggle" class="action-btn table-btn disable-btn" onclick="toggleSource(this)">Disable</button></td>
                         <td><button id = "bbc-1-delete" class="action-btn table-btn delete-btn" onclick="deleteSource(this)">Delete</button></td>
@@ -51,7 +82,7 @@
                     <tr id="sina-1" class="stale-row">
                         <td><a href="https://www.sina.com.cn">Sina</a></td>
                         <td>ZH</td>
-                        <td>44</td>
+                        <td>RSS/Atom feed</td>
                         <td>3 hours ago</td>
                         <td><button id = "sina-1-toggle" class="action-btn table-btn disable-btn" onclick="toggleSource(this)">Disable</button></td>
                         <td><button id = "sina-1-delete" class="action-btn table-btn delete-btn" onclick="deleteSource(this)">Delete</button></td>
@@ -65,13 +96,13 @@
                     <tr>
                         <th>URL</th>
                         <th>Language</th>
-                        <th>Articles today</th>
+                        <th>Source type</th>
                         <th>Last article</th>
                     </tr>
                     <tr id="cnn">
                         <td><a href="https://edition.cnn.com">CNN</a></td>
                         <td>EN</td>
-                        <td>111</td>
+                        <td>Web scraper</td>
                         <td>2 mins ago</td>
                         <td><button id = "bbc-2-toggle" class="action-btn table-btn disable-btn" onclick="toggleSource(this)">Disable</button></td>
                         <td><button id = "bbc-2-delete" class="action-btn table-btn delete-btn" onclick="deleteSource(this)">Delete</button></td>
@@ -79,7 +110,7 @@
                     <tr id="ria-novosti">
                         <td><a href="https://ria.ru">RIA Novosti</a></td>
                         <td>RU</td>
-                        <td>67</td>
+                        <td>RSS/Atom feed</td>
                         <td>5 mins ago</td>
                         <td><button id = "sina-2-toggle" class="action-btn table-btn disable-btn" onclick="toggleSource(this)">Disable</button></td>
                         <td><button id = "sina-2-delete" class="action-btn table-btn delete-btn" onclick="deleteSource(this)">Delete</button></td>
@@ -93,13 +124,13 @@
                     <tr>
                         <th>URL</th>
                         <th>Language</th>
-                        <th>Articles today</th>
+                        <th>Source type</th>
                         <th>Last article</th>
                     </tr>
                     <tr id="folha">
                         <td><a href="https://www1.folha.uol.com.br/internacional/en/">Folha</a></td>
                         <td>PT</td>
-                        <td>--</td>
+                        <td>Web scraper</td>
                         <td>2 weeks ago</td>
                         <td><button id = "bbc-3-toggle" class="action-btn table-btn accent-btn" onclick="toggleSource(this)">Enable</button></td>
                         <td><button id = "bbc-3-delete" class="action-btn table-btn delete-btn" onclick="deleteSource(this)">Delete</button></td>
@@ -107,7 +138,7 @@
                     <tr id="chosun-ilbo">
                         <td><a href="https://www1.folha.uol.com.br/internacional/en/">Chosun Ilbo</a></td>
                         <td>KO</td>
-                        <td>--</td>
+                        <td>Web scraper</td>
                         <td>Yesterday</td>
                         <td><button id = "sina-3-toggle" class="action-btn table-btn accent-btn" onclick="toggleSource(this)">Enable</button></td>
                         <td><button id = "sina-3-delete" class="action-btn table-btn delete-btn" onclick="deleteSource(this)">Delete</button></td>
@@ -115,6 +146,206 @@
                 </table>
             </div>
         </div>
+
+        <datalist id="countries">
+            <option value="Afghanistan">
+            <option value="Albania">
+            <option value="Algeria">
+            <option value="Andorra">
+            <option value="Angola">
+            <option value="Antigua & Deps">
+            <option value="Argentina">
+            <option value="Armenia">
+            <option value="Australia">
+            <option value="Austria">
+            <option value="Azerbaijan">
+            <option value="Bahamas">
+            <option value="Bahrain">
+            <option value="Bangladesh">
+            <option value="Barbados">
+            <option value="Belarus">
+            <option value="Belgium">
+            <option value="Belize">
+            <option value="Benin">
+            <option value="Bhutan">
+            <option value="Bolivia">
+            <option value="Bosnia Herzegovina">
+            <option value="Botswana">
+            <option value="Brazil">
+            <option value="Brunei">
+            <option value="Bulgaria">
+            <option value="Burkina">
+            <option value="Burundi">
+            <option value="Cambodia">
+            <option value="Cameroon">
+            <option value="Canada">
+            <option value="Cape Verde">
+            <option value="Central African Rep">
+            <option value="Chad">
+            <option value="Chile">
+            <option value="China">
+            <option value="Colombia">
+            <option value="Comoros">
+            <option value="Congo">
+            <option value="Congo {Democratic Rep}">
+            <option value="Costa Rica">
+            <option value="Croatia">
+            <option value="Cuba">
+            <option value="Cyprus">
+            <option value="Czech Republic">
+            <option value="Denmark">
+            <option value="Djibouti">
+            <option value="Dominica">
+            <option value="Dominican Republic">
+            <option value="East Timor">
+            <option value="Ecuador">
+            <option value="Egypt">
+            <option value="El Salvador">
+            <option value="Equatorial Guinea">
+            <option value="Eritrea">
+            <option value="Estonia">
+            <option value="Ethiopia">
+            <option value="Fiji">
+            <option value="Finland">
+            <option value="France">
+            <option value="Gabon">
+            <option value="Gambia">
+            <option value="Georgia">
+            <option value="Germany">
+            <option value="Ghana">
+            <option value="Greece">
+            <option value="Grenada">
+            <option value="Guatemala">
+            <option value="Guinea">
+            <option value="Guinea-Bissau">
+            <option value="Guyana">
+            <option value="Haiti">
+            <option value="Honduras">
+            <option value="Hungary">
+            <option value="Iceland">
+            <option value="India">
+            <option value="Indonesia">
+            <option value="Iran">
+            <option value="Iraq">
+            <option value="Ireland {Republic}">
+            <option value="Israel">
+            <option value="Italy">
+            <option value="Ivory Coast">
+            <option value="Jamaica">
+            <option value="Japan">
+            <option value="Jordan">
+            <option value="Kazakhstan">
+            <option value="Kenya">
+            <option value="Kiribati">
+            <option value="Korea North">
+            <option value="Korea South">
+            <option value="Kosovo">
+            <option value="Kuwait">
+            <option value="Kyrgyzstan">
+            <option value="Laos">
+            <option value="Latvia">
+            <option value="Lebanon">
+            <option value="Lesotho">
+            <option value="Liberia">
+            <option value="Libya">
+            <option value="Liechtenstein">
+            <option value="Lithuania">
+            <option value="Luxembourg">
+            <option value="Macedonia">
+            <option value="Madagascar">
+            <option value="Malawi">
+            <option value="Malaysia">
+            <option value="Maldives">
+            <option value="Mali">
+            <option value="Malta">
+            <option value="Marshall Islands">
+            <option value="Mauritania">
+            <option value="Mauritius">
+            <option value="Mexico">
+            <option value="Micronesia">
+            <option value="Moldova">
+            <option value="Monaco">
+            <option value="Mongolia">
+            <option value="Montenegro">
+            <option value="Morocco">
+            <option value="Mozambique">
+            <option value="Myanmar, {Burma}">
+            <option value="Namibia">
+            <option value="Nauru">
+            <option value="Nepal">
+            <option value="Netherlands">
+            <option value="New Zealand">
+            <option value="Nicaragua">
+            <option value="Niger">
+            <option value="Nigeria">
+            <option value="Norway">
+            <option value="Oman">
+            <option value="Pakistan">
+            <option value="Palau">
+            <option value="Palestine">
+            <option value="Panama">
+            <option value="Papua New Guinea">
+            <option value="Paraguay">
+            <option value="Peru">
+            <option value="Philippines">
+            <option value="Poland">
+            <option value="Portugal">
+            <option value="Qatar">
+            <option value="Romania">
+            <option value="Russian Federation">
+            <option value="Rwanda">
+            <option value="St Kitts & Nevis">
+            <option value="St Lucia">
+            <option value="Saint Vincent & the Grenadines">
+            <option value="Samoa">
+            <option value="San Marino">
+            <option value="Sao Tome & Principe">
+            <option value="Saudi Arabia">
+            <option value="Senegal">
+            <option value="Serbia">
+            <option value="Seychelles">
+            <option value="Sierra Leone">
+            <option value="Singapore">
+            <option value="Slovakia">
+            <option value="Slovenia">
+            <option value="Solomon Islands">
+            <option value="Somalia">
+            <option value="South Africa">
+            <option value="South Sudan">
+            <option value="Spain">
+            <option value="Sri Lanka">
+            <option value="Sudan">
+            <option value="Suriname">
+            <option value="Swaziland">
+            <option value="Sweden">
+            <option value="Switzerland">
+            <option value="Syria">
+            <option value="Taiwan">
+            <option value="Tajikistan">
+            <option value="Tanzania">
+            <option value="Thailand">
+            <option value="Togo">
+            <option value="Tonga">
+            <option value="Trinidad & Tobago">
+            <option value="Tunisia">
+            <option value="Turkey">
+            <option value="Turkmenistan">
+            <option value="Tuvalu">
+            <option value="Uganda">
+            <option value="Ukraine">
+            <option value="United Arab Emirates">
+            <option value="United Kingdom">
+            <option value="United States">
+            <option value="Uruguay">
+            <option value="Uzbekistan">
+            <option value="Vanuatu">
+            <option value="Vatican City">
+            <option value="Venezuela">
+            <option value="Vietnam">
+            <option value="Yemen">
+            <option value="Zambia">
+            <option value="Zimbabwe">
+        </datalist>
 
 </html>
 

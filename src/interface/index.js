@@ -76,8 +76,6 @@ function toggleSource(btn){
 function deleteSource(btn) {
   let row = btn.parentElement.parentElement
   deleteRow(row)
-  //var n = 
-  //TODO: Actually delete source
 }
 
 
@@ -175,9 +173,21 @@ function goToManage(){
 
 function toggleAddSource() {
   var box = document.getElementById("toggle-source-box");
+  var btn = document.getElementById("add-source-btn")
   if (box.style.display === "block") {
     box.style.display = "none"
+    btn.classList.remove("disable-btn")
+    btn.classList.add("main-btn")
+    btn.innerHTML = "Add source"
   } else {
     box.style.display = "block"
+    btn.classList.remove("main-btn")
+    btn.classList.add("disable-btn")
+    btn.innerHTML = "Cancel"
   }
+}
+
+function addSource(){
+  toggleAddSource();
+  console.log(document.getElementById("language").value)
 }

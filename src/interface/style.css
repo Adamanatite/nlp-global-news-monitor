@@ -4,6 +4,7 @@
     --delete-colour: #c10909;
     --accent-colour: #50d8af;
     --accent-highlight-colour: #239b77;
+    --form-focus-colour: #50c4d8;
     --third-colour: #4f4f4f;
     --stale-bg-colour: #fdffb0;
     --stale-bg-colour-2: #fcffa4;
@@ -55,7 +56,7 @@ h2 {
     height: 60px;
     width: 250px;
     margin: 10px;
-    font-size: 1.1em;
+    font-size: 1.2em;
 }
 
 .content {
@@ -146,36 +147,49 @@ td a:hover {
     color: var(--accent-highlight-colour)
 }
 
-.dashboard-btn {
-    font-size: 1.5em;
-    padding: 10px 20px;
-}
-
-.add-source-btn {
-    font-size: 1.5em;
-    padding: 10px 20px;
-}
-
-#manage-content {
-    display: none;
-    z-index: 1;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: #ffffff;
-    width: 100%;
-    max-width: 100%;
-    height: 100%;
-}
-
 #stale-table td {
     background-color: var(--stale-bg-colour);
 }
 
 .manage-page-btn {
+    font-size: 1.2em;
+    padding: 10px 20px;
     margin-top: 40px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 #toggle-source-box {
     display: none;
+}
+
+h3 {
+    color: var(--main-colour);
+    font-weight: 700;
+}
+
+#add-source-submit-btn {
+    margin: 10px;
+    padding: 5px 15px;
+}
+
+form input, form select {
+    margin-bottom: 10px;
+    margin-top: 5px;
+    padding: 3px;
+    border: 1px solid #b6b6b6;
+    border-radius: 5px;
+}
+
+#manage-content {
+    display: none;
+}
+
+form label {
+    color: var(--main-colour);
+}
+
+form input:focus, form select:focus {
+    border: 2px solid var(--accent-colour);
+    outline: none;
 }
