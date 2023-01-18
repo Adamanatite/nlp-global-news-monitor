@@ -168,8 +168,12 @@ function deleteRow(row){
 function moveTable(btn, to_table){
   let row = btn.parentElement.parentElement;
   var source = row.cells[0].firstChild;
-
-  addTableRow(to_table, source.innerHTML, source.href, row.cells[1].innerHTML, row.cells[2].innerHTML, row.cells[3].innerHTML, row.cells[4].firstChild.classList.contains("disable-btn"));
+  var last_active = row.cells[3].innerHTML;
+  console.log(last_active)
+  if(to_table === "active-table" && last_active.includes("months")){
+    to_table = "stale-table"
+  }
+  addTableRow(to_table, source.innerHTML, source.href, row.cells[1].innerHTML, row.cells[2].innerHTML, last_active, row.cells[4].firstChild.classList.contains("disable-btn"));
   deleteRow(btn.parentElement.parentElement);
 }
 
