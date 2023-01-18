@@ -227,3 +227,4 @@
 
 ### 18 Jan 2023
 * *1 hour* Connecting kibana embed to site finally works
+* *1 hour* Preparing presentation and modifying kibana dashboard
