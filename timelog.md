@@ -224,3 +224,6 @@
 * *0.5 hour* Added functionality for adding sources
 * *1.5 hour* Work on presentation and online hosting
 * *3 hour* Online hosting of site for presentation
+
+### 18 Jan 2023
+* *1 hour* Connecting kibana embed to site finally works
