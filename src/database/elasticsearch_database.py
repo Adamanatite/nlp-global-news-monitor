@@ -7,6 +7,33 @@ currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
 this_dir = str(parentdir) + "/database/"
 
+
+def ESCloudConnect():
+    # Get data from JSON file
+    with open(this_dir + "data/db_info.json") as f:
+        data = json.load(f)
+
+    ELASTIC_USERNAME = data["username"]
+    ELASTIC_PASSWORD = data["cloud_password"]
+    CERT_PATH = data["cert_path"]
+
+    # Connect to database (adapted from https://www.elastic.co/guide/en/elasticsearch/client/python-api/master/connecting.html)
+    try:
+        es = Elasticsearch(
+        cloud_id='Biocaster_test_kibana:ZXVyb3BlLXdlc3QyLmdjcC5lbGFzdGljLWNsb3VkLmNvbTo0NDMkNzU0ZWQ4N2IzNzkxNGY4OGEyMDIxMjliMzU2YmJjZWUkYTU4M2E3ZWM2YjQ5NDM1YThiMGQ4MjFkOGIwN2I3Yzg=',
+        http_auth=(ELASTIC_USERNAME, ELASTIC_PASSWORD))
+        print("Connected")
+    except Exception as e:
+        print(str(e))
+        return None
+
+    # From https://stackoverflow.com/a/31644507
+    if not es.ping():
+        print("Couldn't connect")
+        return None
+
+    return es   
+
 # Return es connection, or None if it failed
 def ESConnect():
 
@@ -14,17 +41,25 @@ def ESConnect():
     with open(this_dir + "data/db_info.json") as f:
         data = json.load(f)
 
+    USE_CLOUD = data["connection_type"].lower() == "cloud"
     ELASTIC_USERNAME = data["username"]
     ELASTIC_PASSWORD = data["password"]
+    CLOUD_USERNAME = data["cloud_username"]
+    CLOUD_PASSWORD = data["cloud_password"]
     CERT_PATH = data["cert_path"]
 
     # Connect to database (adapted from https://www.elastic.co/guide/en/elasticsearch/client/python-api/master/connecting.html)
     try:
-        es = Elasticsearch(
-        "https://localhost:9200",
-        ca_certs=this_dir + CERT_PATH,
-        basic_auth=(ELASTIC_USERNAME, ELASTIC_PASSWORD)
-        )
+        if USE_CLOUD:
+            es = Elasticsearch(
+            cloud_id='Biocaster_test_kibana:ZXVyb3BlLXdlc3QyLmdjcC5lbGFzdGljLWNsb3VkLmNvbTo0NDMkNzU0ZWQ4N2IzNzkxNGY4OGEyMDIxMjliMzU2YmJjZWUkYTU4M2E3ZWM2YjQ5NDM1YThiMGQ4MjFkOGIwN2I3Yzg=',
+            http_auth=(CLOUD_USERNAME, CLOUD_PASSWORD))
+        else:
+            es = Elasticsearch(
+            "https://localhost:9200",
+            ca_certs=this_dir + CERT_PATH,
+            basic_auth=(ELASTIC_USERNAME, ELASTIC_PASSWORD)
+            )
     except Exception as e:
         print(str(e))
         return None
@@ -190,7 +225,7 @@ def GetSource(url):
 def GetActiveSources(value=True, max_scrapers=1000):
 
     if not es:
-        return
+        return []
 
     query_body = {
         "size": max_scrapers,
@@ -205,7 +240,7 @@ def GetActiveSources(value=True, max_scrapers=1000):
 
     if results["hits"]["hits"]:
         return results["hits"]["hits"]
-    return None
+    return []
 
 def GetArticleURL(url):
     query_body = {

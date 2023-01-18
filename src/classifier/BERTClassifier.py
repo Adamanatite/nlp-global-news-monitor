@@ -4,6 +4,7 @@ from datasets import load_dataset, load_from_disk, DatasetDict, ClassLabel
 import evaluate
 import numpy as np
 import tensorflow as tf
+import random
 
 class BERTClassifier:
 
@@ -135,7 +136,8 @@ class BERTClassifier:
 
     def classify(self, batch):
         if self.model is None:
-            return ["Unknown" for i in range(len(batch))]
+            categories = ["World", "Politics", "Technology", "Entertainment", "Sports", "Business", "Health", "Science"]
+            return [random.choice(categories) for i in range(len(batch))]
         # Do this outside classify method
         classifier = pipeline("text-classification", model=self.path + "trained_model/")
         inputs = [(a[1] + " " + a[2]) for a in batch]
