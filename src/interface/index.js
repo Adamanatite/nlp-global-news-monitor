@@ -1,7 +1,9 @@
 let is_scraping = true
+let n = 4
 
 window.onload = function(){
   document.getElementById("kibana-visualisation").style.display="none";
+  update_text(n)
   //TODO: Find out is_scraping here
   //eel.get_no_sources()(update_text)
 
@@ -12,10 +14,14 @@ function update_text(n){
   sub = document.getElementById("subheading")
 
   if(is_scraping){
-    sub.innerHTML = "Scraping " + n + " sources."
+    if (n===1){
+      sub.innerHTML = "Scraping 1 source"     
+    } else {
+      sub.innerHTML = "Scraping " + n + " sources"
+    }
   }
   else {
-    sub.innerHTML = "Click to enable"
+    sub.innerHTML = "Not currently scraping"
   }
 }
 
@@ -23,18 +29,16 @@ function update_scraper_button() {
   var b = document.getElementById("toggle-scrape-btn")
   var sub = document.getElementById("subheading")
   if (is_scraping){
-    b.innerHTML = "Stop scraping"
-    sub.innerHTML = "Starting up..."
-    b.classList.remove("main-btn")
-    b.classList.add("disable-btn")
+    b.innerHTML = "Stop scraping";
+    b.classList.remove("main-btn");
+    b.classList.add("disable-btn");
   }
   else {
-    b.innerHTML = "Start scraping"
-    sub.innerHTML = "Stopping..."
-    b.classList.remove("disable-btn")
-    b.classList.add("main-btn")
+    b.innerHTML = "Start scraping";
+    b.classList.remove("disable-btn");
+    b.classList.add("main-btn");
   }
-
+  update_text(n);
 }
 
 function toggleScraper() {
@@ -60,6 +64,8 @@ function toggleSource(btn){
     btn.classList.add("accent-btn")
     btn.innerHTML = "Enable"
     moveTable(btn, "disabled-table")
+    n = n - 1;
+    update_text(n)
   }
   else {
     btn.classList.remove("toggle-source-btn-disabled")
@@ -69,13 +75,21 @@ function toggleSource(btn){
     btn.innerHTML = "Disable"
     //TODO: Check for staleness
     moveTable(btn, "active-table")
+    n = n + 1;
+    update_text(n)
   }
   // TODO: Actually toggle source
 }
 
 function deleteSource(btn) {
   let row = btn.parentElement.parentElement
+  let table = row.parentElement.parentElement
+  console.log(table.id)
   deleteRow(row)
+  if(!(table.id === "disabled-table")){
+    n = n - 1;
+    update_text(n)
+  }
 }
 
 
@@ -155,8 +169,6 @@ function moveTable(btn, to_table){
   let row = btn.parentElement.parentElement;
   var source = row.cells[0].firstChild;
 
-  console.log("BBC News Swahili".toLowerCase().replace(/ /g, "-"))
-
   addTableRow(to_table, source.innerHTML, source.href, row.cells[1].innerHTML, row.cells[2].innerHTML, row.cells[3].innerHTML, row.cells[4].firstChild.classList.contains("disable-btn"));
   deleteRow(btn.parentElement.parentElement);
 }
@@ -209,6 +221,9 @@ function addSource(){
     language = "EN"
   }
   let srcType = document.getElementById("src-type").value.replace("-", " ")
+
+  n = n + 1;
+  update_text(n)
 
   addTableRow("active-table", srcName, url, language, srcType, "--", true)
   toggleAddSource();
