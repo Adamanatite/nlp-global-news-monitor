@@ -230,3 +230,6 @@
 * *1 hour* Preparing presentation and modifying kibana dashboard
 * *2 hour* Changing presentation based on supervisor feedback and writing questionnaire
 * *0.5 hour* Meeting with biocaster team
+
+### 22 Jan 2023
+* *0.5 hour* Work on translation of dataset
