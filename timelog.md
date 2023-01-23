@@ -233,3 +233,7 @@
 
 ### 22 Jan 2023
 * *0.5 hour* Work on translation of dataset
+
+### 23 Jan 2023
+* *0.5 hour* More work on translation, meeting preparation
+* *0.5 hour* Supervisor meeting and note collation
