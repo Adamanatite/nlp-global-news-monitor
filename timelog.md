@@ -240,3 +240,6 @@
 
 ### 29 Jan 2023
 * *2.5 hour* Research into news classification and writing of experiment setting
+
+### 30 Jan 2023
+* *2 hour* Further research and beginning full write-up of experiment setting
