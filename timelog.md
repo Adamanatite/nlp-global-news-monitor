@@ -237,3 +237,6 @@
 ### 23 Jan 2023
 * *0.5 hour* More work on translation, meeting preparation
 * *0.5 hour* Supervisor meeting and note collation
+
+### 29 Jan 2023
+* *2.5 hour* Research into news classification and writing of experiment setting
