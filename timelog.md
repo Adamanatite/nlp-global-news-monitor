@@ -243,3 +243,6 @@
 
 ### 30 Jan 2023
 * *2 hour* Further research and beginning full write-up of experiment setting
+* *0.5 hour* Completing write-up for experiment setting
+* *0.5 hour* Supervisor meeting preparation
+* *0.5 hour* Supervisor meeting and note collation
