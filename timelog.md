@@ -201,6 +201,8 @@
 * *2 hour* Troubleshooting issues with scraper
 * *1 hour* More work with bug fixing
 
+## Week 17
+
 ### 9 Jan 2023
 * *2 hour* Work on web interface, not much progress, trouble authenticating kibana
 * *1.5 hour* Meeting prep, frontend work
@@ -213,6 +215,8 @@
 ### 15 Jan 2023
 * *1 hour^ Work on the managing sources page
 * *2.5 hour* Work on GUI and javascript events
+
+## Week 18
 
 ### 16 Jan 2023
 * *2 hour* Work on Javascript functions for interactive dashboard page
@@ -234,6 +238,8 @@
 ### 22 Jan 2023
 * *0.5 hour* Work on translation of dataset
 
+## Week 19
+
 ### 23 Jan 2023
 * *0.5 hour* More work on translation, meeting preparation
 * *0.5 hour* Supervisor meeting and note collation
@@ -241,8 +247,13 @@
 ### 29 Jan 2023
 * *2.5 hour* Research into news classification and writing of experiment setting
 
+## Week 19
+
 ### 30 Jan 2023
 * *2 hour* Further research and beginning full write-up of experiment setting
 * *0.5 hour* Completing write-up for experiment setting
 * *0.5 hour* Supervisor meeting preparation
 * *0.5 hour* Supervisor meeting and note collation
+
+### 5 Feb 2023
+* *1 hour* Research into datasets and classification methods
