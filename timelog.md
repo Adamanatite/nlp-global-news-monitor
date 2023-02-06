@@ -247,7 +247,7 @@
 ### 29 Jan 2023
 * *2.5 hour* Research into news classification and writing of experiment setting
 
-## Week 19
+## Week 20
 
 ### 30 Jan 2023
 * *2 hour* Further research and beginning full write-up of experiment setting
@@ -257,3 +257,11 @@
 
 ### 5 Feb 2023
 * *1 hour* Research into datasets and classification methods
+* 1 hour* Began write-up on background research
+
+## Week 21
+
+### 6 Feb 2023
+* *3 hour* Write-up on background research and design choices
+* *1 hour* Further write=ip, supervisor meeting preparation
+* *0.5 hour* Supervisor meeting and note collation

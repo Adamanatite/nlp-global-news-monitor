@@ -1,7 +1,7 @@
 % REMEMBER: You must not plagiarise anything in your report. Be extremely careful.
 
 \documentclass{l4proj}
-
+\graphicspath{ {./images/} }
     
 %
 % put any additional packages here
@@ -11,9 +11,9 @@
 
 %==============================================================================
 %% METADATA
-\title{Level 4 Project Report Template}
-\author{John H. Williamson}
-\date{September 14, 2018}
+\title{Multilingual News Collection and Classification}
+\author{Adam Fairlie}
+\date{January 30, 2023}
 
 \maketitle
 
@@ -92,9 +92,23 @@ Why should the reader care about what are you doing and what are you actually do
 \chapter{Background and Research}
 What did other people do, and how is it relevant to what you want to do?
 \section{International News Sources}
-\section{Existing Web Scraping Technologies}
-\section{Scheduling Technologies / Approaches}
-\section{Database and Visualiation Technologies}
+\section{Web Scraping Technologies}
+The main free and open-source technologies for scraping news articles from websites in Python were Newspaper3K and news-please, which is built on top of Newspaper3K and adds some extra features. \citep{newspaper3k, news-please} Another option considered was Newscatcher \citep{newscatcher}, but the free API is limited in how many calls can be made and this made it unsuitable for this project. Finally, I looked at pygooglenews \citep{pygooglenews} which provided some promise in using google news to find articles under certain subjects, keywords, languages and regions. For this project, I found it desirable to have better control of the exact sources collected, instead of filtering through keywords and relying on Google's source selection, but a scraper using this library could easily be added to extend the capabilities of the current system. I decided to move forward with the former two libraries and conducted an experiment to compare their capabilities. \par
+
+I compared the features present in each of the two libraries. Notably, Newspaper3K can perform full website scraping in Python, whereas news-please can only do this using its Command Line Interface (CLI). I attempted to scrape 3 articles from each of the 109 previously selected websites, across 10 languages, and compared the number of successful scrapes (without error) and the average speed. The results are shown below: \par 
+(Results table) \par
+Newspaper3K scraped 103 of the 109 websites (94.5\%) without error, whereas news-please scraped 102/109 (93.58\%). The average scraping times are similar in both libraries, but Newspaper3K was faster at scraping in 8 of the 10 languages, and average scraping time per article was 14.82\% lower, Based on these factors, I chose to use Newspaper3K for the scraping system.
+
+\section{Database and Visualisation}
+The visualisation was mainly inspired by the current \cite{biocaster} interface, available on their website. This design had to be updated to reflect the changes from my project to the current system, including the addition of news article topics and different source types of information retrieved. I also did not have the specific region or disease information to create the alerts seen on the BioCaster interface. In addition, I chose to change the article density to cover the whole country, to make the source of the data more visible (so that it does not obstruct the view of other countries) and created a monochromatic green colour map, where darker colours represented more articles retrieved as is common practice in world density maps \citep{ourworldindata_density, ons_density}.
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{/biocaster_interface.png}
+\caption{BioCaster Kibana Visualisation (from the homepage)}
+\label{fig:biocaster}
+\end{figure}
+\par
+The BioCaster visualisations are created using the Elastic stack, storing the data with elasticsearch and creating visualisations using Elastic Kibana \citep{elastic_stack}. After originally using MySQL with the Python MySQL connector to store the data from the scraping system, and considering standard python visualisation libraries such as matplotlib \citep{Hunter:2007} and geoplotlib \citep{geoplotlib} for geographical data, I decided to also use the Elastic stack, using the elasticsearch Python library to integrate the scraping system into the database.
+
 \section{News Article Classification}
 \subsection{Datasets}
 \subsection{Models}
@@ -117,12 +131,24 @@ What did other people do, and how is it relevant to what you want to do?
 \section{Web Scraping System}
 \section{Database}
 \section{Visualisations}
+
 \section{News Article Classification}
+\subsection{Research Questions}
+The research question I aim to answer is \emph{"Are multilingual models effective for multilingual multi-topic news classification?"}
+\subsection{Data Collection}
+Data will be collected through the scraping system previously developed, using articles which have been labelled by the source as one of 6 categories: Health, Sports, Entertainment, Business/Finance, Politics and Technology. For some sources, categories with similar names (e.g. "Wellness" and "Health") have been merged. A full list of sources and category keywords used can be found in the appendices.
+\subsection{Model and Parameter Choices}
+Previous research for monolingual research has shown that Multinomial Naive Bayes models have been effective in multi-topic news classification. I will optimise the alpha (smoothing) parameter through a randomised grid search. I will compare this model to a fine-tuned uncased BERT model. For multilingual classification, I will compare 2 fine-tuned BERT-based models: Multilingual uncased BERT and XML-RoBERTa.
+\subsection{Data Transformations}
+In the case of the monolingual models, sentences will be translated into English before classification. As is common in article classification research, the article headline and body will be concatenated into one column. In the Naive Bayes model, words will be tokenised and stemmed, and tokens will be converted into TF-IDF feature vectors. In the deep learning models (Monolingual/multilingual bert, XML-RoBERTa) The text will be converted into word embeddings by the BERT tokeniser. In all cases, data will be truncated to 256 tokens, and padded if necessary.
+\subsection{Evaluation}
+The performance of each model will be evaluated on its accuracy and micro-f1 score. Confusion matrices for each model type will also be shown in the appendices. I will use a most frequent dummy classifier as a baseline for model effectiveness.
+
 \section{Web Interface}
 %==================================================================================================================================
 \chapter{Evaluation}
 \section{Automatic Web Scraping System}
-\section{News Article Classification} 
+\section{News Article Classification}
 \section{Web Interface and Visualisations}
 \subsection{Accessibility}
 \subsection{Usability Testing}
@@ -136,13 +162,12 @@ Summarise the whole project for a lazy reader who didn't read the rest (e.g. a p
 %==================================================================================================================================
 %  APPENDICES  
 \begin{appendices}
-\chapter{Appendices}
+
 \end{appendices}
 
 %==================================================================================================================================
 %   BIBLIOGRAPHY   
 \bibliographystyle{abbrvnat}
-
 \bibliography{l4proj}
 
 \end{document}
