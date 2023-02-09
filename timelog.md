@@ -263,5 +263,8 @@
 
 ### 6 Feb 2023
 * *3 hour* Write-up on background research and design choices
-* *1 hour* Further write=ip, supervisor meeting preparation
+* *1 hour* Further write-up, supervisor meeting preparation
 * *0.5 hour* Supervisor meeting and note collation
+
+### 9 Feb 2023
+* *0.5 hour* Research into news sources and techniques for scraping dataset
