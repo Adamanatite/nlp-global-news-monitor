@@ -268,3 +268,7 @@
 
 ### 9 Feb 2023
 * *0.5 hour* Research into news sources and techniques for scraping dataset
+
+### 11 Feb 2023
+* *0.5 hour* Work on writing a script to find sources to scrape
+* *2 hour^ Compiling sources to scrape manually
