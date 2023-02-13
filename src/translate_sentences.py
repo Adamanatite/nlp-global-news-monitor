@@ -46,11 +46,11 @@ for lang in languages:
                 if i % 25 == 0:
                     print("i=", i)
                 translation = translator.translate(batches[i], src="en", dest=lang).text
-                f.write(translation + "//")
-                i += 1
+                f.write(translation + "\n")
                 if last_error:
                     print(i, "fixed")
                 last_error = False
+                i += 1
             except Exception as e:
                 print(i, str(e))
                 time.sleep(3)
