@@ -44,8 +44,16 @@ https://www.lexpress.fr/culture/cinema/
 https://www.lapresse.ca/arts/rss
 https://www.ledevoir.com/rss/section/culture.xml?id=48
 https://lapresse.tn/category/culture/feed/
-
+https://www.europe1.fr/rss/culture.xml
 ES:
+https://e00-elmundo.uecdn.es/elmundo/rss/ciencia.xml
+https://e00-elmundo.uecdn.es/elmundo/rss/television.xml
+http://www.abc.es/rss/feeds/abc_Cultura.xml
+http://www.abc.es/rss/feeds/abc_Libros.xml
+http://www.abc.es/rss/feeds/abc_Teatro.xml
+http://www.abc.es/rss/feeds/abc_Arte.xml
+https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/cultura/portada
+https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/television/portada
 
 PT:
 
@@ -101,8 +109,20 @@ https://www.liberation.fr/sports/
 https://www.lapresse.ca/sports/rss
 https://www.ledevoir.com/rss/section/sports.xml?id=85
 https://lapresse.tn/category/sport/feed/
-
+https://www.europe1.fr/rss/sport.xml
 ES:
+https://e00-elmundo.uecdn.es/elmundodeporte/rss/portada.xml
+https://e00-elmundo.uecdn.es/elmundodeporte/rss/futbol.xml
+https://e00-elmundo.uecdn.es/elmundodeporte/rss/baloncesto.xml
+https://e00-elmundo.uecdn.es/elmundodeporte/rss/ciclismo.xml
+https://e00-elmundo.uecdn.es/elmundodeporte/rss/golf.xml
+https://e00-elmundo.uecdn.es/elmundodeporte/rss/tenis.xml
+http://www.abc.es/rss/feeds/abc_Deportes.xml
+http://www.abc.es/rss/feeds/abc_Futbol.xml
+http://www.abc.es/rss/feeds/abc_Baloncesto.xml
+http://www.abc.es/rss/feeds/abc_Tenis.xml
+http://www.abc.es/rss/feeds/abc_Automovilismo.xml
+https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/deportes/portada
 
 PT:
 
@@ -138,8 +158,7 @@ https://www.liberation.fr/politique/
 https://www.lexpress.fr/politique/
 https://www.lapresse.ca/actualites/politique/rss
 https://www.ledevoir.com/rss/section/politique.xml?id=51
-
-
+https://www.europe1.fr/rss/politique.xml
 ES:
 
 PT:
@@ -176,9 +195,14 @@ https://www.lefigaro.fr/rss/figaro_secteur_high-tech.xml
 https://www.lexpress.fr/economie/high-tech/
 https://www.lapresse.ca/affaires/techno/rss
 https://www.ledevoir.com/rss/section/societe/science.xml
-
+https://www.europe1.fr/rss/technologies.xml
+https://www.europe1.fr/rss/sciences.xml
 ES:
-
+https://e00-elmundo.uecdn.es/elmundo/rss/ciencia.xml
+http://www.abc.es/rss/feeds/abc_Ciencia.xml
+http://www.abc.es/rss/feeds/abc_Tecnologia.xml
+https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/ciencia/portada
+https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/tecnologia/portada
 PT:
 
 KO:
@@ -223,8 +247,10 @@ https://www.lapresse.ca/affaires/marches/rss
 https://www.lapresse.ca/affaires/entreprises/rss
 https://www.ledevoir.com/rss/section/economie.xml?id=49
 https://lapresse.tn/category/economie/feed/
-
+https://www.europe1.fr/rss/economie.xml
 ES:
+https://e00-elmundo.uecdn.es/elmundo/rss/economia.xml
+http://www.abc.es/rss/feeds/abc_Economia.xml
 
 PT:
 
@@ -262,16 +288,16 @@ https://www.ecdc.europa.eu/en/taxonomy/term/2942/feed
 https://www.ecdc.europa.eu/en/taxonomy/term/1310/feed
 https://www.ecdc.europa.eu/en/taxonomy/term/1505/feed
 https://www.newscientist.com/subject/health/feed/
-
 FR:
 https://www.lefigaro.fr/rss/figaro_sante.xml
 https://www.lexpress.fr/sciences-sante/sante/
 https://www.lapresse.ca/actualites/sante/rss
 https://www.lapresse.ca/actualites/covid-19/rss
 https://www.ledevoir.com/rss/section/societe/sante.xml
-
+https://www.europe1.fr/rss/sante.xml
 ES:
-
+https://e00-elmundo.uecdn.es/elmundosalud/rss/portada.xml
+http://www.abc.es/rss/feeds/abc_SociedadSalud.xml
 PT:
 
 KO:
@@ -305,6 +331,13 @@ Money/investment
 Politics:
 
 Sport:
+Soccer
+Football
+Basketball
+Tennis
+Golf
+Rugby
+Motor Sports / Fromula 1
 
 Health:
 coronavirus

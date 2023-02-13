@@ -278,3 +278,4 @@
 
 ### 13 Feb 2023
 * *1.5 hour* More work on machine translation and source compilation
+* *1 hour* More source collation
