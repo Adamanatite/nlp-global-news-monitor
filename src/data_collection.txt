@@ -9,10 +9,27 @@ https://rss.nytimes.com/services/xml/rss/nyt/Television.xml
 https://rss.nytimes.com/services/xml/rss/nyt/Theater.xml
 https://rss.nytimes.com/services/xml/rss/nyt/Dance.xml
 http://rss.cnn.com/rss/edition_entertainment.rss
-
-
 FR:
-
+https://www.lefigaro.fr/rss/figaro_cinema.xml
+https://www.lefigaro.fr/rss/figaro_musique.xml
+https://www.lefigaro.fr/rss/figaro_livres.xml
+https://www.lefigaro.fr/rss/figaro_theatre.xml
+https://www.lefigaro.fr/rss/figaro_arts-expositions.xml
+https://www.lemonde.fr/en/cinema/rss_full.xml
+https://www.lemonde.fr/en/music/rss_full.xml
+https://www.lemonde.fr/en/television-radio/rss_full.xml
+https://www.lemonde.fr/en/books/rss_full.xml
+https://www.lemonde.fr/en/arts/rss_full.xml
+https://www.liberation.fr/culture/cinema/
+https://www.liberation.fr/culture/arts/
+https://www.liberation.fr/culture/musique/
+https://www.liberation.fr/culture/livres/
+https://www.lexpress.fr/culture/theatre/
+https://www.lexpress.fr/culture/musique/
+https://www.lexpress.fr/culture/livre/
+https://www.lexpress.fr/culture/art/
+https://www.lexpress.fr/culture/cinema/
+https://www.lapresse.ca/arts/rss
 ES:
 
 PT:
@@ -48,6 +65,18 @@ http://rss.cnn.com/rss/edition_tennis.rss
 http://rss.cnn.com/rss/edition_golf.rss
 
 FR:
+https://www.lefigaro.fr/rss/figaro_football.xml
+https://www.lefigaro.fr/rss/figaro_football-transfert.xml
+https://www.lefigaro.fr/rss/figaro_rugby.xml
+https://www.lefigaro.fr/rss/figaro_tennis.xml
+https://www.lefigaro.fr/rss/figaro_formule-1.xml
+https://www.lefigaro.fr/rss/figaro_basket.xml
+https://www.lemonde.fr/en/sports/rss_full.xml
+https://www.lemonde.fr/en/football//rss_full.xml
+https://www.lemonde.fr/en/rugby/rss_full.xml
+https://www.lemonde.fr/en/basket/rss_full.xml
+https://www.liberation.fr/sports/
+https://www.lapresse.ca/sports/rss
 
 ES:
 
@@ -72,7 +101,10 @@ http://feeds.bbci.co.uk/news/politics/rss.xml
 https://rss.nytimes.com/services/xml/rss/nyt/Politics.xml
 https://www.statnews.com/category/politics/feed/
 FR:
-
+https://www.lefigaro.fr/rss/figaro_politique_le-scan.xml
+https://www.liberation.fr/politique/
+https://www.lexpress.fr/politique/
+https://www.lapresse.ca/actualites/politique/rss
 ES:
 
 PT:
@@ -96,7 +128,9 @@ https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml
 https://rss.nytimes.com/services/xml/rss/nyt/PersonalTech.xml
 http://rss.cnn.com/rss/edition_technology.rss
 FR:
-
+https://www.lefigaro.fr/rss/figaro_secteur_high-tech.xml
+https://www.lexpress.fr/economie/high-tech/
+https://www.lapresse.ca/affaires/techno/rss
 ES:
 
 PT:
@@ -122,6 +156,15 @@ https://rss.nytimes.com/services/xml/rss/nyt/SmallBusiness.xml
 https://rss.nytimes.com/services/xml/rss/nyt/Economy.xml
 http://rss.cnn.com/rss/money_news_international.rss
 FR:
+https://www.lefigaro.fr/rss/figaro_societes.xml
+https://www.lefigaro.fr/rss/figaro_bourse.xml
+https://www.lemonde.fr/en/economy/rss_full.xml
+https://www.lemonde.fr/en/money-investments/rss_full.xml
+https://www.liberation.fr/economie/
+https://www.lexpress.fr/economie/
+https://www.lapresse.ca/affaires/economie/rss
+https://www.lapresse.ca/affaires/marches/rss
+https://www.lapresse.ca/affaires/entreprises/rss
 
 ES:
 
@@ -148,7 +191,10 @@ https://www.statnews.com/tag/coronavirus/feed
 https://www.statnews.com/category/health/feed
 https://www.statnews.com/category/pharma/feed
 FR:
-
+https://www.lefigaro.fr/rss/figaro_sante.xml
+https://www.lexpress.fr/sciences-sante/sante/
+https://www.lapresse.ca/actualites/sante/rss
+https://www.lapresse.ca/actualites/covid-19/rss
 ES:
 
 PT:
@@ -164,3 +210,33 @@ ZH:
 AR:
 
 SW:
+
+
+
+Terms:
+Entertainment/Arts:
+Movies/Cinema
+Music
+Books
+Theater
+Television
+Dance
+
+Business/Finance:
+Economy
+Stock Exchange/Stock market
+Money/investment
+
+Politics:
+
+Sport:
+
+Health:
+coronavirus
+pharma/pharmacy
+
+Technology:
+
+Notes:
+ - Be careful using Le Monde (check first)
+ - Make longer URLS override shorter ones (for L'express)

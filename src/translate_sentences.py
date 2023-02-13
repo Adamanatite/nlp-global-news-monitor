@@ -11,7 +11,9 @@ with open(".ml/datasets/en.json") as f:
         d = json.loads(line)
         data.append((d["Text"], d["Category"]))
 
-languages = ["fr", "es", "pt", "ru", "zh-C", "sw", "id", "ar", "ko"]
+
+languages = ["es"]
+# languages = ["fr", "es", "pt", "ru", "zh-C", "sw", "id", "ar", "ko"]
 
 # batch_size = 100
 # n = len(data) // batch_size
@@ -29,20 +31,29 @@ while i < n - 5000:
     i = j
 batches.append(total[i:])
 
-print(len(batches))
+print("Sentences:", len(sentences))
+# 3722
+print("Batches:", len(batches))
+# 3918
 
 translator = Translator()
 for lang in languages:
     with open(".ml/datasets/" + lang + ".txt", "w", encoding="utf-8") as f:
+        last_error = False
         i = 0
         while i < len(batches):
             try:
                 if i % 25 == 0:
                     print("i=", i)
                 translation = translator.translate(batches[i], src="en", dest=lang).text
-                f.write(translation)
+                f.write(translation + "//")
                 i += 1
+                if last_error:
+                    print(i, "fixed")
+                last_error = False
             except Exception as e:
                 print(i, str(e))
-                time.sleep(5)
+                time.sleep(3)
+                last_error = True
                 continue
+    

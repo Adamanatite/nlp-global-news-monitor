@@ -272,3 +272,6 @@
 ### 11 Feb 2023
 * *0.5 hour* Work on writing a script to find sources to scrape
 * *2 hour^ Compiling sources to scrape manually
+
+### 12 Feb 2023
+* *2 hour^ Compiling more sources to scrape, work on machine translation
