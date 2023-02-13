@@ -52,8 +52,14 @@ http://www.abc.es/rss/feeds/abc_Cultura.xml
 http://www.abc.es/rss/feeds/abc_Libros.xml
 http://www.abc.es/rss/feeds/abc_Teatro.xml
 http://www.abc.es/rss/feeds/abc_Arte.xml
-https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/cultura/portada
-https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/television/portada
+https://elpais.com/cultura/
+https://elpais.com/television/
+https://www.lanacion.com.ar/cultura/
+https://www.elnacional.com/entretenimiento/
+https://pulsoslp.com.mx/cultura
+https://www.jornada.com.mx/rss/cultura.xml
+https://www.eltiempo.com/rss/cultura.xml
+https://www.elespectador.com/entretenimiento/
 
 PT:
 
@@ -122,7 +128,13 @@ http://www.abc.es/rss/feeds/abc_Futbol.xml
 http://www.abc.es/rss/feeds/abc_Baloncesto.xml
 http://www.abc.es/rss/feeds/abc_Tenis.xml
 http://www.abc.es/rss/feeds/abc_Automovilismo.xml
-https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/deportes/portada
+https://elpais.com/deportes/
+https://www.lanacion.com.ar/deportes/
+https://www.elnacional.com/deportes/
+https://pulsoslp.com.mx/meta
+https://www.jornada.com.mx/rss/deportes.xml
+https://www.eltiempo.com/rss/deportes.xml
+https://www.elespectador.com/deportes/
 
 PT:
 
@@ -160,6 +172,10 @@ https://www.lapresse.ca/actualites/politique/rss
 https://www.ledevoir.com/rss/section/politique.xml?id=51
 https://www.europe1.fr/rss/politique.xml
 ES:
+https://www.lanacion.com.ar/politica/
+https://www.jornada.com.mx/rss/politica.xml
+https://www.eltiempo.com/rss/politica.xml
+https://www.elespectador.com/politica/
 
 PT:
 
@@ -201,8 +217,17 @@ ES:
 https://e00-elmundo.uecdn.es/elmundo/rss/ciencia.xml
 http://www.abc.es/rss/feeds/abc_Ciencia.xml
 http://www.abc.es/rss/feeds/abc_Tecnologia.xml
-https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/ciencia/portada
-https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/tecnologia/portada
+https://elpais.com/ciencia/
+https://elpais.com/tecnologia/
+https://www.lanacion.com.ar/tecnologia/
+https://www.lanacion.com.ar/ciencia/
+https://www.elnacional.com/ciencia-tecnologia/
+https://pulsoslp.com.mx/cienciaytecnologia
+https://www.jornada.com.mx/rss/ciencias.xml
+https://www.eltiempo.com/rss/tecnosfera.xml
+https://www.elespectador.com/tecnologia/
+https://www.elespectador.com/ciencia/
+
 PT:
 
 KO:
@@ -251,6 +276,12 @@ https://www.europe1.fr/rss/economie.xml
 ES:
 https://e00-elmundo.uecdn.es/elmundo/rss/economia.xml
 http://www.abc.es/rss/feeds/abc_Economia.xml
+https://elpais.com/economia/
+https://www.lanacion.com.ar/economia/
+https://www.elnacional.com/economia/
+https://www.jornada.com.mx/rss/economia.xml
+https://www.eltiempo.com/rss/economia.xml
+https://www.elespectador.com/economia/
 
 PT:
 
@@ -267,7 +298,7 @@ AR:
 SW:
 
 
-Health:
+Health/Welfare:
 EN:
 https://www.bbc.co.uk/news/coronavirus
 https://rss.nytimes.com/services/xml/rss/nyt/Health.xml
@@ -298,6 +329,11 @@ https://www.europe1.fr/rss/sante.xml
 ES:
 https://e00-elmundo.uecdn.es/elmundosalud/rss/portada.xml
 http://www.abc.es/rss/feeds/abc_SociedadSalud.xml
+https://elpais.com/salud-y-bienestar/
+https://www.lanacion.com.ar/salud/
+https://www.eltiempo.com/rss/salud.xml
+https://www.elespectador.com/salud/
+
 PT:
 
 KO:
@@ -353,3 +389,4 @@ Notes:
  - Make longer URLS override shorter ones (for L'express)
  - To distinguish between feeds, use "xml", "rss" and "feed"
  - Be careful with URL casing (e.g. for ABC News)
+ - Let keywords be anywhere in the url, as long as surrounded by / (e.g. "/tecnologia/")
