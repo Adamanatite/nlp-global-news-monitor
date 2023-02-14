@@ -280,3 +280,4 @@
 * *1.5 hour* More work on machine translation and source compilation
 * *1 hour* More source collation
 * *1 hour* Source collection
+* *1.5 hour* Source collection for portuguese and korean

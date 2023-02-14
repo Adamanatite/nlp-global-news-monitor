@@ -60,10 +60,20 @@ https://pulsoslp.com.mx/cultura
 https://www.jornada.com.mx/rss/cultura.xml
 https://www.eltiempo.com/rss/cultura.xml
 https://www.elespectador.com/entretenimiento/
-
 PT:
-
+https://www.publico.pt/culturaipsilon
+https://www.dn.pt/cultura/
+http://g1.globo.com/dynamo/pop-arte/rss2.xml
+http://g1.globo.com/dynamo/musica/rss2.xml
+https://www.cartacapital.com.br/cultura/
+https://expressodasilhas.cv/cultura
 KO:
+https://www.hani.co.kr/culture/
+https://www.donga.com/Culture
+https://www.donga.com/Entertainment
+https://www.chosun.com/entertainments/
+https://www.khan.co.kr/culture
+https://www.khan.co.kr/entertain
 
 RU:
 
@@ -135,10 +145,17 @@ https://pulsoslp.com.mx/meta
 https://www.jornada.com.mx/rss/deportes.xml
 https://www.eltiempo.com/rss/deportes.xml
 https://www.elespectador.com/deportes/
-
 PT:
-
+https://www.publico.pt/desporto
+https://www.dn.pt/desporto/
+http://feeds.jn.pt/JN-Desporto
+https://feeds.folha.uol.com.br/esporte/rss091.xml
+https://expressodasilhas.cv/desporto
 KO:
+https://www.hani.co.kr/sports/
+https://www.donga.com/Sports
+https://www.chosun.com/sports/
+https://www.khan.co.kr/sports/
 
 RU:
 
@@ -176,10 +193,19 @@ https://www.lanacion.com.ar/politica/
 https://www.jornada.com.mx/rss/politica.xml
 https://www.eltiempo.com/rss/politica.xml
 https://www.elespectador.com/politica/
-
 PT:
-
+https://www.publico.pt/politica/
+https://www.dn.pt/politica/
+https://feeds.folha.uol.com.br/poder/rss091.xml
+http://g1.globo.com/dynamo/politica/mensalao/rss2.xml
+https://www.cartacapital.com.br/politica
+https://expressodasilhas.cv/politica
+https://jornalnoticias.co.mz/politica/
 KO:
+https://www.hani.co.kr/politics/
+https://www.donga.com/Politics/
+https://www.chosun.com/politics/
+https://www.khan.co.kr/politics/
 
 RU:
 
@@ -227,10 +253,19 @@ https://www.jornada.com.mx/rss/ciencias.xml
 https://www.eltiempo.com/rss/tecnosfera.xml
 https://www.elespectador.com/tecnologia/
 https://www.elespectador.com/ciencia/
-
 PT:
-
+https://www.publico.pt/tecnologia
+https://www.dn.pt/ciencia/
+https://feeds.folha.uol.com.br/tec/rss091.xml
+https://feeds.folha.uol.com.br/ciencia/rss091.xml
+http://g1.globo.com/dynamo/tecnologia/rss2.xml
+https://www.cartacapital.com.br/tecnologia
 KO:
+https://www.hani.co.kr/science_general/
+https://www.hani.co.kr/technology/
+https://www.chosun.com/tech_it/
+https://www.chosun.com/science/
+https://www.khan.co.kr/science/
 
 RU:
 
@@ -282,10 +317,25 @@ https://www.elnacional.com/economia/
 https://www.jornada.com.mx/rss/economia.xml
 https://www.eltiempo.com/rss/economia.xml
 https://www.elespectador.com/economia/
-
 PT:
-
+https://www.publico.pt/economia
+https://www.dn.pt/dinheiro/
+http://feeds.jn.pt/JN-Economia
+https://feeds.folha.uol.com.br/mercado/rss091.xml
+http://g1.globo.com/dynamo/economia/rss2.xml
+https://www.cartacapital.com.br/economia
+https://expressodasilhas.cv/economia
+https://jornalnoticias.co.mz/economia/
+https://jornalnoticias.co.mz/desporto/
 KO:
+https://www.hani.co.kr/economy/
+https://www.donga.com/Economy
+https://www.chosun.com/economy_general/
+https://www.chosun.com/int_economy/
+https://www.chosun.com/money/
+https://www.chosun.com/industry-company/
+https://www.chosun.com/stock-finance/
+https://www.khan.co.kr/economy/
 
 RU:
 
@@ -326,6 +376,7 @@ https://www.lapresse.ca/actualites/sante/rss
 https://www.lapresse.ca/actualites/covid-19/rss
 https://www.ledevoir.com/rss/section/societe/sante.xml
 https://www.europe1.fr/rss/sante.xml
+https://news.un.org/feed/subscribe/fr/news/topic/health/feed/rss.xml
 ES:
 https://e00-elmundo.uecdn.es/elmundosalud/rss/portada.xml
 http://www.abc.es/rss/feeds/abc_SociedadSalud.xml
@@ -333,10 +384,16 @@ https://elpais.com/salud-y-bienestar/
 https://www.lanacion.com.ar/salud/
 https://www.eltiempo.com/rss/salud.xml
 https://www.elespectador.com/salud/
-
+https://news.un.org/feed/subscribe/es/news/topic/health/feed/rss.xml
 PT:
-
+https://feeds.folha.uol.com.br/equilibrioesaude/rss091.xml
+http://g1.globo.com/dynamo/ciencia-e-saude/rss2.xml
+https://www.cartacapital.com.br/saude
+https://news.un.org/feed/subscribe/pt/news/topic/health/feed/rss.xml
 KO:
+https://www.hani.co.kr/health/
+https://www.chosun.com/health/
+https://www.khan.co.kr/health-welfare/
 
 RU:
 
@@ -362,6 +419,7 @@ Dance
 Business/Finance:
 Economy
 Stock Exchange/Stock market
+Market
 Money/investment
 
 Politics:
