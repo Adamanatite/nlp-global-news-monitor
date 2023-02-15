@@ -91,9 +91,26 @@ Why should the reader care about what are you doing and what are you actually do
 %==================================================================================================================================
 \chapter{Background and Research}
 What did other people do, and how is it relevant to what you want to do?
-\section{International News Sources}
+\section{Digital News Surveillance Systems}
+\subsection*{BioCaster}
+This project reworks and extends some of the digital news surveillance system currently used in \cite{biocaster}. The system collects news articles through a variety of RSS,  feeds using a Perl script, across different languages including English, French and Mandarin Chinese \citep{collier2008biocaster}. It uses a machine translation server to translate the headlines and descriptions into English, and a machine learning model built on PubMedBERT \citep{gu2021domain} to classify whether news articles are related to disease outbreaks \citep{meng2022biocaster}. It also uses text mining approaches with BioSyn \citep{sung2020biomedical} to perform entity extraction and linking, in order to determine details of the disease outbreak such as the disease type and who it is currently affecting. It also uses Early Aberration and Reporting System (EARS) algorithms, will classify the risk level of the outbreak \citep{collier2011towards}. 
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{/biocaster_diagram.jpg}
+\caption{The full architecture of the current BioCaster app. Image obtained from \cite{meng2022biocaster}}
+\label{fig:biocaster_architecture}
+\end{figure}
+\par
+The later stages of this process are outside the scope of this project. The current BioCaster data collection system is dated, relying on PERL and only collecting data through RSS feeds, which are only provided by some (typically larger, more common language) news sources. This greatly limits the amount of data which can be extracted, particularly from smaller sources in minority languages, which are underrepresented in disease tracking systems (citation needed). This project will develop a more modern system for collecting the RSS data in Python, as well as functionality for using web scraping to collect news articles from webpage HTML. The system will be designed so that it is easily extensible to other sources of data which may be more prominent in different countries, such as social media posts. This also allows for entire article text to be collected instead of just the headline and a short description, which may allow for a richer understanding of the news content and more effective performance in ML tasks.
+
+\subsection*{Other BioMedical Systems}
+HealthMap, GPHIN, ProMED Mail, MedISys, Argus, EpiSPIDE, EpiCore.
+Web crawler with keyword filtering \citep{zhang2009automatic}
+\subsection*{Other Systems}
+Meltwater, Cision, Muck Rack, Agility PR Solutions (Marketing, brand management/PR etc.).
+
+
 \section{Web Scraping Technologies}
-The main free and open-source technologies for scraping news articles from websites in Python were Newspaper3K and news-please, which is built on top of Newspaper3K and adds some extra features. \citep{newspaper3k, news-please} Another option considered was Newscatcher \citep{newscatcher}, but the free API is limited in how many calls can be made and this made it unsuitable for this project. Finally, I looked at pygooglenews \citep{pygooglenews} which provided some promise in using google news to find articles under certain subjects, keywords, languages and regions. For this project, I found it desirable to have better control of the exact sources collected, instead of filtering through keywords and relying on Google's source selection, but a scraper using this library could easily be added to extend the capabilities of the current system. I decided to move forward with the former two libraries and conducted an experiment to compare their capabilities. \par
+The main free and open-source technologies for scraping news articles from websites in Python were Newspaper3K and news-please, which is built on top of Newspaper3K and adds some extra features \citep{newspaper3k, news-please}. Another option considered was Newscatcher \citep{newscatcher}, but the free API is limited in how many calls can be made and this made it unsuitable for this project. Finally, I looked at pygooglenews \citep{pygooglenews} which provided some promise in using google news to find articles under certain subjects, keywords, languages and regions. For this project, I found it desirable to have better control of the exact sources collected, instead of filtering through keywords and relying on Google's source selection, but a scraper using this library could easily be added to extend the capabilities of the current system. I decided to move forward with the former two libraries and conducted an experiment to compare their capabilities. \par
 
 I compared the features present in each of the two libraries. Notably, Newspaper3K can perform full website scraping in Python, whereas news-please can only do this using its Command Line Interface (CLI). I attempted to scrape 3 articles from each of the 109 previously selected websites, across 10 languages, and compared the number of successful scrapes (without error) and the average speed. The results are shown below: \par 
 (Results table) \par
@@ -104,7 +121,7 @@ The visualisation was mainly inspired by the current \cite{biocaster} interface,
 \begin{figure}[h]
 \includegraphics[width=\textwidth]{/biocaster_interface.png}
 \caption{BioCaster Kibana Visualisation (from the homepage)}
-\label{fig:biocaster}
+\label{fig:biocaster_visualisation}
 \end{figure}
 \par
 The BioCaster visualisations are created using the Elastic stack, storing the data with elasticsearch and creating visualisations using Elastic Kibana \citep{elastic_stack}. After originally using MySQL with the Python MySQL connector to store the data from the scraping system, and considering standard python visualisation libraries such as matplotlib \citep{Hunter:2007} and geoplotlib \citep{geoplotlib} for geographical data, I decided to also use the Elastic stack, using the elasticsearch Python library to integrate the scraping system into the database.
@@ -134,7 +151,7 @@ The BioCaster visualisations are created using the Elastic stack, storing the da
 
 \section{News Article Classification}
 \subsection{Research Questions}
-The research question I aim to answer is \emph{"Are multilingual models effective for multilingual multi-topic news classification?"}
+The research question I aim to answer is \emph{"Are multilingual models effective for multilingual multi-topic news classification?"} and \emph{"What is the most effective model in this setting?"}
 \subsection{Data Collection}
 Data will be collected through the scraping system previously developed, using articles which have been labelled by the source as one of 6 categories: Health, Sports, Entertainment, Business/Finance, Politics and Technology. For some sources, categories with similar names (e.g. "Wellness" and "Health") have been merged. A full list of sources and category keywords used can be found in the appendices.
 \subsection{Model and Parameter Choices}
