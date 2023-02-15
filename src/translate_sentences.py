@@ -12,7 +12,8 @@ with open(".ml/datasets/en.json") as f:
         data.append((d["Text"], d["Category"]))
 
 
-languages = ["fr", "es", "pt", "ru", "zh-C", "sw", "id", "ar", "ko"]
+# languages = ["fr", "es", "pt", "ru", "zh-C", "sw", "id", "ar", "ko"]
+languages = ["pt", "ru", "zh-C", "sw", "id", "ar", "ko"]
 
 # batch_size = 100
 # n = len(data) // batch_size

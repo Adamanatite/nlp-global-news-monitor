@@ -288,3 +288,4 @@
 * *1 hour* Write-up on background information for digital news surveillance systems
 * *1 hour* Further write-up on background information for digital news surveillance systems
 * *1 hour* Supervisor meeting and note collation
+* *1 hour* More collation of sources

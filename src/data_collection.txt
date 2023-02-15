@@ -74,10 +74,15 @@ https://www.donga.com/Entertainment
 https://www.chosun.com/entertainments/
 https://www.khan.co.kr/culture
 https://www.khan.co.kr/entertain
-
 RU:
+https://tass.ru/kultura
+https://www.interfax.ru/culture/
+https://www.belta.by/culture/
 
 ID:
+https://www.jawapos.com/entertainment/
+https://www.pikiran-rakyat.com/entertainment
+https://www.suara.com/rss/entertainment
 
 ZH:
 
@@ -156,10 +161,19 @@ https://www.hani.co.kr/sports/
 https://www.donga.com/Sports
 https://www.chosun.com/sports/
 https://www.khan.co.kr/sports/
-
 RU:
-
+https://tass.ru/sport
+https://www.sport-interfax.ru/
+https://regnum.ru/sport/
+https://www.belta.by/sport/
 ID:
+https://bola.kompas.com/
+https://sport.republika.co.id/
+https://www.jawapos.com/sports/
+https://www.jawapos.com/sepak-bola-indonesia/
+https://www.pikiran-rakyat.com/olahraga/
+https://www.pikiran-rakyat.com/bola/
+https://www.suara.com/rss/bola
 
 ZH:
 
@@ -206,10 +220,13 @@ https://www.hani.co.kr/politics/
 https://www.donga.com/Politics/
 https://www.chosun.com/politics/
 https://www.khan.co.kr/politics/
-
 RU:
-
+https://tass.ru/politika
+https://regnum.ru/polit/
+https://www.belta.by/president/
+https://www.belta.by/politics/
 ID:
+https://www.jawapos.com/politik/
 
 ZH:
 
@@ -266,10 +283,19 @@ https://www.hani.co.kr/technology/
 https://www.chosun.com/tech_it/
 https://www.chosun.com/science/
 https://www.khan.co.kr/science/
-
 RU:
-
+https://tass.ru/nauka
+https://tass.ru/kosmos
+https://www.dsnews.ua/future
+https://www.belta.by/tech/
 ID:
+https://tekno.kompas.com/
+https://www.kompas.com/sains
+https://tekno.republika.co.id/
+https://www.suara.com/rss/tekno
+https://zetizen.jawapos.com/rss/science
+https://zetizen.jawapos.com/rss/techno
+https://www.pikiran-rakyat.com/teknologi/
 
 ZH:
 
@@ -336,10 +362,18 @@ https://www.chosun.com/money/
 https://www.chosun.com/industry-company/
 https://www.chosun.com/stock-finance/
 https://www.khan.co.kr/economy/
-
 RU:
-
+https://tass.ru/ekonomika
+https://tass.ru/msp
+https://www.interfax.ru/business/
+https://www.dsnews.ua/economics
+https://www.belta.by/economics/
 ID:
+https://money.kompas.com/
+https://ekonomi.republika.co.id/
+https://www.jawapos.com/ekonomi/
+https://www.pikiran-rakyat.com/ekonomi/
+https://www.suara.com/rss/bisnis
 
 ZH:
 
@@ -394,16 +428,22 @@ KO:
 https://www.hani.co.kr/health/
 https://www.chosun.com/health/
 https://www.khan.co.kr/health-welfare/
-
 RU:
-
+https://news.un.org/feed/subscribe/ru/news/topic/health/feed/rss.xml
 ID:
-
+https://health.kompas.com/
+https://www.republika.co.id/rss/ <![CDATA[ Health ]]>
+https://www.jawapos.com/bersama-lawan-covid-19/
+https://www.jawapos.com/kesehatan/
+https://www.suara.com/rss/health
 ZH:
+https://news.un.org/feed/subscribe/zh/news/topic/health/feed/rss.xml
 
 AR:
+https://news.un.org/feed/subscribe/ar/news/topic/health/feed/rss.xml
 
 SW:
+https://news.un.org/feed/subscribe/sw/news/topic/health/feed/rss.xml
 
 
 Terms:
@@ -448,3 +488,4 @@ Notes:
  - To distinguish between feeds, use "xml", "rss" and "feed"
  - Be careful with URL casing (e.g. for ABC News)
  - Let keywords be anywhere in the url, as long as surrounded by / (e.g. "/tecnologia/")
+ - URL prefixes and suffixes possible
