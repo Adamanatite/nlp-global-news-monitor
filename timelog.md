@@ -283,3 +283,6 @@
 * *1 hour* More source collation
 * *1 hour* Source collection
 * *1.5 hour* Source collection for portuguese and korean
+
+### 15 Feb 2023
+* *1 hour* Write-up on background information for digital news surveillance systems
