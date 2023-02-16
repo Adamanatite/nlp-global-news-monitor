@@ -78,18 +78,21 @@ RU:
 https://tass.ru/kultura
 https://www.interfax.ru/culture/
 https://www.belta.by/culture/
-
 ID:
 https://www.jawapos.com/entertainment/
 https://www.pikiran-rakyat.com/entertainment
 https://www.suara.com/rss/entertainment
-
 ZH:
-
+https://ent.sina.com.cn/
+https://ent.huanqiu.com/
+https://art.huanqiu.com/
+https://news.mingpao.com/rss/pns/s00016.xml
+https://ent.ltn.com.tw/
+https://www.zaobao.com.sg/entertainment/
 AR:
 
 SW:
-
+https://kiswahili.tuko.co.ke/burudani/
 
 Sports:
 EN:
@@ -174,13 +177,18 @@ https://www.jawapos.com/sepak-bola-indonesia/
 https://www.pikiran-rakyat.com/olahraga/
 https://www.pikiran-rakyat.com/bola/
 https://www.suara.com/rss/bola
-
 ZH:
-
+https://sports.sina.com.cn/
+https://sports.huanqiu.com/
+https://news.mingpao.com/rss/pns/s00015.xml
+https://sports.ltn.com.tw/
+https://www.zaobao.com.sg/sports
+http://www.people.com.cn/rss/sports.xml
 AR:
 
 SW:
-
+https://www.ippmedia.com/sw/michezo/
+https://kiswahili.tuko.co.ke/michezo/
 
 Politics:
 EN:
@@ -227,12 +235,14 @@ https://www.belta.by/president/
 https://www.belta.by/politics/
 ID:
 https://www.jawapos.com/politik/
-
 ZH:
+https://news.ltn.com.tw/news/politics/
+http://www.people.com.cn/rss/politics.xml
 
 AR:
 
 SW:
+https://kiswahili.tuko.co.ke/siasa/
 
 Science/Technology:
 EN:
@@ -296,8 +306,9 @@ https://www.suara.com/rss/tekno
 https://zetizen.jawapos.com/rss/science
 https://zetizen.jawapos.com/rss/techno
 https://www.pikiran-rakyat.com/teknologi/
-
 ZH:
+https://tech.sina.com.cn/
+https://tech.huanqiu.com/
 
 AR:
 
@@ -374,13 +385,17 @@ https://ekonomi.republika.co.id/
 https://www.jawapos.com/ekonomi/
 https://www.pikiran-rakyat.com/ekonomi/
 https://www.suara.com/rss/bisnis
-
 ZH:
-
+https://finance.sina.com.cn/
+https://finance.huanqiu.com/
+https://news.mingpao.com/rss/pns/s00004.xml
+https://ec.ltn.com.tw/
+https://www.zaobao.com.sg/finance/
+http://www.people.com.cn/rss/finance.xml
 AR:
 
 SW:
-
+https://kiswahili.tuko.co.ke/biashara/
 
 Health/Welfare:
 EN:
@@ -438,7 +453,10 @@ https://www.jawapos.com/kesehatan/
 https://www.suara.com/rss/health
 ZH:
 https://news.un.org/feed/subscribe/zh/news/topic/health/feed/rss.xml
-
+https://health.huanqiu.com/
+https://health.ltn.com.tw/
+https://www.zaobao.com.sg/health/
+https://www.jkb.com.cn/publicHealth/
 AR:
 https://news.un.org/feed/subscribe/ar/news/topic/health/feed/rss.xml
 
@@ -472,6 +490,7 @@ Tennis
 Golf
 Rugby
 Motor Sports / Fromula 1
+Physical Education
 
 Health:
 coronavirus
@@ -489,3 +508,4 @@ Notes:
  - Be careful with URL casing (e.g. for ABC News)
  - Let keywords be anywhere in the url, as long as surrounded by / (e.g. "/tecnologia/")
  - URL prefixes and suffixes possible
+ - RSS Hub could be useful

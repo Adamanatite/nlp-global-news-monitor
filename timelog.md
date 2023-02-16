@@ -289,3 +289,5 @@
 * *1 hour* Further write-up on background information for digital news surveillance systems
 * *1 hour* Supervisor meeting and note collation
 * *1 hour* More collation of sources
+* *1 hour* Collecting sources in chinese
+* *0.5 hour* Attempted to collect swahili sources
