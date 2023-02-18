@@ -291,3 +291,6 @@
 * *1 hour* More collation of sources
 * *1 hour* Collecting sources in chinese
 * *0.5 hour* Attempted to collect swahili sources
+
+### 17 Feb 2023
+* *0.5 hour* Source collection in Arabic

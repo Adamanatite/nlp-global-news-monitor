@@ -90,6 +90,13 @@ https://news.mingpao.com/rss/pns/s00016.xml
 https://ent.ltn.com.tw/
 https://www.zaobao.com.sg/entertainment/
 AR:
+https://www.aljazeera.net/arts/
+https://alwafd.news/%D8%AB%D9%82%D8%A7%D9%81%D8%A9-%D9%88%D9%81%D9%86
+https://www.albayan.ae/culture-art
+https://www.al-akhbar.com/Celebrities/
+https://www.al-akhbar.com/Literature_Arts/
+https://www.eremnews.com/culture
+https://www.okaz.com.sa/culture/
 
 SW:
 https://kiswahili.tuko.co.ke/burudani/
@@ -185,6 +192,14 @@ https://sports.ltn.com.tw/
 https://www.zaobao.com.sg/sports
 http://www.people.com.cn/rss/sports.xml
 AR:
+https://www.aljazeera.net/sport/
+https://alwafd.news/%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6%D8%A9
+https://www.albayan.ae/sports
+https://www.al-akhbar.com/Sport_World/
+https://www.eremnews.com/sports
+https://shafaq.com/ar/%D8%B1%D9%8A%D9%80%D8%A7%D8%B6%D8%A9
+https://www.okaz.com.sa/sports
+https://arabic.cnn.com/sport
 
 SW:
 https://www.ippmedia.com/sw/michezo/
@@ -238,8 +253,11 @@ https://www.jawapos.com/politik/
 ZH:
 https://news.ltn.com.tw/news/politics/
 http://www.people.com.cn/rss/politics.xml
-
 AR:
+https://www.aljazeera.net/politics/
+https://www.albayan.ae/world/political-issues
+https://shafaq.com/ar/%D8%B3%DB%8C%D8%A7%D8%B3%D8%A9
+https://www.okaz.com.sa/politics/
 
 SW:
 https://kiswahili.tuko.co.ke/siasa/
@@ -309,11 +327,14 @@ https://www.pikiran-rakyat.com/teknologi/
 ZH:
 https://tech.sina.com.cn/
 https://tech.huanqiu.com/
-
 AR:
+https://www.aljazeera.net/tech/
+https://www.aljazeera.net/science/
+https://alwafd.news/%D8%AA%D9%83%D9%86%D9%88%D9%84%D9%88%D8%AC%D9%8A%D8%A7
+https://www.albayan.ae/technology
+https://www.eremnews.com/sciences-technology
 
 SW:
-
 
 Business/Finance:
 EN:
@@ -393,6 +414,12 @@ https://ec.ltn.com.tw/
 https://www.zaobao.com.sg/finance/
 http://www.people.com.cn/rss/finance.xml
 AR:
+https://www.aljazeera.net/ebusiness/
+https://alwafd.news/%D8%A7%D9%82%D8%AA%D8%B5%D8%A7%D8%AF
+https://www.albayan.ae/economy
+https://www.eremnews.com/economy
+https://shafaq.com/ar/%D8%A7%D9%82%D8%AA%D8%B5%D9%80%D8%A7%D8%AF
+https://www.okaz.com.sa/economy
 
 SW:
 https://kiswahili.tuko.co.ke/biashara/
@@ -459,6 +486,10 @@ https://www.zaobao.com.sg/health/
 https://www.jkb.com.cn/publicHealth/
 AR:
 https://news.un.org/feed/subscribe/ar/news/topic/health/feed/rss.xml
+https://www.aljazeera.net/health/
+https://www.albayan.ae/health
+https://www.eremnews.com/health/
+https://arabic.cnn.com/science-and-health
 
 SW:
 https://news.un.org/feed/subscribe/sw/news/topic/health/feed/rss.xml
@@ -506,6 +537,7 @@ Notes:
  - Make longer URLS override shorter ones (for L'express)
  - To distinguish between feeds, use "xml", "rss" and "feed"
  - Be careful with URL casing (e.g. for ABC News)
- - Let keywords be anywhere in the url, as long as surrounded by / (e.g. "/tecnologia/")
+ - Let keywords be anywhere in the url, as long as surrounded by / (e.g. "/tecnologia/") or at the end with no / (append the last /?)
  - URL prefixes and suffixes possible
  - RSS Hub could be useful
+ - Took liberty on CNN arabic with science and health
