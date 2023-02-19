@@ -46,7 +46,6 @@ https://www.ledevoir.com/rss/section/culture.xml?id=48
 https://lapresse.tn/category/culture/feed/
 https://www.europe1.fr/rss/culture.xml
 ES:
-https://e00-elmundo.uecdn.es/elmundo/rss/ciencia.xml
 https://e00-elmundo.uecdn.es/elmundo/rss/television.xml
 http://www.abc.es/rss/feeds/abc_Cultura.xml
 http://www.abc.es/rss/feeds/abc_Libros.xml
@@ -470,7 +469,6 @@ RU:
 https://news.un.org/feed/subscribe/ru/news/topic/health/feed/rss.xml
 ID:
 https://health.kompas.com/
-https://www.republika.co.id/rss/ <![CDATA[ Health ]]>
 https://www.jawapos.com/bersama-lawan-covid-19/
 https://www.jawapos.com/kesehatan/
 https://www.suara.com/rss/health

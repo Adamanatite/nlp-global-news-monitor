@@ -4,11 +4,12 @@ from datetime import datetime
 from time import mktime
 import feedparser
 import time
+import re
 
 MIN_ARTICLE_LENGTH = 100
 MIN_SECONDS_PER_SCRAPE = 300
 
-last_scrape_time = None
+last_scrape_time = datetime(month=1, day=1, year=2000)
 
 
 def cleanup(text):
@@ -70,23 +71,25 @@ def get_sources_from_file():
         return rss_feeds, np3k_feeds
 
 def get_rss_articles(sources): 
-
+    print("Scraping RSS")
     global last_scrape_time
     articles = []
     start_scrape_time = datetime.now()
-
     for source in sources:
         try:
             parsed = feedparser.parse(source[0])
         except Exception as e:
             print(source[0] + " error: " + str(e))
-            return
+            continue
         # Adapted from https://stackoverflow.com/a/59615563
-        new_items = [entry for entry in parsed.entries if
-            datetime.fromtimestamp(mktime(entry.updated_parsed)) > last_scrape_time]
+        try:
+            new_items = [entry for entry in parsed.entries if
+                datetime.fromtimestamp(mktime(entry.updated_parsed)) > last_scrape_time]
+        # Empty RSS Feeds
+        except AttributeError:
+            continue
 
         for item in new_items:
-            print(item.title, source[2])
             articles.append((item.link, source[1], "RSS/Atom Feed", source[2]))
 
     last_scrape_time = start_scrape_time
@@ -95,18 +98,18 @@ def get_rss_articles(sources):
     return articles
 
 def get_np3k_articles(sources):
-
+    print("Scraping Web")
     articles = []
     for source in sources:
         url = source[:-2]
         lang = source[-2:]
-
+        print(url)
+        print(sources[source])
         scraper = newspaper.build(url, language=lang, fetch_images=False)
 
         for article in scraper.articles:
             for cat in sources[source]:
-                if cat in article.url:
-                    print(article.url, sources[source][cat])
+                if "/" + cat + "/" in article.url or cat + "." in article.url:
                     articles.append((article.url, lang, "Web Scraper", sources[source][cat]))
     scrape_details(articles)
     return articles
@@ -114,6 +117,9 @@ def get_np3k_articles(sources):
 
 def scrape_details(data):
     titles = set()
+
+    print("Number of articles:", len(data))
+
     for (url, language, scrape_type, category) in data:
         try:
             # Parse and add
@@ -123,17 +129,15 @@ def scrape_details(data):
                 if news.title in titles:
                     continue
                 # Add article
-                print(news.title)
+                print(scrape_type, category, news.title)
                 AddArticle(url, news.title, cleanup(news.text), None, language, news.publish_date, "Dataset Collection", scrape_type, category)
                 titles.add(news.title)
         except Exception as e:
             err = str(e)
             print(err)
             # If the URL doesn't work, simply skip the article. Otherwise if there is a connection issue stop scraping until the next loop
-            if "404 Client Error" in err or "403 Client Error" in err:
-                continue
-            else:
-                break
+            continue
+
 
 
 def collect_data(rss_feeds, np3k_feeds):
@@ -141,11 +145,9 @@ def collect_data(rss_feeds, np3k_feeds):
         begin_time = datetime.now()
 
         # Go through scraper list
-        for feed in rss_feeds:
-            get_rss_articles(feed)
-
-        for feed in np3k_feeds:
-            get_np3k_articles(feed)
+        get_np3k_articles(np3k_feeds)
+        get_rss_articles(rss_feeds)
+        
 
         # Wait minimum time
         time_elapsed = (datetime.now() - begin_time).seconds
