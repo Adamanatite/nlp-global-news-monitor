@@ -33,6 +33,7 @@ def get_sources_from_file():
                 continue
             if line == "END":
                 break
+
             if line[-1] == ":":
                 if len(line) == 3:
                     current_lang = line[:2].lower()
@@ -44,7 +45,7 @@ def get_sources_from_file():
                     continue
                 if not line[-1] == "/":
                     line += "/"
-                if line.count(".") > 1 and not "www" in line:
+                if line.count("/") < 4:
                     cat_start = line.find("://")+3
                     cat_end = line.find(".")
                     cat_string = line[cat_start:cat_end]
@@ -55,17 +56,24 @@ def get_sources_from_file():
                     cat_string = line[1:cat_end][::-1]
                     TLD = line[cat_end:][::-1]
                 np3k_feeds[TLD] = np3k_feeds.get(TLD, {})
+                if cat_string in np3k_feeds[TLD]:
+                    print(TLD, cat_string)
                 np3k_feeds[TLD][cat_string] = current_cat
-
         return rss_feeds, np3k_feeds
 
 def build_sources():
     pass
 
-def get_rss_articles(source):
-    pass
+def get_rss_articles(sources): 
+    for tld in sources:
+        #TODO: Get language details
+        scraper = newspaper.build(self.url, language=self.language, fetch_images=False)
+        # Get all new articles
+        for article in scraper.articles:
+            pass
 
 def get_np3k_articles(source):
+
     pass
 
 def scrape_details(data):
@@ -80,7 +88,7 @@ def scrape_details(data):
                     continue
                 # Add article
                 print(news.title)
-                AddArticle(url, news.title, cleanup(news.text), None, language, news.publish_date, None, scrape_type, category)
+                AddArticle(url, news.title, cleanup(news.text), None, language, news.publish_date, "Dataset Collection", scrape_type, category)
                 titles.add(news.title)
         except Exception as e:
             err = str(e)
@@ -92,7 +100,5 @@ def scrape_details(data):
                 break
 
 rss_feeds, np3k_feeds = get_sources_from_file()
-print(len(rss_feeds))
-print(rss_feeds[:10])
-print(len(np3k_feeds))
-print(list(np3k_feeds.keys())[:10])
+
+# print(rss_feeds)

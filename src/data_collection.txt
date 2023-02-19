@@ -214,9 +214,8 @@ https://www.theguardian.com/politics/rss
 https://globalnews.ca/politics/feed/
 https://abcnews.go.com/Politics
 http://www.scoop.co.nz/storyindex/index.rss?s.c=PO
-https://www.stuff.co.nz/national/politics
+https://www.stuff.co.nz/politics
 https://rss.cbc.ca/lineup/politics.xml
-https://www.stuff.co.nz/national/politics
 https://www.thenews.com.pk/rss/1/8
 FR:
 https://www.lefigaro.fr/rss/figaro_politique_le-scan.xml
@@ -251,11 +250,11 @@ https://www.belta.by/politics/
 ID:
 https://www.jawapos.com/politik/
 ZH:
-https://news.ltn.com.tw/news/politics/
+https://news.ltn.com.tw/politics/
 http://www.people.com.cn/rss/politics.xml
 AR:
 https://www.aljazeera.net/politics/
-https://www.albayan.ae/world/political-issues
+https://www.albayan.ae/political-issues
 https://shafaq.com/ar/%D8%B3%DB%8C%D8%A7%D8%B3%D8%A9
 https://www.okaz.com.sa/politics/
 
@@ -279,7 +278,6 @@ https://www.newscientist.com/subject/physics/feed/
 https://www.newscientist.com/subject/space/feed/
 FR:
 https://www.lefigaro.fr/rss/figaro_secteur_high-tech.xml
-https://www.lexpress.fr/economie/high-tech/
 https://www.lapresse.ca/affaires/techno/rss
 https://www.ledevoir.com/rss/section/societe/science.xml
 https://www.europe1.fr/rss/technologies.xml
@@ -352,14 +350,13 @@ http://www.scoop.co.nz/storyindex/index.rss?s.c=BU
 https://www.stuff.co.nz/business
 https://www.jamaicaobserver.com/rssfeed/business/
 https://www.thenews.com.pk/rss/2/15
-https://www.rte.ie/news/business/
+https://www.rte.ie/business/
 FR:
 https://www.lefigaro.fr/rss/figaro_societes.xml
 https://www.lefigaro.fr/rss/figaro_bourse.xml
 https://www.lemonde.fr/en/economy/rss_full.xml
 https://www.lemonde.fr/en/money-investments/rss_full.xml
 https://www.liberation.fr/economie/
-https://www.lexpress.fr/economie/
 https://www.lapresse.ca/affaires/economie/rss
 https://www.lapresse.ca/affaires/marches/rss
 https://www.lapresse.ca/affaires/entreprises/rss
@@ -426,7 +423,6 @@ https://kiswahili.tuko.co.ke/biashara/
 
 Health/Welfare:
 EN:
-https://www.bbc.co.uk/news/coronavirus
 https://rss.nytimes.com/services/xml/rss/nyt/Health.xml
 https://www.statnews.com/tag/coronavirus/feed
 https://www.statnews.com/category/health/feed
@@ -435,11 +431,11 @@ https://rss.cbc.ca/lineup/health.xml
 https://globalnews.ca/health/feed/
 https://abcnews.go.com/Health
 http://www.scoop.co.nz/storyindex/index.rss?s.c=GE
-https://www.stuff.co.nz/national/health
+https://www.stuff.co.nz/health
 https://news.un.org/feed/subscribe/en/news/topic/health/feed/rss.xml
 https://www.thenews.com.pk/rss/1/12
-https://www.rte.ie/news/health/
-https://www.rte.ie/news/coronavirus/
+https://www.rte.ie/health/
+https://www.rte.ie/coronavirus/
 https://www.ecdc.europa.eu/en/taxonomy/term/2794/feed
 https://www.ecdc.europa.eu/en/taxonomy/term/2942/feed
 https://www.ecdc.europa.eu/en/taxonomy/term/1310/feed
@@ -447,7 +443,7 @@ https://www.ecdc.europa.eu/en/taxonomy/term/1505/feed
 https://www.newscientist.com/subject/health/feed/
 FR:
 https://www.lefigaro.fr/rss/figaro_sante.xml
-https://www.lexpress.fr/sciences-sante/sante/
+https://www.lexpress.fr/sante/
 https://www.lapresse.ca/actualites/sante/rss
 https://www.lapresse.ca/actualites/covid-19/rss
 https://www.ledevoir.com/rss/section/societe/sante.xml
