@@ -294,3 +294,7 @@
 
 ### 17 Feb 2023
 * *0.5 hour* Source collection in Arabic
+
+### 18 Feb 2023
+* *0.5 hour* Work on scraping source list
+* *1 hour* More on scraping source list, figuring out URL parsing

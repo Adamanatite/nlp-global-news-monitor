@@ -32,15 +32,15 @@ https://www.lemonde.fr/en/music/rss_full.xml
 https://www.lemonde.fr/en/television-radio/rss_full.xml
 https://www.lemonde.fr/en/books/rss_full.xml
 https://www.lemonde.fr/en/arts/rss_full.xml
-https://www.liberation.fr/culture/cinema/
-https://www.liberation.fr/culture/arts/
-https://www.liberation.fr/culture/musique/
-https://www.liberation.fr/culture/livres/
-https://www.lexpress.fr/culture/theatre/
-https://www.lexpress.fr/culture/musique/
-https://www.lexpress.fr/culture/livre/
-https://www.lexpress.fr/culture/art/
-https://www.lexpress.fr/culture/cinema/
+https://www.liberation.fr/cinema/
+https://www.liberation.fr/arts/
+https://www.liberation.fr/musique/
+https://www.liberation.fr/livres/
+https://www.lexpress.fr/theatre/
+https://www.lexpress.fr/musique/
+https://www.lexpress.fr/livre/
+https://www.lexpress.fr/art/
+https://www.lexpress.fr/cinema/
 https://www.lapresse.ca/arts/rss
 https://www.ledevoir.com/rss/section/culture.xml?id=48
 https://lapresse.tn/category/culture/feed/
@@ -493,6 +493,8 @@ https://arabic.cnn.com/science-and-health
 
 SW:
 https://news.un.org/feed/subscribe/sw/news/topic/health/feed/rss.xml
+
+END
 
 
 Terms:

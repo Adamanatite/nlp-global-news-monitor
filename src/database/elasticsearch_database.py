@@ -145,7 +145,7 @@ def AddSource(url, name, country, lang, scraper_type):
         return None
 
 
-def AddArticle(url, title, text, country, lang, date, source, scraper, skip_verification=False):
+def AddArticle(url, title, text, country, lang, date, source, scraper, category=None, skip_verification=False):
     
     if not es:
         return
@@ -160,7 +160,7 @@ def AddArticle(url, title, text, country, lang, date, source, scraper, skip_veri
         "Retrieved": datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
         "Source": source,
         "Data Source": scraper,
-        "Category": "Unknown"
+        "Category": category
     }
 
     try:
@@ -200,9 +200,14 @@ def AddArticles(articles, categories):
     try:
         helpers.bulk(es, actions)
         print("Added", len(articles), "articles")
-    except Exception as e:
-        print("Couldn't add articles: ")
-        print(str(e))
+    except Exception:
+        print("Couldn't add articles, adding individually")
+        for article, category in zip(articles, categories):
+            try:
+                AddArticle(article[0], article[1], article[2], article[3], article[4], article[5], article[6], article[7], category)
+            except Exception as e:
+                print(str(e))
+                continue
 
 def GetSource(url):
 

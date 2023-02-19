@@ -13,7 +13,7 @@ with open(".ml/datasets/en.json") as f:
 
 
 # languages = ["fr", "es", "pt", "ru", "zh-C", "sw", "id", "ar", "ko"]
-languages = ["pt", "ru", "zh-C", "sw", "id", "ar", "ko"]
+languages = ["zh-CN", "sw", "id", "ar", "ko"]
 
 # batch_size = 100
 # n = len(data) // batch_size
@@ -37,6 +37,7 @@ categories = [d[1] for d in data]
 # # 3918 batches
 
 translator = Translator()
+
 for lang in languages:
     with open(".ml/datasets/" + lang + ".txt", "w", encoding="utf-8") as f:
         print(lang)
