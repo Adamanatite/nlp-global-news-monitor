@@ -42,8 +42,9 @@ def ESConnect():
         data = json.load(f)
 
     USE_CLOUD = data["connection_type"].lower() == "cloud"
-    ELASTIC_USERNAME = data["username"]
-    ELASTIC_PASSWORD = data["password"]
+    ELASTIC_USERNAME = data["local_username"]
+    ELASTIC_PASSWORD = data["local_password"]
+    CLOUD_ID = data["cloud_id"]
     CLOUD_USERNAME = data["cloud_username"]
     CLOUD_PASSWORD = data["cloud_password"]
     CERT_PATH = data["cert_path"]
@@ -52,7 +53,7 @@ def ESConnect():
     try:
         if USE_CLOUD:
             es = Elasticsearch(
-            cloud_id='Biocaster_test_kibana:ZXVyb3BlLXdlc3QyLmdjcC5lbGFzdGljLWNsb3VkLmNvbTo0NDMkNzU0ZWQ4N2IzNzkxNGY4OGEyMDIxMjliMzU2YmJjZWUkYTU4M2E3ZWM2YjQ5NDM1YThiMGQ4MjFkOGIwN2I3Yzg=',
+            cloud_id=CLOUD_ID,
             http_auth=(CLOUD_USERNAME, CLOUD_PASSWORD))
         else:
             es = Elasticsearch(

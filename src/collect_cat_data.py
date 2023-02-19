@@ -1,8 +1,15 @@
 import newspaper
-from database.elasticsearch_database import AddArticle
-
+from database.elasticsearch_database import CreateDB, AddArticle
+from datetime import datetime
+from time import mktime
+import feedparser
+import time
 
 MIN_ARTICLE_LENGTH = 100
+MIN_SECONDS_PER_SCRAPE = 300
+
+last_scrape_time = None
+
 
 def cleanup(text):
     #Check if lines has at least one alphanumeric digit (adapted from https://stackoverflow.com/a/6676843)
@@ -49,32 +56,61 @@ def get_sources_from_file():
                     cat_start = line.find("://")+3
                     cat_end = line.find(".")
                     cat_string = line[cat_start:cat_end]
-                    TLD = line[:cat_start] + "www" + line[cat_end:]
+                    TLD = line[:cat_start] + "www" + line[cat_end:] + current_lang
                 else:
                     line = line[::-1]
                     cat_end = line[1:].find("/")+1
                     cat_string = line[1:cat_end][::-1]
-                    TLD = line[cat_end:][::-1]
+                    TLD = line[cat_end:][::-1] + current_lang
+
                 np3k_feeds[TLD] = np3k_feeds.get(TLD, {})
                 if cat_string in np3k_feeds[TLD]:
                     print(TLD, cat_string)
                 np3k_feeds[TLD][cat_string] = current_cat
         return rss_feeds, np3k_feeds
 
-def build_sources():
-    pass
-
 def get_rss_articles(sources): 
-    for tld in sources:
-        #TODO: Get language details
-        scraper = newspaper.build(self.url, language=self.language, fetch_images=False)
-        # Get all new articles
+
+    global last_scrape_time
+    articles = []
+    start_scrape_time = datetime.now()
+
+    for source in sources:
+        try:
+            parsed = feedparser.parse(source[0])
+        except Exception as e:
+            print(source[0] + " error: " + str(e))
+            return
+        # Adapted from https://stackoverflow.com/a/59615563
+        new_items = [entry for entry in parsed.entries if
+            datetime.fromtimestamp(mktime(entry.updated_parsed)) > last_scrape_time]
+
+        for item in new_items:
+            print(item.title, source[2])
+            articles.append((item.link, source[1], "RSS/Atom Feed", source[2]))
+
+    last_scrape_time = start_scrape_time
+
+    scrape_details(articles)
+    return articles
+
+def get_np3k_articles(sources):
+
+    articles = []
+    for source in sources:
+        url = source[:-2]
+        lang = source[-2:]
+
+        scraper = newspaper.build(url, language=lang, fetch_images=False)
+
         for article in scraper.articles:
-            pass
+            for cat in sources[source]:
+                if cat in article.url:
+                    print(article.url, sources[source][cat])
+                    articles.append((article.url, lang, "Web Scraper", sources[source][cat]))
+    scrape_details(articles)
+    return articles
 
-def get_np3k_articles(source):
-
-    pass
 
 def scrape_details(data):
     titles = set()
@@ -99,6 +135,25 @@ def scrape_details(data):
             else:
                 break
 
-rss_feeds, np3k_feeds = get_sources_from_file()
 
-# print(rss_feeds)
+def collect_data(rss_feeds, np3k_feeds):
+    while True:
+        begin_time = datetime.now()
+
+        # Go through scraper list
+        for feed in rss_feeds:
+            get_rss_articles(feed)
+
+        for feed in np3k_feeds:
+            get_np3k_articles(feed)
+
+        # Wait minimum time
+        time_elapsed = (datetime.now() - begin_time).seconds
+        if time_elapsed < MIN_SECONDS_PER_SCRAPE:
+            time_remaining = MIN_SECONDS_PER_SCRAPE - time_elapsed
+            print(f"[{id}] Sleeping for {time_remaining} seconds...")
+            time.sleep(time_remaining)
+
+CreateDB()
+rss, np3k = get_sources_from_file()
+collect_data(rss, np3k)

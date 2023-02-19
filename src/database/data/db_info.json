@@ -1,8 +1,9 @@
 {
-"connection_type": "cloud",
-"username": "elastic",
-"password": "N-WHHrjzgQ2duAbUDzAg",
+"connection_type": "local",
+"local_username": "",
+"local_password": "",
 "cert_path": "cert/http_ca.crt",
-"cloud_username": "elastic",
-"cloud_password": "5Xqnk5Yaw67HlyRx0qbrXxLu"
+"cloud_username": "",
+"cloud_id": "",
+"cloud_password": ""
 }

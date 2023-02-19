@@ -133,7 +133,7 @@ research/errors.txt
 # Temporary outputs
 research/outputs/
 # Config file with DB connection information
-src/data/db_info.json
+src/database/data/db_info.json
 # Certification file
 src/database/cert/
 # Locally stored models

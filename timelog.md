@@ -299,3 +299,6 @@
 * *0.5 hour* Work on scraping source list
 * *1 hour* More on scraping source list, figuring out URL parsing
 * *0.5 hour* Moe on scraping source list
+
+### 19 Feb 2023
+* *1 hour* Work on writing code to scrape dataset sources

@@ -40,7 +40,6 @@ class FeedScraper(Scraper):
         articles = []
         try:
             parsed = feedparser.parse(self.url)
-            self.no_consecutive_failures = 0
         except Exception as e:
             print(self.name + " error: " + str(e))
             return
