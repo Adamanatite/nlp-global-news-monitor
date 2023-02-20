@@ -13,7 +13,7 @@ with open(".ml/datasets/en.json") as f:
 
 
 # languages = ["fr", "es", "pt", "ru", "zh-C", "sw", "id", "ar", "ko"]
-languages = ["id", "ar", "ko"]
+languages = ["ko"]
 
 # batch_size = 100
 # n = len(data) // batch_size

@@ -1,6 +1,6 @@
 import newspaper
 from database.elasticsearch_database import CreateDB, AddArticle
-from datetime import datetime
+from datetime import datetime, timedelta
 from time import mktime
 import feedparser
 import time
@@ -9,7 +9,7 @@ import re
 MIN_ARTICLE_LENGTH = 100
 MIN_SECONDS_PER_SCRAPE = 300
 
-last_scrape_time = datetime(month=1, day=1, year=2000)
+last_scrape_time = datetime.now() - timedelta(days=1)
 
 
 def cleanup(text):
