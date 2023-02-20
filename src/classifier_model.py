@@ -92,12 +92,20 @@ tf_validation_set = model.prepare_tf_dataset(
 
 # Load evaluation metric
 accuracy = evaluate.load("accuracy")
+precision = evaluate.load("precision")
+recall = evaluate.load("recall")
+f1 = evaluate.load("f1")
 
 # From https://huggingface.co/docs/transformers/main/en/tasks/sequence_classification
 def compute_metrics(eval_pred):
     predictions, labels = eval_pred
     predictions = np.argmax(predictions, axis=1)
-    return accuracy.compute(predictions=predictions, references=labels)
+    accuracy_score = accuracy.compute(predictions=predictions, references=labels)["accuracy"]
+    precision_score = precision.compute(predictions=predictions, references=labels)["precision"]
+    recall_score = recall.compute(predictions=predictions, references=labels)["recall"]
+    f1_score = f1.compute(predictions=predictions, references=labels)["f1"]
+
+    return {"precision": precision_score, "recall": recall_score, "f1": f1_score, "accuracy": accuracy_score}
 
 # Train model
 model.compile(optimizer=optimizer)

@@ -136,16 +136,15 @@ def scrape_details(data):
             # If the URL doesn't work, simply skip the article. Otherwise if there is a connection issue stop scraping until the next loop
             continue
 
-
-
 def collect_data(rss_feeds, np3k_feeds):
+    
+    i = 0
     while True:
         begin_time = datetime.now()
-
         # Go through scraper list
-        get_rss_articles(rss_feeds)
+        if i % 5 == 0:
+            get_rss_articles(rss_feeds)
         get_np3k_articles(np3k_feeds)
-
         # Wait minimum time
         time_elapsed = (datetime.now() - begin_time).seconds
         if time_elapsed < MIN_SECONDS_PER_SCRAPE:

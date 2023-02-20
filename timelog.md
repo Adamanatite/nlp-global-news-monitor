@@ -309,3 +309,6 @@
 
 ### 20 Feb 2023
 * *0.5 hour* Work on writing research section of dissertation
+* *1 hour* Meeting preparation and further write-up
+* *0.5 hour* Supervisor meeting and note collation
+* 1 hour* Planning ML evaluation and work on preparing to train
