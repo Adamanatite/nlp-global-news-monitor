@@ -95,23 +95,32 @@ accuracy = evaluate.load("accuracy")
 precision = evaluate.load("precision")
 recall = evaluate.load("recall")
 f1 = evaluate.load("f1")
+# From https://huggingface.co/spaces/BucketHeadP65/confusion_matrix
+cfm = evaluate.load("BucketHeadP65/confusion_matrix")
 
 # From https://huggingface.co/docs/transformers/main/en/tasks/sequence_classification
 def compute_metrics(eval_pred):
     predictions, labels = eval_pred
     predictions = np.argmax(predictions, axis=1)
+
     accuracy_score = accuracy.compute(predictions=predictions, references=labels)["accuracy"]
     precision_score = precision.compute(predictions=predictions, references=labels)["precision"]
     recall_score = recall.compute(predictions=predictions, references=labels)["recall"]
     f1_score = f1.compute(predictions=predictions, references=labels)["f1"]
+    confusion_matrix = cfm.compute(predictions=predictions, references=labels)["confusion_matrix"]
 
-    return {"precision": precision_score, "recall": recall_score, "f1": f1_score, "accuracy": accuracy_score}
+    return {"precision": precision_score, "recall": recall_score, "f1": f1_score,
+     "accuracy": accuracy_score, "confusion_matrix": confusion_matrix}
+
+push_to_hub_callback = PushToHubCallback(
+    output_dir="eng-news-topic-classifier",
+    tokenizer=tokenizer,
+)
 
 # Train model
 model.compile(optimizer=optimizer)
 metric_callback = KerasMetricCallback(metric_fn=compute_metrics, eval_dataset=tf_validation_set)
-#model.fit(x=tf_train_set, validation_data=tf_validation_set, epochs=3, callbacks=[metric_callback])
+model.fit(x=tf_train_set, validation_data=tf_validation_set, epochs=3, callbacks=[metric_callback, push_to_hub_callback])
 
 # Save model
 model.save_pretrained(LOCAL_DIR + "trained_model/")
-model.push_to_hub("test-multilabel-news")

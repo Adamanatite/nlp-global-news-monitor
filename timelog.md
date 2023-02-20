@@ -312,3 +312,4 @@
 * *1 hour* Meeting preparation and further write-up
 * *0.5 hour* Supervisor meeting and note collation
 * 1 hour* Planning ML evaluation and work on preparing to train
+* *1.5 hour* Work on running ML remotely, having import problems
