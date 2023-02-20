@@ -103,13 +103,11 @@ def get_np3k_articles(sources):
     for source in sources:
         url = source[:-2]
         lang = source[-2:]
-        print(url)
-        print(sources[source])
         scraper = newspaper.build(url, language=lang, fetch_images=False)
 
         for article in scraper.articles:
             for cat in sources[source]:
-                if "/" + cat + "/" in article.url or cat + "." in article.url:
+                if "/" + cat + "/" in article.url or cat + "." in article.url or cat + "-" in article.url:
                     articles.append((article.url, lang, "Web Scraper", sources[source][cat]))
     scrape_details(articles)
     return articles
@@ -145,9 +143,8 @@ def collect_data(rss_feeds, np3k_feeds):
         begin_time = datetime.now()
 
         # Go through scraper list
-        get_np3k_articles(np3k_feeds)
         get_rss_articles(rss_feeds)
-        
+        get_np3k_articles(np3k_feeds)
 
         # Wait minimum time
         time_elapsed = (datetime.now() - begin_time).seconds
