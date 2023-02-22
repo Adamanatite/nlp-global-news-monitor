@@ -313,3 +313,6 @@
 * *0.5 hour* Supervisor meeting and note collation
 * 1 hour* Planning ML evaluation and work on preparing to train
 * *1.5 hour* Work on running ML remotely, having import problems
+
+### 22 Feb 2023
+* *1 hour* Collecting supplementary sources for underrepresented categories/languages

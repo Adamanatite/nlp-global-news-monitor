@@ -81,6 +81,9 @@ ID:
 https://www.jawapos.com/entertainment/
 https://www.pikiran-rakyat.com/entertainment
 https://www.suara.com/rss/entertainment
+https://www.tribunnews.com/seleb
+https://www.suara.com/entertainment
+
 ZH:
 https://ent.sina.com.cn/
 https://ent.huanqiu.com/
@@ -183,6 +186,10 @@ https://www.jawapos.com/sepak-bola-indonesia/
 https://www.pikiran-rakyat.com/olahraga/
 https://www.pikiran-rakyat.com/bola/
 https://www.suara.com/rss/bola
+https://www.tribunnews.com/sport
+https://sport.detik.com/
+https://www.suara.com/sport
+
 ZH:
 https://sports.sina.com.cn/
 https://sports.huanqiu.com/
@@ -248,9 +255,15 @@ https://www.belta.by/president/
 https://www.belta.by/politics/
 ID:
 https://www.jawapos.com/politik/
+https://www.tribunnews.com/mata-lokal-memilih
+https://news.detik.com/pemilu
+https://sorotpolitik.kompas.com/
+https://kilasparlemen.kompas.com/
 ZH:
 https://news.ltn.com.tw/politics/
 http://www.people.com.cn/rss/politics.xml
+http://cpc.people.com.cn/
+https://politics.gmw.cn/
 AR:
 https://www.aljazeera.net/politics/
 https://www.albayan.ae/political-issues
@@ -321,6 +334,8 @@ https://www.suara.com/rss/tekno
 https://zetizen.jawapos.com/rss/science
 https://zetizen.jawapos.com/rss/techno
 https://www.pikiran-rakyat.com/teknologi/
+https://www.tribunnews.com/techno
+https://www.suara.com/tekno
 ZH:
 https://tech.sina.com.cn/
 https://tech.huanqiu.com/
@@ -402,6 +417,9 @@ https://ekonomi.republika.co.id/
 https://www.jawapos.com/ekonomi/
 https://www.pikiran-rakyat.com/ekonomi/
 https://www.suara.com/rss/bisnis
+https://www.tribunnews.com/bisnis
+https://finance.detik.com/
+https://www.suara.com/bisnis
 ZH:
 https://finance.sina.com.cn/
 https://finance.huanqiu.com/
@@ -472,12 +490,18 @@ https://health.kompas.com/
 https://www.jawapos.com/bersama-lawan-covid-19/
 https://www.jawapos.com/kesehatan/
 https://www.suara.com/rss/health
+https://www.tribunnews.com/kesehatan
+https://health.detik.com/
+https://www.suara.com/health
 ZH:
 https://news.un.org/feed/subscribe/zh/news/topic/health/feed/rss.xml
 https://health.huanqiu.com/
 https://health.ltn.com.tw/
 https://www.zaobao.com.sg/health/
 https://www.jkb.com.cn/publicHealth/
+http://health.people.com.cn/
+https://health.gmw.cn/
+
 AR:
 https://news.un.org/feed/subscribe/ar/news/topic/health/feed/rss.xml
 https://www.aljazeera.net/health/
@@ -500,6 +524,7 @@ Books
 Theater
 Television
 Dance
+Celebrity
 
 Business/Finance:
 Economy
@@ -508,6 +533,8 @@ Market
 Money/investment
 
 Politics:
+Election
+Parliament
 
 Sport:
 Soccer
