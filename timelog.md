@@ -316,3 +316,4 @@
 
 ### 22 Feb 2023
 * *1 hour* Collecting supplementary sources for underrepresented categories/languages
+* *1.5 hour* Working on running ML training on university cluster
