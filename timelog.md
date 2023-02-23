@@ -318,3 +318,6 @@
 * *1 hour* Collecting supplementary sources for underrepresented categories/languages
 * *1.5 hour* Working on running ML training on university cluster
 * * 2.5 hour* Planning/researching ML evaluation, compiling multilingual public dataset
+
+### 23 Feb 2023
+* *2 hour* Working on ML training
