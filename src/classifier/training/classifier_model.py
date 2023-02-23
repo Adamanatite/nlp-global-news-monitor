@@ -2,6 +2,7 @@ from transformers import AutoTokenizer, TFAutoModelForSequenceClassification, Da
 from transformers.keras_callbacks import KerasMetricCallback, PushToHubCallback
 from datasets import load_dataset, load_from_disk, DatasetDict, ClassLabel
 import evaluate
+from evaluate import evaluator
 import numpy as np
 import tensorflow as tf
 
@@ -121,6 +122,59 @@ push_to_hub_callback = PushToHubCallback(
 model.compile(optimizer=optimizer)
 metric_callback = KerasMetricCallback(metric_fn=compute_metrics, eval_dataset=tf_validation_set)
 model.fit(x=tf_train_set, validation_data=tf_validation_set, epochs=3, callbacks=[metric_callback, push_to_hub_callback])
+
+
+task_evaluator = evaluator("text-classification")
+# Evaluate model
+eval_results = task_evaluator.compute(
+    model_or_pipeline="lvwerra/distilbert-imdb",
+    data=data, # Test splits
+    metric=evaluate.combine(["accuracy", "recall", "precision", "f1"]),
+    label_mapping={"NEGATIVE": 0, "POSITIVE": 1}
+)
+print(eval_results)
+
+from evaluate.evaluation_suite import SubTask
+
+class Suite(evaluate.EvaluationSuite):
+
+    def __init__(self, name):
+        super().__init__(name)
+        self.preprocessor = lambda x: {"text": x["text"].lower()}
+        self.suite = [
+            SubTask(
+                task_type="text-classification",
+                data="glue",
+                subset="sst2",
+                split="validation[:10]",
+                args_for_task={
+                    "metric": "accuracy",
+                    "input_column": "sentence",
+                    "label_column": "label",
+                    "label_mapping": {
+                        "LABEL_0": 0.0,
+                        "LABEL_1": 1.0
+                    }
+                }
+            ),
+            SubTask(
+                task_type="text-classification",
+                data="glue",
+                subset="rte",
+                split="validation[:10]",
+                args_for_task={
+                    "metric": "accuracy",
+                    "input_column": "sentence1",
+                    "second_input_column": "sentence2",
+                    "label_column": "label",
+                    "label_mapping": {
+                        "LABEL_0": 0,
+                        "LABEL_1": 1
+                    }
+                }
+            )
+        ]
+
 
 # Save model
 model.save_pretrained(LOCAL_DIR + "trained_model/")
