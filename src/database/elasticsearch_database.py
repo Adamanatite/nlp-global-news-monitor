@@ -315,3 +315,6 @@ def EnableSource(id):
 def DisableSource(id):
     es.update(index='sources',id=id,
         body={"doc": {"Active": False}})
+    
+def getInstance():
+    return es

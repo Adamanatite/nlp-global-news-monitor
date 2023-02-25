@@ -329,3 +329,4 @@
 * *2 hour* Hyperparameter tuning and training multilingual models on multilingual public dataset
 * *1 hour* Preparing overnight training
 * *2 hour* Evaluation for optimised multilingual models
+* *1 hour* Work on generating and loading collected dataset from elasticsearch
