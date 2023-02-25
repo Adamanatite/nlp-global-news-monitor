@@ -321,3 +321,10 @@
 
 ### 23 Feb 2023
 * *2 hour* Working on ML training
+
+### 24 Feb 2023
+* *2 hour* Further work on training
+
+### 25 Feb 2023
+* *2 hour* Hyperparameter tuning and training multilingual models on multilingual public dataset
+* *1 hour* Preparing overnight training

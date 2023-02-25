@@ -2,14 +2,14 @@ import json
 
 categories = []
 
-with open("./.ml/datasets/multilingual/test.json", "w", encoding="utf-8") as f:
-    with open(".ml/datasets/en.json") as inf:
+with open("./.ml/datasets/multilingual/ml.json", "w", encoding="utf-8") as f:
+    with open(".ml/datasets/en.json", encoding="utf-8") as inf:
         for line in inf:
             d = json.loads(line)
             data = {}
             data["text"] = d["Text"]
             data["label"] = d["Category"]
-            f.write(json.dumps(data) + "\n")
+            f.write(json.dumps(data, ensure_ascii=False) + "\n")
             categories.append(d["Category"])
 
     languages = ["fr", "es", "pt", "zh-CN", "id"]
@@ -19,4 +19,4 @@ with open("./.ml/datasets/multilingual/test.json", "w", encoding="utf-8") as f:
                 data = {}
                 data["text"] = line
                 data["label"] = categories[i]
-                f.write(json.dumps(data) + "\n")
+                f.write(json.dumps(data, ensure_ascii=False) + "\n")
