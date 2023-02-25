@@ -328,3 +328,4 @@
 ### 25 Feb 2023
 * *2 hour* Hyperparameter tuning and training multilingual models on multilingual public dataset
 * *1 hour* Preparing overnight training
+* *2 hour* Evaluation for optimised multilingual models
