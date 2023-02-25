@@ -330,3 +330,4 @@
 * *1 hour* Preparing overnight training
 * *2 hour* Evaluation for optimised multilingual models
 * *1 hour* Work on generating and loading collected dataset from elasticsearch
+* *1.5 hour* Work on resampling collected data and getting final metrics
