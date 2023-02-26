@@ -331,3 +331,6 @@
 * *2 hour* Evaluation for optimised multilingual models
 * *1 hour* Work on generating and loading collected dataset from elasticsearch
 * *1.5 hour* Work on resampling collected data and getting final metrics
+
+### 26 Feb 2023
+* *1.5 hour* Getting results for English models
