@@ -334,4 +334,5 @@
 
 ### 26 Feb 2023
 * *1.5 hour* Getting results for English models
-* *1 hour* Training on real world data 
+* *1 hour* Training on real world data
+* 1.5 hour* Retraining RoBERTa models and getting static baselines
