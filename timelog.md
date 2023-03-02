@@ -345,4 +345,4 @@
 * *0.5 hour* Work on writing up evaluation section
 
 ### 2 Mar 2023
-* *0.5 hour* Work on evaluation
+* *1 hour* Planned out ML implementation and evaluation sections
