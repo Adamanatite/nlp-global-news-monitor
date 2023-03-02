@@ -346,3 +346,6 @@
 
 ### 2 Mar 2023
 * *1 hour* Planned out ML implementation and evaluation sections
+* *0.5 hour* Setting up evaluation again and trying to fix scraper bugs
+* *0.5 hour* Writing up machine learning evaluation
+* *1 hour* Continuing write up

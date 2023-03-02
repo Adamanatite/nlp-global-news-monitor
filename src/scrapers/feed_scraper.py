@@ -42,10 +42,14 @@ class FeedScraper(Scraper):
             parsed = feedparser.parse(self.url)
         except Exception as e:
             print(self.name + " error: " + str(e))
-            return
+            return []
         # Adapted from https://stackoverflow.com/a/59615563
-        new_items = [entry for entry in parsed.entries if
-                datetime.fromtimestamp(mktime(entry.updated_parsed)) > self.last_scrape_time]
+        try:
+            new_items = [entry for entry in parsed.entries if
+                    datetime.fromtimestamp(mktime(entry.updated_parsed)) > self.last_scrape_time]
+        except:
+            print("No updated date:", parsed.entries[0])
+            return []
 
         if len(new_items) > 0:
             new_items.sort(reverse=True, key=lambda x: x.updated_parsed)
