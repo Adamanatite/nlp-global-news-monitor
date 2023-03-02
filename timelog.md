@@ -336,3 +336,13 @@
 * *1.5 hour* Getting results for English models
 * *1 hour* Training on real world data
 * 1.5 hour* Retraining RoBERTa models and getting static baselines
+
+## Week 24
+
+### 27 Feb 2023
+* *1 hour* Compiling results
+* *1 hour* Supervisor meeting prep and meeting
+* *0.5 hour* Work on writing up evaluation section
+
+### 2 Mar 2023
+* *0.5 hour* Work on evaluation
