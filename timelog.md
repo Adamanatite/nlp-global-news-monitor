@@ -351,3 +351,4 @@
 * *1 hour* Continuing write up
 * *0.5 hour* Finishing evaluation setup
 * *1 hour* Continuing evaluation write-up
+* *1 hour* Almost completed evaluation write-up
