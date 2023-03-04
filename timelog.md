@@ -355,3 +355,7 @@
 
 ### 3 Mar 2023
 * *1.5 hour* Completed evaluation write up for machine learning
+
+### 4 Mar 2023
+* *1 hour* Work on dissertation write-up
+* *1 hour* Continuing dissertation write-up
