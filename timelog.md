@@ -352,3 +352,6 @@
 * *0.5 hour* Finishing evaluation setup
 * *1 hour* Continuing evaluation write-up
 * *1 hour* Almost completed evaluation write-up
+
+### 3 Mar 2023
+* *1.5 hour* Completed evaluation write up for machine learning
