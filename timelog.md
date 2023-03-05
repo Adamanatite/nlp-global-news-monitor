@@ -365,3 +365,4 @@
 * *1.5 hour* Continuing dissertation write-up
 * *0.5 hour* Work on background research
 * *1 hour* Work on abstract and introduction
+* *2 hour* Finishing introduction section
