@@ -359,3 +359,6 @@
 ### 4 Mar 2023
 * *1 hour* Work on dissertation write-up
 * *1 hour* Continuing dissertation write-up
+
+### 5 Mar 2023
+* *1.5 hour* Continuing write-up (evaluation and conclusions)
