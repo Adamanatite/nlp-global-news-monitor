@@ -30,7 +30,7 @@ class FeedScraper(Scraper):
             lang= d.get("language", None)
             if not lang:
                 if d.entries:
-                    lang = detect(self.entries[0].title)[:2]
+                    lang = detect(d.entries[0].title)[:2]
             else:
                 lang = lang[:2]
 

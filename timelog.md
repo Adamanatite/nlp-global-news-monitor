@@ -372,3 +372,4 @@
 ### 6 Mar 2023
 * *1 hour* Work on background research section
 * *1.5 hour* Further work on background research
+* *1 hour* Supervisor meeting prep, meeting and note collation
