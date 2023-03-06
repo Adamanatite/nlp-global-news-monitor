@@ -366,3 +366,9 @@
 * *0.5 hour* Work on background research
 * *1 hour* Work on abstract and introduction
 * *2 hour* Finishing introduction section
+
+## Week 25
+
+### 6 Mar 2023
+* *1 hour* Work on background research section
+* *1.5 hour* Further work on background research
