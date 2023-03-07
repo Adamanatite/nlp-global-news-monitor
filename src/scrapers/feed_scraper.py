@@ -58,4 +58,3 @@ class FeedScraper(Scraper):
                 articles.append((item.link, item.title, cleanup(item.summary), self.country, self.language, datetime.fromtimestamp(mktime(item.updated_parsed)), self.name, self.scrape_type))
             self.last_scrape_time = datetime.fromtimestamp(mktime(new_items[0].updated_parsed))
         return articles
-        

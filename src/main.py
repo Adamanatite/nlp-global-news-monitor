@@ -119,8 +119,8 @@ print(f"Beginning to scrape from {len(scrapers)} sources")
 def get_no_sources():
     return len(scrapers)
 
-#eel.init('interface')
-#eel.start('index.html')
+eel.init('dynamic_interface')
+eel.start('index.html')
 
 while scrapers:
     for scraper in scrapers:
@@ -131,6 +131,3 @@ while scrapers:
                 AddArticles(articles, categories)
         else:
             scrapers.pop(scraper)
-
-
-
