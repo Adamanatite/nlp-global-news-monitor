@@ -1,6 +1,8 @@
 import newspaper
 import re
-from database.elasticsearch_database import AddArticle
+from database.elasticsearch_database import AddArticle, UpdateLastScraped
+from langdetect import detect
+from datetime import timezone
 
 # TODO: Get this from config
 MIN_ARTICLE_LENGTH = 300
@@ -21,6 +23,9 @@ def article_parse(url, lang=None):
     return article
 
 def parse(articles):
+
+    new_source_publish_dates = {}
+
     titles = []
     parsed_articles = []
     for article in articles:
@@ -61,4 +66,9 @@ def parse(articles):
                 continue
             else:
                 break
+    
+    for src, time in new_source_publish_dates.items():
+        # Convert to UTC
+        UpdateLastScraped(src, time.astimezone(timezone.utc))
+
     return parsed_articles

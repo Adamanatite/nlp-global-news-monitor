@@ -374,3 +374,6 @@
 * *1.5 hour* Further work on background research
 * *1 hour* Supervisor meeting prep, meeting and note collation
 * *0.5 hour* Work on improving scraper system for integration with web app
+
+### 7 Mar 2023
+* *0.5 hour* Work on dynamic interface
