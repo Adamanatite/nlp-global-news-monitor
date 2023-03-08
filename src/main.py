@@ -1,4 +1,4 @@
-from database.elasticsearch_database import CreateDB, GetActiveSources, AddArticles
+from database.elasticsearch_database import CreateDB, GetAllSources, AddArticles
 from scrapers.newspaper3k_scraper import NewspaperScraper
 from scrapers.feed_scraper import FeedScraper
 from utils.parse_config import ParseBoolean
@@ -11,7 +11,8 @@ from datetime import datetime
 import time
 import eel
 
-with open("config.json") as f:
+
+with open("config.json", encoding="utf-8") as f:
     data = json.load(f)
     try: 
         USE_CONCURRENCY = ParseBoolean(data["concurrent"])
@@ -19,18 +20,34 @@ with open("config.json") as f:
         NO_WORKERS = int(data["no_workers"])
         MIN_SECONDS_PER_SCRAPE = int(data["min_seconds_per_scrape"])
         MAX_ACTIVE_SCRAPERS = int(data["max_active_scrapers"])
+        EMPTY_DAYS_UNTIL_STALE = int(data["empty_days_until_stale"])
     except Exception as e:
         print("Error in config.json file")
         USE_CONCURRENCY=False
         MIN_SECONDS_PER_SCRAPE = 300
         MAX_ACTIVE_SCRAPERS = 1000
+        EMPTY_DAYS_UNTIL_STALE = 14
 
-def InitialiseActiveSources():
+@eel.expose
+def get_sources():
+    js_scrapers = []
+    for scraper in scrapers:
+        js_scrapers.append((scraper.source_id, scraper.url, scraper.name, scraper.language, scraper.scrape_type, scraper.last_scrape_time.strftime("%y-%m-%dT%H:%M:%SZ")))
+    return js_scrapers
+
+@eel.expose
+def get_days_until_stale():
+    return EMPTY_DAYS_UNTIL_STALE
+
+
+
+
+def InitialiseSources():
     scrapers = []
     constructors = {"Web scraper": NewspaperScraper,
                     "RSS/Atom Feed": FeedScraper}
 
-    for source in GetActiveSources(True, MAX_ACTIVE_SCRAPERS):
+    for source in GetAllSources(MAX_ACTIVE_SCRAPERS):
         source_id = source["_id"]
         scraper_type = source["_source"]["Data Source"]
         url = source["_source"]["URL"]
@@ -38,8 +55,9 @@ def InitialiseActiveSources():
         country = source["_source"]["Country"]
         lang = source["_source"]["Language"]
         last_scrape_time = source["_source"]["Last Retrieved"]
+        enabled = source["_source"]["Active"]
         try:
-            scraper = constructors[scraper_type](url, name, country, lang, source_id, last_scrape_time)
+            scraper = constructors[scraper_type](url, name, country, lang, source_id, last_scrape_time, enabled)
             scrapers.append(scraper)
         except Exception as e:
             print(str(e))
@@ -48,7 +66,7 @@ def InitialiseActiveSources():
     return scrapers
 
 CreateDB()
-scrapers = InitialiseActiveSources()
+scrapers = InitialiseSources()
 classifier = BERTClassifier("./.ml/", False)
 
 def scrape_sources(id, l, q, scrapers):
@@ -115,19 +133,15 @@ print(f"Beginning to scrape from {len(scrapers)} sources")
 #             else:
 #                 scrapers.pop(scraper)
 
-@eel.expose
-def get_no_sources():
-    return len(scrapers)
-
 eel.init('dynamic_interface')
 eel.start('index.html')
 
-while scrapers:
-    for scraper in scrapers:
-        if scraper.enabled:
-            articles = scraper.scrape()
-            if articles:
-                categories = classifier.classify(articles)
-                AddArticles(articles, categories)
-        else:
-            scrapers.pop(scraper)
+# while scrapers:
+#     for scraper in scrapers:
+#         if scraper.enabled:
+#             articles = scraper.scrape()
+#             if articles:
+#                 categories = classifier.classify(articles)
+#                 AddArticles(articles, categories)
+#         else:
+#             scrapers.pop(scraper)

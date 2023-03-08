@@ -54,9 +54,9 @@ def GetDefaultName(url):
 
 class Scraper:
 
-    def __init__(self, url, name, country=None, lang=None, source_id=None, last_scraped=None):
+    def __init__(self, url, name, country=None, lang=None, source_id=None, last_scraped=None, is_active=True):
 
-        self.enabled = True
+        self.enabled = is_active
 
         self.url = url
         self.source_id = source_id
@@ -91,6 +91,15 @@ class Scraper:
         else:
             self.last_scrape_time = publish_date
 
+    def enable(self):
+        self.enabled = True
+
+    def disable(self):
+        self.enabled = False
+    
+    def delete(self):
+        #TODO: Delete self from database
+        pass
 
     def scrape(self):
 

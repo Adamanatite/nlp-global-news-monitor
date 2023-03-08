@@ -248,6 +248,21 @@ def GetActiveSources(value=True, max_scrapers=1000):
         return results["hits"]["hits"]
     return []
 
+def GetAllSources(max_scrapers=1000):
+
+    if not es:
+        return []
+
+    query_body = {
+        "size": max_scrapers
+    }
+
+    results = es.search(index="sources", body=query_body)
+
+    if results["hits"]["hits"]:
+        return results["hits"]["hits"]
+    return []
+
 def GetArticleURL(url):
     query_body = {
         "query": {

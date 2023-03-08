@@ -1,12 +1,62 @@
-let is_scraping = true
-let n = 4
+let is_scraping = true;
+let n = 0;
+let days_until_stale = 14;
 
 window.onload = function(){
   document.getElementById("kibana-visualisation").style.display="none";
-  update_text(n)
+  //update_text(n)
   //TODO: Find out is_scraping here
-  //eel.get_no_sources()(update_text)
+  eel.get_days_until_stale()(set_days_until_stale)
+  eel.get_sources()(populate_tables)
 
+}
+
+function set_days_until_stale(d){
+  days_until_stale = d;
+}
+
+function populate_tables(scrapers) {
+  
+  for(i = 0; i < scrapers.length; i++){
+    //TODO: Properly decide table
+    addTableRow(scrapers[i][0], scrapers[i][1], scrapers[i][2], scrapers[i][3], scrapers[i][4], scrapers[i][5], true)
+  }
+  update_text(scrapers.length)
+}
+
+function get_date_string(date){
+  let now = Date.now()
+  let then = Date.parse(date)
+  if (isNaN(then)){
+    return ["Never", true]
+  }
+  
+  let ms_difference = now - then
+  // Calculate if source is stale
+  let ms_until_stale = days_until_stale * (24 * 60 * 60 * 1000)
+  let is_stale = (ms_until_stale < ms_difference)
+
+  // Get date string
+  let mins_difference = Math.floor(ms_difference / (1000 * 60))
+  if (mins_difference === 0){
+    return ["Just now", true]
+  }
+  if (mins_difference < 60){
+    return [mins_difference + " minutes ago", is_stale]
+  }
+  else if (mins_difference < (60 * 24)){
+    return [Math.floor(mins_difference / 60) + " hours ago", is_stale]
+  }
+  else if (mins_difference < (60 * 24 * 7)){
+    return [Math.floor(mins_difference / (60 * 24)) + " days ago", is_stale]
+  }
+  else if (mins_difference < (60 * 24 * 30)){
+    return [Math.floor(mins_difference / (60 * 24 * 7)) + " weeks ago", is_stale]
+  }
+  else if (mins_difference < (60 * 24 * 365)){
+    return [Math.floor(mins_difference / (60 * 24 * 30)) + " months ago", is_stale]
+  }
+  return [Math.floor(mins_difference / (60 * 24 * 365)) + " years ago", is_stale]
 }
 
 function update_text(n){
@@ -106,7 +156,21 @@ function toggleVisualisation(){
 }
 
 // Adapted from https://www.w3schools.com/jsref/met_table_insertrow.asp
-function addTableRow(table_id, name, url, lang, srcType, last, isEnabled) {
+function addTableRow(source_id, url, name, lang, srcType, last, isEnabled) {
+
+  date_string_data = get_date_string(last)
+  console.log()
+  date_string = date_string_data[0]
+  console.log(date_string)
+  is_stale = date_string_data[1]
+  let table_id = "active-table"
+  if (!(isEnabled)){
+    table_id = "disabled-table"
+  }
+  else if(is_stale){
+    table_id="stale-table"
+  }
+
   var table = document.getElementById(table_id);
   if (!table){
     addTable(table_id)
@@ -122,17 +186,16 @@ function addTableRow(table_id, name, url, lang, srcType, last, isEnabled) {
 
 
   srcCell.innerHTML = `<a href="${url}">${name}</a>`;
-  langCell.innerHTML = lang;
+  langCell.innerHTML = lang.toUpperCase();
   srcTypeCell.innerHTML = srcType
-  lastCell.innerHTML = last
-  lower = name.toLowerCase()
+  lastCell.innerHTML = date_string
   if (isEnabled){
-    disableCell.innerHTML = `<td><button id = "${lower}-toggle" class="action-btn table-btn disable-btn" onclick="toggleSource(this)">Disable</button></td>`
+    disableCell.innerHTML = `<td><button id = "${source_id}-toggle" class="action-btn table-btn disable-btn" onclick="toggleSource(this)">Disable</button></td>`
   } else {
-    disableCell.innerHTML = `<td><button id = "${lower}-toggle" class="action-btn table-btn accent-btn" onclick="toggleSource(this)">Enable</button></td>`
+    disableCell.innerHTML = `<td><button id = "${source_id}-toggle" class="action-btn table-btn accent-btn" onclick="toggleSource(this)">Enable</button></td>`
   }
 
-  deleteCell.innerHTML = `<td><button id = "${lower}-delete" class="action-btn table-btn delete-btn" onclick="deleteSource(this)">Delete</button></td>`
+  deleteCell.innerHTML = `<td><button id = "${source_id}-delete" class="action-btn table-btn delete-btn" onclick="deleteSource(this)">Delete</button></td>`
 }
 
 function addTable(table_id){
@@ -165,6 +228,7 @@ function deleteRow(row){
   }
 }
 
+//TODO: Redo
 function moveTable(btn, to_table){
   let row = btn.parentElement.parentElement;
   var source = row.cells[0].firstChild;

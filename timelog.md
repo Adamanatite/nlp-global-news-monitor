@@ -377,3 +377,7 @@
 
 ### 7 Mar 2023
 * *0.5 hour* Work on dynamic interface
+
+### 8 Mar 2023
+* *0.5 hour^ More work on dynamic interface
+* *2.5 hour* Work on dynamic interface
