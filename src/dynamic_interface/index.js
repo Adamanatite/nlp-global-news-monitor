@@ -27,36 +27,56 @@ function populate_tables(scrapers) {
 function get_date_string(date){
   let now = Date.now()
   let then = Date.parse(date)
-  if (isNaN(then)){
+  if (then <= 946684800000){
     return ["Never", true]
   }
-  
   let ms_difference = now - then
   // Calculate if source is stale
-  let ms_until_stale = days_until_stale * (24 * 60 * 60 * 1000)
   let is_stale = (ms_until_stale < ms_difference)
 
   // Get date string
   let mins_difference = Math.floor(ms_difference / (1000 * 60))
   if (mins_difference === 0){
-    return ["Just now", true]
+    return ["Just now", is_stale]
+  } else if (mins_difference === 1){
+    return ["1 minute ago", is_stale]
   }
-  if (mins_difference < 60){
+  else if (mins_difference < 60){
     return [mins_difference + " minutes ago", is_stale]
   }
-  else if (mins_difference < (60 * 24)){
-    return [Math.floor(mins_difference / 60) + " hours ago", is_stale]
+
+  let hours_difference = Math.floor(mins_difference / 60)
+  if (hours_difference === 1){
+    return ["1 hour ago", is_stale]
+  } else if (hours_difference < 24){
+    return [hours_difference + " hours ago", is_stale]
   }
-  else if (mins_difference < (60 * 24 * 7)){
-    return [Math.floor(mins_difference / (60 * 24)) + " days ago", is_stale]
+
+  let days_difference = Math.floor(hours_difference / 24)
+  if (days_difference === 1){
+    return ["Yesterday", is_stale]
   }
-  else if (mins_difference < (60 * 24 * 30)){
-    return [Math.floor(mins_difference / (60 * 24 * 7)) + " weeks ago", is_stale]
+  else if (days_difference < 7){
+    return [days_difference + " days ago", is_stale]
   }
-  else if (mins_difference < (60 * 24 * 365)){
-    return [Math.floor(mins_difference / (60 * 24 * 30)) + " months ago", is_stale]
+
+  let weeks_difference = Math.floor(days_difference / 7)
+  if (weeks_difference === 1){
+    return ["Last week", is_stale]
   }
-  return [Math.floor(mins_difference / (60 * 24 * 365)) + " years ago", is_stale]
+  else if (days_difference < 30){
+    return [weeks_difference + " weeks ago", is_stale]
+  }
+
+  let months_difference = Math.floor(days_difference / 30)
+  if (months_difference === 1){
+    return ["Last month", is_stale]
+  }
+  else if (days_difference < 365){
+    return [months_difference + " months ago", is_stale]
+  }
+
+  return [Math.floor(days_difference / 365) + " years ago", is_stale]
 }
 
 function update_text(n){
@@ -123,8 +143,14 @@ function toggleSource(btn){
     btn.classList.add("toggle-source-btn-enabled")
     btn.classList.add("disable-btn")
     btn.innerHTML = "Disable"
-    //TODO: Check for staleness
-    moveTable(btn, "active-table")
+    let row = btn.parentElement.parentElement
+    let isStale = row.cells[6].innerHTML
+    if(isStale === "true"){
+      moveTable(btn, "stale-table")
+    }
+    else {
+      moveTable(btn, "active-table")
+    }
     n = n + 1;
     update_text(n)
   }
@@ -134,7 +160,6 @@ function toggleSource(btn){
 function deleteSource(btn) {
   let row = btn.parentElement.parentElement
   let table = row.parentElement.parentElement
-  console.log(table.id)
   deleteRow(row)
   if(!(table.id === "disabled-table")){
     n = n - 1;
@@ -159,9 +184,7 @@ function toggleVisualisation(){
 function addTableRow(source_id, url, name, lang, srcType, last, isEnabled) {
 
   date_string_data = get_date_string(last)
-  console.log()
   date_string = date_string_data[0]
-  console.log(date_string)
   is_stale = date_string_data[1]
   let table_id = "active-table"
   if (!(isEnabled)){
@@ -176,6 +199,7 @@ function addTableRow(source_id, url, name, lang, srcType, last, isEnabled) {
     addTable(table_id)
     table = document.getElementById(table_id);
   }
+
   var row = table.insertRow(1);
   var srcCell = row.insertCell(0);
   var langCell = row.insertCell(1);
@@ -183,18 +207,57 @@ function addTableRow(source_id, url, name, lang, srcType, last, isEnabled) {
   var lastCell = row.insertCell(3);
   var disableCell = row.insertCell(4);
   var deleteCell = row.insertCell(5);
-
+  var isStaleCell = row.insertCell(6);
+  var lastStringCell = row.insertCell(7);
 
   srcCell.innerHTML = `<a href="${url}">${name}</a>`;
   langCell.innerHTML = lang.toUpperCase();
-  srcTypeCell.innerHTML = srcType
-  lastCell.innerHTML = date_string
+  srcTypeCell.innerHTML = srcType;
+  lastCell.innerHTML = date_string;
+  isStaleCell.innerHTML = is_stale;
+  isStaleCell.style.visibility = "hidden";
+  lastStringCell.innerHTML = last;
+  lastStringCell.style.visibility = "hidden";
+
   if (isEnabled){
     disableCell.innerHTML = `<td><button id = "${source_id}-toggle" class="action-btn table-btn disable-btn" onclick="toggleSource(this)">Disable</button></td>`
   } else {
     disableCell.innerHTML = `<td><button id = "${source_id}-toggle" class="action-btn table-btn accent-btn" onclick="toggleSource(this)">Enable</button></td>`
   }
+  deleteCell.innerHTML = `<td><button id = "${source_id}-delete" class="action-btn table-btn delete-btn" onclick="deleteSource(this)">Delete</button></td>`
+}
 
+function moveTableRow(table_id, source_id, url, name, lang, srcType, date_string, isEnabled, isStale, last){
+
+  var table = document.getElementById(table_id);
+  if (!table){
+    addTable(table_id)
+    table = document.getElementById(table_id);
+  }
+  var row = table.insertRow(1);
+  var srcCell = row.insertCell(0);
+  var langCell = row.insertCell(1);
+  var srcTypeCell = row.insertCell(2);
+  var lastCell = row.insertCell(3);
+  var disableCell = row.insertCell(4);
+  var deleteCell = row.insertCell(5);
+  var isStaleCell = row.insertCell(6);
+  var lastStringCell = row.insertCell(7);
+
+  srcCell.innerHTML = `<a href="${url}">${name}</a>`;
+  langCell.innerHTML = lang.toUpperCase();
+  srcTypeCell.innerHTML = srcType;
+  lastCell.innerHTML = date_string;
+  isStaleCell.innerHTML = isStale;
+  isStaleCell.style.display = "none";
+  lastStringCell.innerHTML = last;
+  lastStringCell.style.display = "none";
+
+  if (isEnabled){
+    disableCell.innerHTML = `<td><button id = "${source_id}-toggle" class="action-btn table-btn disable-btn" onclick="toggleSource(this)">Disable</button></td>`
+  } else {
+    disableCell.innerHTML = `<td><button id = "${source_id}-toggle" class="action-btn table-btn accent-btn" onclick="toggleSource(this)">Enable</button></td>`
+  }
   deleteCell.innerHTML = `<td><button id = "${source_id}-delete" class="action-btn table-btn delete-btn" onclick="deleteSource(this)">Delete</button></td>`
 }
 
@@ -216,7 +279,6 @@ function addTable(table_id){
   if(div){
     div.innerHTML = tableHTML
   }
-
 }
 
 function deleteRow(row){
@@ -228,16 +290,11 @@ function deleteRow(row){
   }
 }
 
-//TODO: Redo
 function moveTable(btn, to_table){
+  let source_id = btn.id.substring(0, btn.id.length - 7)
   let row = btn.parentElement.parentElement;
   var source = row.cells[0].firstChild;
-  var last_active = row.cells[3].innerHTML;
-  console.log(last_active)
-  if(to_table === "active-table" && last_active.includes("months")){
-    to_table = "stale-table"
-  }
-  addTableRow(to_table, source.innerHTML, source.href, row.cells[1].innerHTML, row.cells[2].innerHTML, last_active, row.cells[4].firstChild.classList.contains("disable-btn"));
+  moveTableRow(to_table, source_id, source.href, source.innerHTML, row.cells[1].innerHTML, row.cells[2].innerHTML, row.cells[3].innerHTML, row.cells[4].firstChild.classList.contains("disable-btn"), row.cells[6].innerHTML, row.cells[7].innerHTML);
   deleteRow(btn.parentElement.parentElement);
 }
 

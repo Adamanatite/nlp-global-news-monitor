@@ -32,7 +32,8 @@ with open("config.json", encoding="utf-8") as f:
 def get_sources():
     js_scrapers = []
     for scraper in scrapers:
-        js_scrapers.append((scraper.source_id, scraper.url, scraper.name, scraper.language, scraper.scrape_type, scraper.last_scrape_time.strftime("%y-%m-%dT%H:%M:%SZ")))
+        js_scrapers.append((scraper.source_id, scraper.url, scraper.name, scraper.language, scraper.scrape_type, scraper.last_scrape_time.isoformat()))
+    js_scrapers = sorted(js_scrapers, key=lambda x: x[5])
     return js_scrapers
 
 @eel.expose
@@ -134,6 +135,7 @@ print(f"Beginning to scrape from {len(scrapers)} sources")
 #                 scrapers.pop(scraper)
 
 eel.init('dynamic_interface')
+print("Starting web server...")
 eel.start('index.html')
 
 # while scrapers:
@@ -143,5 +145,3 @@ eel.start('index.html')
 #             if articles:
 #                 categories = classifier.classify(articles)
 #                 AddArticles(articles, categories)
-#         else:
-#             scrapers.pop(scraper)

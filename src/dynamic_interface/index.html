@@ -28,7 +28,6 @@
         <div class="content" id="manage-content">
             <h1>Manage sources</h1>
             <div class="heading-bar"></div>
-            <button class="action-btn main-btn add-source-btn manage-page-btn" id="test-btn" onclick="testThreads()">Test</button>
             <button class="action-btn main-btn add-source-btn manage-page-btn" id="add-source-btn" onclick="toggleAddSource()">Add source</button>
             <button class="action-btn accent-btn dashboard-btn manage-page-btn" id="dashboard-btn" onclick="goToDashboard()">Back to dashboard</button>
             <div id="toggle-source-box">
@@ -64,90 +63,9 @@
                   <p id="error-text">Error: Please enter a URL</p>
                   <button onclick="addSource()" class="action-btn accent-btn" id="add-source-submit-btn">Submit</button>
             </div>
-            <div id="stale-table-container">
-                <h2 class="table-title">Stale</h2>
-                <div class="heading-bar"></div>
-                <table id="stale-table" cellspacing="0">
-                    <tr>
-                        <th>Source</th>
-                        <th>Language</th>
-                        <th>Source type</th>
-                        <th>Last article</th>
-                    </tr>
-                    <tr id="bbc-1" class="stale-row">
-                        <td><a href="https://www.bbc.co.uk/news">BBC News</a></td>
-                        <td>EN</td>
-                        <td>Web scraper</td>
-                        <td>4 months ago</td>
-                        <td><button id = "bbc-toggle" class="action-btn table-btn disable-btn" onclick="toggleSource(this)">Disable</button></td>
-                        <td><button id = "bbc-delete" class="action-btn table-btn delete-btn" onclick="deleteSource(this)">Delete</button></td>
-                    </tr>
-                    <tr id="sina-1" class="stale-row">
-                        <td><a href="https://www.sina.com.cn">Sina</a></td>
-                        <td>ZH</td>
-                        <td>RSS/Atom feed</td>
-                        <td>9 months ago</td>
-                        <td><button id = "sina-toggle" class="action-btn table-btn disable-btn" onclick="toggleSource(this)">Disable</button></td>
-                        <td><button id = "sina-delete" class="action-btn table-btn delete-btn" onclick="deleteSource(this)">Delete</button></td>
-                    </tr>
-                </table>
-            </div>
-            <div id="active-table-container">
-                <h2 class="table-title">Active</h2>
-                <div class="heading-bar"></div>
-                <table id="active-table" cellspacing="0">
-                    <tr>
-                        <th>URL</th>
-                        <th>Language</th>
-                        <th>Source type</th>
-                        <th>Last article</th>
-                    </tr>
-                    <tr id="cnn">
-                        <td><a href="https://edition.cnn.com">CNN</a></td>
-                        <td>EN</td>
-                        <td>Web scraper</td>
-                        <td>2 mins ago</td>
-                        <td><button id = "bbc-2-toggle" class="action-btn table-btn disable-btn" onclick="toggleSource(this)">Disable</button></td>
-                        <td><button id = "bbc-2-delete" class="action-btn table-btn delete-btn" onclick="deleteSource(this)">Delete</button></td>
-                    </tr>
-                    <tr id="ria-novosti">
-                        <td><a href="https://ria.ru">RIA Novosti</a></td>
-                        <td>RU</td>
-                        <td>RSS/Atom feed</td>
-                        <td>5 mins ago</td>
-                        <td><button id = "sina-2-toggle" class="action-btn table-btn disable-btn" onclick="toggleSource(this)">Disable</button></td>
-                        <td><button id = "sina-2-delete" class="action-btn table-btn delete-btn" onclick="deleteSource(this)">Delete</button></td>
-                    </tr>
-                </table>
-            </div>
-            <div id="disabled-table-container">
-                <h2 class="table-title">Disabled</h2>
-                <div class="heading-bar"></div>
-                <table id="disabled-table" cellspacing="0">
-                    <tr>
-                        <th>URL</th>
-                        <th>Language</th>
-                        <th>Source type</th>
-                        <th>Last article</th>
-                    </tr>
-                    <tr id="folha">
-                        <td><a href="https://www1.folha.uol.com.br/internacional/en/">Folha</a></td>
-                        <td>PT</td>
-                        <td>Web scraper</td>
-                        <td>2 weeks ago</td>
-                        <td><button id = "bbc-3-toggle" class="action-btn table-btn accent-btn" onclick="toggleSource(this)">Enable</button></td>
-                        <td><button id = "bbc-3-delete" class="action-btn table-btn delete-btn" onclick="deleteSource(this)">Delete</button></td>
-                    </tr>
-                    <tr id="chosun-ilbo">
-                        <td><a href="https://www1.folha.uol.com.br/internacional/en/">Chosun Ilbo</a></td>
-                        <td>KO</td>
-                        <td>Web scraper</td>
-                        <td>Yesterday</td>
-                        <td><button id = "sina-3-toggle" class="action-btn table-btn accent-btn" onclick="toggleSource(this)">Enable</button></td>
-                        <td><button id = "sina-3-delete" class="action-btn table-btn delete-btn" onclick="deleteSource(this)">Delete</button></td>
-                    </tr>
-                </table>
-            </div>
+            <div id="stale-table-container"></div>
+            <div id="active-table-container"></div>
+            <div id="disabled-table-container"></div>
         </div>
 
         <datalist id="country-list">
