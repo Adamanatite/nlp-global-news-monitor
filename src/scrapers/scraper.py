@@ -1,7 +1,7 @@
 import re
 import json
 from datetime import datetime
-from database.elasticsearch_database import AddSource, AddArticle, UpdateLastScraped, DisableSource
+from database.elasticsearch_database import AddSource, UpdateLastScraped, EnableSource, DisableSource, DeleteSource
 from utils.parse_config import ParseBoolean
 import os
 # Get current directory from project tree
@@ -91,15 +91,17 @@ class Scraper:
         else:
             self.last_scrape_time = publish_date
 
-    def enable(self):
-        self.enabled = True
 
-    def disable(self):
-        self.enabled = False
+
+    def toggle(self):
+        self.enabled = not self.enabled
+        if self.enabled:
+            EnableSource(self.source_id)
+        else:
+            DisableSource(self.source_id)
     
     def delete(self):
-        #TODO: Delete self from database
-        pass
+        return DeleteSource(self.source_id)
 
     def scrape(self):
 

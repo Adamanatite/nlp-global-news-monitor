@@ -387,3 +387,4 @@
 
 ### 11 Mar 2023
 * *0.5 hour* Sorting of articles by name on web interface
+* *3 hours* Work on making interface onnect with database

@@ -1,41 +1,72 @@
-let is_scraping = true;
+let isScraping = true;
 let n = 0;
-let days_until_stale = 14;
+let daysUntilStale = 14;
+let secondsPerUpdate = 60;
+
+// Adapted from https://stackoverflow.com/a/47480429
+const delay = s => new Promise(res => setTimeout(res, s * 1000));
 
 window.onload = function(){
   document.getElementById("kibana-visualisation").style.display="none";
-  //update_text(n)
-  //TODO: Find out is_scraping here
-  eel.get_days_until_stale()(set_days_until_stale)
-  eel.get_sources()(populate_tables)
-
+  eel.get_days_until_stale()(setDaysUntilStale)
+  eel.is_system_enabled()(updateScraperButton)
+  updateTable();
 }
 
-function set_days_until_stale(d){
-  days_until_stale = d;
+async function updateTable(){
+  eel.get_sources()(populateTables)
+  await delay(secondsPerUpdate)
+  updateTable();
 }
 
-function populate_tables(scrapers) {
+function setDaysUntilStale(d){
+  daysUntilStale = d;
+}
+
+function populateTables(scrapers) {
+  resetTables();
+  let noEnabled = 0
   for(i = 0; i < scrapers.length; i++){
-    //TODO: Properly decide table
-    addTableRow(scrapers[i][0], scrapers[i][1], scrapers[i][2], scrapers[i][3], scrapers[i][4], scrapers[i][5], true)
+    // Increment number of enabled scrapers
+    if (scrapers[i][6]){noEnabled += 1;}
+    // Add to table
+    addTableRow(scrapers[i][0], scrapers[i][1], scrapers[i][2], scrapers[i][3], scrapers[i][4], scrapers[i][5], scrapers[i][6])
   }
-  update_text(scrapers.length)
+  updateText(noEnabled);
+  console.log("Refreshed..")
 }
 
-function get_date_string(date){
+function resetTables(){
+  let activeTable = document.getElementById("active-table");
+  if(activeTable){
+    activeTable.parentElement.innerHTML = "";
+  }
+
+  let staleTable = document.getElementById("stale-table");
+  if(staleTable){
+    staleTable.parentElement.innerHTML = "";
+  }
+
+  let disabledTable = document.getElementById("disabled-table");
+  if(disabledTable){
+    disabledTable.parentElement.innerHTML = "";
+  }
+}
+
+function getDateString(date){
   let now = Date.now()
   let then = Date.parse(date)
   if (then <= 946684800000){
     return ["Never", true]
   }
-  let ms_difference = now - then
-  ms_until_stale = Math.floor(days_until_stale * 24 * 60 * 60 * 1000)
+
+  let msDifference = now - then
+  msUntilStale = Math.floor(daysUntilStale * 24 * 60 * 60 * 1000)
   // Calculate if source is stale
-  let is_stale = (ms_until_stale < ms_difference)
+  let is_stale = (msUntilStale < msDifference)
 
   // Get date string
-  let mins_difference = Math.floor(ms_difference / (1000 * 60))
+  let mins_difference = Math.floor(msDifference / (1000 * 60))
   if (mins_difference === 0){
     return ["Just now", is_stale]
   } else if (mins_difference === 1){
@@ -93,26 +124,28 @@ function getIndex(table_id, new_string){
  return table.rows.length;
 }
 
-function update_text(n){
-
+function updateText(noEnabledSources){
+  n = noEnabledSources
   sub = document.getElementById("subheading")
 
-  if(is_scraping){
+  if(isScraping){
     if (n===1){
       sub.innerHTML = "Scraping 1 source"     
     } else {
-      sub.innerHTML = "Scraping " + n + " sources"
+      sub.innerHTML = "Scraping " + noEnabledSources + " sources"
     }
   }
   else {
-    sub.innerHTML = "Not currently scraping"
+    sub.innerHTML = "System is disabled"
   }
 }
 
-function update_scraper_button() {
+function updateScraperButton(isSystemScraping) {
+  isScraping = isSystemScraping;
+
   var b = document.getElementById("toggle-scrape-btn")
   var sub = document.getElementById("subheading")
-  if (is_scraping){
+  if (isSystemScraping){
     b.innerHTML = "Stop scraping";
     b.classList.remove("main-btn");
     b.classList.add("disable-btn");
@@ -122,25 +155,67 @@ function update_scraper_button() {
     b.classList.remove("disable-btn");
     b.classList.add("main-btn");
   }
-  update_text(n);
+  updateText(n);
 }
 
-function toggleScraper() {
-  // When ready, change to make toggle_scraper call update_scraper_button and probably just return new state of scraping
-  // eel.toggle_scraper()(update_scraper_button)
-  is_scraping = !is_scraping
-  // update_text(9)
-  update_scraper_button()
+function toggleSystem() {
+  eel.toggle_system()(updateScraperButton)
+}
 
-  if (is_scraping){
-    //eel.start_scraping()(update_text)
+async function toggleSource(btn){
+  // Prevent multiple clicks
+  if(btn.classList.contains("unlickable")){
+    return
+  }
+  // Get source id
+  let source_id = btn.id.substring(0, btn.id.length - 7)
+  try {
+  // Temporarily update button
+  tempUpdateSourceButton(btn)
+  // Toggle the source and get success
+  let success = await eel.toggle_source(source_id)()
+  // Update button
+  if(success){
+    updateSourceButton(btn);
   } else {
-    //eel.stop_scraping()(update_text)
+    revertSourceButton(btn);
+  }
+  // Make button clickable again
+  if(btn.classList.contains("unlickable")){
+    btn.classList.remove("unclickable")
+  }
+  } catch(err) {
+    // Deal with toggling mid update
+    if(!btn){
+      toggleSource(document.getElementById(source_id + "-toggle"))
+    }
   }
 }
 
-function toggleSource(btn){
-  
+
+function tempUpdateSourceButton(btn){
+  btn.classList.add("unclickable");
+
+  if (btn.classList.contains("disable-btn")) {
+    btn.innerHTML = "Disabling..."
+  }
+  else {
+    btn.innerHTML = "Enabling..."
+  }
+}
+
+
+function revertSourceButton(btn){
+  if (btn.classList.contains("disable-btn")) {
+    btn.innerHTML = "Disable"
+  }
+  else {
+    btn.innerHTML = "Enable"
+  }
+}
+
+
+function updateSourceButton(btn){
   if (btn.classList.contains("disable-btn")) {
     btn.classList.remove("toggle-source-btn-enabled")
     btn.classList.remove("disable-btn")
@@ -149,7 +224,7 @@ function toggleSource(btn){
     btn.innerHTML = "Enable"
     moveTable(btn, "disabled-table")
     n = n - 1;
-    update_text(n)
+    updateText(n)
   }
   else {
     btn.classList.remove("toggle-source-btn-disabled")
@@ -166,18 +241,31 @@ function toggleSource(btn){
       moveTable(btn, "active-table")
     }
     n = n + 1;
-    update_text(n)
+    updateText(n)
   }
-  // TODO: Actually toggle source
 }
 
-function deleteSource(btn) {
+
+async function deleteSource(btn) {
+
+  btn.innerHTML = "Deleting..."
+  let sourceID = btn.id.substring(0, btn.id.length - 7);
+
+  success = await eel.delete_source(sourceID)()
+  // In case of refresh
+  btn = document.getElementById(sourceID + "-delete")
   let row = btn.parentElement.parentElement
   let table = row.parentElement.parentElement
-  deleteRow(row)
-  if(!(table.id === "disabled-table")){
-    n = n - 1;
-    update_text(n)
+  
+  if(!success) {
+    btn.innerHTML = "Delete"
+  }
+  else {
+    deleteRow(row)
+    if(!(table.id === "disabled-table")){
+      n = n - 1;
+      updateText(n)
+    }
   }
 }
 
@@ -197,7 +285,7 @@ function toggleVisualisation(){
 // Adapted from https://www.w3schools.com/jsref/met_table_insertrow.asp
 function addTableRow(source_id, url, name, lang, srcType, last, isEnabled) {
 
-  date_string_data = get_date_string(last)
+  date_string_data = getDateString(last)
   date_string = date_string_data[0]
   is_stale = date_string_data[1]
   let table_id = "active-table"
@@ -353,7 +441,7 @@ function addSource(){
   let srcType = document.getElementById("src-type").value.replace("-", " ")
 
   n = n + 1;
-  update_text(n)
+  updateText(n)
 
   addTableRow("active-table", srcName, url, language, srcType, "--", true)
   toggleAddSource();

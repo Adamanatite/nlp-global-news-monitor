@@ -333,3 +333,11 @@ def DisableSource(id):
     
 def getInstance():
     return es
+
+def DeleteSource(id):
+    try:
+        es.delete(index="sources",id=id)
+        return True
+    except Exception as e:
+        print(str(e))
+        return False
