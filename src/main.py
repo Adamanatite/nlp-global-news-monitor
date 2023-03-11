@@ -33,7 +33,7 @@ def get_sources():
     js_scrapers = []
     for scraper in scrapers:
         js_scrapers.append((scraper.source_id, scraper.url, scraper.name, scraper.language, scraper.scrape_type, scraper.last_scrape_time.isoformat()))
-    js_scrapers = sorted(js_scrapers, key=lambda x: x[5])
+    js_scrapers = sorted(js_scrapers, key=lambda x: x[2], reverse=True)
     return js_scrapers
 
 @eel.expose

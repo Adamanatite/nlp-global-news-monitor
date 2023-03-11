@@ -384,3 +384,6 @@
 
 ### 10 Mar 2023
 * *2.5 hour* Continuing on dynamic interface
+
+### 11 Mar 2023
+* *0.5 hour* Sorting of articles by name on web interface

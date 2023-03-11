@@ -16,7 +16,6 @@ function set_days_until_stale(d){
 }
 
 function populate_tables(scrapers) {
-  
   for(i = 0; i < scrapers.length; i++){
     //TODO: Properly decide table
     addTableRow(scrapers[i][0], scrapers[i][1], scrapers[i][2], scrapers[i][3], scrapers[i][4], scrapers[i][5], true)
@@ -31,6 +30,7 @@ function get_date_string(date){
     return ["Never", true]
   }
   let ms_difference = now - then
+  ms_until_stale = Math.floor(days_until_stale * 24 * 60 * 60 * 1000)
   // Calculate if source is stale
   let is_stale = (ms_until_stale < ms_difference)
 
@@ -77,6 +77,20 @@ function get_date_string(date){
   }
 
   return [Math.floor(days_difference / 365) + " years ago", is_stale]
+}
+
+function getIndex(table_id, new_string){
+
+  var table = document.getElementById(table_id);
+
+  // Adapted from https://stackoverflow.com/a/3065389
+  let index = 0;
+  for (var i = 1, row; row = table.rows[i]; i++) {
+    if (new_string <= row.cells[0].firstChild.innerHTML){
+      return i;
+    }
+ }
+ return table.rows.length;
 }
 
 function update_text(n){
@@ -143,8 +157,8 @@ function toggleSource(btn){
     btn.classList.add("toggle-source-btn-enabled")
     btn.classList.add("disable-btn")
     btn.innerHTML = "Disable"
-    let row = btn.parentElement.parentElement
-    let isStale = row.cells[6].innerHTML
+    let row = btn.parentElement.parentElement;
+    let isStale = row.cells[3].className;
     if(isStale === "true"){
       moveTable(btn, "stale-table")
     }
@@ -200,24 +214,19 @@ function addTableRow(source_id, url, name, lang, srcType, last, isEnabled) {
     table = document.getElementById(table_id);
   }
 
-  var row = table.insertRow(1);
+  var row = table.insertRow(getIndex(table_id, name));
   var srcCell = row.insertCell(0);
   var langCell = row.insertCell(1);
   var srcTypeCell = row.insertCell(2);
   var lastCell = row.insertCell(3);
   var disableCell = row.insertCell(4);
   var deleteCell = row.insertCell(5);
-  var isStaleCell = row.insertCell(6);
-  var lastStringCell = row.insertCell(7);
 
   srcCell.innerHTML = `<a href="${url}">${name}</a>`;
   langCell.innerHTML = lang.toUpperCase();
   srcTypeCell.innerHTML = srcType;
   lastCell.innerHTML = date_string;
-  isStaleCell.innerHTML = is_stale;
-  isStaleCell.style.visibility = "hidden";
-  lastStringCell.innerHTML = last;
-  lastStringCell.style.visibility = "hidden";
+  lastCell.className = is_stale;
 
   if (isEnabled){
     disableCell.innerHTML = `<td><button id = "${source_id}-toggle" class="action-btn table-btn disable-btn" onclick="toggleSource(this)">Disable</button></td>`
@@ -227,31 +236,26 @@ function addTableRow(source_id, url, name, lang, srcType, last, isEnabled) {
   deleteCell.innerHTML = `<td><button id = "${source_id}-delete" class="action-btn table-btn delete-btn" onclick="deleteSource(this)">Delete</button></td>`
 }
 
-function moveTableRow(table_id, source_id, url, name, lang, srcType, date_string, isEnabled, isStale, last){
+function moveTableRow(table_id, source_id, url, name, lang, srcType, date_string, isEnabled, isStale){
 
   var table = document.getElementById(table_id);
   if (!table){
     addTable(table_id)
     table = document.getElementById(table_id);
   }
-  var row = table.insertRow(1);
+  var row = table.insertRow(getIndex(table_id, name));
   var srcCell = row.insertCell(0);
   var langCell = row.insertCell(1);
   var srcTypeCell = row.insertCell(2);
   var lastCell = row.insertCell(3);
   var disableCell = row.insertCell(4);
   var deleteCell = row.insertCell(5);
-  var isStaleCell = row.insertCell(6);
-  var lastStringCell = row.insertCell(7);
 
   srcCell.innerHTML = `<a href="${url}">${name}</a>`;
   langCell.innerHTML = lang.toUpperCase();
   srcTypeCell.innerHTML = srcType;
   lastCell.innerHTML = date_string;
-  isStaleCell.innerHTML = isStale;
-  isStaleCell.style.display = "none";
-  lastStringCell.innerHTML = last;
-  lastStringCell.style.display = "none";
+  lastCell.className = isStale;
 
   if (isEnabled){
     disableCell.innerHTML = `<td><button id = "${source_id}-toggle" class="action-btn table-btn disable-btn" onclick="toggleSource(this)">Disable</button></td>`
@@ -294,7 +298,8 @@ function moveTable(btn, to_table){
   let source_id = btn.id.substring(0, btn.id.length - 7)
   let row = btn.parentElement.parentElement;
   var source = row.cells[0].firstChild;
-  moveTableRow(to_table, source_id, source.href, source.innerHTML, row.cells[1].innerHTML, row.cells[2].innerHTML, row.cells[3].innerHTML, row.cells[4].firstChild.classList.contains("disable-btn"), row.cells[6].innerHTML, row.cells[7].innerHTML);
+  let isStale = row.cells[3].className;
+  moveTableRow(to_table, source_id, source.href, source.innerHTML, row.cells[1].innerHTML, row.cells[2].innerHTML, row.cells[3].innerHTML, row.cells[4].firstChild.classList.contains("disable-btn"), isStale);
   deleteRow(btn.parentElement.parentElement);
 }
 
