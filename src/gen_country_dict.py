@@ -11,7 +11,7 @@ countries = [ "AF", "AL", "DZ", "AD", "AO", "AG", "AR", "AM", "AU", "AT", "AZ", 
     "PA", "PG", "PY", "PE", "PH", "PL", "PT", "QA", "RO", "RU", "RW", "KN", "LC", "VC", "WS", "SM", "ST", 
     "SA", "SN", "RS", "SC", "TL", "SL", "SG", "SK", "SI", "SB", "SO", "ZA", "SS", "ES", "LK", "SD", "SR", "SE", 
     "CH", "SY", "TW", "TJ", "TH", "TG", "TO", "TT", "TN", "TR", "TM", "TV", "TZ", "UG", "UA", "AE", 
-    "GB", "US", "UY", "UZ", "VU", "VE", "VN", "YE", "ZM", "ZW", "XK", "LA"
+    "GB", "US", "UY", "UZ", "VU", "VE", "VN", "YE", "ZM", "ZW", "XK", "LA", "VA"
     ]
 
 country_datalist = [

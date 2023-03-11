@@ -284,7 +284,7 @@ function toggleVisualisation(){
 
 // Adapted from https://www.w3schools.com/jsref/met_table_insertrow.asp
 function addTableRow(source_id, url, name, lang, srcType, last, isEnabled) {
-
+  console.log(source_id)
   date_string_data = getDateString(last)
   date_string = date_string_data[0]
   is_stale = date_string_data[1]
@@ -429,15 +429,18 @@ function addSource(){
   let srcName = document.getElementById("src-name").value
   let language = document.getElementById("language").value
   let country = document.getElementById("countries").value
-  console.log(country)
   let srcType = document.getElementById("src-type").value.replace("-", " ")
   if(!url || !srcName || srcType==="Unknown"){
     document.getElementById("error-text").style.display = "block";
     return;
   }
-  eel.add_source(url, srcName, language, country, srcType)(addTableRow)
+  eel.add_source(url, srcName, language, country, srcType)(addTableRowPacked)
   n = n + 1;
   updateText(n)
-  addTableRow("active-table", srcName, url, language, srcType, "--", true)
   toggleAddSource();
+}
+
+// Unpack data from python
+function addTableRowPacked(data) {
+  addTableRow(data[0], data[1], data[2], data[3], data[4], data[5], data[6])
 }
