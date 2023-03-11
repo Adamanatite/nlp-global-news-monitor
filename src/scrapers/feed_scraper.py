@@ -18,15 +18,11 @@ def cleanup(text):
 class FeedScraper(Scraper):
 
     def __init__(self, url, name=None, country=None, lang=None, source_id=None, last_scraped=None, is_active=True):
-        self.scrape_type = "RSS/Atom Feed"
+        self.scrape_type = "RSS/Atom feed"
         
         # Try to determine name and language from feed details
-        if not name or not lang:
-            d = feedparser.parse(url)
-
-        if not name:
-            name= d.get("title", None)
         if not lang:
+            d = feedparser.parse(url)
             lang= d.get("language", None)
             if not lang:
                 if d.entries:
@@ -34,7 +30,7 @@ class FeedScraper(Scraper):
             else:
                 lang = lang[:2]
 
-        super().__init__(url, name, country, lang, source_id, last_scraped, is_active)
+        super().__init__(url, name, country, lang.upper(), source_id, last_scraped, is_active)
 
     def GetNewArticles(self):
         articles = []

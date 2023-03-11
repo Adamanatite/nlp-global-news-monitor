@@ -32,7 +32,7 @@ with open("config.json", encoding="utf-8") as f:
 lock = threading.Lock()
 
 # Global variable for enabling/disabling the scraper system
-isSystemEnabled = True
+isSystemEnabled = False
 
 @eel.expose
 def get_sources():
@@ -77,7 +77,12 @@ def toggle_system():
     return isSystemEnabled
 
 @eel.expose
-def add_source():
+def add_source(url, source_name, language, country, source_type):
+    constructors = {"Web scraper": NewspaperScraper,
+                    "RSS/Atom feed": FeedScraper}
+    if country == "UNKNOWN":
+    # addTableRow(source_id, url, name, lang, srcType, last, isEnabled)
+    scraper = constructors[source_type](url, source_name, country, language)
     pass
 
 
@@ -90,6 +95,8 @@ def scrape_sources(scrapers, classifier):
             # Block until system is re-enabled
             if not isSystemEnabled:
                 while not isSystemEnabled:
+                    if event.is_set():
+                        return
                     continue
             # Check for disabled system
             if scraper.enabled:
@@ -101,7 +108,7 @@ def scrape_sources(scrapers, classifier):
 def initialise_sources():
     scrapers = []
     constructors = {"Web scraper": NewspaperScraper,
-                    "RSS/Atom Feed": FeedScraper}
+                    "RSS/Atom feed": FeedScraper}
 
     for source in GetAllSources(MAX_ACTIVE_SCRAPERS):
         source_id = source["_id"]

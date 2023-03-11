@@ -1,4 +1,4 @@
-let isScraping = true;
+let isScraping = false;
 let n = 0;
 let daysUntilStale = 14;
 let secondsPerUpdate = 60;
@@ -426,23 +426,18 @@ function toggleAddSource() {
 
 function addSource(){
   let url = document.getElementById("url").value;
-  if(!url){
+  let srcName = document.getElementById("src-name").value
+  let language = document.getElementById("language").value
+  let country = document.getElementById("countries").value
+  console.log(country)
+  let srcType = document.getElementById("src-type").value.replace("-", " ")
+  if(!url || !srcName || srcType==="Unknown"){
     document.getElementById("error-text").style.display = "block";
     return;
   }
-  let srcName = document.getElementById("src-name").value
-  if (!srcName){
-    srcName = "Unnamed"
-  }
-  let language = document.getElementById("language").value
-  if (!language){
-    language = "EN"
-  }
-  let srcType = document.getElementById("src-type").value.replace("-", " ")
-
+  eel.add_source(url, srcName, language, country, srcType)(addTableRow)
   n = n + 1;
   updateText(n)
-
   addTableRow("active-table", srcName, url, language, srcType, "--", true)
   toggleAddSource();
 }
