@@ -254,9 +254,6 @@ def GetCountry(url):
         return tld
     return "Unknown"
 
-def GetDefaultName(url):
-    return re.search("://([a-zA-Z0-9]|\.|-)*/", url).group()[3:-1]
-
 class Scraper:
 
     def __init__(self, url, name, country=None, lang=None, source_id=None, last_scraped=None, is_active=True):
@@ -265,11 +262,8 @@ class Scraper:
 
         self.url = url
         self.source_id = source_id
-        
-        if name:
-            self.name = name
-        else:
-            self.name=GetDefaultName(self.url)
+        self.name = name
+
 
         self.language = lang
 
@@ -277,6 +271,7 @@ class Scraper:
             self.country = GetCountryByName(country)
         else:
             self.country=GetCountry(url)
+        print(self.country)
 
         if not source_id:
             self.source_id = AddSource(self.url, self.name, self.country, self.language, self.scrape_type)

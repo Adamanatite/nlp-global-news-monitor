@@ -80,7 +80,8 @@ def toggle_system():
 def add_source(url, source_name, language, country, source_type):
     constructors = {"Web scraper": NewspaperScraper,
                     "RSS/Atom feed": FeedScraper}
-    # addTableRow(source_id, url, name, lang, srcType, last, isEnabled)
+    if language == "Unknown":
+        language = None
     new_scraper = constructors[source_type](url, source_name, country, language)
     with lock:
         scrapers.append(new_scraper)
@@ -89,7 +90,7 @@ def add_source(url, source_name, language, country, source_type):
 
 
 def scrape_sources(scrapers, classifier):
-    while scrapers:
+    while True:
         for scraper in scrapers:
             # Check for web server stoppage
             if event.is_set():

@@ -296,6 +296,10 @@ function addTableRow(source_id, url, name, lang, srcType, last, isEnabled) {
     table_id="stale-table"
   }
 
+  if(!lang){
+    lang = "--"
+  }
+
   var table = document.getElementById(table_id);
   if (!table){
     addTable(table_id)

@@ -390,3 +390,5 @@
 * *3 hours* Work on making interface onnect with database
 * *1.5 hour^ Work on adding sources
 * *0.5 hours* Bug fixing
+* *1.5 hour* Finishing off dynamic scraper system
+* *0.5 hours* Wok on dissertation
