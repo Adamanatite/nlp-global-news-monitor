@@ -392,3 +392,6 @@
 * *0.5 hours* Bug fixing
 * *1.5 hour* Finishing off dynamic scraper system
 * *0.5 hours* Wok on dissertation
+
+### 12 Mar 2023
+* *3 hour* Creating subsystem diagram and writing design section
