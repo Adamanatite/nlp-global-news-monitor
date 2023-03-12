@@ -396,3 +396,4 @@
 ### 12 Mar 2023
 * *3 hour* Creating subsystem diagram and writing design section
 * *0.5 hour* Continuing design section
+* *1 hour* More on design section
