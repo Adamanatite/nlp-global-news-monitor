@@ -404,3 +404,4 @@
 
 ### 13 Mar 2023
 * *5.5 hour* Finishing design section
+* *1 hour* Planning supervisor meeting, supervisor meeting, note collation
