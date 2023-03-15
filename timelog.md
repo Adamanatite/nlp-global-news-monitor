@@ -405,3 +405,10 @@
 ### 13 Mar 2023
 * *5.5 hour* Finishing design section
 * *1 hour* Planning supervisor meeting, supervisor meeting, note collation
+
+### 14 Mar 2023
+* *1 hour* Implementation section planning
+
+### 15 Mar 2023
+* *2.5 hour* Work on implementation section
+

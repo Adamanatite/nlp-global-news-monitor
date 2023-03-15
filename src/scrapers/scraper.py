@@ -244,6 +244,7 @@ def GetCountry(url):
     "CH", "SY", "TW", "TJ", "TH", "TG", "TO", "TT", "TN", "TR", "TM", "TV", "TZ", "UG", "UA", "AE", 
     "GB", "US", "UY", "UZ", "VU", "VE", "VN", "YE", "ZM", "ZW", "XK", "LA", "VA"
     ]
+    
     tld = re.search("\.[a-z]*/", url).group()[1:-1]
     if len(tld) != 2:
         return "Unknown"
@@ -268,10 +269,12 @@ class Scraper:
         self.language = lang
 
         if country:
-            self.country = GetCountryByName(country)
+            if len(country) == 2:
+                self.country = country
+            else:
+                self.country = GetCountryByName(country)
         else:
-            self.country=GetCountry(url)
-        print(self.country)
+            self.country = GetCountry(url)
 
         if not source_id:
             self.source_id = AddSource(self.url, self.name, self.country, self.language, self.scrape_type)

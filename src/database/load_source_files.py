@@ -11,8 +11,7 @@ with open(this_dir + "data/rss_feeds.txt", encoding="utf8") as f:
     for line in f:
         data = line.strip().split(",")
         # Create source object
-        #TODO: Manually do country or workout way to automatically do country
-        AddSource(data[1], data[2], data[4], data[3], "RSS/Atom Feed")
+        AddSource(data[1], data[2], data[4], data[3], "RSS/Atom feed")
 
 with open(this_dir + "data/sources.txt", encoding="utf8") as f:
     # Parse source file

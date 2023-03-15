@@ -22,17 +22,11 @@ class FeedScraper(Scraper):
         
         # Try to determine name and language from feed details
         if not lang:
-            print("No language found...")
             d = feedparser.parse(url)
-            print("Parsed feed")
             lang= d.get("language", None)
-            print(lang)
             if not lang:
                 if d.entries:
-                    print("Got entries")
                     lang = detect(d.entries[0].title)[:2]
-                    print(d.entries[0].title)
-                    print(lang)
             else:
                 lang = lang[:2]
 
