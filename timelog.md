@@ -410,5 +410,7 @@
 * *1 hour* Implementation section planning
 
 ### 15 Mar 2023
-* *2.5 hour* Work on implementation section
+* *2.5 hour* Work on implementation 
+* *1 hour* Continuing implementation section
+* *2 hour* More work on implementation section
 
