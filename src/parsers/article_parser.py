@@ -1,11 +1,7 @@
+from parsers.parser import Parser
 import newspaper
 import re
-from database.elasticsearch_database import AddArticle, UpdateLastScraped
 from langdetect import detect
-from datetime import timezone
-
-# TODO: Get this from config
-MIN_ARTICLE_LENGTH = 300
 
 def cleanup(text):
     #Check if lines has at least one alphanumeric digit (adapted from https://stackoverflow.com/a/6676843)
@@ -22,53 +18,70 @@ def article_parse(url, lang=None):
     article.parse()
     return article
 
-def parse(articles):
 
-    new_source_publish_dates = {}
+class ArticleParser(Parser):
+
+    def __init__(self, classifier, lock):
+        """
+        Initialises the article parser by callling the abstract constructor
+        """
+        super().__init__(classifier, lock
+                         )
+def get_parsed_urls(articles):
+    """
+    Parses the given list of article URLs and returns a parsed list of articles
+
+    :param articles: The list of articles URLs to add
+    :returns: The list of parsed articles
+    """
+    new_source_publish_dates = [])
 
     titles = []
     parsed_articles = []
+
     for article in articles:
         try:
             # Parse and add
             news = article_parse(article["url"], lang=article["language"])
+
+            # Ensure article has content
             if news and news.title:
                 #Validate article is unique
                 if news.title in titles:
                     continue
-                # Re-parse article if we have chosen the wrong language (for multilignual sources)
+                # Stop duplicates
+                titles.append(news.title)
+
+                # Re-parse article if we have chosen the wrong language (for multilingual sources)
                 lang = detect(news.title)[:2]
                 if not news.text and not lang == article["language"]:
                     news = article_parse(article.url, lang)
+
                 # Remove articles that are too short
-                if  not news.text or len(news.text) < MIN_ARTICLE_LENGTH:
+                if  not news.text or len(news.text) < self.min_article_length:
                     continue
-                #Update publish date
-                if "date" not in article:
-                    article["date"] = news.publish_date
-                # Add article
+
+                # Add publish date update
+                if news.publish_date:
+                    new_source_publish_dates.append((article["crawler"], news.publish_date))
+
+                # Add structured article
                 parsed_articles.append({
                     "url": article["url"],
                     "title": news.title,
-                    "body": cleanup(news.text),
-                    "language": article["language"],
+                    "text": cleanup(news.text),
+                    "lang": article["language"],
                     "country": article["country"],
                     "date": news.publish_date,
                     "source": article["source"],
-                    "scraper_type": article["scraper_type"]
+                    "source_type": article["source_type"]
                     })
-                titles.append(news.title)
-        except Exception as e:
-            err = str(e)
-            print(err)
-            # If the URL doesn't work, simply skip the article. Otherwise if there is a connection issue stop scraping until the next loop
-            if "404 Client Error" in err or "403 Client Error" in err:
-                continue
-            else:
-                break
-    
-    for src, time in new_source_publish_dates.items():
-        # Convert to UTC
-        UpdateLastScraped(src, time.astimezone(timezone.utc))
+        # Move past failed parse
+        except Exception as ex:
+            continue
 
+    # Update scraper times
+    self.update_times(new_source_publish_dates)
+
+    # Return final parsed list
     return parsed_articles

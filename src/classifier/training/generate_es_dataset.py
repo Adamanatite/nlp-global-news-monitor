@@ -1,5 +1,5 @@
 import elasticsearch as es
-from database.elasticsearch_database import getInstance
+from database.database_connector import getInstance
 import json
 import random
 

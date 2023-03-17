@@ -6,5 +6,6 @@
     "empty_days_until_stale": "14",
     "failures_until_disable": "10",
     "auto_disable_stale_sources": "False",
-    "max_active_scrapers": "1000"
+    "max_active_scrapers": "1000",
+    "min_article_length": "300"
 }

@@ -412,5 +412,10 @@
 ### 15 Mar 2023
 * *2.5 hour* Work on implementation 
 * *1 hour* Continuing implementation section
-* *2 hour* More work on implementation section
+* *2 hour* More work on implementation section (web interface and connector section)
+
+### 16 Mar 2023
+* *2 hour* More work on implementation section, specifically the earlier sections
+* *1 hour* Refactoring for better implementation section 
+* *3 hour* More refactoring
 

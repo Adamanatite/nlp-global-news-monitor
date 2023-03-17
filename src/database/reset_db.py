@@ -1,3 +1,3 @@
-from elasticsearch_database import ResetDB
+from elasticsearch_database import reset_db
 
-ResetDB()
+reset_db()

@@ -1,4 +1,4 @@
-from database.elasticsearch_database import CreateDB, GetAllSources, AddArticles
+from database.database_connector import CreateDB, GetAllSources, AddArticles
 from scrapers.newspaper3k_scraper import NewspaperScraper
 from scrapers.feed_scraper import FeedScraper
 from utils.parse_config import ParseBoolean
@@ -78,7 +78,7 @@ def toggle_system():
 
 @eel.expose
 def add_source(url, source_name, language, country, source_type):
-    constructors = {"Web scraper": NewspaperScraper,
+    constructors = {"Web crawler": NewspaperScraper,
                     "RSS/Atom feed": FeedScraper}
     if language == "Unknown":
         language = None
@@ -110,8 +110,8 @@ def scrape_sources(scrapers, classifier):
 
 def initialise_sources():
     scrapers = []
-    constructors = {"Web scraper": NewspaperScraper,
-                    "RSS/Atom feed": FeedScraper}
+    constructors = {"Web crawler": NewspaperCrawler,
+                    "RSS/Atom feed": FeedCrawler}
 
     for source in GetAllSources(MAX_ACTIVE_SCRAPERS):
         source_id = source["_id"]
@@ -136,72 +136,8 @@ CreateDB()
 scrapers = initialise_sources()
 classifier = BERTClassifier("./.ml/", False)
 
-# def scrape_sources(id, l, q, scrapers):
-#     while scrapers:
-#         begin_time = datetime.now()
-
-#         # Go through scraper list
-#         for i, scraper in enumerate(scrapers):
-#             if scraper.enabled:
-#                 results = scraper.scrape()
-#             else:
-#                 print(f'[{id}] Disabling scraper {scraper.name}')
-#                 scrapers.pop(i)
-
-#         # Get new scraper from the queue
-#         try:
-#             scraper = q.get(False)
-#             if scraper:
-#                 print(f'[{id}] Added {scraper.name} to list')
-#                 scrapers.append(scraper)
-#         except queue.Empty:
-#             pass
-
-#         # Classify results and add to db
-#         with l:
-#             categories = classifier.classify(results)
-#             # Add to DB
-            
-
-#         # Wait minimum time
-#         time_elapsed = (datetime.now() - begin_time).seconds
-#         if time_elapsed < MIN_SECONDS_PER_SCRAPE:
-#             time_remaining = MIN_SECONDS_PER_SCRAPE - time_elapsed
-#             print(f"[{id}] Sleeping for {time_remaining} seconds...")
-#             time.sleep(time_remaining)
-
-
-# Main function
-# if USE_CONCURRENCY:
-#     random.shuffle(scrapers)
-#     lock = threading.Lock()
-#     # Split sources into threads
-#     n = len(scrapers) // NO_WORKERS
-#     threads = list()
-#     remaining = queue.Queue()
-#     # Create queue of newly activated sources
-#     for elt in scrapers[n*NO_WORKERS:]:
-#         remaining.put(elt)
-#     # Start threads
-#     for i in range(NO_WORKERS):
-#         x = threading.Thread(target=scrape_sources, args=(i, lock, remaining,scrapers[n*i:n*(i+1)]))
-#         threads.append(x)
-#         x.start()
-
-#     for t in threads:
-#         t.join()
-# else:
-#     # Non-concurrent version
-#     while scrapers:
-#         for scraper in scrapers:
-#             if scraper.enabled:
-#                 scraper.scrape()
-#             else:
-#                 scrapers.pop(scraper)
-
-
 # Start scraping system and web server
-eel.init('dynamic_interface')
+eel.init('web_interface')
 event = threading.Event()
 t = threading.Thread(target=scrape_sources, args=(scrapers,classifier))
 print("Starting scraper system...")

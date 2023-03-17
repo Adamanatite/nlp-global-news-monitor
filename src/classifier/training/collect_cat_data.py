@@ -1,5 +1,5 @@
 import newspaper
-from database.elasticsearch_database import CreateDB, AddArticle
+from database.database_connector import CreateDB, AddArticle
 from datetime import datetime, timedelta
 from time import mktime
 import feedparser
