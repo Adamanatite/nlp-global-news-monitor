@@ -43,112 +43,6 @@ lock = threading.Lock()
 is_system_enabled = False
 
 
-def scrape_sources(crawlers, pipelines):
-    """
-    Scrapes the websites using the crawlers and runs through the
-    article parsing and classification pipeline, until interrupted
-
-    :param crawlers: The source crawlers to collect data using
-    :param pipelines: The source to parser/classifier pipelines in use
-    """
-    # Initialise article lists
-    pipeline_articles = [[] for i in range(len(pipelines))]
-    # Run infinite loop
-    while True:
-        start_time = datetime.now()
-        for crawler in crawlers:
-            # Check if thread is stopped
-            if event.is_set():
-                return
-            # Block until system is re-enabled or thread is stopped
-            if not is_system_enabled:
-                while not is_system_enabled:
-                    if event.is_set():
-                        return
-                    continue
-
-            # Get articles
-            articles = crawler.crawl()
-            # Assign articles to pipeline
-            if articles:
-                for i, pipeline in enumerate(pipelines):
-                    source_types = pipeline[0]
-                    if crawler.source_type == source_types or (isinstance(source_types, list) and crawler.source_type in source_types):
-                        pipeline_articles[i].extend(articles)
-                        break
-
-        # Parse and classify articles
-        for i, pipeline in enumerate(pipelines):
-            pipeline_parser = pipeline[1]
-            pipeline_parser.parse(pipeline_articles[i])
-            pipeline_articles[i] = []
-
-        # Sleep until next scrape
-        time_elapsed = (datetime.now() - start_time).total_seconds()
-        time_left = MIN_SECONDS_PER_SCRAPE - time_elapsed
-        if time_left > 0:
-            time.sleep(time_left)
-
-        # Check if thread is stopped
-        if event.is_set():
-            return
-
-
-def initialise_sources():
-    """
-    Initialises the sources from the database
-
-    :returns: A list of crawler objects loaded from the database
-    """
-    crawlers = []
-
-    for source in get_sources(MAX_ACTIVE_CRAWLERS):
-        source_id = source["_id"]
-        source_type = source["_source"]["Data Source"]
-        url = source["_source"]["URL"]
-        name = source["_source"]["Name"]
-        country = source["_source"]["Country"]
-        lang = source["_source"]["Language"]
-        last_scrape_time = source["_source"]["Last Retrieved"]
-        enabled = source["_source"]["Active"]
-        try:
-            crawler = constructors[source_type](url, name, country, lang, source_id, last_scrape_time, enabled, EMPTY_DAYS_UNTIL_STALE, AUTO_DISABLE_STALE_SOURCES)
-            crawlers.append(crawler)
-        except Exception as ex:
-            print(str(ex))
-            continue
-
-    return crawlers
-
-# Emsure database exists
-create_db()
-# Initialise scraper list, parser and classifier
-crawlers = initialise_sources()
-categories = ["Arts/Entertainment", "Sports", "Politics", "Science/Technology", "Business/Finance", "Health/Welfare"]
-classifier = RandomClassifier(categories)
-parser = ArticleParser(classifier, lock)
-
-
-"""
-Pipelines
-"""
-pipelines = [(["Web crawler", "RSS/Atom feed"], parser)]
-
-
-# Start scraping system and web server
-eel.init('web_interface')
-event = threading.Event()
-t = threading.Thread(target=scrape_sources, args=(crawlers,pipelines))
-print("Starting scraper system...")
-t.start()
-print("Starting web server...")
-eel.start('index.html')
-print("\n\nWeb server stopped.")
-event.set()
-t.join()
-print("Scraping system stopped.")
-
-
 # Web connector functionality
 
 
@@ -239,3 +133,112 @@ def add_source(url, source_name, language, country, source_type):
     with lock:
         crawlers.append(new_crawler)
     return new_crawler.source_id, new_crawler.url, new_crawler.name, new_crawler.language, new_crawler.source_type, new_crawler.last_scrape_time.isoformat(), True
+
+
+# Scraper functoinality
+
+
+def scrape_sources(crawlers, pipelines):
+    """
+    Scrapes the websites using the crawlers and runs through the
+    article parsing and classification pipeline, until interrupted
+
+    :param crawlers: The source crawlers to collect data using
+    :param pipelines: The source to parser/classifier pipelines in use
+    """
+    # Initialise article lists
+    pipeline_articles = [[] for i in range(len(pipelines))]
+    # Run infinite loop
+    while True:
+        start_time = datetime.now()
+        for crawler in crawlers:
+            # Check if thread is stopped
+            if event.is_set():
+                return
+            # Block until system is re-enabled or thread is stopped
+            if not is_system_enabled:
+                while not is_system_enabled:
+                    if event.is_set():
+                        return
+                    continue
+
+            # Get articles
+            articles = crawler.crawl()
+            # Assign articles to pipeline
+            if articles:
+                for i, pipeline in enumerate(pipelines):
+                    source_types = pipeline[0]
+                    if crawler.source_type == source_types or (isinstance(source_types, list) and crawler.source_type in source_types):
+                        pipeline_articles[i].extend(articles)
+                        break
+
+        # Parse and classify articles
+        for i, pipeline in enumerate(pipelines):
+            pipeline_parser = pipeline[1]
+            pipeline_parser.parse(pipeline_articles[i])
+            pipeline_articles[i] = []
+
+        # Sleep until next scrape
+        time_elapsed = (datetime.now() - start_time).total_seconds()
+        time_left = MIN_SECONDS_PER_SCRAPE - time_elapsed
+        if time_left > 0:
+            time.sleep(time_left)
+
+        # Check if thread is stopped
+        if event.is_set():
+            return
+
+
+def initialise_sources():
+    """
+    Initialises the sources from the database
+
+    :returns: A list of crawler objects loaded from the database
+    """
+    crawlers = []
+
+    for source in get_sources(MAX_ACTIVE_CRAWLERS):
+        source_id = source["_id"]
+        source_type = source["_source"]["Source Type"]
+        url = source["_source"]["URL"]
+        name = source["_source"]["Name"]
+        country = source["_source"]["Country"]
+        lang = source["_source"]["Language"]
+        last_scrape_time = source["_source"]["Last Retrieved"]
+        enabled = source["_source"]["Active"]
+        try:
+            crawler = constructors[source_type](url, name, country, lang, source_id, last_scrape_time, enabled, EMPTY_DAYS_UNTIL_STALE, AUTO_DISABLE_STALE_SOURCES)
+            crawlers.append(crawler)
+        except Exception as ex:
+            print(str(ex))
+            continue
+
+    return crawlers
+
+# Emsure database exists
+create_db()
+# Initialise scraper list, parser and classifier
+crawlers = initialise_sources()
+categories = ["Arts/Entertainment", "Sports", "Politics", "Science/Technology", "Business/Finance", "Health/Welfare"]
+classifier = RandomClassifier(categories)
+parser = ArticleParser(classifier, lock)
+
+
+"""
+Pipelines
+"""
+pipelines = [(["Web crawler", "RSS/Atom feed"], parser)]
+
+
+# Start scraping system and web server
+eel.init('web_interface')
+event = threading.Event()
+t = threading.Thread(target=scrape_sources, args=(crawlers,pipelines))
+print("Starting scraper system...")
+t.start()
+print("Starting web server...")
+eel.start('index.html')
+print("\n\nWeb server stopped.")
+event.set()
+t.join()
+print("Scraping system stopped.")

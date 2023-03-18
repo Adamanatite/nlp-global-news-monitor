@@ -72,7 +72,7 @@ class ArticleParser(Parser):
                     if news.publish_date:
                         new_source_publish_dates.append((article["crawler"], news.publish_date))
 
-                    print(news.title)
+                    print(article["source"] + ": " + news.title)
 
                     # Add structured article
                     parsed_articles.append({
