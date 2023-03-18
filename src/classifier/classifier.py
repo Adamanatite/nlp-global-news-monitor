@@ -51,7 +51,7 @@ class Classifier:
         return items
 
 
-    def tokenize_inputs(self, inputs):
+    def tokenize_inputs(self, items):
         """
         Tokenizes the given input items
         To be overridden by a concrete implementation
@@ -59,7 +59,7 @@ class Classifier:
         :param items: The input prepared data items  
         :returns: The tokenized data items
         """
-        return inputs
+        return items
 
 
     def classify(self, items):
@@ -82,7 +82,6 @@ class Classifier:
             classes += batch_classes
             tokenized_items = tokenized_items[self.batch_size:]
         classes += self.classify_batch(tokenized_items)
-        print(classes)
 
        # Ensure we have the correct number of categories
         if len(classes) != len(items):

@@ -426,3 +426,4 @@
 * *3 hour* Finishing off refactorings
 * *1 hour* Bug fixes and toggleable web interface
 * *1 hour* Bug fixing and testing
+* *0.5 hour* Ensuring classification works with system

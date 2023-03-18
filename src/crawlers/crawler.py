@@ -282,10 +282,13 @@ class Crawler:
         # Create source if it does not exist, and attempt to retrieve country name
         if not source_id:
             if country:
-                self.country = get_country_by_name(country)
+                if len(country) == 2:
+                    self.country = country
+                else:
+                    self.country = get_country_by_name(country)
             else:
                 self.country = get_country(url)
-            print(self.language)
+
             self.source_id = add_source(self.url, self.name, self.country, 
                                         self.language, self.source_type)
         else:
@@ -311,6 +314,7 @@ class Crawler:
         time = time.astimezone(timezone.utc)
         if time > self.last_scrape_time:
             self.last_scrape_time = time
+            print(self.source_id)
             update_last_scraped(self.source_id, time)
 
         # Toggle source if it is stale (and this is specified in the config)

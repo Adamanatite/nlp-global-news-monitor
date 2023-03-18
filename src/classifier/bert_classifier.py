@@ -19,7 +19,7 @@ class BERTClassifier(Classifier):
         """
         # Add trailing backslash
         if not local_path[-1] == "/":
-            local_path = "/"
+            local_path += "/"
 
         self.local_path = local_path
 
@@ -50,7 +50,7 @@ class BERTClassifier(Classifier):
 
         :returns: The model object
         """
-        label2id = {"World": 0, "Politics" : 1, "Technology": 2, "Entertainment": 3, "Sports": 4, "Business": 5, "Health" : 6, "Science": 7,}
+        label2id = {"Entertainment/Arts": 0, "Sports": 1, "Politics": 2, "Science/Technology": 3, "Business/Finance": 4, "Health/Welfare": 5}
         id2label = {v:k for k, v in label2id.items()}
         # Load model
         model = XLMRobertaForSequenceClassification.from_pretrained(
@@ -59,22 +59,24 @@ class BERTClassifier(Classifier):
         return model
 
 
-    def prepare_inputs(self, inputs):
+    def prepare_inputs(self, items):
         """
         Prepares inputs for tokenization by concatenating headline and body
 
+        :param items: The batch of input items to be classified
         :returns: The prepared input list
         """
-        return [i["title"] + " " + i["text"] for i in inputs]
+        return [i["title"] + " " + i["text"] for i in items]
 
 
-    def tokenize_inputs(self, inputs):
+    def tokenize_inputs(self, items):
         """
         Uses the tokenizer to tokenize the prepared inputs for classification
 
+        :param items: The batch of prepared input items to be tokenized
         :returns: The tokenized inputs
         """
-        return self.tokenizer(inputs, truncation=True, padding=True, return_tensors="pt")["input_ids"]
+        return self.tokenizer(items, truncation=True, padding=True, return_tensors="pt")["input_ids"]
 
 
     def classify_batch(self, batch):
@@ -88,4 +90,5 @@ class BERTClassifier(Classifier):
             logits = self.model(batch).logits
             predicted_class_ids = logits.argmax(axis=1).numpy()
             predictions = [self.model.config.id2label[i] for i in predicted_class_ids]
+        print(predictions)
         return predictions
