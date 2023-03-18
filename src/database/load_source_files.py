@@ -1,4 +1,4 @@
-from elasticsearch_database import create_db, add_source
+from database_connector import create_db, add_source
 import os
 # Get current directory from project tree
 currentdir = os.path.dirname(os.path.realpath(__file__))

@@ -419,3 +419,9 @@
 * *1 hour* Refactoring for better implementation section 
 * *3 hour* More refactoring
 
+### 17 Mar 2023
+* *2 hour* Further refactoring
+
+### 18 Mar 2023
+* *3 hour* Finishing off refactoringS
+

@@ -9,12 +9,12 @@ const delay = s => new Promise(res => setTimeout(res, s * 1000));
 window.onload = function(){
   document.getElementById("kibana-visualisation").style.display="none";
   eel.get_days_until_stale()(setDaysUntilStale)
-  eel.is_system_enabled()(updateScraperButton)
+  eel.get_system_status()(updateScraperButton)
   updateTable();
 }
 
 async function updateTable(){
-  eel.get_sources()(populateTables)
+  eel.get_js_sources()(populateTables)
   await delay(secondsPerUpdate)
   updateTable();
 }

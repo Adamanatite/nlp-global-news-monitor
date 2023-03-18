@@ -9,6 +9,9 @@ def cleanup(text):
 
 #Function for newspaper3k to create a parsed article
 def article_parse(url, lang=None):
+
+    lang = lang.lower()
+
     if lang:
         article = newspaper.Article(url,language=lang)
     else:
@@ -27,61 +30,69 @@ class ArticleParser(Parser):
         """
         super().__init__(classifier, lock
                          )
-def get_parsed_urls(articles):
-    """
-    Parses the given list of article URLs and returns a parsed list of articles
+        
 
-    :param articles: The list of articles URLs to add
-    :returns: The list of parsed articles
-    """
-    new_source_publish_dates = [])
+    def get_parsed_urls(self, articles):
+        """
+        Parses the given list of article URLs and returns a parsed list of articles
 
-    titles = []
-    parsed_articles = []
+        :param articles: The list of articles URLs to add
+        :returns: The list of parsed articles
+        """
 
-    for article in articles:
-        try:
-            # Parse and add
-            news = article_parse(article["url"], lang=article["language"])
+        print("Call")
+        new_source_publish_dates = []
 
-            # Ensure article has content
-            if news and news.title:
-                #Validate article is unique
-                if news.title in titles:
-                    continue
-                # Stop duplicates
-                titles.append(news.title)
+        titles = []
+        parsed_articles = []
 
-                # Re-parse article if we have chosen the wrong language (for multilingual sources)
-                lang = detect(news.title)[:2]
-                if not news.text and not lang == article["language"]:
-                    news = article_parse(article.url, lang)
+        for article in articles:
+            try:
+                # Parse and add
+                news = article_parse(article["url"], lang=article["language"])
 
-                # Remove articles that are too short
-                if  not news.text or len(news.text) < self.min_article_length:
-                    continue
+                # Ensure article has content
+                if news and news.title:
+                    #Validate article is unique
+                    if news.title in titles:
+                        continue
+                    # Stop duplicates
+                    titles.append(news.title)
 
-                # Add publish date update
-                if news.publish_date:
-                    new_source_publish_dates.append((article["crawler"], news.publish_date))
+                    # Re-parse article if we have chosen the wrong language (for multilingual sources)
+                    lang = detect(news.title)[:2]
+                    if not news.text and not lang == article["language"]:
+                        news = article_parse(article.url, lang)
 
-                # Add structured article
-                parsed_articles.append({
-                    "url": article["url"],
-                    "title": news.title,
-                    "text": cleanup(news.text),
-                    "lang": article["language"],
-                    "country": article["country"],
-                    "date": news.publish_date,
-                    "source": article["source"],
-                    "source_type": article["source_type"]
-                    })
-        # Move past failed parse
-        except Exception as ex:
-            continue
+                    # Remove articles that are too short
+                    if  not news.text or len(news.text) < self.min_article_length:
+                        continue
 
-    # Update scraper times
-    self.update_times(new_source_publish_dates)
+                    # Add publish date update
+                    if news.publish_date:
+                        new_source_publish_dates.append((article["crawler"], news.publish_date))
 
-    # Return final parsed list
-    return parsed_articles
+                    print(news.title)
+
+                    # Add structured article
+                    parsed_articles.append({
+                        "url": article["url"],
+                        "title": news.title,
+                        "text": cleanup(news.text),
+                        "lang": article["language"],
+                        "country": article["country"],
+                        "date": news.publish_date,
+                        "source": article["source"],
+                        "source_type": article["source_type"]
+                        })
+
+            # Move past failed parse
+            except Exception as ex:
+                print(ex)
+                continue
+
+        # Update scraper times
+        self.update_times(new_source_publish_dates)
+
+        # Return final parsed list
+        return parsed_articles

@@ -5,7 +5,7 @@ class NewspaperCrawler(Crawler):
     """
     Concrete crawler implementation for retrieving data from news websites
     """
-    def __init__(self, url, name=None, country=None, lang=None, source_id=None, last_scraped=None, is_active=True):
+    def __init__(self, url, name=None, country=None, lang=None, source_id=None, last_scraped=None, is_active=True, days_until_stale = 14, auto_disable_stale = False):
         """
         Initialises the webpage crawler
 
@@ -20,7 +20,7 @@ class NewspaperCrawler(Crawler):
 
         # Set source type and call abstract constructor
         self.source_type = "Web scraper"
-        super().__init__(url, name, country, lang, source_id, last_scraped, is_active)
+        super().__init__(url, name, country, lang, source_id, last_scraped, is_active, days_until_stale, auto_disable_stale)
 
     def get_new_articles(self):
         """

@@ -1,10 +1,6 @@
 import os
-import re
 import json
-from datetime import datetime, timezone
-from database.database_connector import add_source, update_last_scraped, enable_source, disable_source, delete_source, get_article_from_url
-from utils.parse_config import ParseBoolean
-
+import random
 
 # Get current directory from project tree
 currentdir = os.path.dirname(os.path.realpath(__file__))
@@ -15,7 +11,7 @@ with open(str(parentdir) + "/config.json", encoding="utf-8") as f:
     data = json.load(f)
     try:
         MIN_ARTICLE_LENGTH = int(data["min_article_length"])
-    except:
+    except Exception:
         # Default values
         print("Error in config")
         MIN_ARTICLE_LENGTH = 300
@@ -54,7 +50,9 @@ class Parser:
         and feeds the output to the classifier
         (language, country, source, source type and reference to the crawler)
         """ 
+        random.shuffle(urls)
         parsed_data = self.get_parsed_urls(urls)
+        
         self.classifier.classify(parsed_data)
 
 
@@ -62,7 +60,7 @@ class Parser:
         """
         To be overriden in subclasses by a method which 
         scrapes a list of URLs for the webpage content
-        """  
+        """
         return []
 
 

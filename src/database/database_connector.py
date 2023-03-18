@@ -179,8 +179,8 @@ def add_articles(articles, categories):
             "URL": article["url"],
             "Headline": article["title"],
             "Body": article["text"],
-            "Country": article["lang"],
-            "Language": article["country"],       
+            "Country": article["country"],
+            "Language": article["lang"],       
             "Published": article["date"],
             "Retrieved": datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
             "Source": article["source"],
@@ -197,7 +197,7 @@ def add_articles(articles, categories):
         print("Couldn't add articles, adding individually")
         for article, category in zip(articles, categories):
             try:
-                add_article(article["url"], article["title"], article["text"], article["lang"], article["country"], article["date"], article["source"], article["source_type"], category)
+                add_article(article["url"], article["title"], article["text"], article["country"], article["lang"], article["date"], article["source"], article["source_type"], category)
             except Exception as ex:
                 print(str(ex))
                 continue
@@ -336,12 +336,15 @@ def add_source(url, name, country, lang, source_type):
         "Active": True
     }
 
+    # Add source if it doesn't exist
     try:
         if not get_source(url):
             res = es.index(index="sources", document=doc)
             print("Added source " + name)
             return res["_id"]
+        print("Duplicate source " + name)
         return None
+
     except Exception as ex:
         print("Couldn't add source " + name)
         print(ex)

@@ -3,26 +3,11 @@ import re
 import json
 from datetime import datetime, timezone
 from database.database_connector import add_source, update_last_scraped, enable_source, disable_source, delete_source, get_article_from_url
-from utils.parse_config import ParseBoolean
 
 
 # Get current directory from project tree
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
-
-# Get data from JSON file
-with open(str(parentdir) + "/config.json", encoding="utf-8") as f:
-    data = json.load(f)
-    try:
-        STALE_DAYS = int(data["empty_days_until_stale"])
-        FAILURES_UNTIL_DISABLE = int(data["failures_until_disable"])
-        AUTO_DISABLE_STALE_SOURCES = ParseBoolean(data["auto_disable_stale_sources"])
-    except:
-        # Default values
-        print("Error in config")
-        STALE_DAYS = 7
-        FAILURES_UNTIL_DISABLE = 5
-        AUTO_DISABLE_STALE_SOURCES = False
 
 
 # Given a country name, returns the ISO 3166-1 alpha-2 country code
@@ -279,7 +264,7 @@ class Crawler:
     """
     Abstract class for crawling a given URL to provide a list of URLs periodically
     """
-    def __init__(self, url, name, country=None, lang=None, source_id=None, last_scraped=None, is_active=True):
+    def __init__(self, url, name, country=None, lang=None, source_id=None, last_scraped=None, is_active=True, days_until_stale=14, auto_disable_stale = False):
         """
         Initialises parameters, attempting to guess country if it is not specified.
         If not given a source ID, it will create the source object in the database 
@@ -290,7 +275,9 @@ class Crawler:
         self.url = url
         self.source_id = source_id
         self.name = name
-        self.language = lang
+        self.language = lang.upper()
+        self.days_until_stale = days_until_stale
+        self.auto_disable_stale = auto_disable_stale
 
         # Create source if it does not exist, and attempt to retrieve country name
         if not source_id:
@@ -298,16 +285,18 @@ class Crawler:
                 self.country = get_country_by_name(country)
             else:
                 self.country = get_country(url)
+            print(self.language)
             self.source_id = add_source(self.url, self.name, self.country, 
                                         self.language, self.source_type)
         else:
+            self.source_id = source_id
             self.country = country
 
         # Set last scrape time
         if last_scraped:
-            self.last_scrape_time = datetime.strptime(last_scraped, "%Y-%m-%dT%H:%M:%SZ")
+            self.last_scrape_time = datetime.strptime(last_scraped, "%Y-%m-%dT%H:%M:%SZ").astimezone(timezone.utc)
         else:
-            self.last_scrape_time = datetime(month=1, day=1, year=2000)
+            self.last_scrape_time = datetime(month=1, day=1, year=2000).astimezone(timezone.utc)
 
         # Confirmation message
         print("Initialised " + self.name + " crawler")
@@ -318,14 +307,15 @@ class Crawler:
         Updates the last scrape time of the crawler and updates the database.
         Sets the crawler to stale if it has not found new articles in a set amount of time.
         """
+        # Update last scrape time and commit to DB
         time = time.astimezone(timezone.utc)
         if time > self.last_scrape_time:
             self.last_scrape_time = time
             update_last_scraped(self.source_id, time)
 
         # Toggle source if it is stale (and this is specified in the config)
-        days_since_last_update = (datetime.now() - self.last_scrape_time).days
-        if AUTO_DISABLE_STALE_SOURCES and days_since_last_update > STALE_DAYS:
+        days_since_last_update = (datetime.now().astimezone(timezone.utc) - self.last_scrape_time).days
+        if self.auto_disable_stale and days_since_last_update > self.days_until_stale:
             self.toggle()
 
 
@@ -353,7 +343,7 @@ class Crawler:
         Crawls for URLs from the given source URL, using the concrete implementation
         """
         if not self.enabled:
-            return
+            return []
         
         # Get new articles (from concrete implementation)
         urls = self.get_new_articles()
