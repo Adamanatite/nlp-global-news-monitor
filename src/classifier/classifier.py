@@ -68,6 +68,7 @@ class Classifier:
         articles to the database
 
         :param items: The data items to classify
+        :raises IndexError: If each article does not have a given category
         """
         # Process input items
         prepared_items = self.prepare_inputs(items)
@@ -81,6 +82,7 @@ class Classifier:
             classes += batch_classes
             tokenized_items = tokenized_items[self.batch_size:]
         classes += self.classify_batch(tokenized_items)
+        print(classes)
 
        # Ensure we have the correct number of categories
         if len(classes) != len(items):

@@ -27,12 +27,14 @@ with open("config.json", encoding="utf-8") as f:
         MAX_ACTIVE_CRAWLERS = int(data["max_active_crawlers"])
         EMPTY_DAYS_UNTIL_STALE = int(data["empty_days_until_stale"])
         AUTO_DISABLE_STALE_SOURCES = parse_boolean(data["auto_disable_stale_sources"])
+        LAUNCH_WEB_APP = parse_boolean(data["launch_web_app"])
     except Exception as e:
         print("Error in config.json file")
         MIN_SECONDS_PER_SCRAPE = 600
         MAX_ACTIVE_CRAWLERS = 1000
         EMPTY_DAYS_UNTIL_STALE = 14
         AUTO_DISABLE_STALE_SOURCES = False
+        LAUNCH_WEB_APP = False
 
 # Crawler constructors by name (for loading from DB)
 constructors = {"Web crawler": NewspaperCrawler,
@@ -230,15 +232,22 @@ Pipelines
 pipelines = [(["Web crawler", "RSS/Atom feed"], parser)]
 
 
-# Start scraping system and web server
-eel.init('web_interface')
+# Ends scraping when program is stopped
 event = threading.Event()
-t = threading.Thread(target=scrape_sources, args=(crawlers,pipelines))
-print("Starting scraper system...")
-t.start()
-print("Starting web server...")
-eel.start('index.html')
-print("\n\nWeb server stopped.")
-event.set()
-t.join()
-print("Scraping system stopped.")
+
+if LAUNCH_WEB_APP:
+    # Start scraping system and web server
+    eel.init('web_interface')
+    t = threading.Thread(target=scrape_sources, args=(crawlers,pipelines))
+    print("Starting scraper system...")
+    t.start()
+    print("Starting web server...")
+    eel.start('index.html')
+    print("\n\nWeb server stopped.")
+    event.set()
+    t.join()
+    print("Scraping system stopped.")
+else:
+    is_system_enabled = True
+    print("Starting scraper system...")
+    scrape_sources(crawlers, pipelines)

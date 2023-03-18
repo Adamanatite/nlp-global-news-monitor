@@ -3,5 +3,6 @@
     "empty_days_until_stale": "14",
     "auto_disable_stale_sources": "false",
     "max_active_crawlers": "1000",
-    "min_article_length": "300"
+    "min_article_length": "300",
+    "launch_web_app": "false"
 }

@@ -423,5 +423,6 @@
 * *2 hour* Further refactoring
 
 ### 18 Mar 2023
-* *3 hour* Finishing off refactoringS
-
+* *3 hour* Finishing off refactorings
+* *1 hour* Bug fixes and toggleable web interface
+* *1 hour* Bug fixing and testing

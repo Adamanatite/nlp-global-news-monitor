@@ -1,4 +1,4 @@
-from elasticsearch import Elasticsearch, helpers
+from elasticsearch import Elasticsearch, helpers, exceptions
 from datetime import datetime
 import json
 import os
@@ -359,8 +359,11 @@ def update_last_scraped(source_id, time):
     :param source_id: The source ID
     :param time: The time to update to
     """
-    es.update(index='sources', id=source_id,
-        body={"doc": {"Last Retrieved": time.strftime("%Y-%m-%dT%H:%M:%SZ")}})
+    try:
+        es.update(index='sources', id=source_id,
+            body={"doc": {"Last Retrieved": time.strftime("%Y-%m-%dT%H:%M:%SZ")}})
+    except exceptions.NotFoundError:
+        print("Couldn't find source with ID " + source_id)  
 
 
 def enable_source(source_id):
@@ -392,8 +395,8 @@ def delete_source(source_id):
     try:
         es.delete(index="sources", id=source_id)
         return True
-    except Exception as ex:
-        print(str(ex))
+    except exceptions.NotFoundError:
+        print("Couldn't find source with ID " + source_id)
         return False
 
 # Get DB connection instance

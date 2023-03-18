@@ -40,7 +40,6 @@ class ArticleParser(Parser):
         :returns: The list of parsed articles
         """
 
-        print("Call")
         new_source_publish_dates = []
 
         titles = []
@@ -87,8 +86,7 @@ class ArticleParser(Parser):
                         })
 
             # Move past failed parse
-            except Exception as ex:
-                print(ex)
+            except Exception:
                 continue
 
         # Update scraper times
