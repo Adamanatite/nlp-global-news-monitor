@@ -4,5 +4,5 @@
     "auto_disable_stale_sources": "false",
     "max_active_crawlers": "1000",
     "min_article_length": "300",
-    "launch_web_app": "false"
+    "launch_web_app": "true"
 }

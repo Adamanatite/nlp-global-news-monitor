@@ -184,6 +184,7 @@ def scrape_sources(crawlers, pipelines):
         time_elapsed = (datetime.now() - start_time).total_seconds()
         time_left = MIN_SECONDS_PER_SCRAPE - time_elapsed
         if time_left > 0:
+            print("Sleeping for " + str(time_left) + " seconds...")
             time.sleep(time_left)
 
         # Check if thread is stopped

@@ -343,11 +343,11 @@ class Crawler:
         Crawls for URLs from the given source URL, using the concrete implementation
         """
 
-        print("Crawling " + self.name)
-
         if not self.enabled:
             return []
         
+        print("Crawling " + self.name)
+
         # Get new articles (from concrete implementation)
         urls = self.get_new_articles()
         articles = []
