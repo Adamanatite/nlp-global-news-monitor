@@ -132,7 +132,7 @@ parser = ArticleParser(classifier, lock)
 """
 Pipelines
 """
-pipelines = (["Web crawler", "RSS/Atom feed"], parser)
+pipelines = [(["Web crawler", "RSS/Atom feed"], parser)]
 
 
 # Start scraping system and web server
