@@ -56,13 +56,14 @@ function resetTables(){
 function getDateString(date){
   let now = Date.now()
   let then = Date.parse(date)
+  // Return never for default value
   if (then <= 946684800000){
     return ["Never", true]
   }
 
   let msDifference = now - then
-  msUntilStale = Math.floor(daysUntilStale * 24 * 60 * 60 * 1000)
   // Calculate if source is stale
+  msUntilStale = Math.floor(daysUntilStale * 24 * 60 * 60 * 1000)
   let is_stale = (msUntilStale < msDifference)
 
   // Get date string
@@ -72,17 +73,18 @@ function getDateString(date){
   } else if (mins_difference === 1){
     return ["1 minute ago", is_stale]
   }
+  // If less than an hour ago
   else if (mins_difference < 60){
     return [mins_difference + " minutes ago", is_stale]
   }
-
+  // If less than a day ago
   let hours_difference = Math.floor(mins_difference / 60)
   if (hours_difference === 1){
     return ["1 hour ago", is_stale]
   } else if (hours_difference < 24){
     return [hours_difference + " hours ago", is_stale]
   }
-
+  // If less than a week ago
   let days_difference = Math.floor(hours_difference / 24)
   if (days_difference === 1){
     return ["Yesterday", is_stale]
@@ -90,7 +92,7 @@ function getDateString(date){
   else if (days_difference < 7){
     return [days_difference + " days ago", is_stale]
   }
-
+  // If less than a month ago
   let weeks_difference = Math.floor(days_difference / 7)
   if (weeks_difference === 1){
     return ["Last week", is_stale]
@@ -98,7 +100,7 @@ function getDateString(date){
   else if (days_difference < 30){
     return [weeks_difference + " weeks ago", is_stale]
   }
-
+  // If less than a year ago
   let months_difference = Math.floor(days_difference / 30)
   if (months_difference === 1){
     return ["Last month", is_stale]
@@ -106,10 +108,11 @@ function getDateString(date){
   else if (days_difference < 365){
     return [months_difference + " months ago", is_stale]
   }
-
+  // If a year agp pr more
   return [Math.floor(days_difference / 365) + " years ago", is_stale]
 }
 
+// Get the position to insert the row in, to maintain alphabetical order
 function getIndex(table_id, new_string){
 
   var table = document.getElementById(table_id);
@@ -283,11 +286,15 @@ function toggleVisualisation(){
 }
 
 // Adapted from https://www.w3schools.com/jsref/met_table_insertrow.asp
+// Adds a row to the table with the information given in the parameters
 function addTableRow(source_id, url, name, lang, srcType, last, isEnabled) {
-  console.log(source_id)
+
+  // Get date string and if source is stale
   date_string_data = getDateString(last)
   date_string = date_string_data[0]
   is_stale = date_string_data[1]
+
+  // Determine correct table
   let table_id = "active-table"
   if (!(isEnabled)){
     table_id = "disabled-table"
@@ -296,16 +303,18 @@ function addTableRow(source_id, url, name, lang, srcType, last, isEnabled) {
     table_id="stale-table"
   }
 
+  // Default for no language
   if(!lang){
     lang = "--"
   }
 
+  // Get table to add source to, or create it if it doesn't exist
   var table = document.getElementById(table_id);
   if (!table){
     addTable(table_id)
     table = document.getElementById(table_id);
   }
-
+  // Create rows
   var row = table.insertRow(getIndex(table_id, name));
   var srcCell = row.insertCell(0);
   var langCell = row.insertCell(1);
@@ -314,12 +323,14 @@ function addTableRow(source_id, url, name, lang, srcType, last, isEnabled) {
   var disableCell = row.insertCell(4);
   var deleteCell = row.insertCell(5);
 
+  // Populate rows
   srcCell.innerHTML = `<a href="${url}">${name}</a>`;
   langCell.innerHTML = lang.toUpperCase();
   srcTypeCell.innerHTML = srcType;
   lastCell.innerHTML = date_string;
   lastCell.className = is_stale;
 
+  // Enable / disable and delete buttons
   if (isEnabled){
     disableCell.innerHTML = `<td><button id = "${source_id}-toggle" class="action-btn table-btn disable-btn" onclick="toggleSource(this)">Disable</button></td>`
   } else {

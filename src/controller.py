@@ -150,6 +150,7 @@ def scrape_sources(crawlers, pipelines):
     """
     # Initialise article lists
     pipeline_articles = [[] for i in range(len(pipelines))]
+
     # Run infinite loop
     while True:
         start_time = datetime.now()
@@ -166,6 +167,7 @@ def scrape_sources(crawlers, pipelines):
 
             # Get articles
             articles = crawler.crawl()
+
             # Assign articles to pipeline
             if articles:
                 for i, pipeline in enumerate(pipelines):
@@ -182,10 +184,13 @@ def scrape_sources(crawlers, pipelines):
 
         # Sleep until next scrape
         time_elapsed = (datetime.now() - start_time).total_seconds()
-        time_left = MIN_SECONDS_PER_SCRAPE - time_elapsed
+        time_left = round(MIN_SECONDS_PER_SCRAPE - time_elapsed)
         if time_left > 0:
             print("Sleeping for " + str(time_left) + " seconds...")
-            time.sleep(time_left)
+            for i in range(time_left):
+                time.sleep(1)
+                if event.is_set():
+                    return
 
         # Check if thread is stopped
         if event.is_set():

@@ -41,8 +41,6 @@ class ArticleParser(Parser):
         """
 
         new_source_publish_dates = []
-
-        titles = []
         parsed_articles = []
 
         for article in articles:
@@ -52,11 +50,6 @@ class ArticleParser(Parser):
 
                 # Ensure article has content
                 if news and news.title:
-                    #Validate article is unique
-                    if news.title in titles:
-                        continue
-                    # Stop duplicates
-                    titles.append(news.title)
 
                     # Re-parse article if we have chosen the wrong language (for multilingual sources)
                     lang = detect(news.title)[:2]
@@ -84,7 +77,6 @@ class ArticleParser(Parser):
                         "source": article["source"],
                         "source_type": article["source_type"]
                         })
-
             # Move past failed parse
             except Exception:
                 continue

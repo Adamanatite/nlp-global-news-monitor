@@ -427,3 +427,8 @@
 * *1 hour* Bug fixes and toggleable web interface
 * *1 hour* Bug fixing and testing
 * *0.5 hour* Ensuring classification works with system
+* *1.5 hour* Work on finishing implementation section
+
+### 19 Mar 2023
+* *2 hour* Finishing first draft of dissertation
+* *9 hour* Finishing first draft of dissertation (continued)
