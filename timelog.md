@@ -432,3 +432,16 @@
 ### 19 Mar 2023
 * *2 hour* Finishing first draft of dissertation
 * *9 hour* Finishing first draft of dissertation (continued)
+
+## Week 27
+
+### 20 Mar 2023
+* *1 hour* Preparing for supervisor meeting, first supervisor meeting
+* *1 hour* Second supervisor meeting, note collation
+
+### 21 Mar 2023
+* *1 hour* Dissertation writing
+* *1.5 hour* Dissertation writing
+
+### 22 Mar 2023
+* *1 hour* Writing Machine learning section
