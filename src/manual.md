@@ -1,68 +1,5 @@
 # User manual 
 
-## Build Instructions
-* These instructions are for **Windows 10** but should work on any recent Windows version
-* Create a new pip environment from 'requirements.txt' in src:
-* * ```python -m pip install -r requirements.txt```
-* Install pytorch 1.13.0 with CUDA e.g. 
-```pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu117```
-
-* Install [docker desktop](https://www.docker.com/products/docker-desktop/)
-* Create docker environment with elasticsearch
-* * https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
-* * Pull the container for version 8.5.0 instead of the one specified in the tutorial
-* * e.g. ```docker pull docker.elastic.co/elasticsearch/elasticsearch:8.5.0```
-* * ```docker run --name es01 --net elastic -p 9200:9200 -it docker.elastic.co/elasticsearch/elasticsearch:8.6.2```
-
-* * Create a new folder called "cert" in the src/database folder and put the http_ca.crt file in it
-* * If running the docker returns an error, it may not have enough memory. You can run the following fix:
-* * Run command prompt as an admin and run the following commands:
-* * ```wsl -d docker-desktop```
-* * ```sysctl -w vm.max_map_count=262144```
-
-* Edit the "db_info.json" file in "database/data"
-* * Ensure "connection_type" is "local"
-* * Change "local_username" and "local_password" to the admin username and password
-* * Ensure the "cert_path" matches the location of the http_ca.crt file (it is a relative path starting from "src/database")
-
-* Using command prompt (with the created pip environment), enter the "src/database" directory and run "load_source_files.py"
-* * A list of sources should be initialised in the console
-
-* Create docker environment using Elastic Kibana
-* * https://www.elastic.co/guide/en/kibana/current/docker.html
-* * Pull the container for version 8.5.0 instead of the one specified in the tutorial
-* * e.g. ```docker pull docker.elastic.co/kibana/kibana:8.5.0```
-* * ```docker run --name kib-01 --net elastic -p 5601:5601 docker.elastic.co/kibana/kibana:8.5.0```
-
-* Ensure the two docker environments are running (and give them enough time, probably around 2 minutes, to load)
-
-* Log into Kibana (default location is localhost:5601) using the admin login given
-
-* Import the visualisation data by going to Stack Management -> Saved Objects -> Import and upload the kibana_dashboard.ndjson file in "src"
-* * You may need to recreate the data views, ensure all visualisation components load in Dashboards -> Main Dashboard
-* * If they do not, go to Discover, and delete any data views which cause errors
-* * Recreate the views which cause error
-* * "Article view" uses index pattern "articles*" with timestamp field "Published"
-* * "Source view" uses index pattern "sources*" with no timestamp field
-* * "Full view" uses index pattern "articles,sources*" with no timestamp field
-* * Ensure that all visualisation components load without error in the Main Dashboard
-
-* Ensure the default time range is last month
-* * Stack Management -> Advanced Settings -> Time Filter defaults
-* * Replace "now-15m" to "now-1M"
-* * Save changes
-
-* Create a kibana embed for the web interface
-* * Go to Dashboard -> Main Dashboard
-* * Click Share -> Embed Code
-* * Select "Saved object" and uncheck all "Include" boxes
-* * Click copy iframe link
-* * In the project source code, navigate to "src/web_interface/index.html"
-* * Reaplace the URL in line 26 with the copied link
-* * (Pasting will paste the entire iframe element, just extract the link, e.g. replace the "src=" section of line 26 with the "src=
- section of the pasted iframe)
-* The program should now be fully ready to run
-
 ## Running the program
 * In a command prompt, load the pip environment and navigate to "src"
 * Ensure both docker containers are running and fully loaded
@@ -71,3 +8,12 @@
 * * ```sysctl -w vm.max_map_count=262144```
 * Run the "controller.py" module in python
 * A web interface should (eventually) pop up (you can also set "launch_web_app" to "false" in the config.json file to only launch the scraping system)
+
+# Configuring the program
+The **config.json** file provides some variables which can be changed to change how the program operates. These variables are:
+* * "min_seconds_per_scrape": The minimum amount of time to wait before scraping from the start again (in seconds)
+* * "empty_days_until_stale": The number of days without a new source until a source is considered stale
+* * "auto_disable_stale_sources": Whether stale sources will automatically be disabled ("true" or "false")
+* * "max_active_crawlers": The maximum number of crawlers which are loaded at the start of the program (from 1 to 9999)
+* * "min_article_length": The minimum length of article body which will be sent into the database (in characters)
+* * "launch_web_app" Whether or not to launch the web app ("true" or "false"). If false, the scraper system will run in the command line.
