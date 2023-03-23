@@ -19,7 +19,7 @@ class NewspaperCrawler(Crawler):
         """
 
         # Set source type and call abstract constructor
-        self.source_type = "Web scraper"
+        self.source_type = "Web crawler"
         super().__init__(url, name, country, lang, source_id, last_scraped, is_active, days_until_stale, auto_disable_stale)
 
     def get_new_articles(self):

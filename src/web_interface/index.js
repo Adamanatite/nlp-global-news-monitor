@@ -73,6 +73,10 @@ function getDateString(date){
   } else if (mins_difference === 1){
     return ["1 minute ago", is_stale]
   }
+  // Articles scraped in future timezones
+  else if (mins_difference < 0){
+    return ["Today", is_stale]
+  }
   // If less than an hour ago
   else if (mins_difference < 60){
     return [mins_difference + " minutes ago", is_stale]

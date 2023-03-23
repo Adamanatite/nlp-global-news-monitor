@@ -42,6 +42,9 @@ class ArticleParser(Parser):
 
         new_source_publish_dates = []
         parsed_articles = []
+        
+        print("-----------------------")
+        print("Parsing articles...")
 
         for article in articles:
             try:

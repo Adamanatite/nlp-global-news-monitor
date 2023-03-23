@@ -49,10 +49,10 @@ class Parser:
         Parses the given list of URLs, which contain information on the source
         and feeds the output to the classifier
         (language, country, source, source type and reference to the crawler)
-        """ 
+        """
         random.shuffle(urls)
         parsed_data = self.get_parsed_urls(urls)
-        
+
         self.classifier.classify(parsed_data)
 
 
@@ -62,5 +62,4 @@ class Parser:
         scrapes a list of URLs for the webpage content
         """
         return []
-
 
