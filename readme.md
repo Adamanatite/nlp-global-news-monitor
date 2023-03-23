@@ -6,7 +6,7 @@ This is the repository for my Level 4 Individual project for computing science, 
 * [Overview](#overview)
 * [Build Instructions](#build-instructions)
 * [Running the Program](#running-the-program)
-* [Technologies Used](#technologies-used)
+* [Technologies Used](#main-technologies-used)
 
 ## Motivation
 Diseases can travel rapidly between areas and cause widespread harm before they can be detected and contained. Traditional methods of surveillance such as testing parients in a lab to identify patterns can be slow, taking days for experiment results to be obtained. Digital disease surveillance systems can use online data to provide quick alerts for diseases which can be used tp notify citizens and inform government policy.
@@ -104,9 +104,14 @@ The languages being considered for this project are:
 * Run the "controller.py" module in python
 * A web interface should (eventually) pop up (you can also set "launch_web_app" to "false" in the config.json file to only launch the scraping system)
 
-## Technologies used
-* [Newspaper3k](https://github.com/codelucas/newspaper) v0.2.8
-* [TensorFlow](https://github.com/tensorflow/tensorflow/releases/tag/v2.10.0) v2.10
-* [Huggingface Transformers](https://huggingface.co/transformers) v4.23.1
+## Main Technologies used
 * [Elasticsearch](https://www.elastic.co/elasticsearch/) v8.5.0
 * [Elastic Kibana](https://www.elastic.co/kibana/) v8.5.0
+### Main Libraries
+* [Newspaper3k](https://github.com/codelucas/newspaper) v0.2.8
+* [feedparser](https://pypi.org/project/feedparser/) v6.0.10
+* [elasticsearch](https://elasticsearch-py.readthedocs.io/en/v8.4.3/) v8.4.3
+* [Huggingface Transformers](https://huggingface.co/transformers) v4.23.1
+* [Pytorch](https://pytorch.org/blog/PyTorch-1.13-release/) v1.13.0
+* [langdetect](https://pypi.org/project/langdetect/) v1.0.9
+* [Eel](https://github.com/python-eel/Eel/releases/tag/v0.15.1) v0.15.1
