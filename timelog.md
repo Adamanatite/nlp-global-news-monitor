@@ -447,3 +447,6 @@
 * *1 hour* Writing Machine learning section
 * *2.5 hour* Writing Machine learning section
 * *4 hours* Finishing second dissertation draft
+
+### 23 Mar 2023
+* *2.5 hour* Preparing slides for video presentation
