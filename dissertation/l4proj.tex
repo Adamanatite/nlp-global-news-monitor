@@ -22,7 +22,7 @@
 %==============================================================================
 %% ABSTRACT
 \begin{abstract}
-    Current digital disease surveillance systems lack diversity in their data collection systems, and require results to be translated into English before processing. We developed a more robust data collection system which integrates various types of online data into one system, as well as a web interface to manage the system and view results. Various multilingual machine learning techniques were explored and a classifier to assign categories to incoming multilingual articles was trained and integrated into the collection system. The classifier achieves 89.4\% accuracy on collected data
+    Current digital news surveillance systems for disease monitoring lack diversity in their data collection systems, and require results to be translated into English before processing. We developed a more robust data collection system which integrates various types of online data into one system, as well as a web interface to manage the system and view result visualisations. Various multilingual machine learning techniques were explored in an experiment on multilingual news category classification, and a classifier to assign categories to incoming multilingual articles was trained and integrated into the collection system. The classifier achieves 89.4\% accuracy on real-world collected data
 \end{abstract}
 
 %==============================================================================
@@ -36,8 +36,8 @@
 % Please note that you are under no obligation to sign 
 % this declaration, but doing so would help future students.
 %
-%\def\consentname {My Name} % your full name
-%\def\consentdate {20 March 2018} % the date you agree
+\def\consentname {Adam Fairlie} % your full name
+\def\consentdate {24 March 2023} % the date you agree
 %
 \educationalconsent
 
@@ -79,35 +79,35 @@
 
 \section{Motivation}
 
-Diseases can be very quick to spread, travelling rapidly between areas and causing harm to many people. It is important to avoid as much harm as possible to have up-to-date information on local disease outbreak risks freely available to members of the public. Traditional methods of disease surveillance include laboratory networks such as PulseNet from the Center for Disease Control (CDC) which look for patterns in bacteria across infected patients which may indicate an outbreak. These methods can be slow, relying on human experts and conducting experiments which can take several days until results are achieved \citep{swaminathan2001pulsenet}. These methods are often also lacking in coverage of certain diseases or geographic regions due to factors such as a lack of specialist knowledge \citep{abdulraheem2004disease}. Several digital surveillance systems have been developed to collect real-time information from online sources, such as news articles, which can be used to quickly find and assess the risk of disease outbreaks across the world. This information can allow governments to respond rapidly to any new outbreaks by providing quick risk information to the public and planning for diagnosis, testing and prevention. It is for this reason that many governments are creating systems which incorporate online sources to monitor disease outbreaks, such as the Global Public Health Intelligence Network (GPHIN)\footnote{https://gphin.canada.ca/cepr/aboutgphin-rmispenbref.jsp?language=en_CA} from the Canadian government. \par
+The rate of transmission in diseases is often high, travelling rapidly between areas before it can be initially detected and contained. It is important to avoid as much harm as possible by having up-to-date information on local disease outbreak risks freely available to members of the public. Traditional methods of disease surveillance include laboratory networks such as PulseNet from the Center for Disease Control (CDC) which look for patterns in bacteria across infected patients which may indicate an outbreak. These methods can be slow, relying on human experts and conducting experiments which can take several days until results are achieved \citep{swaminathan2001pulsenet}. These methods are often also lacking in coverage of certain diseases or geographic regions due to factors such as a lack of specialist knowledge \citep{abdulraheem2004disease}. Digital forms of surveillance such as online media monitoring have been effective at discovering disease outbreaks at the early stages and mitigating spread, including during the recent COVID-19 pandemic \citep{kostkova2021data}. Several digital surveillance systems have been developed to collect real-time information from online sources, such as news articles, which can be used to quickly find and assess the risk of disease outbreaks across the world. This information can allow governments to respond rapidly to any new outbreaks by providing quick risk information to the public and planning for diagnosis, testing and prevention. It is for this reason that many governments are creating systems which incorporate online sources to monitor disease outbreaks, such as the Global Public Health Intelligence Network (GPHIN)\footnote{https://gphin.canada.ca/cepr/aboutgphin-rmispenbref.jsp?language=en\_CA} from the Canadian government. \par
 
-One such digital surveillance system is BioCaster\footnote{http://biocaster.org/}, developed by a research team from the University of Cambridge and McGill University, which collects news data and provides an online visualisation of disease alerts on their website. There are flaws with the current BioCaster system, particularly in the news collection system. The current system relies on published news feeds, typically provided by large established sources in high-resource countries, creating a coverage gap in low-resource areas and minority languages. The lack of diversity in the types of sources collected may also impact countries which publish less traditional news, and restricts types of online data such as search trends and social media posts which research has shown to be effective in detecting disease outbreaks early \cite{seo2017methods}. \par
+One such digital surveillance system is BioCaster\footnote{http://biocaster.org/}, developed by a research team from the University of Cambridge and McGill University, which collects news data and provides an online visualisation of disease alerts on their website. There are flaws with the current BioCaster system, particularly in the news collection system. The current system relies on published news feeds, typically provided by large established sources in high-resource countries, creating a coverage gap in low-resource areas and minority languages. The lack of diversity in the types of sources collected may also impact countries which publish less traditional news, and restricts types of online data such as search trends and social media posts which research has shown to be effective in detecting disease outbreaks early \citep{seo2017methods}. \par
 Another weakness in the current BioCaster system is the reliance on the accuracy of external machine translation systems to translate all documents to English before disease risk can be calculated. These systems can struggle with issues such as domain mismatch (words having different translations depending on the domain) \citep{koehn2017six} and can encode forms of bias such as gender bias \citep{stanovsky2019evaluating}. Multilingual models which eliminate the need for machine translation exist for tasks such as multiclass classification, and have not been tested within the BioCaster system.
 
 \section{Project Aims}
 This project develops a new digital surveillance system for multilingual news data, which aims to improve aspects of the existing BioCaster system. The new system developed should have the following aspects: 
-
+\subsection{Digital News Surveillance System} \hfill \par
 \subsubsection{News collection system}
 This project will develop a robust and extensible data collection system which can synthesise data from multiple different sources and source types, allowing for a more extensive selection of online news data to be collected including lower-resource countries and minority languages. The project will implement two distinct methods of data collection: RSS\footnote{Really Simple Syndication} feeds and web scraping. It will redevelop an improved version of the current BioCaster data collection system based on RSS feeds so that the current system can integrate into the new system without loss of data sources. A web scraping system will also be developed to extract important information such as article headlines, main bodies and publish dates from a given webpage.
 \subsubsection{Data storage and visualisation} The collected news data will be stored in structured form in a database. The information will then be used to produce real-time visualisations of collected data, aggregated into useful statistics, graphs and charts, so that data collected can be observed and analysed. These visualisations should include information on the source countries and languages of collected data, the methods of collection used to retrieve the data and the category distributions of news articles. The system should frequently update and be easy to understand.
 \subsubsection{Web interface} A web interface will be developed so that the data collection system can be easily managed, including enabling/disabling data sources, and adding and removing sources. The system should display the last time sources have collected new data, allowing for the highlighting of stale sources which can be removed to save resources. The interface should be responsive and easy to use and understand.
-
+\subsection{Multilingual News Article Classification} \hfill \par
 We will also conduct research on multilingual machine learning models through the task of multilingual news article category classification, training on public news article datasets and collected real-world news data, and evaluating the accuracy of multilingual models and the effectiveness of machine translation techniques on upsampling datasets. In particular, I will research the effectiveness of machine translation as an upsampling technique, the effectiveness of models trained on public data when translated to real-world data and the current effectiveness of multilingual models on real-world news data. The final multilingual classifier will be integrated into the scraping system, assigning each incoming article a category.
 
-\section{Chapter outline}
-This chapter outlines the motivation behind the project and some of the key goals. Future chapters will provide more detail on the exact system design and implementation, and evaluate how effectively the system meets these proposed goals. The paper structure is as follows:
-\begin{itemize}
-\item \textbf{Chapter 2} covers research into existing digital surveillance systems, real-time data visualisation systems and the currently available news datasets and approaches to news article classification. 
-\item \textbf{Chapter 3} covers the high-level system design of the overall system and its components, and describe the plan for experiments related to multilingual multiclass news article classification.
-\item \textbf{Chapter 4} covers the experiments performed in order to evaluate multilingual models through the classification task.
-\item \textbf{Chapter 5} covers the exact implementation details of the system, and the exact process for data collection and training of multilingual classifier models.
-\item \textbf{Chapter 6} presents the results of the evaluations to consider whether the system achieves its goals. These evaluations are the usability tests for the visualisation and web interface, and the results of training the multilingual classifiers.
-\item \textbf{Chapter 7} summarises and reflects on the project and considers future work which could be carried out to extend or improve certain aspects.
-\end{itemize}
+%\section{Chapter outline}
+%This chapter outlines the motivation behind the project and some of the key goals. Future chapters will provide more detail on the exact system design and implementation, and evaluate how effectively the system meets these proposed goals. The paper structure is as follows:
+%\begin{itemize}
+%\item \textbf{Chapter 2} covers research into existing digital surveillance systems, real-time data visualisation systems and the currently available news datasets and approaches to news article classification. 
+%\item \textbf{Chapter 3} covers the high-level system design of the overall system and its components, and describe the plan for experiments related to multilingual multiclass news article classification.
+%\item \textbf{Chapter 4} covers the experiments performed in order to evaluate multilingual models through the classification task.
+%\item \textbf{Chapter 5} covers the exact implementation details of the system, and the exact process for data collection and training of multilingual classifier models.
+%\item \textbf{Chapter 6} presents the results of the evaluations to consider whether the system achieves its goals. These evaluations are the usability tests for the visualisation and web interface, and the results of training the multilingual classifiers.
+%\item \textbf{Chapter 7} summarises and reflects on the project and considers future work which could be carried out to extend or improve certain aspects.
+%\end{itemize}
 
 %==================================================================================================================================
 \chapter{Background}
-\section{Digital news surveillance systems}
+\section{Digital News Surveillance Systems}
 
 Several digital news surveillance systems exist for different purposes, including research systems for public health monitoring and commercial systems designed for businesses to track information related to their brand. HealthMap\footnote{https://www.healthmap.org/en/} is a public health monitoring system which provides a world map with location-based disease markers for each country, using RSS data and sources gathered by health experts. EpiCore \citep{haddad2016epicore} is a similar system but instead uses an online network of trained experts to share information digitally. MediSys \citep{steinberger2008medisys} is a public health monitoring system which takes information from many web portals and commercial news sites to sort incoming news into topics which can be viewed on the website. \par
 
@@ -126,18 +126,16 @@ The current BioCaster system also heavily relies on external domain machine tran
 This project will update the BioCaster RSS collection system, as well as add a module for using web scraping to collect news articles from webpage HTML. The system will be designed so that it is easily extensible to other sources of data which may be more prominent in different countries than traditional news, such as social media posts. This also allows for entire article text to be collected instead of just the headline and a short description, which may allow for a richer understanding of the news content and more effective performance in ML tasks. It will also experiment with multilingual news article classification techniques to remove the problems associated with relying on machine translation servers.
 
 \section{Multilingual News Article Classification}
-Historically, there have been many machine learning based approaches to news article classification tasks. These have included random forests \citep{liparas2014news}, naive Bayes and support vector machine (SVM) models \citep{kaur2016news}. Since the development of transformer models such as BERT \citep{devlin2018bert}, these models have been the state of the art for most text-based tasks including text classification, and can achieve very high performance on news classification tasks. Multilingual versions of these models have been pre-trained which can be fine tuned to classify multilingual news data. These models will be used in the experiment.
-\subsection{BERT Models}
-Transformer models are sequence to sequence, meaning they encode an input sequence and produce an output sequence. They have been so successful in text-based tasks because of their ability to contextualise words using attention mechanisms, which consider the surrounding words when creating the embedding for a word or subword. BERT is trained using masked language modelling (MLM), where a percentage of input sentences are hidden from the model and it attempts to guess the missing words. It is also trained on next sentence prediction (NSP) where the model guesses if one sentence follows another. These training tasks allow the model to contextualise words and sentences to create a better understanding of the context of words.
-\subsubsection{Self-attention} \hfill \par
-    BERT models attempt to learn three weight matrices during training, $W_q$, $W_k$ and $W_v$. These are the query, key and value matrices respectively. We can multiply each of the input vectors with these matrices in order to obtain a key, query and value vector for each input. For a given input, we multiply the query vector of the input with the key vector of the other inputs
-    to form an attention mask (a representation of how much other words are important to the meaning of this word). This mask is scaled down by the square root of the dimension of the key vector, and a softmax function is performed to normalise values to sum to 1. For each other input, we multiply this weighting by the value vector, and then we sum the result to obtain a weighted combination of the values of other words. This gives the formula, for input query, key and value matrices Q, K, V (which are the concatenation of all input query, key and value vectors):
-    $$Attention(Q, K, V) = softmax(\frac{QK^T}{\sqrt{d_k}})V$$
-\subsubsection{Multi-head attention} \hfill \par
-Multi-head attention is an extension of the previous attention mechanism used in models such as BERT. We create multiple attenttion heads which each have different query, key and value weight matrices. We obtain an output matrix for each attention head and concatenate the results. These concatenated results are fed into a fully connected neural network (FCNN) which combines the outputs.
-\subsection{Fine-tuning}
-These transformer models are very powerful in "understanding" text based on its context, but they are designed to output a text sequence. To allow these models to be used in a classification task, we add a layer on top of the initial BERT model, and only consider one of its outputs (the given class). We train the new model to maximise the number of times this output is correct. This technique allows for training time to be cut down massively in the larger BERT model, as most of the training has been done already and we must only train the model to turn the context embeddings into a classification.
+\subsection{Traditional Models}
+Historically, many different approaches and models have been used for the task of news article category classification. The most popular model types before the last 5 years are Support Vector Machines (SVM's) and Naive Bayes classifiers. SVM's are models which aim to split the input space into different categories with as large a margin as possible, by finding the best possible hyperplanes in high-dimensional space which split the data into their correct classes. SVM models can achieve non-linearity by transforming inputs through a kernel,n a function which transforms inputs into a space which can be linearly separated by the hyperplanes. SVM Models have been repeatedly demonstrated to perform with high accuracy in the news classification literature across different languages, achieving 90+\% accuracy on categorisation of news headlines from Sri Lanka \citep{dilrukshi2013twitter} and 85\% accuracy on news documents from Indonesian news source Kompas \citep{liliana2011indonesian}. \par
+Naive Bayes classifiers take in input features, which are (usually incorrectly) assumed to be independent for simplicity, and uses them to update a prior belief about how class data is distributed until the distribution reflects the distribution of real data as accurately as possible. Naive Bayes models are probabilistic models, meaning instead of assigning a single class to an output, it creates a probability distribution over all possible classes which can be sampled from for a particular input. A common strategy for Naive Bayes classifiers is to simply take the class with the highest probability for a given input (maximum a posteriori decision rule). The assumption of independence in features can be problematic for classifying news documents, which have heavily codependent features, but methods have been developed to mitigate this issue \citep{qiang2010effective}.Naive Bayes models have produced impressive results on an Indonesian news dataset, achieving 94\% accuracy \citep{septian2017indonesian} and 87\% accuracy on English-language Indian news \citep{kumar2022intelligent}.
+SVM models typically achieve higher accuracy than Naive Bayes models because of the weakness of Naive Bayes inappropriate assumption of independence \citep{dilrukshi2013twitter2, shahi2018nepali, fanny2018comparison}, but Naive Bayes models have the advantage of initialising and classifying data faster than SVM models due to their simplicity, and can sometimes provide comparable or better results.\citep{ting2011naive}. Other traditional models used in news classification include random forests, which create decision trees in order to discriminate between categories \citep{liparas2014news} and K-NN classifiers, which takes the K most similar documents and assigns the article the most common class of these documents \citep{chen2020lao}.
 
+\subsection{Transformer Models}
+While these traditional models achieved very high performance on many monolingual datasets, there was often a significant decrease in more complex tasks such as classifying multilingual data \citep{vogel2020detecting}. In 2017, the Google research team released the transformer model architecture, which revolutionised text classification for allowing the context of words within a sentence to be leveraged in the model calculations \citep{vaswani2017attention}. A further development BERT, a bi-direction sequence-to-sequence model which removed the decoder section in order to learn word embeddings \citep{devlin2018bert}. BERT very quickly outperformed many established baselines and became the state-of-the-art, and is very widely used in news classification in the last 5 years \citep{chen2022long, mujahid2021classification, deping2021news}, . A detailed explanation of the transformer and BERT architectures can be found in section \ref{section:preliminaries}. These models are widely used because they are pre-trained, and only require fine tuning to a specific task, massively saving computation time and allowing for public access to very complex models, allowing the task of multilingual news classification to be attempted more effectively.
+
+BERT-based models exist which are trained on a corpus of multilingual data, and can embed and represent multilingual input data for classification tasks. One of the most popular multilingual models is mBERT, or multilingual BERT, a variant of BERT trained on over 100 languages. Research by \cite{pires2019multilingual} suggests mBERT may learn an effective language-agnostic latent space which yields impressive results when the model is evaluated on different languages than it is trained on, but this effect decreases as the languages become less structurally similar. mBERT has been used to high success in multilingual news classification tasks \citep{kakwani2020indicnlpsuite, hutama2022indonesian} \par
+Another model is XLM-RoBERTa, developed by the Facebook AI team \citep{conneau2019unsupervised}. It has been shown to outperform mBERT in many multilingual tasks such as named entity recognition (NER) and relation extraction \citep{li2021cross, lan2020empirical}, as well as in news classification \citep{alam2020bangla}. These two models will be considered in our evaluation, as they represent the current state-of-the-art in multilingual news classification.
 
 %==================================================================================================================================
 
@@ -175,7 +173,7 @@ The overall system is designed so that modules can be swapped out and replaced o
 \end{itemize}
 
 
-\section{Data collection}
+\section{Data Collection}
 The data collection system crawls an internet source for all URLs which can possibly contain useful information. In this project, we are concerned with finding the URLs of news articles from a news website or RSS feed. To be appropriate in a disease surveillance system, the data should be updated in near real-time so outbreaks can be quickly understood and responded to.
 
 \subsection{Crawler}
@@ -342,7 +340,7 @@ The web connector provides the interface between the web server and the scraping
 The controller is responsible for the coordination of the system and is the module called to run the system. It performs the following roles:
 \begin{itemize}
     \item Ensures the tables exist in the database.
-    \item Receives all sources from the database and instantiates Crawlers.
+    \item Receives all sources from the database and instantiates crawlers.
     \item Instantiates parser and classifier object(s).
     \item Builds the pipelines for data collection and processing.
     \item Starts the web server for the web interface.
@@ -360,124 +358,6 @@ A full diagram of the controller functionality is shown in Figure \ref{fig:contr
 
 %==================================================================================================================================
 
-\chapter{News article classification}
-
-\section{Research Overview}
-This experiment aims to consider multiclass classification of news articles in different languages, using multilingual models. In particular, this experiment uses articles in six languages: English, French, Spanish, Portuguese, Mandarin and Indonesian. By researching the topics used by the news sources previously collected, as well as the topics used in publicly available news classification datasets, six news topic categories were chosen: Entertainment/Arts, Sports, Politics, Science/Technology, Business/Finance and Health/Welfare. 
-
-In many languages, particularly minority languages, little to no labelled public datasets are available for topic classification of news, meaning models cannot be trained by traditional means. This creates difficulty when trying to perform real-time classification tasks on news written in minority languages, for purposes such as creating disease alerts. We will investigate the efficacy of some techniques and approaches for multilingual document classification, by investigating the following research questions: 
-\begin{itemize}
-\item How effective is machine translation of English articles into other languages, as a method of upsampling, in increasing the effectiveness of multilingual models? 
-\item How effective are models trained on public data (both in English and translated into all 6 languages) when used to classify collected news data directly from sources across the six languages? 
-\item What level of performance can be achieved by multilingual models when trained and evaluated on collected articles from sources in each of the six languages?
-\end{itemize}
-
-\section{Datasets}
-\subsection{Public data} \hfill \par
-The dataset used is a dataset made available on huggingface by \cite{valurankdata}. The data originally consists of 3,722 classified English-language news articles scraped from various online news sources with 7 topic labels: World, Politics, Tech, Entertainment, Sport, Business, Health, and Science. To match the categories being considered in this experiment, articles belonging to the "World" category were dropped, and those belonging to the "Tech" and "Science" categories were merged into a new "Science/Technology" category. An augmented dataset was also created by adding copies of each article translated into each of the other five languages (French, Spanish, Portuguese, Mandarin and Indonesian). Translations were obtained using the Google translate API through the python library \emph{googletrans}\footnote{https://pypi.org/project/googletrans/}. The distribution of topics in the original and augmented datasets is shown in Table \ref{table:valurankstats} and Figure \ref{fig:public_cat_dist}.
-
-\begin{table}[]
-\begin{tabular}{llllllll}
-\hline
-\multicolumn{1}{c}{\textbf{}} & \multicolumn{7}{c}{\textbf{Number of Documents}}                                                                                          \\ \hline
-                              & \textbf{Entertainment} & \textbf{Sports} & \textbf{Politics} & \textbf{Science/}   & \textbf{Business} & \textbf{Health} & \textbf{Total} \\
-                              & \textbf{}              &                 &                   & \textbf{Technology} & \textbf{}         & \textbf{}       &                \\ \hline
-\textbf{Original}             & 485                    & 454             & 442               & 838                 & 461               & 467             & \textbf{3147}  \\
-\textbf{Translated}           & 2910                   & 2724            & 2652              & 5028                & 2766              & 2802            & \textbf{18882} \\ \hline
-\end{tabular}
-\caption{Category distribution of the Valurank news categorization dataset. This table includes the original dataset and the augmented version obtained from adding the translations of each article in each of the other 5 languages.}
-\label{table:valurankstats}
-\end{table}
-
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.8\textwidth]{images/public-cats.png}
-\caption{The distribution of categories in the public Valurank dataset}
-\label{fig:public_cat_dist}
-\end{figure}
-
-\subsection{Real-world data collection} \hfill \par
-We collected news articles from some of the most popular online news sources across the six languages. The list of six topics used was created after considering the most common category sections in news sources across different languages, and combining similar categories which were often combined by the original sources (such as business and finance). A set of keywords relevant to each category was also generated, shown in Figure \ref{fig:dataset_category_keywords}. Each collected article was self-labelled by the source, and the articles were collected and categorised using the previously developed scraping system, with each article URL obtained and classified either through topic-specific RSS feeds or by matching the URL of article webpages with topics which match category keywords (e.g. abcnews.go.com/Sports). A complete list of data sources used is available in the appendix (link specific appendix). \par
-
-\begin{table}[]
-\begin{tabular}{ll}
-\hline
-\textbf{Category}           & \textbf{Keywords}                                                 \\ \hline
-\textbf{Entertainment/Arts} & Entertainment, Art, Arts, Culture, Movies, Cinema, Music,         \\
-\textbf{}                   & Books, Theater, Television, Dance, Celebrity                      \\
-\textbf{Sports}             & Sport, Sports, Soccer, Football, Basketball, Tennis, Golf, Rugby, \\
-\textbf{}                   & Motorsport, Formula 1, Physical Education                         \\
-\textbf{Politics}           & Politics, Election, Parliament                                    \\
-\textbf{Science/Technology} & Science, Technology, Tech, SciTech, Space, Physics                \\
-\textbf{Business/Finance}   & Business, Finance, Economy, Stock exchange, Stock market, Market, \\
-\textbf{}                   & Money, Investment                                                 \\
-\textbf{Health/Welfare}     & Health, Welfare, Coronavirus, Pharma, Pharmacy                    \\ \hline
-\end{tabular}
-\caption{List of category keywords used for collecting news data. Sources which had RSS feeds or specific URL patterns with these keywords were selected for the corresponding category.}
-\label{fig:dataset_category_keywords}
-\end{table}
-
-Each collected article URL was parsed using the \emph{Newspaper3k}\footnote{https://newspaper.readthedocs.io/en/latest/} library. Any article with a main body under 100 characters in length was discarded, and the article headline and body were concatenated into one text field, used for classification. Originally data was collected for 10 different languages, but only the six considered returned a sufficient number of results for model training. In the final dataset, "Business/Finance" and "Science/Technology" articles in Mandarin were downsampled in order to balance the categories, by randomly dropping articles of these categories and languages at probabilities of $p=0.75$ and $p=0.5$ respectively. \par
-The distribution of articles by category and language is shown below in Table \ref{table:collectedstats} and in Figure \ref{fig:collected-distributions}.
-
-\begin{table}[]
-\begin{tabular}{llllllll}
-\hline
-\textbf{Language}   & \multicolumn{6}{c}{\textbf{Category}}                                                                                       &                 \\ \hline
-\textbf{}           & \textbf{Entertainment/} & \textbf{Sports} & \textbf{Politics} & \textbf{Science/}     & \textbf{Business/} & \textbf{Health/}   & \textbf{Total}  \\
-\textbf{}           & \textbf{Arts}         & \textbf{}       & \textbf{}         & \textbf{Technology} & \textbf{Finance} & \textbf{Welfare} & \textbf{}       \\ \hline
-\textbf{Mandarin}   & 511                    & 706             & 329               & 961                  & 802               & 217               & 3,526           \\
-\textbf{English}    & 885                    & 682             & 435               & 607                  & 493               & 390               & 3,492           \\
-\textbf{Indonesian} & 478                    & 545             & 71                & 295                  & 598               & 255               & 2,242           \\
-\textbf{French}     & 342                    & 369             & 138               & 88                   & 235               & 114               & 1,286           \\
-\textbf{Portuguese} & 136                    & 197             & 196               & 240                  & 232               & 167               & 1,168           \\
-\textbf{Spanish}    & 203                    & 400             & 159               & 48                   & 238               & 84                & 1,132           \\ \hline
-\textbf{Total}      & 2,555                  & 2,899           & 1,328             & 2,239                & 2,598             & 1,227             & \textbf{12,846}
-\\ \hline
-\end{tabular}
-\caption{The distribution of collected news articles by language and category.}
-\label{table:collectedstats}
-\end{table}
-
-\begin{figure}[h]
-\includegraphics[width=\textwidth]{images/real_data_distributions.png}
-\caption{The distribution of categories and languages in the public Valurank dataset}
-\label{fig:collected-distributions}
-\end{figure}
-
-\section{Model and training choices}
-\subsection{Multilingual models} \hfill \par
-To explore the possibility of classification in real-time without the need for machine translation, only multilingual transformer models were considered. One of the most popular multilingual models is mBERT, or multilingual BERT \citep{devlin2018bert}. It was trained on the Wikipedias of the 104 languages with the most content, including the six considered here. BERT and its variations are widely used and often produce strong results in classification tasks, and the large variety of languages trained provides flexibility for potential classification of minority language sources. Research by \cite{pires2019multilingual} suggests mBERT may learn an effective language-agnostic latent space which yields impressive results when the model is evaluated on different languages than it is trained on, but this effect decreases as the languages become less structurally similar. \par
-The second model being considered is XLM-RoBERTa, developed by the Facebook AI team \citep{conneau2019unsupervised}. It is trained on 2.5TB of CommonCrawl data across 100 languages, including the six considered here. It again provides a lot of coverage for minority languages and has been shown to outperform mBERT in many multilingual tasks such as named entity recognition (NER) and relation extraction \citep{li2021cross, lan2020empirical}, as well as in news classification \citep{alam2020bangla}.
-
-\subsection{Baselines} \hfill \par
-To test the effectiveness of machine translation upsampling, we will use the models trained on the English only public dataset as a benchmark, to measure how much (if any) accuracy increases using translation to augment the dataset. When comparing how models trained on public data transfer to collected real-world multilingual data, we can use static models which do not learn from the data as a baseline. In this case, we use two static baseline models: a model which uses stratified sampling (it samples a prediction for an input randomly, using the category densities as a probability distribution) and most common sampling (always predicts the category with the most training examples). This allows us to consider how much of what the model learns from the public data can be applied to the real-world data.
-
-\subsection{Hyperparameters} \hfill \par
-The hyperparameters investigated in this experiment were batch size (how many examples are used in training per backpropagation cycle), number of epochs (how many times does the model repeat the training data) and learning rate (how quickly does the model update its parameters to improve predictions). The values considered are based on the recommendations and experiments from the original BERT paper, by \cite{devlin2018bert}, and shown in Table \ref{table:hparams}. In each case, an exhaustive grid search was performed (24 trials) on the hyperparameter values and the highest accuracy model was chosen for the evaluation. The optimal hyperparameters found for each model is shown in Appendix \ref{appendix:optimal-hparams}
-
-\begin{table}[]
-\begin{tabular}{ll}
-\hline
-\textbf{Parameter}  & \textbf{Values}        \\ \hline
-\textbf{Batch size} & 16, 32                \\
-Number of epochs    & 2, 3, 4                \\
-Learning rate       & \SI{5e-5}, \SI{4e-5}, \SI{3e-5}, \SI{2e-5}. \\ \hline
-\end{tabular}
-\caption{A list of hyperparameters tuned before training each model for classification. In each case, a grid search was performed with these values.}
-\label{table:hparams}
-\end{table}
-
-\section{Data transformations}
-\subsection{Tokenization} \hfill \par 
-Each of the datasets were tokenized using the tokenizer associated with the multilingual model. multilingual BERT uses WordPiece tokenization, where each sentence is split into words by spaces or punctuation, and each word is broken into one or more subwords. Each unique subword is associated with a token ID, and input data is converted into a sequence of these token ID's, which are input into the mBERT model for classification. XLM-RoBERTa uses SentencePiece tokenization, a similar subword tokenization scheme which is lossless (it can exactly replicate the input sequence as it retains whitespace and punctuation information) and language independent \citep{kudo2018sentencepiece}. 
-
-
-\subsection{Data splitting} \hfill \par
-Because the categories in our datasets were not too imbalanced (the largest category disparity is around 2:1) we decided that data can be split randomly into a train and a test split. For each dataset, a train/test split of 80/20 (80\% training data) was used.
-
-%==================================================================================================================================
 
 \chapter{Implementation}
 This section describes the implementation of each of the previously described sections, including details of the algorithms, libraries and technologies used. The system is written in Python as this is a very common language, especially for machine learning programs, and has many libraries available for web crawling, web scraping and database communication.
@@ -506,7 +386,7 @@ If not supplied a country, the feed crawler will attempt to determine the langua
 The parser module will receive a combined list of all of the new URLs obtained from each crawler. It will retrieve the details (title, body and publish date) of each given item using a method defined in a concrete implementation, and update each crawler with the new most recent article retrieval date. It will then pass the parsed results to the classifier module.
 \subsection{Instantiation}
 The abstract parser is instantiated with two arguments: A classifier, which parsed articles will be passed to, and a lock, which is used to reserve access to the crawler objects while their most recent scrape times are being updated, to avoid inconsistent updates from multiple sources at the same time which may lead to some of the operations not taking effect. The parser also retrieves a minimum article length from the config, to ensure that articles which do not contain enough content are filtered out.
-\subsection{Article parser}
+\subsection{Article Parser}
 
 \subsubsection{Choice of library} \hfill \par
 The main free and open-source technologies for scraping news articles from websites in Python were \emph{Newspaper3K}\footnote{https://github.com/codelucas/newspaper} and \emph{news-please}\footnote{https://github.com/fhamborg/news-please}, which is built on top of Newspaper3K and adds some extra features. Another option considered was \emph{Newscatcher}\footnote{https://newscatcherapi.com/news-api}, but the free API is limited in how many calls can be made and this made it unsuitable for this project. Finally, we considered \emph{pygooglenews}\footnote{https://github.com/kotartemiy/pygooglenews} which provided some promise in using google news to find articles under certain subjects, keywords, languages and regions. For this project, I found it desirable to have better control of the exact sources collected, instead of filtering through keywords and relying on Google's source selection, but a scraper using this library could easily be added to extend the capabilities of the current system. We decided to move forward with the former two libraries and conducted an experiment to compare their capabilities. \par
@@ -570,7 +450,7 @@ The concrete version of the classifier uses the best performing model on collect
 \subsubsection{Training data collection} \hfill \par
 The sources and keywords for real-world training data were decided as discussed in Section 4.2.2. Any category specific RSS feed was scraped by the system, assigning the corresponding category to each data article before adding to the database. For each news website with category specified in URL, a dictionary of URL keyword to category was created from a manually collected list of category-specific URLs, and any website whose URL contained a category keyword in an appropriate place (e.g. \textbf{sports}.sina.com.cn or aljazeera.net/\textbf{arts}). Before parsing, the URLs were filtered into categories using this matching system, and any articles which didn't match were discarded. Any of these articles which could correctly parse were added to the database with their corresponding category. This process continued until enough articles (at least 10,000) were collected for training.
 
-\subsubsection{Model Training} \hfill \par
+\subsubsection{Model training} \hfill \par
     The steps involved in creating the trained model for use in the classifier module are as follows:
     \begin{itemize}
         \item Load the real-world dataset from file and reformat into a dataset object
@@ -582,7 +462,7 @@ The sources and keywords for real-world training data were decided as discussed 
     \end{itemize}
     Models were loaded, trained and evaluated using the Huggingface\footnote{https://huggingface.co} libraries. Huggingface hosts many pre-trained transformer models and datasets uploaded by users on its website, which can easily be downloaded and imported into a python program using one line of code. The library also allows for saving pre-trained models on the website under a user account. The \emph{transformers}, \emph{datasets} and \emph{evaluate} libraries from Huggingface make each stage of model training and evaluation very easy by providing an intuitive API which can easily connect with standard machine learning libraries such as pytorch\footnote{https://pytorch.org}, which was used in this project. Hyperparameters were optimised using the Optuna\footnote{https://optuna.org} backend\par
     
-\subsubsection{Batch Inference} \hfill \par
+\subsubsection{Batch inference} \hfill \par
     To obtain classifications from the model, the following steps are taken:
     \begin{itemize}
         \item Concatenate the article title and body text as model input
@@ -612,7 +492,7 @@ I chose to change the article density to cover the whole country instead of bein
 \end{figure}
 
 
-\section{Web interface}
+\section{Web Interface}
 The web interface was implemented with standard HTML, CSS and JavaScript. It is implemented as a single webpage which can show and hide content to give the appearance of two separate pages: management of the system and management of individual sources. This is done to make the website feel more responsive: the pages will switch instantly instead of having to load another webpage. The overall design is inspired by the original BioCaster website, using the same main colours and element styles to create a cohesive visual design with other BioCaster products. The homepage allows for toggling on and off the scraping system, and viewing or hiding the visualisation shown in Figure \ref{fig:visualisation}. The final homepage is shown in Figure \ref{fig:web-interface-homepage}. I chose to let the visualisation be toggled on and off as I found it could be distracting when managing the scraping system.
 \begin{figure}[h]
 \centering
@@ -639,7 +519,7 @@ The manage sources page shows when sources found their last article, and splits 
 
 The implementation details of the JavaScript responsive elements are contained in the following section, as the logic is connected with requests to and responses from the Python controller.
 
-\section{Web connector}
+\section{Web Connector}
 The plain HTML/CSS/JavaScript connects to the pythonhttps://github.com/python-eel/Eel code for the scraping system using the python library \emph{eel}\footnote{https://github.com/python-eel/Eel}. This library creates an offline web server using a specified directory and by calling a start method with a specified file, will begin running the web server from the python code.
 
 \subsection{Communication between Python and JavaScript}
@@ -651,7 +531,7 @@ By importing "eel.js" in the head section of the index HTML page, an interface i
 \label{fig:eel-communication}
 \end{figure}
 
-\subsection{Dynamic functionality}
+\subsection{Dynamic Functionality}
 The dynamic elements of the page are implemented using JavaScript events: functionality is triggered when the page loads and when buttons are clicked. The visual changes to buttons (e.g. a change in colour of the enable/disable button when toggled) are achieved by adding and removing predefined CSS classes to the clicked elements, and any updates to the state of the system or sources are achieved through communication with the Python controller using eel. An overview of the JavaScript functionality and necessary Python methods for communication is given below:
 \subsubsection{Adding sources to the table} \hfill \par
 Given a new source, the following steps are performed:
@@ -666,7 +546,7 @@ Given a new source, the following steps are performed:
 \end{itemize}
 The implementation of this functionality is shown in Appendix \ref{appendix:js-add-sources}.
 
-\subsubsection{JavaScript events}
+\subsubsection{JavaScript Events}
 \begin{itemize}
     \item \textbf{Page loads: } On page load, the number of days until stale and system state are obtained from the python code, and the state of the Start/stop scraping button is updated accordingly. A method is also started that periodically (once per specified number of seconds) calls the python \textbf{get sources list} method and uses the results to repopulate the tables.
     \item \textbf{Start/stop scraping button:} When clicked, the button calls a method which changes its own text to "Stopping..." or "Starting..." and calls the Python \textbf{toggle scraper} method. When it gets a response, it changes the text and colour of the button (by changing CSS class) to represent the new state and also changes the subtext of the webpage between "Scraping <no. active sources> sources" and "Not currently scraping".
@@ -679,7 +559,7 @@ The implementation of this functionality is shown in Appendix \ref{appendix:js-a
     \item \textbf{Delete buttons: } When clicked, the button changes its text to "Deleting..." and calls the python \textbf{delete source} method. When the value is returned, it checks whether the operation was successful. If it was successful, it deletes the table row. If the operation was unsuccessful, the button text is reverted back to "Delete".
 \end{itemize}
 \hfill \par
-\subsubsection{Python methods}
+\subsubsection{Python Methods}
 \begin{itemize}
     \item \textbf{Get days until stale: } Returns the number of days until a source becomes stale
     \item \textbf{Get system state: } Returns a boolean, indicating whether the system is currently active
@@ -709,7 +589,7 @@ As the eel web server will block the code when running, only continuing to run w
 \subsection{Pipelines}
 The controller defines data pipelines, which control which sources are passed to which parser and classifier, allowing for different sources of data to be processed differently. The pipelines take the form (list of data source types, parser), where the parser is an initialised parser object (with a given classifier). Any sources in the list which are in the list of data source types will be sent to the corresponding parser. To ensure no data duplication, each type of data source can only be sent to one type of parser.
 
-\subsection{Scraping system}
+\subsection{Scraping System}
 The scraping system is given the list of crawlers and list of pipelines on execution. The algorithm is as follows:
 \begin{itemize}
     \item Initialise a list of article URLs for each pipeline
@@ -731,16 +611,106 @@ The scraping system is given the list of crawlers and list of pipelines on execu
 \section{Summary}
 The system is primarily written in python although the web application uses JavaScript. The crawlers use the database connector to update their own state, and concrete implementations use an RSS parser to crawl RSS feeds and a web crawling library to build the profile of a news website and find all article links. The article parser uses the Newspaper3K library to turn the list of URLs into parsed objects, which it sends to the classifier. The BERT classifier is built using Huggingface transformers and uses a previously trained transformer model to categorise each article object from its headline and body, selecting the maximum log likelihood category on inference. The categorised objects are sent by a python database connector to a noSQL elasticsearch database, which directly feeds into the Elastic Kibana visualisation system. These visualisations are embedded on a locally hosted web app by eel, which provides an interface for communication between the web app code and the python code. This interface is used to send the web app updates on the state of sources, and for the web app to send instructions to change source states. The controller orchestrates this process, hosting the web connector functions and building pipelines for data collection and processing.
 
+
+%==================================================================================================================================
+
+
+\chapter{News Article Classification Experiment}
+
+\section{Task Definition}
+By researching the topics used by the news sources previously collected, as well as considering the topics used in publicly available news classification datasets, a set of six news topic categories was chosen, $C = \{$Entertainment/Arts(0), Sports(1), Politics(2), Science/Technology(3), Business/Finance(4), Health/Welfare(5)$\}$ \par
+Given a dataset of news articles $N$ with and corresponding labels $L\in C$, which denotes the category of the given news item. A news article $n \in N$ is composed of sentences, which are composed of words. An arbitrary article $n_i \in N$ can be represented as $(s_1,...,s_I)$, where $I$ denotes the number of sentences in $n_i$. Each sentence $s_j (1 \leq j \leq I)$ can be represented as $(w_1,...,w_J)$, where $J$ denotes the number of words in sentence $s_j$. Each news article will be composed of words in one of six languages: English, French, Spanish, Portuguese, Mandarin or Indonesian. The objective of this experiment is to train a multilingual model M to correctly classify an unseen article $n_new \notin N$ into label $L\in C$. A diagram of the task definition is shown in Figure \ref{fig:task-definition}.
+
+ \begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{images/Task Definition.png}
+\caption{A diagram representing the flow of a model classifying a news article n, composed of sentences which are composed of words. The news article is eventually assigned a category from C/}
+\label{fig:task-definition}
+\end{figure}
+
+
+\section{Multilingual Models}
+\subsection{Preliminaries}
+\label{section:preliminaries}
+\subsubsection{Transformer models} \hfill \par
+The first transformer model was introduced in \cite{vaswani2017attention}. It was built by combining an encoder model, which creates a multidimensional vector embedding of input sequences, with a decoder which converts these embeddings to the desired output (e.g. a classification). The architecture is shown in \ref{fig:transformer-architecture}
+
+ \begin{figure}[h]
+\centering
+\includegraphics[width=0.6\textwidth]{images/transformer-architecture.png}
+\caption{A diagram of the transformer architecture. Obtained from \cite{vaswani2017attention}.}
+\label{fig:transformer-architecture}
+\end{figure}
+
+Important features of the transformer model which enable its success on text classification tasks include:
+\begin{itemize}
+    \item Residual connections which allow previous layers output to directly propagate to later layers in the network.
+    \item Positional encoding using sine functions to create normalised representation of an items position, instead of using a single index.
+    \item Multi-head attention which can represent the importance of other words in the sequence on the current word (explained in later sections)
+\end{itemize}
+
+\subsubsection{BERT models and fine-tuning} \hfill \par
+A paper by \cite{devlin2018bert} introduced The BERT model (Bidirectional Encoder Representations from Transformers). This model is based on the original transformer architecture, but removes the decoder section in order to become sequence-to-sequence (the model transforms an input sequence to an output sequence). BERT is trained using masked language modelling (MLM), where a percentage of input sentences are hidden from the model and it attempts to guess the missing words. It is also trained on next sentence prediction (NSP) where the model guesses if one sentence follows another. These training tasks allow the model to contextualise words and sentences to create a better understanding and representation of the context of words. When trained on a multilingual corpus, the idea is that these representations are language-agnostic, and allow for successful classification of unseen multilingual data. These representations achieved from pre-training can be fine-tuned to complete a down-stream task, such as multilabel classification, by ignoring all but one of the model outputs and training a classifier on top of this output using a new dataset for the exact downstream task (e.g. news articles with categories) to convert the contextual embeddings of words into a classification label. This process is illustrated in Figure \ref{fig:bert-finetuning}
+
+ \begin{figure}[h]
+\centering
+\includegraphics[width=0.4\textwidth]{images/bert finetuning.png}
+\caption{A diagram of the architecture of a fine-tuned BERT model on text classification. Obtained from \cite{pappagari2019hierarchical}.}
+\label{fig:bert-finetuning}
+\end{figure}
+
+\subsubsection{Self-attention} \hfill \par
+    BERT models attempt to learn three weight matrices during training, $W_q$, $W_k$ and $W_v$. These are the query, key and value matrices respectively. We can multiply each of the input vectors with these matrices in order to obtain a key, query and value vector for each input. For a given input, we multiply the query vector of the input with the key vector of the other inputs
+    to form an attention mask (a representation of how much other words are important to the meaning of this word). This mask is scaled down by the square root of the dimension of the key vector, and a softmax function is performed to normalise values to sum to 1. For each other input, we multiply this weighting by the value vector, and then we sum the result to obtain a weighted combination of the values of other words. This gives the formula, for input query, key and value matrices Q, K, V (which are the concatenation of all input query, key and value vectors):
+    $$Attention(Q, K, V) = softmax(\frac{QK^T}{\sqrt{d_k}})V$$
+    
+\subsubsection{Multi-head attention} \hfill \par
+Multi-head attention is an extension of the previous attention mechanism used in models such as BERT. We create multiple attenttion heads which each have different query, key and value weight matrices. We obtain an output matrix for each attention head and concatenate the results. These concatenated results are fed into a fully connected neural network (FCNN) which combines the outputs.
+
+\subsubsection{Fine-tuning the pre-trained models}
+These transformer models are very powerful in "understanding" text based on its context, but they are designed to output a text sequence. To allow these models to be used in a classification task, we add a layer on top of the initial BERT model, and only consider one of its outputs (the given class). We train the new model to maximise the number of times this output is correct. This technique allows for training time to be cut down massively in the larger BERT model, as most of the training has been done already and we must only train the model to turn the context embeddings into a classification.
+
+
+\subsection{Models Used}
+\par
+The models being used for this experiment are Multilingual BERT (mBERT) and XLM-RoBERTa. The models were trained on many languages, including the six considered here. The key differences between the models are highlighted below:
+\subsubsection{Training} \hfill \par
+\begin{itemize}
+    \item The models are pre-trained on different corpora: mBERT is trained on the Wikipedias of the 104 languages with the most content. XLM-RoBERTa is trained on a larger corpus, using 2.5TB of CommonCrawl data across 100 languages. 
+    \item mBERT uses WordPiece tokenization, where each sentence is split into words by spaces or punctuation, and each word is broken into one or more subwords. Each unique subword is associated with a token ID, and input data is converted into a sequence of these token ID's, which are input into the mBERT model for classification. XLM-RoBERTa uses SentencePiece tokenization, a similar subword tokenization scheme which is lossless (it can exactly replicate the input sequence as it retains whitespace and punctuation information) and language independent \citep{kudo2018sentencepiece}. 
+\end{itemize}
+ 
+
+\section{Fine-tuning Scheme}
+This experiment uses three datasets: A public English-language news classification dataset \textbf{DS1}, an augmented version of this dataset where all articles have been translated into all 6 languages (including the original English) \textbf{DS2}, and a dataset of real-world news articles collected from our developed scraping system \textbf{DS3}. 
+Information on each dataset is detailed in Section \ref{section:datasets}. Data from each dataset was tokenized using the tokenizer associated with the given multilingual model. For each model, the following fine-tuning experiments were performed:
+\begin{enumerate}
+    \item The models were trained and evaluated on the English public dataset \textbf{DS1}. 
+    \item The models were trained and evaluated on the multilingual public dataset \textbf{DS2}.
+    \item The previously trained models on \textbf{DS1} were evaluated on the real-world collected data (\textbf{DS3}).
+    \item The previously trained models on \textbf{DS2} were evaluated on the real-world collected data (\textbf{DS3}).
+    \item The models were trained and evaluated on the real-world collected data (\textbf{DS3}).
+\end{enumerate}
+A diagram of these experiments is shown in Figure \ref{fig:fintuning-scheme}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\textwidth]{images/Finetuning Scheme.png}
+\caption{A diagram of the finetuning scheme for the news article classification experiment, showing how datasets were obtained and the experiments run for each model (training dataset and evaluation dataset.}
+\label{fig:bert-finetuning}
+\end{figure}
+
+
 %==================================================================================================================================
 \chapter{Evaluation}
 
-\section{Usability Testing}
+\section{Digital News Surveillance System}
 \subsection{Research Overview}
-We conducted an evaluation on a static version of the web app (not connected to a scraping system) including the final visualisation. We created a questionnaire and sent it to university students and members of the BioCaster research team, receiving 9 responses. This evaluation was conducted following the university ethics guidelines, and a signed ethics checklist is shown in Appendix \ref{appendix:ethics-checklist}. \par
+We conducted a usability test on a static version of the web app (not connected to a scraping system) including the final visualisation. We created a questionnaire and sent it to university students and members of the BioCaster research team, receiving 9 responses. This evaluation was conducted following the university ethics guidelines, and a signed ethics checklist is shown in Appendix \ref{appendix:ethics-checklist}. \par
 The purpose of the evaluation was to answer the following research questions:
 \begin{itemize}
-    \item \textbf{"Does the visualisation provide a complete and effective overview of the data collected?"}
-    \item \textbf{"Does the interface allow users to easily and effectively manage the underlying web scraping system?"}
+    \item \textbf{RQ1.1: } Does the visualisation provide a complete and effective overview of the data collected?
+    \item \textbf{RQ1.2: }Does the interface allow users to easily and effectively manage the underlying web scraping system?
 \end{itemize}
 
 The respondents were asked to perform the following tasks, and answer questions on their experiences and opinions on the visualisation and web scraper:
@@ -763,7 +733,7 @@ Respondents used a scale from 1-5 (1 being the most negative response) to rate t
 
 The full questionnaire can be found in Appendix \ref{appendix:questionnaire}
 
-\subsection{Visualisation}
+\subsection{RQ1.1: Visualisation}
 Respondents were asked on a scale from 1-5 (5 being the best response), if they thought the visualisation was easy to understand, and if the visualisation represents the data well. All respondents gave a 4 or higher on both questions, with 4 respondents (44.4\%) rating the visualisation a 5 in ease of understanding and 7 respondents (77.8\%) rating the representation of data collected a 5. These results suggest the visualisation succeeds in representing the data effectively in an easy to understand way, but could use some minor improvements to increase the clarity of data.
 
 Specific examples of feedback given on the visualisation are:
@@ -782,7 +752,7 @@ Specific examples of feedback given on the visualisation are:
 
 The feedback is reasonable, and although many of the recommendations are outside the scope of this project (e.g. source bias and geographic proximity), many of these changes are easy to implement and would immediately improve the visualisation, such as better distinction in the colours and more easily readable language names. The requested additional visualisations could be used to replace less effective visualisations in the current system, such as articles by time.
 
-\subsection{Web Interface}
+\subsection{RQ1.2: Web Interface}
 Respondents were asked to rate the web interface on how intuitive it is, how clearly information is presented and how aesthetically appealing it is. Results are shown in Figure. Respondents thought the information was clearly presented, with 55.6\% reponding with 5, and the rest with 4, however 12.5\% and 33.3\% of particpants gave the web interface a 3 on intuition and aesthetic appeal respectively, suggesting there is area for improvement on these metrics. 
 
 Specific examples of feedback on the web interface are:
@@ -802,8 +772,115 @@ Despite the limitations of the usability test, the web interface shows promise a
 Due to the nature of the web interface (hosted on a local web server), it was difficult to host an online version of the site which would be connected to a real scraping system. This meant that it was only possible to evaluate on a mock interface, which some respondents mentioned made the web interface less intuitive as they cannot directly see the results of their actions on the system. In addition, due to many of the respondents working in different countries and having busy schedules, it was impossible to conduct a live evaluation where respondents could be monitored using the app. This would have been more useful to understand the exact feedback given and directly view any bugs or technical issues. The low sample size (n=9) of the evaluation also reduces the ability to generalise findings on the effectiveness of the web interface and visualisation, and limits the range of feedback available.
 
 
-\section{Multilingual news article classification}
-\subsection{Evaluation metrics}
+
+\section{Multilingual News Article Classification}
+
+\subsection{Research Questions}
+In many languages, particularly minority languages, little to no labelled public datasets are available for topic classification of news, meaning models cannot be trained by traditional means. This creates difficulty when trying to perform real-time classification tasks on news written in minority languages, for purposes such as creating disease alerts. We will investigate the efficacy of some techniques and approaches for multilingual document classification, by investigating the following research questions: 
+\begin{itemize}
+\item \textbf{RQ2.1: }How effective is machine translation of English articles into other languages, as a method of upsampling, in increasing the effectiveness of multilingual models? 
+\item \textbf{RQ2.2: }How effective are models trained on public data (both in English and translated into all 6 languages) when used to classify collected news data directly from sources across the six languages? 
+\item \textbf{RQ2.3: }What level of performance can be achieved by multilingual models when trained and evaluated on collected articles from sources in each of the six languages?
+\end{itemize}
+
+\subsection{Datasets}
+\label{section:datasets}
+\subsubsection{Public data} \hfill \par
+The dataset used is a dataset made available on huggingface by \cite{valurankdata}. The data originally consists of 3,722 classified English-language news articles scraped from various online news sources with 7 topic labels: World, Politics, Tech, Entertainment, Sport, Business, Health, and Science. To match the categories being considered in this experiment, articles belonging to the "World" category were dropped, and those belonging to the "Tech" and "Science" categories were merged into a new "Science/Technology" category. An augmented dataset was also created by adding copies of each article translated into each of the other five languages (French, Spanish, Portuguese, Mandarin and Indonesian). Translations were obtained using the Google translate API through the python library \emph{googletrans}\footnote{https://pypi.org/project/googletrans/}. The distribution of topics in the original and augmented datasets is shown in Table \ref{table:valurankstats} and Figure \ref{fig:public_cat_dist}.
+
+\begin{table}[h]
+\begin{tabular}{llllllll}
+\hline
+\multicolumn{1}{c}{\textbf{}} & \multicolumn{7}{c}{\textbf{Number of Documents}}                                                                                          \\ \hline
+                              & \textbf{Entertainment} & \textbf{Sports} & \textbf{Politics} & \textbf{Science/}   & \textbf{Business} & \textbf{Health} & \textbf{Total} \\
+                              & \textbf{}              &                 &                   & \textbf{Technology} & \textbf{}         & \textbf{}       &                \\ \hline
+\textbf{Original}             & 485                    & 454             & 442               & 838                 & 461               & 467             & \textbf{3147}  \\
+\textbf{Translated}           & 2910                   & 2724            & 2652              & 5028                & 2766              & 2802            & \textbf{18882} \\ \hline
+\end{tabular}
+\caption{Category distribution of the Valurank news categorization dataset. This table includes the original dataset and the augmented version obtained from adding the translations of each article in each of the other 5 languages.}
+\label{table:valurankstats}
+\end{table}
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{images/public-cats.png}
+\caption{The distribution of categories in the public Valurank dataset}
+\label{fig:public_cat_dist}
+\end{figure}
+
+\subsubsection{Real-world data collection} \hfill \par
+We collected news articles from some of the most popular online news sources across the six languages. The list of six topics used was created after considering the most common category sections in news sources across different languages, and combining similar categories which were often combined by the original sources (such as business and finance). A set of keywords relevant to each category was also generated, shown in Figure \ref{fig:dataset_category_keywords}. Each collected article was self-labelled by the source, and the articles were collected and categorised using the previously developed scraping system, with each article URL obtained and classified either through topic-specific RSS feeds or by matching the URL of article webpages with topics which match category keywords (e.g. abcnews.go.com/Sports). A complete list of data sources used is available in the appendix (link specific appendix). \par
+
+\begin{table}[h]
+\begin{tabular}{ll}
+\hline
+\textbf{Category}           & \textbf{Keywords}                                                 \\ \hline
+\textbf{Entertainment/Arts} & Entertainment, Art, Arts, Culture, Movies, Cinema, Music,         \\
+\textbf{}                   & Books, Theater, Television, Dance, Celebrity                      \\
+\textbf{Sports}             & Sport, Sports, Soccer, Football, Basketball, Tennis, Golf, Rugby, \\
+\textbf{}                   & Motorsport, Formula 1, Physical Education                         \\
+\textbf{Politics}           & Politics, Election, Parliament                                    \\
+\textbf{Science/Technology} & Science, Technology, Tech, SciTech, Space, Physics                \\
+\textbf{Business/Finance}   & Business, Finance, Economy, Stock exchange, Stock market, Market, \\
+\textbf{}                   & Money, Investment                                                 \\
+\textbf{Health/Welfare}     & Health, Welfare, Coronavirus, Pharma, Pharmacy                    \\ \hline
+\end{tabular}
+\caption{List of category keywords used for collecting news data. Sources which had RSS feeds or specific URL patterns with these keywords were selected for the corresponding category.}
+\label{fig:dataset_category_keywords}
+\end{table}
+
+Each collected article URL was parsed using the \emph{Newspaper3k}\footnote{https://newspaper.readthedocs.io/en/latest/} library. Any article with a main body under 100 characters in length was discarded, and the article headline and body were concatenated into one text field, used for classification. Originally data was collected for 10 different languages, but only the six considered returned a sufficient number of results for model training. In the final dataset, "Business/Finance" and "Science/Technology" articles in Mandarin were downsampled in order to balance the categories, by randomly dropping articles of these categories and languages at probabilities of $p=0.75$ and $p=0.5$ respectively. \par
+The distribution of articles by category and language is shown below in Table \ref{table:collectedstats} and in Figure \ref{fig:collected-distributions}.
+
+\begin{table}[h]
+\begin{tabular}{llllllll}
+\hline
+\textbf{Language}   & \multicolumn{6}{c}{\textbf{Category}}                                                                                       &                 \\ \hline
+\textbf{}           & \textbf{Entertainment/} & \textbf{Sports} & \textbf{Politics} & \textbf{Science/}     & \textbf{Business/} & \textbf{Health/}   & \textbf{Total}  \\
+\textbf{}           & \textbf{Arts}         & \textbf{}       & \textbf{}         & \textbf{Technology} & \textbf{Finance} & \textbf{Welfare} & \textbf{}       \\ \hline
+\textbf{Mandarin}   & 511                    & 706             & 329               & 961                  & 802               & 217               & 3,526           \\
+\textbf{English}    & 885                    & 682             & 435               & 607                  & 493               & 390               & 3,492           \\
+\textbf{Indonesian} & 478                    & 545             & 71                & 295                  & 598               & 255               & 2,242           \\
+\textbf{French}     & 342                    & 369             & 138               & 88                   & 235               & 114               & 1,286           \\
+\textbf{Portuguese} & 136                    & 197             & 196               & 240                  & 232               & 167               & 1,168           \\
+\textbf{Spanish}    & 203                    & 400             & 159               & 48                   & 238               & 84                & 1,132           \\ \hline
+\textbf{Total}      & 2,555                  & 2,899           & 1,328             & 2,239                & 2,598             & 1,227             & \textbf{12,846}
+\\ \hline
+\end{tabular}
+\caption{The distribution of collected news articles by language and category.}
+\label{table:collectedstats}
+\end{table}
+
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{images/real_data_distributions.png}
+\caption{The distribution of categories and languages in the public Valurank dataset}
+\label{fig:collected-distributions}
+\end{figure}
+
+\subsection{Evaluation Setting}
+\subsubsection{Baselines} \hfill \par
+To test the effectiveness of machine translation upsampling, we will use the models trained on the English only public dataset as a benchmark, to measure how much (if any) accuracy increases using translation to augment the dataset. When comparing how models trained on public data transfer to collected real-world multilingual data, we can use static models which do not learn from the data as a baseline. In this case, we use two static baseline models: a model which uses stratified sampling (it samples a prediction for an input randomly, using the category densities as a probability distribution) and most common sampling (always predicts the category with the most training examples). This allows us to consider how much of what the model learns from the public data can be applied to the real-world data.
+
+\subsubsection{Hyperparameters} \hfill \par
+The hyperparameters investigated in this experiment were batch size (how many examples are used in training per backpropagation cycle), number of epochs (how many times does the model repeat the training data) and learning rate (how quickly does the model update its parameters to improve predictions). The values considered are based on the recommendations and experiments from the original BERT paper, by \cite{devlin2018bert}, and shown in Table \ref{table:hparams}. In each case, an exhaustive grid search was performed (24 trials) on the hyperparameter values and the highest accuracy model was chosen for the evaluation. The optimal hyperparameters found for each model is shown in Appendix \ref{appendix:optimal-hparams}
+
+\begin{table}[h]
+\begin{tabular}{ll}
+\hline
+\textbf{Parameter}  & \textbf{Values}        \\ \hline
+\textbf{Batch size} & 16, 32                \\
+Number of epochs    & 2, 3, 4                \\
+Learning rate       & \SI{5e-5}, \SI{4e-5}, \SI{3e-5}, \SI{2e-5}. \\ \hline
+\end{tabular}
+\caption{A list of hyperparameters tuned before training each model for classification. In each case, a grid search was performed with these values.}
+\label{table:hparams}
+\end{table}
+
+\subsubsection{Data splitting} \hfill \par
+Because the categories in our datasets were not too imbalanced (the largest category disparity is around 2:1) we decided that data can be split randomly into a train and a test split. For each dataset, a train/test split of 80/20 (80\% training data) was used.
+
+\subsubsection{Evaluation metrics}
 We will evaluate each model's performance using the  classification accuracy (which percentage of predicted categories are correct), as well as its weighted F1 score. These ratings are widely used in machine learning literature, including classification tasks \citep{alam2020bangla, al2020multiple, ranasinghe2020multilingual}. F1 score is a common metric for effectiveness in classification problems, which aims to balance precision and recall. In binary (two label) classification, precision measures the proportion of predicted positive labels (true positives and false positives) are true positives. Recall measures how many of the true positive data items (true positive and false negative predictions) were classified correctly as positive (true positive). F1 score is the harmonic mean of precision and recall, and aims to balance these metrics to favour a model which avoids false positives but also misses as few positive examples. \par
 In a multiclass context, the F1 score for each possible label is calculated separately and combined. There are different methods for combining these scores, including taking a global average (micro-F1) or taking an unweighted sum of per-category averages (macro-F!). In this experiment we will use weighted F1 score, which takes a weighted average of category F1 scores based on the category weighting (the proportion of the data represented by this category). The weighted F1 score for a dataset $D$ with categories $\{c_1, c_2, ..., c_N\}$ can be calculated as:
 $$Precision=\frac{TP}{TP+FP}$$ 
@@ -813,11 +890,10 @@ $$Weighted \ F1=\sum_{i=1}^{N}w_i \cdot F1 \ score_i \quad \quad \quad \quad w_i
 
 Where TP, FP and FN are the number of true positive, false positive and false negative classifications. Each experiment will be repeated for three training runs, and the mean and standard deviation of the accuracy and weighted F1 scores will be used as metrics for the effectiveness of each model.
 
-\subsection{Classifying public data}
-\subsubsection{Effectiveness of translation upsampling}  \hfill \par
+\subsection{RQ2.1: Effectiveness of Translation Upsampling}
 Shown in Table \ref{table:backtranslation-effectiveness} are the results of training and testing the multilingual models in the original English-only and augmented translated Valurank public dataset. The results show that all models achieve very high ($>95\%$) accuracy and F1 score for the public dataset. We can also see that both models achieve an increased performance of 2-3\% on the larger translated dataset, reaching near-perfect ($>98\%$) accuracy and F1 score in both cases. In both cases, the mBERT model performs slightly better than the XLM-RoBERTa model, but there is very little difference ($<1\%$) in accuracy. This suggests that upsampling can be an effective method of improving classification accuracy by providing more samples.
 
-\begin{table}[]
+\begin{table}[h]
 \begin{tabular}{lllll}
 \hline
 \textbf{Model}   & \multicolumn{2}{l}{\textbf{English Data}} & \multicolumn{2}{l}{\textbf{Multilingual Data}} \\ \cline{2-5} 
@@ -830,11 +906,11 @@ Shown in Table \ref{table:backtranslation-effectiveness} are the results of trai
 \label{table:backtranslation-effectiveness}
 \end{table}
 
-\subsubsection{Transfer of models to real-world data}  \hfill \par
+\subsection{RQ2.2: Transfer of Models to Real-world Data}  \hfill \par
 
 Table \ref{table:transferability} shows the results of transferring the models trained on public data to real-world collected data. The trained multilingual models perform significantly better than the baseline models, but achieve significantly lower accuracies and F1 scores than when they are evaluated on the public datasets. This suggests there are some similarities between public news datasets and real-world news, but not enough that public datasets can be an effective substitute. The XLM-RoBERTa model seems to generalise more effectively on both training sets, achieving 7-9\% better accuracy and F1 score than the corresponding mBERT model. In both models, there is no significant difference in how the models perform on real-world collected data when trained on English or multilingual data.
 
-\begin{table}[]
+\begin{table}[h]
 \begin{tabular}{lllll}
 \hline
 \textbf{Model}               & \textbf{English Data} &             & \textbf{Multilingual Data} &             \\ \cline{2-5} 
@@ -848,12 +924,12 @@ Table \ref{table:transferability} shows the results of transferring the models t
 \label{table:transferability}
 \end{table}
 
-\subsection{Classifying real-world data}
+\subsection{RQ2.3: Classifying Real-world Data}
 
-Table \ref{table:realworld-effectiveness} shows the results of training and testing the multilingual models on the real-world collected dataset. There is little significant difference between the two multilingual models, with XLM-RoBERTa achieving slightly higher accuracy and F1 scores of ~89.5\%. Both models achieve a lower accuracy on the collected dataset than on either of the public datasets, but perform significantly better when trained on the same dataset than on the public dataset. This suggests that real-world news may be more difficult to accurately classify.
+Table \ref{table:realworld-effectiveness} shows the results of training and testing the multilingual models on the real-world collected dataset. There is little significant difference between the two multilingual models, with XLM-RoBERTa achieving slightly higher accuracy and F1 scores of ~89.5\%. Both models achieve a lower accuracy on the collected dataset than on either of the public datasets, but perform significantly better when trained on the same dataset than on the public dataset. This suggests that real-world news may be more difficult to accurately classify. \par
 Table \ref{table:confusion_matrix} shows the confusion matrix for the best performing model (XLM-RoBERTA-base) on the real-world test data. We can see that the most common misclassifications are predicting Business/Finance as Science/Technology (55 occurrences), predicting Politics as Business/Finance (48 occurrences) and predicting Science/Technology as Business/Finance (39 occurrences). This suggests that there may be large similarities or overlap between these three categories.
 
-\begin{table}[]
+\begin{table}[h]
 \begin{tabular}{lll}
 \hline
 \textbf{Model}   & \textbf{Accuracy} & \textbf{Weighted F1} \\ \hline
@@ -864,9 +940,7 @@ Table \ref{table:confusion_matrix} shows the confusion matrix for the best perfo
 \label{table:realworld-effectiveness}
 \end{table}
 
-\subsubsection{Confusion matrix}
-
-\begin{table}[]
+\begin{table}[h]
 \begin{tabular}{lllllll}
 \hline
 \multicolumn{1}{c}{\textbf{Actual label}} & \multicolumn{6}{c}{\textbf{Predicted label}}                                                                                                                                                                                            \\ \hline
@@ -884,14 +958,17 @@ Table \ref{table:confusion_matrix} shows the confusion matrix for the best perfo
 \end{table}
 
 \subsection{Conclusions}
-Machine translation of news articles shows some promise as a means of upsampling annotated public data, yielding an improvement in classification accuracy and F1 score over training on the monolingual dataset (as shown in Table \ref{table:backtranslation-effectiveness}. For smaller datasets, this could be an effective way of synthesising much more training data to allow multilingual models to learn more effectively and achieve increased performance. Future research is required to determine if machine translation is as effective on multilingual data. \par
-The large increase in performance from the baseline models when the multilingual models are trained on public data and evaluated on collected data (as shown in Table \ref{table:transferability}) suggests that the multilingual models have learned some patterns which still apply to real-world data. The decrease in accuracy and F1 score when generalising to real-world data is likely due to the differences in how news articles are categorised and written across languages. Even when translated into multiple other languages, the public dataset only captures the writing and categorisation conventions of English-language news and the exact translations do not generalise effectively to news sources in other languages. This suggests that for effective classification of news in minority languages, effort should be taken to obtain training data which is written in the language instead of relying on machine translation. \par
-While performance on real-world datasets (shown in Table \ref{table:realworld-effectiveness}) remains high (~89\% accuracy) there is a significant decrease in performance in the models from the public dataset evaluation (shown in table \ref{table:backtranslation-effectiveness}. This is likely because real-world data is less simple to sort into one category than most publicly annotated data: category boundaries are often not clear and even human annotators may disagree on classifications, many articles could be considered to fit into multiple categories and some are even given multiple categories by the original news source. The model performs very well on Sports articles, where there is less overlap with other categories and hence less ambiguity, but often confuses Business/Finance, Politics and Science/Technology articles. In real-world articles, these subject areas often overlap: many political decisions affect the economy, and technology is often a topic of political debate. Future research could consider a more appropriate task for news article classification, such as multiclass classification with more labels, using human-annotated data.
+\textbf{RQ2.1: } Machine translation of news articles shows some promise as a means of upsampling annotated public data, yielding an improvement in classification accuracy and F1 score over training on the monolingual dataset (as shown in Table \ref{table:backtranslation-effectiveness}. For smaller datasets, this could be an effective way of synthesising much more training data to allow multilingual models to learn more effectively and achieve increased performance. Future research is required to determine if machine translation is as effective on multilingual data. \par
+\textbf{RQ2.2: } The large increase in performance from the baseline models when the multilingual models are trained on public data and evaluated on collected data (as shown in Table \ref{table:transferability}) suggests that the multilingual models have learned some patterns which still apply to real-world data. The decrease in accuracy and F1 score when generalising to real-world data is likely due to the differences in how news articles are categorised and written across languages. Even when translated into multiple other languages, the public dataset only captures the writing and categorisation conventions of English-language news and these may not generalise effectively between language and source type. As an example, some Chinese sources categorise lottery results as "Sports", whereas English-language sources almost never do this. This suggests that for effective classification of news in minority languages, effort should be taken to obtain training data which is written in the language instead of relying on machine translation. \par
+\textbf{RQ2.3: } While performance on real-world datasets (shown in Table \ref{table:realworld-effectiveness}) remains high (~89\% accuracy) there is a significant decrease in performance in the models from the public dataset evaluation (shown in table \ref{table:backtranslation-effectiveness}. This is likely because real-world data is less simple to sort into one category than most publicly annotated data: category boundaries are often not clear and even human annotators may disagree on classifications, many articles could be considered to fit into multiple categories and some are even given multiple categories by the original news source. The model performs very well on Sports articles, where there is less overlap with other categories and hence less ambiguity, but often confuses Business/Finance, Politics and Science/Technology articles. In real-world articles, these subject areas often overlap: many political decisions affect the economy, and technology is often a topic of political debate. Future research could consider a more appropriate task for news article classification, such as multiclass classification with more labels, using human-annotated data.
 
 \subsection{Limitations}
 Due to the lack of public labelled data for news article topic classification in many languages, in order to consider this task in a multilingual setting it was necessary to collect my own public data using RSS feeds and web scraping. The data collected is not annotated or reviewed by a human, and instead solely relies on the tagging of the news sources being used. This means that training data may be mislabelled or contain errors, and results achieved through experiments using these data may not be as valid as results obtained from manually annotated data. \par
 
+
 %==================================================================================================================================
+
+
 \chapter{Conclusion}    
 \section{Project Summary}
 In this project, we considered an existing digital disease surveillance system, BioCaster, and attempted to improve the areas in which it was lacking. In particular, we designed a robust news collection system which can retrieve information from a wide variety of sources at a higher level of detail than the current BioCaster system. We developed a system which is easily extensible and configurable and allows for many different types of data source to be collected and used in disease alerts, and implemented 2 of these methods: RSS feeds and news website scraping. We implemented a system for extracting details from these news articles and a classifier system to assign each article a topic. In addition, we reworked the original BioCaster visualisations to reflect the new data collected and created a web interface where this visualisation can be viewed, and the web scraping system can be controlled. Data from the usability test suggests that this visualisation represents the data well and the web interface is mostly intuitive and clearly presents the information to the user. \par
@@ -904,6 +981,17 @@ While being designed to easily accommodate the adding of new sources, there are 
 The system has some room to improve in efficiency. For example, a future system may use multi-threading to parse multiple articles at once, removing the bottleneck of communication with the internet in the current single-threaded system. 
 \subsection{Multilingual News Article Classification}
 Research by \cite{wu2020all} suggests that multilingual BERT is less effective in transferring its results to low-resource languages, and pre-training on a multilingual task instead of masked language modelling (MLM) would produce a better model for language transfer. Due to limited resources and time, this pre-training was not possible in this evaluation, but a future study could consider how these methods are applied to the task of multilingual news classification. To impeove the validity of results, future research could collect human-labelled news category datasets for use in training the multilingual models, instead of assuming the validity of articles scraped from the internet and labelled by the data source.
+
+
+
+
+
+
+
+
+
+
+
 %==================================================================================================================================
 %  APPENDICES  
 \begin{appendices}
