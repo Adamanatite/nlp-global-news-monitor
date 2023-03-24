@@ -20,9 +20,10 @@
 \maketitle
 
 %==============================================================================
+
 %% ABSTRACT
 \begin{abstract}
-    Current digital news surveillance systems for disease monitoring are lacking in some areas. They lack diversity in their data collection systems, only retrieving data from a selection of popular news sources and under-representing low-resource areas. They also require results to be translated into English before processing, using a potentially biased machine translation process. We redesign an existing system, BioCaster, to create an improved digital news surveillance system. This system collects news from a wider range of sources across 10 different languages. It produces real-time multi-component visualisations from this data, and has a web interface where the data collection system can be managed. We find that the visualisations are easy to understand and represent collected data well. We also find the web interface to be intuitive, clearly presented and mostly aesthetically appealing. \par We also explore various machine learning techniques and strategies in an experiment on multilingual news category classification. In particular, we find that machine translation as a data augmentation technique can yield increased performance, and that classifiers can apply some learning from public datasets to multilingual self-collected data. Finally, we train a multilingual classifier which achieves 89.4\% accuracy on real-world collected multilingual data.
+    Current digital news surveillance systems for disease monitoring are lacking in some areas. They lack diversity in their data collection systems, only retrieving data from a selection of popular news sources and under-representing low-resource areas. They also require results to be translated into English before processing, using a potentially biased machine translation process. We redesign an existing system, BioCaster, to create an improved digital news surveillance system. This system collects news from a wider range of sources across 10 different languages. It produces real-time multi-component visualisations from this data, and has a web interface where the data collection system can be managed. We find that the visualisations are easy to understand and represent collected data well. We also find the web interface to be intuitive, clearly presented and mostly aesthetically appealing. \par Secondly, we explore various machine learning techniques and strategies in an experiment on multilingual news category classification. In particular, we find that machine translation as a data augmentation technique can yield increased performance, and that classifiers can apply some learning from public datasets to multilingual self-collected data. Finally, we train a multilingual classifier which achieves 89.4\% accuracy on real-world collected multilingual data.
 \end{abstract}
 
 %==============================================================================
@@ -79,40 +80,30 @@
 
 \section{Motivation}
 
-The rate of transmission in diseases is often high, travelling rapidly between areas before it can be initially detected and contained. It is important to avoid as much harm as possible by having up-to-date information on local disease outbreak risks freely available to members of the public. Traditional methods of disease surveillance include laboratory networks such as PulseNet from the Center for Disease Control (CDC) which look for patterns in bacteria across infected patients which may indicate an outbreak. These methods can be slow, relying on human experts and conducting experiments which can take several days until results are achieved \citep{swaminathan2001pulsenet}. These methods are often also lacking in coverage of certain diseases or geographic regions due to factors such as a lack of specialist knowledge \citep{abdulraheem2004disease}. Digital forms of surveillance such as online media monitoring have been effective at discovering disease outbreaks at the early stages and mitigating spread, including during the recent COVID-19 pandemic \citep{kostkova2021data}. Several digital surveillance systems have been developed to collect real-time information from online sources, such as news articles, which can be used to quickly find and assess the risk of disease outbreaks across the world. This information can allow governments to respond rapidly to any new outbreaks by providing quick risk information to the public and planning for diagnosis, testing and prevention. It is for this reason that many governments are creating systems which incorporate online sources to monitor disease outbreaks, such as the Global Public Health Intelligence Network (GPHIN)\footnote{https://gphin.canada.ca/cepr/aboutgphin-rmispenbref.jsp?language=en\_CA} from the Canadian government. \par
+Diseases can transmit at a very high rate, travelling rapidly between areas before they can be initially detected and contained. It is important to avoid as much harm as possible by having up-to-date information on local disease outbreak risks available to governments and members of the public. Traditional methods of disease surveillance include laboratory networks such as PulseNet from the Center for Disease Control (CDC) which look for patterns in bacteria across infected patients which may indicate an outbreak. These methods can be slow, relying on human experts and conducting experiments which can take several days until results are returned \citep{swaminathan2001pulsenet}. These methods are often also lacking in coverage of certain diseases or geographic regions due to factors such as a lack of specialist knowledge \citep{abdulraheem2004disease}. Digital forms of surveillance such as online media monitoring have been effective at discovering disease outbreaks at the early stages and mitigating spread, including during the recent COVID-19 pandemic \citep{kostkova2021data}. Several digital surveillance systems have been developed to collect real-time information from online sources, such as news articles, which can be used to quickly find and assess the risk of disease outbreaks across the world. This information can allow governments to respond rapidly to any new outbreaks by providing quick risk information to the public and planning for diagnosis, testing and prevention. It is for this reason that many governments are creating systems which incorporate online sources to monitor disease outbreaks, such as the Global Public Health Intelligence Network (GPHIN)\footnote{https://gphin.canada.ca/cepr/aboutgphin-rmispenbref.jsp?language=en\_CA} from the Canadian government. \par
 
 One such digital surveillance system is BioCaster\footnote{http://biocaster.org/}, developed by a research team from the University of Cambridge and McGill University, which collects news data and provides an online visualisation of disease alerts on their website. There are flaws with the current BioCaster system, particularly in the news collection system. The current system relies on published news feeds, typically provided by large established sources in high-resource countries, creating a coverage gap in low-resource areas and minority languages. The lack of diversity in the types of sources collected may also impact countries which publish less traditional news, and restricts types of online data such as search trends and social media posts which research has shown to be effective in detecting disease outbreaks early \citep{seo2017methods}. \par
 Another weakness in the current BioCaster system is the reliance on the accuracy of external machine translation systems to translate all documents to English before disease risk can be calculated. These systems can struggle with issues such as domain mismatch (words having different translations depending on the domain) \citep{koehn2017six} and can encode forms of bias such as gender bias \citep{stanovsky2019evaluating}. Multilingual models which eliminate the need for machine translation exist for tasks such as multiclass classification, and have not been tested within the BioCaster system. In this project, we will develop a new digital surveillance system which collects and displays a wider range of news data, and perform experiments to test the capabilities of multilingual news classification.
 
 \section{Project Aims}
-This project develops a new digital surveillance system for multilingual news data, which aims to improve aspects of the existing BioCaster system. The new system developed should have the following aspects: 
+The aims of the two contributions of this project (the new digital news surveillance system and the experiment on multilingual news classification techniques) are detailed below:
 \subsection{Digital News Surveillance System} \hfill \par
-\subsubsection{News collection system}
-This project will develop a robust and extensible data collection system which can synthesise data from multiple different sources and source types, allowing for a more extensive selection of online news data to be collected including lower-resource countries and minority languages. The project will implement two distinct methods of data collection: RSS\footnote{Really Simple Syndication} feeds and web scraping. It will redevelop an improved version of the current BioCaster data collection system based on RSS feeds so that the current system can integrate into the new system without loss of data sources. A web scraping system will also be developed to extract important information such as article headlines, main bodies and publish dates from a given webpage.
-\subsubsection{Data storage and visualisation} The collected news data will be stored in structured form in a database. The information will then be used to produce real-time visualisations of collected data, aggregated into useful statistics, graphs and charts, so that data collected can be observed and analysed. These visualisations should include information on the source countries and languages of collected data, the methods of collection used to retrieve the data and the category distributions of news articles. The system should frequently update and be easy to understand.
-\subsubsection{Web interface} A web interface will be developed so that the data collection system can be easily managed, including enabling/disabling data sources, and adding and removing sources. The system should display the last time sources have collected new data, allowing for the highlighting of stale sources which can be removed to save resources. The interface should be responsive and easy to use and understand.
+\textbf{News collection system: }We will develop a robust and extensible data collection system which can synthesise data from multiple different sources and source types, allowing for a more extensive selection of online news data to be collected including lower-resource countries and minority languages. We will implement two distinct methods of data collection: It will redevelop an improved version of the current BioCaster data collection system based on RSS\footnote{Really Simple Syndication} feeds so that the current system can integrate into the new system without loss of data sources, and a web scraping system will also be developed to extract important information such as article headlines, main bodies and publish dates from a given webpage. \par
+\textbf{Data storage and visualisation: }The collected news data will be stored in structured form in a database. The information will then be used to produce real-time visualisations of collected data, aggregated into useful statistics, graphs and charts, so that data collected can be observed and analysed. These visualisations should include information on the source countries and languages of collected data, the methods of collection used to retrieve the data and the category distributions of news articles. The system should frequently update and be easy to understand.\par
+\textbf{Web interface: }We will develop a web interface so that the data collection system can be easily managed, including enabling/disabling the collection system, enabling/disabling data sources and adding and removing sources. The system should display the last time sources have collected new data, allowing for the highlighting of stale sources which can be removed to save resources. The interface should be responsive and easy to use and understand.
 \subsection{Multilingual News Article Classification} \hfill \par
-We will also conduct research on multilingual machine learning models through the task of multilingual news article category classification, training on public news article datasets and collected real-world news data, and evaluating the accuracy of multilingual models and the effectiveness of machine translation techniques on upsampling datasets. In particular, I will research the effectiveness of machine translation as an upsampling technique, the effectiveness of models trained on public data when translated to real-world data and the current effectiveness of multilingual models on real-world news data. The final multilingual classifier will be integrated into the scraping system, assigning each incoming article a category.
+We will also conduct research on multilingual machine learning models through the task of multilingual news article category classification, training on public news article datasets and collected real-world news data, and evaluating the accuracy of multilingual models and the effectiveness of machine translation techniques on upsampling datasets. In particular, We will research the effectiveness of machine translation as an upsampling technique, the effectiveness of models trained on public data when translated to real-world data and the current effectiveness of multilingual models on real-world news data. The final multilingual classifier will be integrated into the scraping system, assigning each incoming article a category.
 
-%\section{Chapter outline}
-%This chapter outlines the motivation behind the project and some of the key goals. Future chapters will provide more detail on the exact system design and implementation, and evaluate how effectively the system meets these proposed goals. The paper structure is as follows:
-%\begin{itemize}
-%\item \textbf{Chapter 2} covers research into existing digital surveillance systems, real-time data visualisation systems and the currently available news datasets and approaches to news article classification. 
-%\item \textbf{Chapter 3} covers the high-level system design of the overall system and its components, and describe the plan for experiments related to multilingual multiclass news article classification.
-%\item \textbf{Chapter 4} covers the experiments performed in order to evaluate multilingual models through the classification task.
-%\item \textbf{Chapter 5} covers the exact implementation details of the system, and the exact process for data collection and training of multilingual classifier models.
-%\item \textbf{Chapter 6} presents the results of the evaluations to consider whether the system achieves its goals. These evaluations are the usability tests for the visualisation and web interface, and the results of training the multilingual classifiers.
-%\item \textbf{Chapter 7} summarises and reflects on the project and considers future work which could be carried out to extend or improve certain aspects.
-%\end{itemize}
 
 %==================================================================================================================================
 \chapter{Background}
 \section{Digital News Surveillance Systems}
 
-Several digital news surveillance systems exist for different purposes, including research systems for public health monitoring and commercial systems designed for businesses to track information related to their brand. HealthMap\footnote{https://www.healthmap.org/en/} is a public health monitoring system which provides a world map with location-based disease markers for each country, using RSS data and sources gathered by health experts. EpiCore \citep{haddad2016epicore} is a similar system but instead uses an online network of trained experts to share information digitally. MediSys \citep{steinberger2008medisys} is a public health monitoring system which takes information from many web portals and commercial news sites to sort incoming news into topics which can be viewed on the website. \par
+Several digital news surveillance systems exist for different purposes, including research systems for public health monitoring and commercial systems designed for businesses to track information related to their brand. HealthMap\footnote{https://www.healthmap.org/en/} is a public health monitoring system which provides a world map with location-based disease markers for each country, using RSS data and sources gathered by health experts. EpiCore \citep{haddad2016epicore} is a similar system, however it instead uses an online network of trained experts to share information digitally. MediSys \citep{steinberger2008medisys} is a public health monitoring system which takes information from many web portals and commercial news sites to sort incoming news into topics which can be viewed on the website. \par
 
 \subsection{BioCaster}
-This project reworks and extends some of the functionality currently used in BioCaster. The BioCaster system collects news articles through a variety of RSS feeds across different languages including English, French and Mandarin \citep{collier2008biocaster}. It uses a machine translation server to translate the headlines and article descriptions into English, and various machine learning and rule-based models to filter the English-language data to remove all irrelevant (not disease-related) articles and collect specific details which are used to create a risk alert. These alerts are displayed in a visualisation on the website. A full diagram of the BioCaster system architecture is shown in Figure \ref{fig:biocaster_architecture}. 
+In this project, we will rework and extend some of the functionality currently used in BioCaster. The BioCaster system collects news articles through a variety of RSS feeds across different languages including English, French and Mandarin \citep{collier2008biocaster}. It uses a machine translation server to translate the headlines and article descriptions into English, and various machine learning and rule-based models to filter the English-language data to remove all irrelevant (not disease-related) articles and collect specific details which are used to create a risk alert. These alerts are displayed in a visualisation on the website. A full diagram of the BioCaster system architecture is shown in Figure \ref{fig:biocaster_architecture}. 
+
  \begin{figure}[h]
  \centering
 \includegraphics[width=0.75\textwidth]{/biocaster_diagram.jpg}
@@ -121,21 +112,21 @@ This project reworks and extends some of the functionality currently used in Bio
 \end{figure}
 \par
 
-This project aims to rework the first part of this architecture, improving the quality of news sources and removing the machine translation steps. The current BioCaster data collection method is dated: it has not been updated in many years and only collects data through RSS feeds, by running a Perl script once per hour to receive updates \citep{collier2008biocaster}. This requires a news source to publish and maintain a feed for its data to be used in the system. These feeds are provided by a limited number of news sources, which are typically larger and written in high-resource languages and countries, where data is not as underrepresented. This greatly limits the amount of data which can be extracted, particularly from smaller sources in underrepresented countries and minority languages, and as RSS technology is becoming more outdated and falling out of use, the data available for use in surveillance is continuing to diminish in the current system. The data collected from RSS feeds is also limited to a headline and in some cases a short or medium-length description of article content. This provides limited information to models in later stages of the process for performing relevance classification and risk alert creation tasks. \par
+We aim to rework the first part of this architecture, improving the quality of news sources and removing the machine translation steps. The current BioCaster data collection method is dated: it has not been updated in many years and only collects data through RSS feeds, by running a Perl script once per hour to receive updates \citep{collier2008biocaster}. This requires a news source to publish and maintain a feed for its data to be used in the system. These feeds are provided by a limited number of news sources, which are typically larger and written in high-resource languages and countries, where data is not as underrepresented. This greatly limits the amount of data which can be extracted, particularly from smaller sources in underrepresented countries and minority languages, and as RSS technology is becoming more outdated and falling out of use, the data available for use in surveillance is continuing to diminish in the current system. The data collected from RSS feeds is also limited to a headline and in some cases a short or medium-length description of article content. This provides limited information to models in later stages of the process for performing relevance classification and risk alert creation tasks. \par
 The current BioCaster system also heavily relies on external domain machine translation. These models can suffer when trained on data outside of their domain \citep{koehn2017six}, possibly resulting in inaccurate translations as we cannot expect all news collected to be strictly biomedical. The reliance on external resources can also impact the availability of the service, removing some of the control from the BioCaster team. \par
-This project will update the BioCaster RSS collection system, as well as add a module for using web scraping to collect news articles from webpage HTML. The system will be designed so that it is easily extensible to other sources of data which may be more prominent in different countries than traditional news, such as social media posts. This also allows for entire article text to be collected instead of just the headline and a short description, which may allow for a richer understanding of the news content and more effective performance in ML tasks. It will also experiment with multilingual news article classification techniques to remove the problems associated with relying on machine translation servers.
+In this project, we will update the BioCaster RSS collection system, as well as add a module for using web scraping to collect news articles from webpage HTML. The system will be designed so that it is easily extensible to other sources of data which may be more prominent in different countries than traditional news, such as social media posts. This also allows for entire article text to be collected instead of just the headline and a short description, which may allow for a richer understanding of the news content and more effective performance in ML tasks. It will also experiment with multilingual news article classification techniques to remove the problems associated with relying on machine translation servers.
 
 \section{Multilingual News Article Classification}
 \subsection{Traditional Models}
-Historically, many different approaches and models have been used for the task of news article category classification. The most popular model types before the last 5 years are Support Vector Machines (SVM's) and Naive Bayes classifiers. SVM's are models which aim to split the input space into different categories with as large a margin as possible, by finding the best possible hyperplanes in high-dimensional space which split the data into their correct classes. SVM models can achieve non-linearity by transforming inputs through a kernel,n a function which transforms inputs into a space which can be linearly separated by the hyperplanes. SVM Models have been repeatedly demonstrated to perform with high accuracy in the news classification literature across different languages, achieving 90+\% accuracy on categorisation of news headlines from Sri Lanka \citep{dilrukshi2013twitter} and 85\% accuracy on news documents from Indonesian news source Kompas \citep{liliana2011indonesian}. \par
-Naive Bayes classifiers take in input features, which are (usually incorrectly) assumed to be independent for simplicity, and uses them to update a prior belief about how class data is distributed until the distribution reflects the distribution of real data as accurately as possible. Naive Bayes models are probabilistic models, meaning instead of assigning a single class to an output, it creates a probability distribution over all possible classes which can be sampled from for a particular input. A common strategy for Naive Bayes classifiers is to simply take the class with the highest probability for a given input (maximum a posteriori decision rule). The assumption of independence in features can be problematic for classifying news documents, which have heavily codependent features, but methods have been developed to mitigate this issue \citep{qiang2010effective}.Naive Bayes models have produced impressive results on an Indonesian news dataset, achieving 94\% accuracy \citep{septian2017indonesian} and 87\% accuracy on English-language Indian news \citep{kumar2022intelligent}.
-SVM models typically achieve higher accuracy than Naive Bayes models because of the weakness of Naive Bayes inappropriate assumption of independence \citep{dilrukshi2013twitter2, shahi2018nepali, fanny2018comparison}, but Naive Bayes models have the advantage of initialising and classifying data faster than SVM models due to their simplicity, and can sometimes provide comparable or better results.\citep{ting2011naive}. Other traditional models used in news classification include random forests, which create decision trees in order to discriminate between categories \citep{liparas2014news} and K-NN classifiers, which takes the K most similar documents and assigns the article the most common class of these documents \citep{chen2020lao}.
+Historically, many different approaches and models have been used for the task of news article category classification. The most popular model types before the last 5 years are Support Vector Machines (SVM's) and Naive Bayes classifiers. SVM's are models which aim to split the input space into different categories with as large a margin as possible, by finding the best possible hyperplanes in high-dimensional space which split the data into their correct classes. SVM models can achieve non-linearity by transforming inputs through a kernel, a function which transforms inputs into a space which can be linearly separated by the hyperplanes. SVM Models have been repeatedly demonstrated to perform with high accuracy in the news classification literature across different languages, achieving 90+\% accuracy on categorisation of news headlines from Sri Lanka \citep{dilrukshi2013twitter} and 85\% accuracy on news documents from Indonesian news source Kompas \citep{liliana2011indonesian}. \par
+Naive Bayes classifiers use input features, which are (usually incorrectly) assumed to be independent for simplicity. They use these features to update a prior belief about how class data is distributed until the distribution reflects the distribution of real data as accurately as possible. Naive Bayes models are probabilistic models, meaning instead of assigning a single class to an output, they create a probability distribution over all possible classes which can be sampled from for a particular input. A common strategy for Naive Bayes classifiers is to simply take the class with the highest probability for a given input (maximum a posteriori decision rule). The assumption of independence in features can be problematic for classifying news documents, which have heavily codependent features, but methods have been developed to mitigate this issue \citep{qiang2010effective}. Naive Bayes models have produced impressive results in the literature, achieving 94\% accuracy on an Indonesian news dataset \citep{septian2017indonesian} and 87\% accuracy on English-language Indian news \citep{kumar2022intelligent}.
+SVM models typically achieve higher accuracy than Naive Bayes models because of the weakness of Naive Bayes inappropriate assumption of independence \citep{dilrukshi2013twitter2, shahi2018nepali, fanny2018comparison}, but Naive Bayes models have the advantage of initialising and classifying data faster than SVM models due to their simplicity, and can sometimes provide comparable or better results \citep{ting2011naive}. Other traditional models used in news classification include random forests, which create decision trees in order to discriminate between categories \citep{liparas2014news} and K-NN classifiers, which takes the K most similar documents and assigns the article the most common class of these documents \citep{chen2020lao}.
 
 \subsection{Transformer-based Models}
 \label{section:transformer-based-models}
-While these traditional models achieved very high performance on many monolingual datasets, there was often a significant decrease in more complex tasks such as classifying multilingual data \citep{vogel2020detecting}. In 2017, the Google research team released the transformer model architecture, which revolutionised text classification for allowing the context of words within a sentence to be leveraged in the model calculations \citep{vaswani2017attention}. A further development BERT, a bi-direction sequence-to-sequence model which removed the decoder section in order to learn word embeddings \citep{devlin2018bert}. BERT very quickly outperformed many established baselines and became the state-of-the-art, and is very widely used in news classification in the last 5 years \citep{chen2022long, mujahid2021classification, deping2021news}, . A detailed explanation of the transformer and BERT architectures can be found in section \ref{section:preliminaries}. These models are widely used because they are pre-trained, and only require fine tuning to a specific task, massively saving computation time and allowing for public access to very complex models, allowing the task of multilingual news classification to be attempted more effectively.
+While these traditional models achieved very high performance on many monolingual datasets, there was often a significant decrease in more complex tasks such as classifying multilingual data \citep{vogel2020detecting}. In 2017, the Google research team released the transformer model architecture, which revolutionised text classification by allowing the context of words within a sentence to be leveraged in the model calculations \citep{vaswani2017attention}. A further development was BERT\footnote{Bidirectional Encoder Representations from Transformers}, a bidirectional sequence-to-sequence model which removes the decoder section in order to learn word context embeddings \citep{devlin2018bert}. BERT very quickly outperformed many established baselines and became the state-of-the-art, and is very widely used in news classification in the last 5 years \citep{chen2022long, mujahid2021classification, deping2021news}. A detailed explanation of the transformer and BERT architectures can be found in section \ref{section:preliminaries}. These models are widely used because they are pre-trained, and only require fine tuning to a specific task, massively saving computation time and allowing for public access to very complex models. This allows the task of multilingual news classification to be attempted more effectively.
 
-BERT-based models exist which are trained on a corpus of multilingual data, and can embed and represent multilingual input data for classification tasks. One of the most popular multilingual models is mBERT, or multilingual BERT, a variant of BERT trained on over 100 languages. Research by \cite{pires2019multilingual} suggests mBERT may learn an effective language-agnostic latent space which yields impressive results when the model is evaluated on different languages than it is trained on, but this effect decreases as the languages become less structurally similar. mBERT has been used to high success in multilingual news classification tasks \citep{kakwani2020indicnlpsuite, hutama2022indonesian} \par
+BERT-based models exist which are trained on a corpus of multilingual data, and can embed and represent multilingual input data for classification tasks. One of the most popular multilingual models is mBERT, or multilingual BERT, a variant of BERT trained on over 100 languages. Research by \cite{pires2019multilingual} suggests mBERT may learn an effective language-agnostic latent space which yields impressive results when the model is evaluated on different languages than it is trained on, but this effect decreases as the languages become less structurally similar. mBERT has been used to high success in multilingual news classification tasks \citep{kakwani2020indicnlpsuite, hutama2022indonesian}. \par
 Another model is XLM-RoBERTa, developed by the Facebook AI team \citep{conneau2019unsupervised}. It has been shown to outperform mBERT in many multilingual tasks such as named entity recognition (NER) and relation extraction \citep{li2021cross, lan2020empirical}, as well as in news classification \citep{alam2020bangla}. These two models will be considered in our evaluation, as they represent the current state-of-the-art in multilingual news classification.
 
 %==================================================================================================================================
@@ -143,11 +134,11 @@ Another model is XLM-RoBERTa, developed by the Facebook AI team \citep{conneau20
 
 \chapter{System Design}
 \section{Design Principles}
-The system architecture was designed with consideration towards a few key software design principles and concepts. The main influences and aims of the overall system design are:
+We designed the system architecture with consideration towards a few key software design principles and concepts. The main prnciples considered were:
 \begin{itemize}
-    \item \textbf{Separation of concerns: } Each individual component of the system is given its own module which encapsulates its main functionality and interaction with other modules. This also means that components could possibly be re-used in future projects.
-    \item \textbf{Configurability: } The system is designed to give the user as much choice as possible. The system can read a config file which allows the user to control many aspects of the system, such as whether a local or cloud database is used and the maximum number of active sources which are loaded. In addition, individual components are designed so that they can easily be switched out if new components are developed.
-    \item \textbf{Extensibility: } Modules of the system which can have implementations changed or new versions created are designed so that this process is as easy as possible, abstracting the consistent functionality of the module into a superclass that new components will inherit from. As previously discussed, social media data has been shown to be a powerful indicator of disease outbreaks, so this system could be extended by adding a social media crawler, for example.
+    \item \textbf{Separation of concerns: }Each individual component of the system is given its own module which encapsulates its main functionality and interaction with other modules. This also means that components could possibly be re-used in future projects.
+    \item \textbf{Configurability: }The system is designed to give the user as much choice as possible. The system can read a config file which allows the user to control many aspects of the system, such as whether a local or cloud database is used and the maximum number of active sources which are loaded. In addition, individual components are designed so that they can easily be switched out if new components are developed.
+    \item \textbf{Extensibility: }Modules of the system which can have implementations changed or new versions created are designed so that this process is as easy as possible, abstracting the consistent functionality of the module into a superclass that new components will inherit from. As previously discussed, social media data has been shown to be a powerful indicator of disease outbreaks, so this system could be extended by adding a social media crawler, for example.
 \end{itemize}
 
 \section{System Overview}
@@ -155,30 +146,30 @@ Figure \ref{fig:system_overview_diagram} shows a diagram of the overall system a
  \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{images/system_overview_diagram.png}
-\caption{The overview of the system architecture for this project, showing the different modules and interactions between them. Each module is contained in a box. Arrows indicate the transfer of data between modules (e.g. A -> B means module B receives data from module A). The larger, coloured boxes indicate different subsystems. }
+\caption{The overview of the system architecture for this project, showing the different modules and interactions between them. Each module is contained in a box. Arrows indicate the transfer of data between modules (e.g. A -> B means module B receives data from module A). The larger, coloured boxes indicate different subsystems.}
 \label{fig:system_overview_diagram}
 \end{figure}
 \par
 \subsection{Modules}
 The overall system is designed so that modules can be swapped out and replaced or added into the system in order to cover different sources of online data. In this project, the system and its modules will be designed to gather news articles from RSS feeds and news websites. The purpose of each module in the overall system is as follows:
 \begin{itemize}
-    \item \textbf{Crawler: } Connect to an internet source (in this case, an RSS feed or website) and obtain a list of URL's to be parsed for the system (in this case URLs of news articles).
-    \item \textbf{Article parser: } Parse the given list of URLs, mining the page source content for details (in this case, Headline, publish date etc.).
-    \item \textbf{Classifier: } Pass each article through a machine learning model in order to assign it a category (in this case, each news article is given a topic).
-    \item \textbf{Database connector: } Provide an interface to allow the system to access the external database.
-    \item \textbf{Database: } Permanently store the collected and classified data, and the crawlers, in a structured form.
-    \item \textbf{Visualisation: } Present the collected and aggregated data in a number of graphs, charts and statistics for monitoring and interpretation.
-    \item \textbf{Web interface: } Allow administrators to see the visualisation and to manage the active crawlers.
-    \item \textbf{Web connector: } Provide an interface for communication between the management website and the scraping system.
-    \item \textbf{Controller: } Initialise crawlers from the sources stored in the database. Send the parsed articles to the classifier and communicate with the web interface (send updates and receive instructions).
+    \item \textbf{Crawler: }Connect to an internet source (in this case, an RSS feed or website) and obtain a list of URL's to be parsed for the system (in this case URLs of news articles).
+    \item \textbf{Article parser: }Parse the given list of URLs, mining the page source content for details (in this case, Headline, publish date etc.).
+    \item \textbf{Classifier: }Pass each article through a machine learning model in order to assign it a category (in this case, each news article is given a topic).
+    \item \textbf{Database connector: }Provide an interface to allow the system to access the external database.
+    \item \textbf{Database: }Permanently store the collected and classified data, and the crawlers, in a structured form.
+    \item \textbf{Visualisation: }Present the collected and aggregated data in a number of graphs, charts and statistics for monitoring and interpretation.
+    \item \textbf{Web interface: }Allow administrators to see the visualisation and to manage the active crawlers.
+    \item \textbf{Web connector: }Provide an interface for communication between the management website and the scraping system.
+    \item \textbf{Controller: }Initialise crawlers from the sources stored in the database. Send the parsed articles to the classifier and communicate with the web interface (send updates and receive instructions).
 \end{itemize}
 
 
 \section{Data Collection}
-The data collection system crawls an internet source for all URLs which can possibly contain useful information. In this project, we are concerned with finding the URLs of news articles from a news website or RSS feed. To be appropriate in a disease surveillance system, the data should be updated in near real-time so outbreaks can be quickly understood and responded to.
+The data collection subsystem crawls an internet source for all URLs which can possibly contain useful information. In this project, we are concerned with finding the URLs of news articles from a news website or RSS feed. To be appropriate in a disease surveillance system, the data should be updated in near real-time so outbreaks can be quickly understood and responded to.
 
 \subsection{Crawler}
-The crawler is the first stage of the data collection process. It represents one individual data source collected in the system, either an RSS feed or a website which is scraped for articles. Crawler objects are stored as a row in a data table of sources. The objects are instantiated from information given by the web interface when a new source is added, or from an existing source in the database. The responsibilities of a crawler are:
+The crawler is the first stage of the data collection process. It represents one individual data source collected in the system, either an RSS feed or a website which is crawled for articles. Crawler objects are stored as a row in a data table of sources in the database. The objects are instantiated by the controller from information given by the web interface when a new source is added, or from an existing source in the database. The responsibilities of a crawler are:
 \begin{itemize}
     \item Instantiate itself from information stored in the database or given by the web interface.
     \item Add itself to the database if it did not already exist.
@@ -187,7 +178,7 @@ The crawler is the first stage of the data collection process. It represents one
     \item Update its state when it has received new data or instructions.
     \item Update the database with its new state (e.g. delete itself or update its last scrape time).
 \end{itemize}
-An abstract crawler class encapsulates most of the functionality of this module, handling all communication between other modules. Any concrete crawler implementations (in this project, there are 2: RSS feed crawler and Web crawler) only have to create a method to crawl specific types of data from the internet and use it to update the last scraped date, as well as override the constructor to add its source type. A full diagram of crawler functionality is shown in Figure \ref{fig:crawler_diagram}
+An abstract crawler class encapsulates most of the functionality of this module, handling all communication between other modules. Any concrete crawler implementations (in this project, there are 2: RSS feed crawler and Web crawler) only have to create a method to crawl specific types of data from the internet and use it to update the last scraped date, as well as override the constructor to add its source type. A full diagram of crawler functionality is shown in Figure \ref{fig:crawler_diagram}.
  \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{images/Crawler-diagram.png}
@@ -197,7 +188,7 @@ An abstract crawler class encapsulates most of the functionality of this module,
 
 
 \section{Data Processing}
-The data processing system creates structured data from internet sources, converting unclean data such as an RSS feed or the HTML of a webpage into a formatted news article with a headline and article body and associated data. It also attempts to understand the data by assigning a category to the incoming articles. The data processing subsystem should be able to process data at a high volume from sources in 10 different languages: English, French, Spanish, Portuguese, Russian, Indonesian, Mandarin, Korean and Arabic. When data is processed, it will be added to the database so it can be used in visualisation.
+The data processing subsystem creates structured data from internet sources, converting unclean data such as an RSS feed or the HTML of a webpage into a formatted news article with a headline and article body and associated data. It also attempts to understand the data by assigning a category to the incoming articles. The data processing subsystem should be able to process data at a high volume from sources in 10 different languages: English, French, Spanish, Portuguese, Russian, Indonesian, Mandarin, Korean and Arabic. When data is processed, it will be added to the database so it can be used in visualisation.
 
 \subsection{Parser}
 The parser receives as input a combined list of URLs from the crawlers and for each URL, will retrieve the page HTML and use it to extract details about the page (in this case, the pages will be news articles) which can be inserted into the database. The article URLs will be shuffled randomly before parsing to avoid very fast repeated requests to the same host, which smaller sources may not be able to easily handle. The parser assumes that news sources are monolingual to avoid language detection wherever possible, but will attempt to detect the language if parsing is incorrect. After this process is complete, the parser sends the parsed data to the classifier to assign the article a topic. The information required from a news article for this project, which the parser will attempt to scrape, is:
@@ -207,7 +198,7 @@ The parser receives as input a combined list of URLs from the crawlers and for e
     \item Publish date (e.g. 23rd March 2023 13:00).
     \item Language (e.g. "EN" for English).
 \end{itemize}
- An abstract parser class handles all communication with other modules. Any concrete parser implementations (such as the article parser in this project) only have to implement a specific method for crawling a list of given URLs and retrieving structured data from the URLs and returning a final list. A full diagram of parser functionality is shown in Figure \ref{fig:parser_diagram}
+ An abstract parser class handles all communication with other modules. Any concrete parser implementations (such as the article parser in this project) only have to implement a specific method for crawling a list of given URLs and retrieving structured data from the URLs and returning a final list. A full diagram of parser functionality is shown in Figure \ref{fig:parser_diagram}.
  \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{images/Parser-diagram.png}
@@ -224,7 +215,7 @@ An abstract classifier class handles communication with other modules and batchi
     \item A method which receives an input batch and outputs a list of corresponding classification labels.
 \end{itemize}
 
-A full diagram of classifier functionality is shown in Figure \ref{fig:classifier_diagram}
+A full diagram of classifier functionality is shown in Figure \ref{fig:classifier_diagram}.
 
  \begin{figure}[h]
 \centering
@@ -237,7 +228,7 @@ A full diagram of classifier functionality is shown in Figure \ref{fig:classifie
 The data management subsystem stores the data (data sources and collected articles) in a permanent form, where it can be shown in the visualisations. The database system should be able to handle many reads (for article duplicate checking) and writes (for inserting new articles) at a high volume. 
 
 \subsection{Database}
-For this project, the database will consist of two tables: \textbf{Articles} and \textbf{Sources}. The attributes for these tables are shown in Table \ref{table:schema}
+For this project, the database will consist of two tables: \textbf{Articles} and \textbf{Sources}. The attributes for these tables are shown in Table \ref{table:schema}.
 
 \begin{table}[h]
 \begin{tabular}{lll}
@@ -245,26 +236,26 @@ For this project, the database will consist of two tables: \textbf{Articles} and
 \multicolumn{3}{c}{\textbf{Source}}                                                                                                                                      \\ \hline
 \textbf{Attribute} & \textbf{Type} & \textbf{Description}                                                                                                                \\ \hline
 \textbf{ID}        & Primary Key   & A unique auto-generated source ID.                                                                                                  \\
-URL                & Text          & The data source URL (e.g. "https://www.bbc.co.uk/news")                                                                             \\
-Name               & Text          & A name describing the source (e.g. "BBC News")                                                                                      \\
-Country            & Text (2)      & \begin{tabular}[c]{@{}l@{}}The ISO 3166-1 alpha-2\tablefootnote{https://en.wikipedia.org/wiki/ISO\_3166-1\_alpha-2} code of the country \\ the source originates from (e.g. "GB")\end{tabular}        \\
-Language           & Text (2)      & The ISO 639-1\tablefootnote{https://en.wikipedia.org/wiki/List\_of\_ISO\_639-1\_codes} code of the sources main language (e.g. "EN")                                                                         \\
-Data Source        & Text          & The type of source this is (e.g. "RSS/Atom feed")                                                                                   \\
-Last retrieved     & Date/Time     & The time this source last retrieved new data                                                                                        \\
-Active             & Boolean       & \begin{tabular}[c]{@{}l@{}}Whether this source is active \\ (if False, when instantiated the crawler will be disabled)\end{tabular} \\ \hline
+URL                & Text          & The data source URL (e.g. "https://www.bbc.co.uk/news").                                                                             \\
+Name               & Text          & A name describing the source (e.g. "BBC News").                                                                                      \\
+Country            & Text (2)      & \begin{tabular}[c]{@{}l@{}}The ISO 3166-1 alpha-2\tablefootnote{https://en.wikipedia.org/wiki/ISO\_3166-1\_alpha-2} code of the country \\ the source originates from (e.g. "GB").\end{tabular}        \\
+Language           & Text (2)      & The ISO 639-1\tablefootnote{https://en.wikipedia.org/wiki/List\_of\_ISO\_639-1\_codes} code of the sources. main language (e.g. "EN")                                                                         \\
+Data Source        & Text          & The type of source this is (e.g. "RSS/Atom feed").                                                                                   \\
+Last retrieved     & Date/Time     & The time this source last retrieved new data.                                                                                        \\
+Active             & Boolean       & \begin{tabular}[c]{@{}l@{}}Whether this source is active \\ (if False, when instantiated the crawler will be disabled).\end{tabular} \\ \hline
 \multicolumn{3}{c}{\textbf{Article}}                                                                                                                                     \\ \hline
 \textbf{Attribute} & \textbf{Type} & \textbf{Description}                                                                                                                \\ \hline
 \textbf{ID}        & Primary Key   & A unique auto-generated article ID.                                                                                                 \\
-URL                & Text          & The URL of the article                                                                                                              \\
-Headline           & Text          & The article headline                                                                                                                \\
-Body               & Text          & The main body of the article                                                                                                        \\
-Country            & Text (2)      & The ISO 3166-1 code of the country of the original source                                                                           \\
-Language           & Text (2)      & The ISO 639-1 code of the language of the article                                                                                   \\
-Published          & Date/Time     & The time this article was published                                                                                                 \\
-Retrieved          & Date/Time     & The time this article was retrieved by the scraping system                                                                          \\
-Source name        & Text          & The name of the source this article is collected from                                                                               \\
-Source type        & Text          & The type of source this article came from (e.g. "Web scraper")                                                                      \\
-Category           & Text          & The assigned category of this article (e.g. "Entertainment")                                                                        \\ \hline
+URL                & Text          & The URL of the article.                                                                                                              \\
+Headline           & Text          & The article headline.                                                                                                                \\
+Body               & Text          & The main body of the article.                                                                                                        \\
+Country            & Text (2)      & The ISO 3166-1 code of the country of the original source.                                                                           \\
+Language           & Text (2)      & The ISO 639-1 code of the language of the article.                                                                                   \\
+Published          & Date/Time     & The time this article was published.                                                                                                \\
+Retrieved          & Date/Time     & The time this article was retrieved by the scraping system.                                                                          \\
+Source name        & Text          & The name of the source this article is collected from.                                                                               \\
+Source type        & Text          & The type of source this article came from (e.g. "Web crawler").                                                                      \\
+Category           & Text          & The assigned category of this article (e.g. "Entertainment").                                                                        \\ \hline
 \end{tabular}
 \caption{List of attributes in the Source and Article tables, with data type and description. Primary key attributes are highlighted in bold. "Text (2)" denotes that this field is a text field which is exactly 2 characters long.}
 \label{table:schema}
@@ -280,18 +271,21 @@ The database connector provides a connection between the system and the external
     \item Updating sources (enabling/disabling, updating last scrape time).
     \item Searching articles by URL and headline (for duplicate checking). 
 \end{itemize}
-A full diagram of database functionality is shown in Figure \ref{fig:database_diagram}
+
+A full diagram of database functionality is shown in Figure \ref{fig:database_diagram}.
+
  \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{images/Database-diagram.png}
 \caption{The overview of the inputs and outputs of the database and connector.}
 \label{fig:database_diagram}
 \end{figure}
+
 \section{Data Presentation}
 The data presentation subsystem is concerned with creating an easy interface for a user to view, analyse and understand the data collected, as well as easily interact with the system to modify its behaviour. The system should have interfaces which are easy to use and understand and provide useful insight and control on the data collection process.
 
 \subsection{Visualisation}
-The visualisation is mainly based on the current BioCaster interface, as shown in Figure \ref{fig:biocaster-visualisation}. This design has been updated to reflect the changes from my project to the current system, including the addition of news article topics and different source types of information retrieved. I also did not have the specific region or disease information to create the alerts seen on the BioCaster interface. Shown in Appendix \ref{appendix:visualisation-wireframe} is an initial wireframe of the new visualisation. \par
+The visualisation is mainly based on the current BioCaster interface, as shown in Figure \ref{fig:biocaster-visualisation}. This design has been updated to reflect the changes from my project to the current system, including the addition of news article topics and different source types of information retrieved. We also did not have the specific region or disease information to create the alerts seen on the BioCaster interface. Shown in Appendix \ref{appendix:visualisation-wireframe} is an initial wireframe of the new visualisation. \par
 
  \begin{figure}[h]
 \centering
@@ -358,7 +352,7 @@ A full diagram of the controller functionality is shown in Figure \ref{fig:contr
 
 
 \chapter{Implementation}
-This section describes the implementation of each of the previously described sections, including details of the algorithms, libraries and technologies used. The system is written in Python as this is a very common language, especially for machine learning programs, and has many libraries available for web crawling, web scraping and database communication.
+This section describes the implementation of each of the previously described modules, including details of the algorithms, libraries and technologies used. The system is written in Python as this is a very common language, especially for machine learning programs, and has many libraries available for web crawling, web scraping and database communication.
 
 \section{Crawlers}
 Generally, the purpose of the crawler is to return a list of URLs for parsing given a source URL. The crawlers also control the updating of their own state in the database.
@@ -372,7 +366,7 @@ Concrete implementations of crawlers will extend the constructor of the abstract
     \item Initialise country if given (using a dictionary of country names to ISO 3166 alpha-2 code if necessary), otherwise attempt to mine it from the URL (e.g. ".co.uk" website implies "GB").
     \item Initialise the last scrape time if it exists, otherwise set it to a default value.
 \end{enumerate}
-The abstract crawler also includes all functions which interface with the database connector, using its source ID: Update last scrape time to a given time (if it is more recent than the current time), enable/disable and delete. These functions are called in response to commands from the web interface. If specified in the config, a scraper can automatically disable itself if it is stale. The main "crawl" method which is called by the connector will retrieve a list of new articles using a method overridden by a concrete implementation, and then return all non-duplicate URLs (checked by searching for each of the URLs in the database) packaged with the language, country, source name, source type and a reference to itself so that the parser can update the crawlers last scrape time when it finds the date of an article.
+The abstract crawler also includes all functions which interface with the database connector, using its source ID: Update last scrape time to a given time (if it is more recent than the current time), enable/disable and delete. These functions are called in response to commands from the web interface. If specified in the config, a crawler can automatically disable itself if it is stale. The main "crawl" method which is called by the connector will retrieve a list of new articles using a method overridden by a concrete implementation, and then return all non-duplicate URLs (checked by searching for each of the URLs in the database) packaged with the language, country, source name, source type and a reference to itself so that the parser can update the crawlers last scrape time when it finds the date of an article.
 
 \subsection{Web Crawler}
 To retrieve new articles, the web crawler uses the \emph{Newspaper3K}\footnote{https://github.com/codelucas/newspaper} library to create an object which scrapes the whole website of a given URL. It is designed to be fed the homepage URL of a news site, and creates an object which crawls the pages for all available links to news articles, stored in the "articles" property. The web crawler returns all of these articles which do not contain special URL characters ? or \# (to prevent duplicate articles).
@@ -388,7 +382,7 @@ The abstract parser is instantiated with two arguments: A classifier, which pars
 \subsection{Article Parser}
 
 \subsubsection{Choice of library} \hfill \par
-The main free and open-source technologies for scraping news articles from websites in Python were \emph{Newspaper3K} and \emph{news-please}\footnote{https://github.com/fhamborg/news-please}, which is built on top of Newspaper3K and adds some extra features. Another option considered was \emph{Newscatcher}\footnote{https://newscatcherapi.com/news-api}, but the free API is limited in how many calls can be made and this made it unsuitable for this project. Finally, we considered \emph{pygooglenews}\footnote{https://github.com/kotartemiy/pygooglenews} which provided some promise in using google news to find articles under certain subjects, keywords, languages and regions. For this project, I found it desirable to have better control of the exact sources collected, instead of filtering through keywords and relying on Google's source selection, but a scraper using this library could easily be added to extend the capabilities of the current system. We decided to move forward with the former two libraries and conducted an experiment to compare their capabilities. \par
+The main free and open-source technologies for scraping news articles from websites in Python were \emph{Newspaper3K} and \emph{news-please}\footnote{https://github.com/fhamborg/news-please}, which is built on top of Newspaper3K and adds some extra features. Another option considered was \emph{Newscatcher}\footnote{https://newscatcherapi.com/news-api}, but the free API is limited in how many calls can be made and this made it unsuitable for this project. Finally, we considered \emph{pygooglenews}\footnote{https://github.com/kotartemiy/pygooglenews} which provided some promise in using google news to find articles under certain subjects, keywords, languages and regions. For this project, We found it desirable to have better control of the exact sources collected, instead of filtering through keywords and relying on Google's source selection, but a crawler using this library could easily be added to extend the capabilities of the current system. We decided to move forward with the former two libraries and conducted an experiment to compare their capabilities. \par
 
 We compared the features present in each of the two libraries. Notably, Newspaper3K can perform full website scraping in Python, whereas news-please can only do this using its Command Line Interface (CLI). We attempted to scrape 3 articles from each of 109 previously selected websites, across 10 languages (English, French, Spanish, Portuguese, Russian, Indonesian, Mandarin, Korean and Arabic), and compared the number of successful scrapes (without error) and the average speed. The results are shown in Table \ref{table:scraper-library-results}. \par 
 
@@ -413,7 +407,7 @@ We compared the features present in each of the two libraries. Notably, Newspape
 \label{table:scraper-library-results}
 \end{table}
 
-Newspaper3K scraped 103 of the 109 websites (94.5\%) without error, whereas news-please scraped 102/109 (93.58\%). The average scraping times are similar in both libraries, but Newspaper3K was faster at scraping in 8 of the 10 languages, and average scraping time per article was 14.82\% lower. Newspaper3K also has the added advantage of requiring one less library, as it is already used in the web crawler. Based on these factors, I chose to use Newspaper3K for the scraping system.
+Newspaper3K scraped 103 of the 109 websites (94.5\%) without error, whereas news-please scraped 102/109 (93.58\%). The average scraping times are similar in both libraries, but Newspaper3K was faster at scraping in 8 of the 10 languages, and average scraping time per article was 14.82\% lower. Newspaper3K also has the added advantage of requiring one less library, as it is already used in the web crawler. Based on these factors, We chose to use Newspaper3K for the scraping system.
 \subsubsection{Parsing news articles} \hfill \par
 To parse the given list of URLs with extra details, the article parser implements the following algorithm:
 \begin{enumerate}
@@ -474,15 +468,15 @@ The sources and keywords for real-world training data were decided as discussed 
 
 \section{Database and Visualisation}
 The data from the article collection and processing system is stored on an elasticsearch\footnote{https://www.elastic.co} database. Elasticsearch is the database system used in the original BioCaster system, and allows for easy integration into the Python article collection code and into the visualisation system. It is a noSQL no-schema database which stores entries in unstructured JSON format. The unstructured nature of the data means there are no foreign keys, so some data must be duplicated (source name, country and data type must be stored for each article despite being inherited from the original source). The lack of structure will make the queries required for loading sources and checking for duplicate articles less efficient, but these queries are required at a low enough rate that the system should be able to easily process them. The advantages of elasticsearch are the ease of creating real-time visualisations from the data using the Elastic software stack\footnote{https://www.elastic.co/elastic-stack/} and the ease of integrating the new system into the current BioCaster system as the infrastructure is already in place for an elasticsearch database.\par
-The BioCaster visualisation is created using Elastic Kibana\footnote{https://www.elastic.co/kibana/}, which provides an interface for creating highly customised interfaces by combining different pre-made modules with different attributes and aggregations from the underlying elasticsearch data. These visualisations can be embedded onto an HTML page and will automatically refresh to represent new data collected. This project uses a locally hosted database and visualisation system, hosting two separate docker containers for elasticsearch and kibana, but elastic supports cloud storage and data visualisation. 
+The BioCaster visualisation is created using Elastic Kibana\footnote{https://www.elastic.co/kibana/}, which provides an interface for creating highly customised interfaces by combining different pre-made modules with different attributes and aggregations from the underlying elasticsearch data. These visualisations can be embedded onto an HTML page and will automatically refresh to represent new data collected. In this project we use a locally hosted database and visualisation system, hosting two separate docker containers for elasticsearch and kibana, but elastic also supports cloud storage and data visualisation. 
 
 \subsection{Database Connector}
 The database connector is written using the \emph{elasticsearch}\footnote{https://elasticsearch-py.readthedocs.io/en/v8.6.2/} Python library, which provides an interface which abstracts some of the JSON request-response system used by elasticsearch, The library establishes a connection with the elasticsearch cluster, authenticating securely through HTTPS using a username and password, and for local connections with an SSL\footnote{Secure Sockets Layer} certificate. This connection is saved as an object which is used to perform all requests to the database system. Updates and searches are performed by specifying a JSON body containing the request details, and responses are returned in a JSON format which is processed by the connector system to retrieve specific attributes, An example request and response is shown in Figure \textbf{add figure}. The library also provides a bulk request API, which is used to upload large batches of documents. In the event of a failed batch upload, the system will attempt to upload each article individually.
 
 \section{Visualisation}
-The BioCaster visualisation is created using a dashboard on Elastic Kibana. A map widget shows the articles collected by country using the ISO 3166-1 alpha-2 country codes stored in the "Country" attribute of each article. The final visualisation is shown in Figure \ref{fig:visualisation}
+The BioCaster visualisation is created using a dashboard on Elastic Kibana. A map widget shows the articles collected by country using the ISO 3166-1 alpha-2 country codes stored in the "Country" attribute of each article. The final visualisation is shown in Figure \ref{fig:visualisation}.
 
-I chose to change the article density to cover the whole country instead of being a dot, to make the source of the data more visible (so that larger data locations do not obstruct the view of smaller countries) and created a monochromatic green colour map, where darker colours represented more articles retrieved as is common practice in world density maps \citep{ourworldindata_density, ons_density}.
+We chose to change the article density to cover the whole country instead of being a dot, to make the source of the data more visible (so that larger data locations do not obstruct the view of smaller countries) and created a monochromatic green colour map, where darker colours represented more articles retrieved as is common practice in world density maps \citep{ourworldindata_density, ons_density}.
 
 \begin{figure}[h]
 \includegraphics[width=\textwidth]{/Visualisation.png}
@@ -492,7 +486,7 @@ I chose to change the article density to cover the whole country instead of bein
 
 
 \section{Web Interface}
-The web interface was implemented with standard HTML, CSS and JavaScript. It is implemented as a single webpage which can show and hide content to give the appearance of two separate pages: management of the system and management of individual sources. This is done to make the website feel more responsive: the pages will switch instantly instead of having to load another webpage. The overall design is inspired by the original BioCaster website, using the same main colours and element styles to create a cohesive visual design with other BioCaster products. The homepage allows for toggling on and off the scraping system, and viewing or hiding the visualisation shown in Figure \ref{fig:visualisation}. The final homepage is shown in Figure \ref{fig:web-interface-homepage}. I chose to let the visualisation be toggled on and off as I found it could be distracting when managing the scraping system.
+The web interface was implemented with standard HTML, CSS and JavaScript. It is implemented as a single webpage which can show and hide content to give the appearance of two separate pages: management of the system and management of individual sources. This is done to make the website feel more responsive: the pages will switch instantly instead of having to load another webpage. The overall design is inspired by the original BioCaster website, using the same main colours and element styles to create a cohesive visual design with other BioCaster products. The homepage allows for toggling on and off the scraping system, and viewing or hiding the visualisation shown in Figure \ref{fig:visualisation}. The final homepage is shown in Figure \ref{fig:web-interface-homepage}. We chose to let the visualisation be toggled on and off as we found it could be distracting when managing the scraping system.
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.5\textwidth]{/web interface homepage.png}
@@ -500,7 +494,7 @@ The web interface was implemented with standard HTML, CSS and JavaScript. It is 
 \label{fig:web-interface-homepage}
 \end{figure}
 
-The manage sources page shows when sources found their last article, and splits sources which have not found an article in a number of days specified in the config file into a stale section. It also allows for sources to be enabled, disabled, deleted or added. The final manage sources page is shown in Figure \ref{fig:web-interface-manage}. Stale sources are shown at the top of the page, then enabled sources then disabled sources. I chose this order as I believe it represents the order of importance on a management page: Users will be most interested in which sources are stale, and least interested in inactive sources. Stale sources are also highlighted in yellow to add further emphasis and convey a negative sentiment. 
+The manage sources page shows when sources found their last article, and splits sources which have not found an article in a number of days specified in the config file into a stale section. It also allows for sources to be enabled, disabled, deleted or added. The final manage sources page is shown in Figure \ref{fig:web-interface-manage}. Stale sources are shown at the top of the page, then enabled sources then disabled sources. We chose this order as we believe it represents the order of importance on a management page: Users will be most interested in which sources are stale, and least interested in inactive sources. Stale sources are also highlighted in yellow to add further emphasis and convey a negative sentiment. 
 
 \begin{figure}[!ht]
 \centering
@@ -522,7 +516,7 @@ The implementation details of the JavaScript responsive elements are contained i
 The plain HTML/CSS/JavaScript connects to the code for the scraping system using the Python library \emph{eel}\footnote{https://github.com/python-eel/Eel}. This library creates an offline web server using a specified directory and by calling a start method with a specified file, will begin running the web server from the Python code.
 
 \subsection{Communication between Python and JavaScript}
-By importing "eel.js" in the head section of the index HTML page, an interface is established where the Python and JavaScript modules can pass information aynchronously between each other. Python methods can be exposed to JavaScript using a method decorator, where they can be called in the JavaScript code by calling "eel.<Python method name>(<params>)(<callback function>)" where the return values of the Python function will be given to the callback function which is called when the values are available. No callback function can be specified to return the value into the function giving the original call (but the value must be awaited as communication is asynchronous). Python modules can also call JavaScript functions but this is not used in this project. The communication between JavaScript and Python is illustrated in figure \ref{fig:eel-communication}
+By importing "eel.js" in the head section of the index HTML page, an interface is established where the Python and JavaScript modules can pass information aynchronously between each other. Python methods can be exposed to JavaScript using a method decorator, where they can be called in the JavaScript code by calling "eel.<Python method name>(<params>)(<callback function>)" where the return values of the Python function will be given to the callback function which is called when the values are available. No callback function can be specified to return the value into the function giving the original call (but the value must be awaited as communication is asynchronous). Python modules can also call JavaScript functions but this is not used in this project. The communication between JavaScript and Python is illustrated in figure \ref{fig:eel-communication}.
 
 \begin{figure}[!ht]
 \includegraphics[width=\textwidth]{images/eel-communication.png}
@@ -548,7 +542,7 @@ The implementation of this functionality is shown in Appendix \ref{appendix:js-a
 \subsubsection{JavaScript Events}
 \begin{itemize}
     \item \textbf{Page loads: } On page load, the number of days until stale and system state are obtained from the Python code, and the state of the Start/stop scraping button is updated accordingly. A method is also started that periodically (once per specified number of seconds) calls the Python \textbf{get sources list} method and uses the results to repopulate the tables.
-    \item \textbf{Start/stop scraping button:} When clicked, the button calls a method which changes its own text to "Stopping..." or "Starting..." and calls the Python \textbf{toggle scraper} method. When it gets a response, it changes the text and colour of the button (by changing CSS class) to represent the new state and also changes the subtext of the webpage between "Scraping <no. active sources> sources" and "Not currently scraping".
+    \item \textbf{Start/stop scraping button:} When clicked, the button calls a method which changes its own text to "Stopping..." or "Starting..." and calls the Python \textbf{toggle system} method. When it gets a response, it changes the text and colour of the button (by changing CSS class) to represent the new state and also changes the subtext of the webpage between "Scraping <no. active sources> sources" and "Not currently scraping".
     \item \textbf{Show/hide visualisation button: } When clicked, the button calls a method which changes its own text and sets the display of the visualisation embed to "none" (making it invisible) or "block" (making it appear on the page, below the button).
     \item \textbf{Manage sources button: } When clicked, the button calls a method which toggles the visibility of the div containing the entire manage sources page (changes display from "none" to "block").
     \item \textbf{Back to dashboard button: } When clicked, the button returns the user to the dashboard by setting the display of the div containing the manage sources section to "none".
@@ -583,7 +577,7 @@ The controller is the module which is run to start the entire system, and when r
 \end{itemize}
 
 \subsection{Multi-threading}
-As the eel web server will block the code when running, only continuing to run when the web server is stopped, it is necessary to start the scraping system on a separate thread to allow both to run simultaneously. Some components are required to ensure components are properly synchronised, such as a lock on the list of crawlers, which is passed to parsers and acquired by any part of the code (parser or Python web interface function) intending to make changes to the internal state of a scraper, to ensure all operations are performed properly. The scraping system thread also uses an event, which is used to communicate between threads that some condition has been met. In this case, when the web server is stopped it will set the event, and the scraping system periodically checks if the event is set, and will stop if it is. 
+As the eel web server will block the code when running, only continuing to run when the web server is stopped, it is necessary to start the scraping system on a separate thread to allow both to run simultaneously. Some components are required to ensure components are properly synchronised, such as a lock on the list of crawlers, which is passed to parsers and acquired by any part of the code (parser or Python web interface function) intending to make changes to the internal state of a crawler, to ensure all operations are performed properly. The scraping system thread also uses an event, which is used to communicate between threads that some condition has been met. In this case, when the web server is stopped it will set the event, and the scraping system periodically checks if the event is set, and will stop if it is. 
 
 \subsection{Pipelines}
 The controller defines data pipelines, which control which sources are passed to which parser and classifier, allowing for different sources of data to be processed differently. The pipelines take the form (list of data source types, parser), where the parser is an initialised parser object (with a given classifier). Any sources in the list which are in the list of data source types will be sent to the corresponding parser. To ensure no data duplication, each type of data source can only be sent to one type of parser.
@@ -632,7 +626,7 @@ Given a dataset of news articles $N$ with and corresponding labels $L\in C$, whi
 \subsection{Preliminaries}
 \label{section:preliminaries}
 \subsubsection{Transformer models} \hfill \par
-The first transformer model was introduced in \cite{vaswani2017attention}. It was built by combining an encoder model, which creates a multidimensional vector embedding of input sequences, with a decoder which converts these embeddings to the desired output (e.g. a classification). The architecture is shown in \ref{fig:transformer-architecture}
+The first transformer model was introduced in \cite{vaswani2017attention}. It was built by combining an encoder model, which creates a multidimensional vector embedding of input sequences, with a decoder which converts these embeddings to the desired output (e.g. a classification). The architecture is shown in \ref{fig:transformer-architecture}.
 
  \begin{figure}[h]
 \centering
@@ -653,7 +647,7 @@ Important features of the transformer model which enable its success on text cla
 \end{itemize}
 
 \subsubsection{BERT models and fine-tuning} \hfill \par
-A paper by \cite{devlin2018bert} introduced the BERT model (Bidirectional Encoder Representations from Transformers). This model is based on the original transformer architecture, but removes the decoder section in order to become sequence-to-sequence (the model transforms an input sequence to an output sequence). BERT is trained using masked language modelling (MLM), where a percentage of input sentences are hidden from the model and it attempts to guess the missing words. It is also trained on next sentence prediction (NSP) where the model guesses if one sentence follows another. These training tasks allow the model to contextualise words and sentences to create a better understanding and representation of the context of words. When trained on a multilingual corpus, the idea is that these representations are language-agnostic, and allow for successful classification of unseen multilingual data. These representations achieved from pre-training can be fine-tuned to complete a down-stream task, such as multilabel classification, by ignoring all but one of the model outputs and training a classifier on top of this output using a new dataset for the exact downstream task (e.g. news articles with categories) to convert the contextual embeddings of words into a classification label. This process is illustrated in Figure \ref{fig:bert-finetuning}. The fine-tuning process allows the models to leverage their advanced representations of words to adapt to many different tasks with far less training time on each individual task.
+A paper by \cite{devlin2018bert} introduced the BERT model. This model is based on the original transformer architecture, but removes the decoder section in order to become sequence-to-sequence (the model transforms an input sequence to an output sequence). BERT is trained using masked language modelling (MLM), where a percentage of input sentences are hidden from the model and it attempts to guess the missing words. It is also trained on next sentence prediction (NSP) where the model guesses if one sentence follows another. These training tasks allow the model to contextualise words and sentences to create a better understanding and representation of the context of words. When trained on a multilingual corpus, the idea is that these representations are language-agnostic, and allow for successful classification of unseen multilingual data. These representations achieved from pre-training can be fine-tuned to complete a down-stream task, such as multilabel classification, by ignoring all but one of the model outputs and training a classifier on top of this output using a new dataset for the exact downstream task (e.g. news articles with categories) to convert the contextual embeddings of words into a classification label. This process is illustrated in Figure \ref{fig:bert-finetuning}. The fine-tuning process allows the models to leverage their advanced representations of words to adapt to many different tasks with far less training time on each individual task.
 
  \begin{figure}[h]
 \centering
@@ -682,7 +676,7 @@ Information on each dataset is detailed in Section \ref{section:datasets}. Data 
     \item The previously trained models on \textbf{DS2} were evaluated on the real-world collected data (\textbf{DS3}).
     \item The models were trained and evaluated on the real-world collected data (\textbf{DS3}).
 \end{enumerate}
-A diagram of these experiments is shown in Figure \ref{fig:finetuning-scheme}
+A diagram of these experiments is shown in Figure \ref{fig:finetuning-scheme}.
 
 \begin{figure}[h]
 \centering
@@ -706,13 +700,13 @@ The purpose of the evaluation was to answer the following research questions:
 
 The respondents were asked to perform the following tasks, and answer questions on their experiences and opinions on the visualisation and web scraper:
 \begin{itemize}
-    \item Toggle the scraping system and the visualisation
-    \item Adding a source
-    \item Enabling/disabling a source
-    \item Deleting a source
+    \item Toggle the scraping system and the visualisation.
+    \item Adding a source.
+    \item Enabling/disabling a source.
+    \item Deleting a source.
 \end{itemize}
 
-Respondents used a scale from 1-5 (1 being the most negative response) to rate the visualisation on how easy to understand it is and how well it represents the data. They were also asked to rate the web interface on how intuitive, clear to present information and aesthetically appealing it is. Open questions were also asked to elicit more detailed feedback. The results of the rating scale questions are shown in Figure \ref{fig:questionnaire-ratings}
+Respondents used a scale from 1-5 (1 being the most negative response) to rate the visualisation on how easy to understand it is and how well it represents the data. They were also asked to rate the web interface on how intuitive, clear to present information and aesthetically appealing it is. Open questions were also asked to elicit more detailed feedback. The results of the rating scale questions are shown in Figure \ref{fig:questionnaire-ratings}.
 
  \begin{figure}[h]
 \centering
@@ -722,23 +716,23 @@ Respondents used a scale from 1-5 (1 being the most negative response) to rate t
 \end{figure}
 
 
-The full questionnaire can be found in Appendix \ref{appendix:questionnaire}
+The full questionnaire can be found in Appendix \ref{appendix:questionnaire}.
 
 \subsection{RQ1.1: Visualisation}
 Respondents were asked on a scale from 1-5 (5 being the best response), if they thought the visualisation was easy to understand, and if the visualisation represents the data well. All respondents gave a 4 or higher on both questions, with 4 respondents (44.4\%) rating the visualisation a 5 in ease of understanding and 7 respondents (77.8\%) rating the representation of data collected a 5. These results suggest the visualisation succeeds in representing the data effectively in an easy to understand way, but could use some minor improvements to increase the clarity of data.
 
 Specific examples of feedback given on the visualisation are:
 \begin{itemize}
-    \item It is unclear what the colours in the density map represent, and the colours are too similar
-    \item Filtering recent articles by country when clicking the map would be a useful addition
-    \item The visualisation could better fit the whole page without scrolling
-    \item Languages should have full names as the two letter representations can be hard to understand
-    \item The screen can feel full, it would be useful to be able to adjust components
-    \item A pie chart by country isn't effective for geographic distribution, some way to signal proximity would be useful
-    \item Top sources by number of articles would be a useful statistic
-    \item Categories of article over time may be an interesting metric
-    \item More information on source bias/reliability would be useful in considering the reliability of information
-    \item The "new articles by time" component can be difficult to interpret
+    \item It is unclear what the colours in the density map represent, and the colours are too similar.
+    \item Filtering recent articles by country when clicking the map would be a useful addition.
+    \item The visualisation could better fit the whole page without scrolling.
+    \item Languages should have full names as the two letter representations can be hard to understand.
+    \item The screen can feel full, it would be useful to be able to adjust components.
+    \item A pie chart by country isn't effective for geographic distribution, some way to signal proximity would be useful.
+    \item Top sources by number of articles would be a useful statistic.
+    \item Categories of article over time may be an interesting metric.
+    \item More information on source bias/reliability would be useful in considering the reliability of information.
+    \item The "new articles by time" component can be difficult to interpret.
 \end{itemize}
 
 The feedback is reasonable, and although many of the recommendations are outside the scope of this project (e.g. source bias and geographic proximity), many of these changes are easy to implement and would immediately improve the visualisation, such as better distinction in the colours and more easily readable language names. The requested additional visualisations could be used to replace less effective visualisations in the current system, such as articles by time. \par
@@ -749,9 +743,9 @@ Respondents were asked to rate the web interface on how intuitive it is, how cle
 
 Specific examples of feedback on the web interface are:
 \begin{itemize}
-    \item Some filters on the visualisation are hard to remove (requiring a refresh)
-    \item Some section fonts are too large
-    \item The web app could benefit from an "about" page to describe the purpose
+    \item Some filters on the visualisation are hard to remove (requiring a refresh).
+    \item Some section fonts are too large.
+    \item The web app could benefit from an "about" page to describe the purpose.
 \end{itemize}
 
 Most of the negative feedback come from the problems with the visualisation. The lack of clear purpose shown to some of the respondents may have worsened the experience but this will not be an issue in the final product, as the web app is only intended to be used by internal team members. \par 
@@ -852,7 +846,7 @@ The distribution of articles by category and language is shown below in Table \r
 To test the effectiveness of machine translation upsampling, we will use the models trained on the English only public dataset as a benchmark, to measure how much (if any) accuracy increases using translation to augment the dataset. When comparing how models trained on public data transfer to collected real-world multilingual data, we can use static models which do not learn from the data as a baseline. In this case, we use two static baseline models: a model which uses stratified sampling (it samples a prediction for an input randomly, using the category densities as a probability distribution) and most common sampling (always predicts the category with the most training examples). This allows us to consider how much of what the model learns from the public data can be applied to the real-world data.
 
 \subsubsection{Hyperparameters} \hfill \par
-The hyperparameters investigated in this experiment were batch size (how many examples are used in training per backpropagation cycle), number of epochs (how many times does the model repeat the training data) and learning rate (how quickly does the model update its parameters to improve predictions). The values considered are based on the recommendations and experiments from the original BERT paper, by \cite{devlin2018bert}, and shown in Table \ref{table:hparams}. In each case, an exhaustive grid search was performed (24 trials) on the hyperparameter values and the highest accuracy model was chosen for the evaluation. The optimal hyperparameters found for each model is shown in Appendix \ref{appendix:optimal-hparams}
+The hyperparameters investigated in this experiment were batch size (how many examples are used in training per backpropagation cycle), number of epochs (how many times does the model repeat the training data) and learning rate (how quickly does the model update its parameters to improve predictions). The values considered are based on the recommendations and experiments from the original BERT paper, by \cite{devlin2018bert}, and shown in Table \ref{table:hparams}. In each case, an exhaustive grid search was performed (24 trials) on the hyperparameter values and the highest accuracy model was chosen for the evaluation. The optimal hyperparameters found for each model is shown in Appendix \ref{appendix:optimal-hparams}.
 
 \begin{table}[h]
 \begin{tabular}{ll}
@@ -870,8 +864,8 @@ Learning rate       & \SI{5e-5}, \SI{4e-5}, \SI{3e-5}, \SI{2e-5}. \\ \hline
 Because the categories in our datasets were not too imbalanced (the largest category disparity is around 2:1) we decided that data can be split randomly into a train and a test split. For each dataset, a train/test split of 80/20 (80\% training data) was used.
 
 \subsubsection{Evaluation metrics}
-We will evaluate the performance of each model using the classification accuracy (which percentage of predicted categories are correct), as well as its weighted F1 score. These ratings are widely used in machine learning literature, including classification tasks \citep{alam2020bangla, al2020multiple, ranasinghe2020multilingual}. F1 score is a common metric for effectiveness in classification problems, which aims to balance precision and recall. In binary (two label) classification, precision measures the proportion of predicted positive labels (true positives and false positives) are true positives. Recall measures how many of the true positive data items (true positive and false negative predictions) were classified correctly as positive (true positive). F1 score is the harmonic mean of precision and recall, and aims to balance these metrics to favour a model which avoids false positives but also misses as few positive examples. \par
-In a multiclass context, the F1 score for each possible label is calculated separately and combined. There are different methods for combining these scores, including taking a global average (micro-F1) or taking an unweighted sum of per-category averages (macro-F!). In this experiment we will use weighted F1 score, which takes a weighted average of category F1 scores based on the category weighting (the proportion of the data represented by this category). The weighted F1 score for a dataset $D$ with categories $\{c_1, c_2, ..., c_N\}$ can be calculated as:
+We will evaluate the performance of each model using the classification accuracy (which percentage of predicted categories are correct), as well as its weighted F1 score. These ratings are widely used in machine learning literature, including classification tasks \citep{alam2020bangla, al2020multiple, ranasinghe2020multilingual}. F1 score is a common metric for effectiveness in classification problems, which aims to balance precision and recall. Precision measures the proportion of predicted positive labels (true positives and false positives) are true positives. Recall measures how many of the true positive data items (true positive and false negative predictions) were classified correctly as positive (true positive). F1 score is the harmonic mean of precision and recall, and aims to balance these metrics to favour a model which avoids false positives but also misses as few positive examples. \par
+In a multiclass context, the F1 score for each possible label is calculated separately and combined. There are different methods for combining these scores,but in this experiment we will use weighted F1 score, which takes a weighted average of category F1 scores based on the category weighting. The weighted F1 score for a dataset $D$ with categories $\{c_1, c_2, ..., c_N\}$ can be calculated as:
 $$Precision=\frac{TP}{TP+FP}$$ 
 $$Recall=\frac{TP}{TP+FN}
 $$ $$F1 \ score=2 \cdot \frac{Precision \cdot Recall}{Precision + Recall}$$
@@ -976,12 +970,12 @@ The system was designed in Python, using the \emph{Newspape3K} and \emph{feedpar
 
 We also conducted an experiment with two state-of-the-art multilingual transformer models using the task of classifying a news article in one of 6 languages to one of 6 selected categories. This evaluation used three datasets: A public, English-language dataset available online, an augmented version of this dataset with all items translated into all 6 languages, and a dataset of real-world data collected by the previously developed scraping system. This collected dataset is composed of articles self-categorised by the news sources. We investigated the effectiveness of machine translation as a data augmentation technique to upsample datasets, how effectively models trained on public datasets perform on real-world data. Finally, we trained and evaluated the models on real-world data to evaluate the current accuracy on multilingual news article classification tasks.
 
-\section{Evaluation Results}
+\section{Evaluation Summary}
 We conducted evaluations on the visualisation, web interface and the multilingual classification experiment, and came to the following conclusions:
 \begin{itemize}
-    \item \textbf{RQ1.1}: The visualisation is easy to understand and represents the data collected well
+    \item \textbf{RQ1.1}: The visualisation is easy to understand and represents the data collected well.
     \item \textbf{RQ1.2}: The web interface provides is intuitive and clear, but the effectiveness of managing the scraping system was difficult to measure due to experiment limitations.
-    \item \textbf{RQ2.1}: Machine translation upsampling yields some improvement in classification accuracy
+    \item \textbf{RQ2.1}: Machine translation upsampling yields some improvement in classification accuracy.
     \item \textbf{RQ2.2}: Models trained on public data far outperform static baselines on real-world data, but still suffer a significant performance decrease.
     \item \textbf{RQ2.3}: Our best model on real-world collected data  was XLM-RoBERTa, which achieves 89.4\% accuracy.
 \end{itemize}
@@ -1023,14 +1017,14 @@ Research by \cite{wu2020all} suggests that multilingual BERT is less effective i
  \begin{figure}[h]
 \centering
 \includegraphics[width=0.5\textwidth]{images/wireframe-home-1.png}
-\caption{The wireframe for the homepage of the web interface when the scraper is enabled. White space has been removed for clarity.}
+\caption{The wireframe for the homepage of the web interface when the system is enabled. White space has been removed for clarity.}
 \label{fig:interface-wireframe}
 \end{figure}
 
  \begin{figure}[h]
 \centering
 \includegraphics[width=0.5\textwidth]{images/wireframe-home-2.png}
-\caption{The wireframe for the homepage of the web interface when the scraper is disabled. White space has been removed for clarity.}
+\caption{The wireframe for the homepage of the web interface when the system is disabled. White space has been removed for clarity.}
 \label{fig:interface-wireframe}
 \end{figure}
 
