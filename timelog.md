@@ -452,3 +452,4 @@
 * *2.5 hour* Preparing slides for video presentation
 * *0.5 hour* Writing build and run instructions
 * *1.5 hour* More documentation, meeting preparation, meeting
+* *8 hour* Work on presentation and dissertation

@@ -13,7 +13,7 @@
 
 %==============================================================================
 %% METADATA
-\title{Digital Multilingual News Surveillance and Classification System}
+\title{A Digital Multilingual News Surveillance and Classification System}
 \author{Adam Fairlie}
 \date{March 24, 2023}
 
@@ -22,7 +22,7 @@
 %==============================================================================
 %% ABSTRACT
 \begin{abstract}
-    Current digital news surveillance systems for disease monitoring lack diversity in their data collection systems, and require results to be translated into English before processing. We developed a more robust data collection system which integrates various types of online data into one system, as well as a web interface to manage the system and view result visualisations. Various multilingual machine learning techniques were explored in an experiment on multilingual news category classification, and a classifier to assign categories to incoming multilingual articles was trained and integrated into the collection system. The classifier achieves 89.4\% accuracy on real-world collected data
+    Current digital news surveillance systems for disease monitoring lack diversity in their data collection systems, and require results to be translated into English before processing. We developed a more robust data collection system which integrates various types of online data into one system, as well as a web interface to manage the system and view result visualisations. Various multilingual machine learning techniques were explored in an experiment on multilingual news category classification, and a classifier to assign categories to incoming multilingual articles was trained and integrated into the collection system. The classifier achieves 89.4\% accuracy on real-world collected data.
 \end{abstract}
 
 %==============================================================================
@@ -82,7 +82,7 @@
 The rate of transmission in diseases is often high, travelling rapidly between areas before it can be initially detected and contained. It is important to avoid as much harm as possible by having up-to-date information on local disease outbreak risks freely available to members of the public. Traditional methods of disease surveillance include laboratory networks such as PulseNet from the Center for Disease Control (CDC) which look for patterns in bacteria across infected patients which may indicate an outbreak. These methods can be slow, relying on human experts and conducting experiments which can take several days until results are achieved \citep{swaminathan2001pulsenet}. These methods are often also lacking in coverage of certain diseases or geographic regions due to factors such as a lack of specialist knowledge \citep{abdulraheem2004disease}. Digital forms of surveillance such as online media monitoring have been effective at discovering disease outbreaks at the early stages and mitigating spread, including during the recent COVID-19 pandemic \citep{kostkova2021data}. Several digital surveillance systems have been developed to collect real-time information from online sources, such as news articles, which can be used to quickly find and assess the risk of disease outbreaks across the world. This information can allow governments to respond rapidly to any new outbreaks by providing quick risk information to the public and planning for diagnosis, testing and prevention. It is for this reason that many governments are creating systems which incorporate online sources to monitor disease outbreaks, such as the Global Public Health Intelligence Network (GPHIN)\footnote{https://gphin.canada.ca/cepr/aboutgphin-rmispenbref.jsp?language=en\_CA} from the Canadian government. \par
 
 One such digital surveillance system is BioCaster\footnote{http://biocaster.org/}, developed by a research team from the University of Cambridge and McGill University, which collects news data and provides an online visualisation of disease alerts on their website. There are flaws with the current BioCaster system, particularly in the news collection system. The current system relies on published news feeds, typically provided by large established sources in high-resource countries, creating a coverage gap in low-resource areas and minority languages. The lack of diversity in the types of sources collected may also impact countries which publish less traditional news, and restricts types of online data such as search trends and social media posts which research has shown to be effective in detecting disease outbreaks early \citep{seo2017methods}. \par
-Another weakness in the current BioCaster system is the reliance on the accuracy of external machine translation systems to translate all documents to English before disease risk can be calculated. These systems can struggle with issues such as domain mismatch (words having different translations depending on the domain) \citep{koehn2017six} and can encode forms of bias such as gender bias \citep{stanovsky2019evaluating}. Multilingual models which eliminate the need for machine translation exist for tasks such as multiclass classification, and have not been tested within the BioCaster system.
+Another weakness in the current BioCaster system is the reliance on the accuracy of external machine translation systems to translate all documents to English before disease risk can be calculated. These systems can struggle with issues such as domain mismatch (words having different translations depending on the domain) \citep{koehn2017six} and can encode forms of bias such as gender bias \citep{stanovsky2019evaluating}. Multilingual models which eliminate the need for machine translation exist for tasks such as multiclass classification, and have not been tested within the BioCaster system. In this project, we will develop a new digital surveillance system which collects and displays a wider range of news data, and perform experiments to test the capabilities of multilingual news classification.
 
 \section{Project Aims}
 This project develops a new digital surveillance system for multilingual news data, which aims to improve aspects of the existing BioCaster system. The new system developed should have the following aspects: 
@@ -112,11 +112,11 @@ We will also conduct research on multilingual machine learning models through th
 Several digital news surveillance systems exist for different purposes, including research systems for public health monitoring and commercial systems designed for businesses to track information related to their brand. HealthMap\footnote{https://www.healthmap.org/en/} is a public health monitoring system which provides a world map with location-based disease markers for each country, using RSS data and sources gathered by health experts. EpiCore \citep{haddad2016epicore} is a similar system but instead uses an online network of trained experts to share information digitally. MediSys \citep{steinberger2008medisys} is a public health monitoring system which takes information from many web portals and commercial news sites to sort incoming news into topics which can be viewed on the website. \par
 
 \subsection{BioCaster}
-This project reworks and extends some of the functionality currently used in BioCaster. The BioCaster system collects news articles through a variety of RSS (Really Simple Syndication) feeds across different languages including English, French and Mandarin \citep{collier2008biocaster}. It uses a machine translation server to translate the headlines and article descriptions into English, and various machine learning and rule-based models to filter the English-language data to remove all irrelevant (not disease-related) articles and collect specific details which are used to create a risk alert. These alerts are displayed in a visualisation on the website. A full diagram of the BioCaster system architecture is shown in Figure \ref{fig:biocaster_architecture}. 
+This project reworks and extends some of the functionality currently used in BioCaster. The BioCaster system collects news articles through a variety of RSS feeds across different languages including English, French and Mandarin \citep{collier2008biocaster}. It uses a machine translation server to translate the headlines and article descriptions into English, and various machine learning and rule-based models to filter the English-language data to remove all irrelevant (not disease-related) articles and collect specific details which are used to create a risk alert. These alerts are displayed in a visualisation on the website. A full diagram of the BioCaster system architecture is shown in Figure \ref{fig:biocaster_architecture}. 
  \begin{figure}[h]
  \centering
 \includegraphics[width=0.75\textwidth]{/biocaster_diagram.jpg}
-\caption{The full architecture of the current BioCaster app. Image obtained from \cite{meng2022biocaster}}
+\caption{The full architecture of the current BioCaster app. Image obtained from \cite{meng2022biocaster}.}
 \label{fig:biocaster_architecture}
 \end{figure}
 \par
@@ -131,7 +131,8 @@ Historically, many different approaches and models have been used for the task o
 Naive Bayes classifiers take in input features, which are (usually incorrectly) assumed to be independent for simplicity, and uses them to update a prior belief about how class data is distributed until the distribution reflects the distribution of real data as accurately as possible. Naive Bayes models are probabilistic models, meaning instead of assigning a single class to an output, it creates a probability distribution over all possible classes which can be sampled from for a particular input. A common strategy for Naive Bayes classifiers is to simply take the class with the highest probability for a given input (maximum a posteriori decision rule). The assumption of independence in features can be problematic for classifying news documents, which have heavily codependent features, but methods have been developed to mitigate this issue \citep{qiang2010effective}.Naive Bayes models have produced impressive results on an Indonesian news dataset, achieving 94\% accuracy \citep{septian2017indonesian} and 87\% accuracy on English-language Indian news \citep{kumar2022intelligent}.
 SVM models typically achieve higher accuracy than Naive Bayes models because of the weakness of Naive Bayes inappropriate assumption of independence \citep{dilrukshi2013twitter2, shahi2018nepali, fanny2018comparison}, but Naive Bayes models have the advantage of initialising and classifying data faster than SVM models due to their simplicity, and can sometimes provide comparable or better results.\citep{ting2011naive}. Other traditional models used in news classification include random forests, which create decision trees in order to discriminate between categories \citep{liparas2014news} and K-NN classifiers, which takes the K most similar documents and assigns the article the most common class of these documents \citep{chen2020lao}.
 
-\subsection{Transformer Models}
+\subsection{Transformer-based Models}
+\label{section:transformer-based-models}
 While these traditional models achieved very high performance on many monolingual datasets, there was often a significant decrease in more complex tasks such as classifying multilingual data \citep{vogel2020detecting}. In 2017, the Google research team released the transformer model architecture, which revolutionised text classification for allowing the context of words within a sentence to be leveraged in the model calculations \citep{vaswani2017attention}. A further development BERT, a bi-direction sequence-to-sequence model which removed the decoder section in order to learn word embeddings \citep{devlin2018bert}. BERT very quickly outperformed many established baselines and became the state-of-the-art, and is very widely used in news classification in the last 5 years \citep{chen2022long, mujahid2021classification, deping2021news}, . A detailed explanation of the transformer and BERT architectures can be found in section \ref{section:preliminaries}. These models are widely used because they are pre-trained, and only require fine tuning to a specific task, massively saving computation time and allowing for public access to very complex models, allowing the task of multilingual news classification to be attempted more effectively.
 
 BERT-based models exist which are trained on a corpus of multilingual data, and can embed and represent multilingual input data for classification tasks. One of the most popular multilingual models is mBERT, or multilingual BERT, a variant of BERT trained on over 100 languages. Research by \cite{pires2019multilingual} suggests mBERT may learn an effective language-agnostic latent space which yields impressive results when the model is evaluated on different languages than it is trained on, but this effect decreases as the languages become less structurally similar. mBERT has been used to high success in multilingual news classification tasks \citep{kakwani2020indicnlpsuite, hutama2022indonesian} \par
@@ -154,7 +155,7 @@ Figure \ref{fig:system_overview_diagram} shows a diagram of the overall system a
  \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{images/system_overview_diagram.png}
-\caption{The overview of the system architecture for this project, showing the different modules and interactions between them. Each module is contained in a box. Arrows indicate the transfer of data between modules (e.g. A -> B means module B receives data from module A. The larger, coloured boxes indicate different subsystems. }
+\caption{The overview of the system architecture for this project, showing the different modules and interactions between them. Each module is contained in a box. Arrows indicate the transfer of data between modules (e.g. A -> B means module B receives data from module A). The larger, coloured boxes indicate different subsystems. }
 \label{fig:system_overview_diagram}
 \end{figure}
 \par
@@ -162,11 +163,11 @@ Figure \ref{fig:system_overview_diagram} shows a diagram of the overall system a
 The overall system is designed so that modules can be swapped out and replaced or added into the system in order to cover different sources of online data. In this project, the system and its modules will be designed to gather news articles from RSS feeds and news websites. The purpose of each module in the overall system is as follows:
 \begin{itemize}
     \item \textbf{Crawler: } Connect to an internet source (in this case, an RSS feed or website) and obtain a list of URL's to be parsed for the system (in this case URLs of news articles).
-    \item \textbf{Article parser: } Parse the given list of URLs, mining the page source content for details (in this case, Headline, publish date etc.)
+    \item \textbf{Article parser: } Parse the given list of URLs, mining the page source content for details (in this case, Headline, publish date etc.).
     \item \textbf{Classifier: } Pass each article through a machine learning model in order to assign it a category (in this case, each news article is given a topic).
     \item \textbf{Database connector: } Provide an interface to allow the system to access the external database.
     \item \textbf{Database: } Permanently store the collected and classified data, and the crawlers, in a structured form.
-    \item \textbf{Visualisation: } Present the collected and aggregated data in a number of graphs, charts and statistics for monitoring and interpretation
+    \item \textbf{Visualisation: } Present the collected and aggregated data in a number of graphs, charts and statistics for monitoring and interpretation.
     \item \textbf{Web interface: } Allow administrators to see the visualisation and to manage the active crawlers.
     \item \textbf{Web connector: } Provide an interface for communication between the management website and the scraping system.
     \item \textbf{Controller: } Initialise crawlers from the sources stored in the database. Send the parsed articles to the classifier and communicate with the web interface (send updates and receive instructions).
@@ -201,10 +202,10 @@ The data processing system creates structured data from internet sources, conver
 \subsection{Parser}
 The parser receives as input a combined list of URLs from the crawlers and for each URL, will retrieve the page HTML and use it to extract details about the page (in this case, the pages will be news articles) which can be inserted into the database. The article URLs will be shuffled randomly before parsing to avoid very fast repeated requests to the same host, which smaller sources may not be able to easily handle. The parser assumes that news sources are monolingual to avoid language detection wherever possible, but will attempt to detect the language if parsing is incorrect. After this process is complete, the parser sends the parsed data to the classifier to assign the article a topic. The information required from a news article for this project, which the parser will attempt to scrape, is:
 \begin{itemize}
-    \item Article headline
-    \item Article body
-    \item Publish date
-    \item Language
+    \item Article headline (e.g. "UK interest rates: What the rise means for you").
+    \item Article body (e.g. "The Bank of England has raised interest rates...").
+    \item Publish date (e.g. 23rd March 2023 13:00).
+    \item Language (e.g. "EN" for English).
 \end{itemize}
  An abstract parser class handles all communication with other modules. Any concrete parser implementations (such as the article parser in this project) only have to implement a specific method for crawling a list of given URLs and retrieving structured data from the URLs and returning a final list. A full diagram of parser functionality is shown in Figure \ref{fig:parser_diagram}
  \begin{figure}[h]
@@ -272,12 +273,12 @@ Category           & Text          & The assigned category of this article (e.g.
 \subsection{Database Connector}
 The database connector provides a connection between the system and the external database, allowing the other modules to send and retrieve the data. In this system, the connector must have functionality for:
 \begin{itemize}
-    \item Creating the Article and Source tables
-    \item Adding new sources and articles
-    \item Retrieving stored sources
-    \item Deleting sources
-    \item Updating sources (enabling/disabling, updating last scrape time)
-    \item Searching articles by URL and headline (for duplicate checking) 
+    \item Creating the Article and Source tables.
+    \item Adding new sources and articles.
+    \item Retrieving stored sources.
+    \item Deleting sources.
+    \item Updating sources (enabling/disabling, updating last scrape time).
+    \item Searching articles by URL and headline (for duplicate checking). 
 \end{itemize}
 A full diagram of database functionality is shown in Figure \ref{fig:database_diagram}
  \begin{figure}[h]
@@ -290,32 +291,42 @@ A full diagram of database functionality is shown in Figure \ref{fig:database_di
 The data presentation subsystem is concerned with creating an easy interface for a user to view, analyse and understand the data collected, as well as easily interact with the system to modify its behaviour. The system should have interfaces which are easy to use and understand and provide useful insight and control on the data collection process.
 
 \subsection{Visualisation}
-The visualisation is mainly based on the current BioCaster interface, as shown in Figure \ref{fig:biocaster_visualisation}. This design has been updated to reflect the changes from my project to the current system, including the addition of news article topics and different source types of information retrieved. I also did not have the specific region or disease information to create the alerts seen on the BioCaster interface. Shown in Figure \ref{fig:visualisation-wireframe} is an initial wireframe of the new visualisation: \par
+The visualisation is mainly based on the current BioCaster interface, as shown in Figure \ref{fig:biocaster-visualisation}. This design has been updated to reflect the changes from my project to the current system, including the addition of news article topics and different source types of information retrieved. I also did not have the specific region or disease information to create the alerts seen on the BioCaster interface. Shown in Figure \ref{fig:visualisation-wireframe} is an initial wireframe of the new visualisation: \par
+
+ \begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{images/biocaster_interface.png}
+\caption{The current BioCaster visualisation. Available at http://biocaster.org.}
+\label{fig:biocaster-visualisation}
+\end{figure}
+
  \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{images/visualisation-wireframe.png}
 \caption{The wireframe for the new visualisation.}
 \label{fig:visualisation-wireframe}
 \end{figure}
+
+
 After supervisor feedback, more emphasis was placed on filtering by source type. The final visualisation will have the following modules:
 \begin{itemize}
-    \item A bar for filtering by Category, Language and Source type
-    \item A section showing the number of total and active sources
-    \item A section showing the number of articles scraped today, this week and this month
-    \item Pie charts showing data distribution by source type, language and category
-    \item A table showing the most recent articles collected
-    \item Time-series data on articles collected over time
-    \item A world map showing information per country (number of articles, most common category etc.)
+    \item A bar for filtering by category, language and source type.
+    \item A section showing the number of total and active sources.
+    \item A section showing the number of articles scraped today, this week and this month.
+    \item Pie charts showing data distribution by source type, language and category.
+    \item A table showing the most recent articles collected.
+    \item Time-series data on articles collected over time.
+    \item A world map showing information per country (number of articles, most common category etc.).
 \end{itemize}
 
 \subsection{Web Interface}
 The web interface is designed to show the visualisation on a webpage, as well as provide functionality for managing the scraping system. The web interface should provide utility for the following tasks:
 \begin{itemize}
-    \item Enabling/disabling the entire scraping system
-    \item Enabling/disabling individual sources
-    \item Deleting individual sources
-    \item Adding new sources
-    \item Viewing stale sources (this was requested by a member of the BioCaster team in a meeting)
+    \item Enabling/disabling the entire scraping system.
+    \item Enabling/disabling individual sources.
+    \item Deleting individual sources.
+    \item Adding new sources.
+    \item Viewing stale sources (this was requested by a member of the BioCaster team in a meeting).
 \end{itemize}
 The wireframe for the manage sources page of the web interface is shown in Figure \ref{fig:interface-wireframe} 
  \begin{figure}[h]
@@ -328,7 +339,7 @@ The wireframe for the manage sources page of the web interface is shown in Figur
 \section{System Coordination}
 The system coordination subsystem is responsible for orchestrating the data collection process and connecting subsystems, as well as allowing the interface to communicate with the scraping system.
 \subsection{Web Connector}
-The web connector provides the interface between the web server and the scraping system. It ensures that the commands performed on the interface are translated into instructions for the controller, which will perform the requested action. These instructions include enabling, disabling, deleting and adding sources, as well as enabling or disabling the entire scraping system. The web interface can also request updates through the web connector, to show the user the most recent information on the most recent scrape times of each source. Figure \ref{web-connector-diagram} shows how the web connector integrates with all other modules.
+The web connector provides the interface between the web server and the scraping system. It ensures that the commands performed on the interface are translated into instructions for the controller, which will perform the requested action. These instructions include enabling, disabling, deleting and adding sources, as well as enabling or disabling the entire scraping system. The web interface can also request updates through the web connector, to show the user the most recent information on the most recent scrape times of each source. Figure \ref{fig:web-connector-diagram} shows how the web connector integrates with all other modules.
  \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{images/Web-connector-diagram.png}
@@ -363,16 +374,17 @@ A full diagram of the controller functionality is shown in Figure \ref{fig:contr
 This section describes the implementation of each of the previously described sections, including details of the algorithms, libraries and technologies used. The system is written in Python as this is a very common language, especially for machine learning programs, and has many libraries available for web crawling, web scraping and database communication.
 
 \section{Crawlers}
-Generally, the purpose of the crawler is to return a list of URLs for parsing given a source URL. The crawlers also control the updating of their own state in the database. The implementation of this functionality is shown below in Figure \ref{fig:abstract-crawler}.
+Generally, the purpose of the crawler is to return a list of URLs for parsing given a source URL. The crawlers also control the updating of their own state in the database.
+
 \subsection{Instantiation}
 Concrete implementations of crawlers will extend the constructor of the abstract crawler, by adding their source type as a parameter and possibly in other ways. The abstract crawler handles the consistent details of instantiation, as listed below:
-\begin{itemize}
-    \item Initialise URL, and "is enabled" variables (crawlers are enabled by default)
-    \item Initialise language, if given
-    \item Initialise source ID if given, otherwise create the source object in the database and initialise the new source ID returned by the operation
-    \item Initialise country if given (using a dictionary of country names to ISO 3166 alpha-2 code if necessary), otherwise attempt to mine it from the URL (e.g. .co.uk website implies "GB")
-    \item Initialise the last scrape time if it exists, otherwise set it to a default value
-\end{itemize}
+\begin{enumerate}
+    \item Initialise URL, and "is enabled" variables (crawlers are enabled by default).
+    \item Initialise language, if given.
+    \item Initialise source ID if given, otherwise create the source object in the database and initialise the new source ID returned by the operation.
+    \item Initialise country if given (using a dictionary of country names to ISO 3166 alpha-2 code if necessary), otherwise attempt to mine it from the URL (e.g. ".co.uk" website implies "GB").
+    \item Initialise the last scrape time if it exists, otherwise set it to a default value.
+\end{enumerate}
 The abstract crawler also includes all functions which interface with the database connector, using its source ID: Update last scrape time to a given time (if it is more recent than the current time), enable/disable and delete. These functions are called in response to commands from the web interface. If specified in the config, a scraper can automatically disable itself if it is stale. The main "crawl" method which is called by the connector will retrieve a list of new articles using a method overridden by a concrete implementation, and then return all non-duplicate URLs (checked by searching for each of the URLs in the database) packaged with the language, country, source name, source type and a reference to itself so that the parser can update the crawlers last scrape time when it finds the date of an article.
 
 \subsection{Web Crawler}
@@ -389,7 +401,7 @@ The abstract parser is instantiated with two arguments: A classifier, which pars
 \subsection{Article Parser}
 
 \subsubsection{Choice of library} \hfill \par
-The main free and open-source technologies for scraping news articles from websites in Python were \emph{Newspaper3K}\footnote{https://github.com/codelucas/newspaper} and \emph{news-please}\footnote{https://github.com/fhamborg/news-please}, which is built on top of Newspaper3K and adds some extra features. Another option considered was \emph{Newscatcher}\footnote{https://newscatcherapi.com/news-api}, but the free API is limited in how many calls can be made and this made it unsuitable for this project. Finally, we considered \emph{pygooglenews}\footnote{https://github.com/kotartemiy/pygooglenews} which provided some promise in using google news to find articles under certain subjects, keywords, languages and regions. For this project, I found it desirable to have better control of the exact sources collected, instead of filtering through keywords and relying on Google's source selection, but a scraper using this library could easily be added to extend the capabilities of the current system. We decided to move forward with the former two libraries and conducted an experiment to compare their capabilities. \par
+The main free and open-source technologies for scraping news articles from websites in Python were \emph{Newspaper3K} and \emph{news-please}\footnote{https://github.com/fhamborg/news-please}, which is built on top of Newspaper3K and adds some extra features. Another option considered was \emph{Newscatcher}\footnote{https://newscatcherapi.com/news-api}, but the free API is limited in how many calls can be made and this made it unsuitable for this project. Finally, we considered \emph{pygooglenews}\footnote{https://github.com/kotartemiy/pygooglenews} which provided some promise in using google news to find articles under certain subjects, keywords, languages and regions. For this project, I found it desirable to have better control of the exact sources collected, instead of filtering through keywords and relying on Google's source selection, but a scraper using this library could easily be added to extend the capabilities of the current system. We decided to move forward with the former two libraries and conducted an experiment to compare their capabilities. \par
 
 We compared the features present in each of the two libraries. Notably, Newspaper3K can perform full website scraping in Python, whereas news-please can only do this using its Command Line Interface (CLI). We attempted to scrape 3 articles from each of 109 previously selected websites, across 10 languages (English, French, Spanish, Portuguese, Russian, Indonesian, Mandarin, Korean and Arabic), and compared the number of successful scrapes (without error) and the average speed. The results are shown in Table \ref{table:scraper-library-results}. \par 
 
@@ -417,68 +429,68 @@ We compared the features present in each of the two libraries. Notably, Newspape
 Newspaper3K scraped 103 of the 109 websites (94.5\%) without error, whereas news-please scraped 102/109 (93.58\%). The average scraping times are similar in both libraries, but Newspaper3K was faster at scraping in 8 of the 10 languages, and average scraping time per article was 14.82\% lower. Newspaper3K also has the added advantage of requiring one less library, as it is already used in the web crawler. Based on these factors, I chose to use Newspaper3K for the scraping system.
 \subsubsection{Parsing news articles} \hfill \par
 To parse the given list of URLs with extra details, the article parser implements the following algorithm:
-\begin{itemize}
-    \item Maintain a list of (source, publish date) pairs and currently parsed articles
+\begin{enumerate}
+    \item Maintain a list of (source, publish date) pairs and currently parsed articles.
     \item For each article URL:
-    \begin{itemize}
-        \item Attempt to download and parse the URL with Newspaper3K, using the article source's main language
-        \item Discard the article if it does not exist or have a title
-        \item If the article does not have text, attempt to detect the language of the article headline (using the \emph{langdetect} library)
-        \item If the detected language is different to the original language, redownload and parse the article in the new language
-        \item Discard the article if there is still no text, or if the text is below the minimum article length
-        \item If the parsed article has a publish date, create a new (source, publish date) pair with the article source and parsed publish date
-        \item Create a parsed article object which includes URL, title, main text, language, country, publish date, original source and original source type
-        \item Add the parsed article to the list of parsed articles
-        \item If an exception occurs (e.g. a connection error or a forbidden URL), skip the article
-    \end{itemize}
-    \item For every (source, publish date) pair, update the source with the new publish date (as the source only updates with newer publish dates, we do not have to find the newest update for each source)
-    \item Return the list of parsed articles
-\end{itemize}
+    \begin{enumerate}
+        \item Attempt to download and parse the URL with Newspaper3K, using the article source's main language.
+        \item Discard the article if it does not exist or have a title.
+        \item If the article does not have text, attempt to detect the language of the article headline (using the \emph{langdetect} library).
+        \item If the detected language is different to the original language, re-download and parse the article in the new language.
+        \item Discard the article if there is still no text, or if the text is below the minimum article length.
+        \item If the parsed article has a publish date, create a new (source, publish date) pair with the article source and parsed publish date.
+        \item Create a parsed article object which includes URL, title, main text, language, country, publish date, original source and original source type.
+        \item Add the parsed article to the list of parsed articles.
+        \item If an exception occurs (e.g. a connection error or a forbidden URL), skip the article.
+    \end{enumerate}
+    \item For every (source, publish date) pair, update the source with the new publish date (as the source only updates with newer publish dates, we do not have to find the newest update for each source).
+    \item Return the list of parsed articles.
+\end{enumerate}
 
 \section{Classifier}
 The classifier module will apply a machine learning model to parsed article data, and send the parsed articles and classifications to the database connector to be added to the database. The abstract classifier class provides the basic structure and some common functionality of the classifier module, such as a constructor which initialises the model and tokenizer, input batching and communication with the database. A concrete classifier implementation will have to implement:
 \begin{itemize}
-    \item A method for initialising the tokenizer (if necessary)
-    \item A method for initialising the model
-    \item A method for preparing the input articles for classification (extracting the exact input from the article properties)
-    \item A method for tokenizing prepared inputs
-    \item A method for classifying a tokenized input batch
+    \item A method for initialising the tokenizer (if necessary).
+    \item A method for initialising the model.
+    \item A method for preparing the input articles for classification (extracting the exact input from the article properties).
+    \item A method for tokenizing prepared inputs.
+    \item A method for classifying a tokenized input batch.
 \end{itemize}
 
 \subsection{BERT Classifier}
-The concrete version of the classifier uses the best performing model on collected real-world training data, loading the pre-trained model from a file with path specified in the constructor. 
+The concrete version of the classifier uses the best performing model on collected real-world training data (from Section \ref{section:rq2.3}), loading the pre-trained model from a file with path specified in the constructor. 
 \subsubsection{Training data collection} \hfill \par
 The sources and keywords for real-world training data were decided as discussed in Section 4.2.2. Any category specific RSS feed was scraped by the system, assigning the corresponding category to each data article before adding to the database. For each news website with category specified in URL, a dictionary of URL keyword to category was created from a manually collected list of category-specific URLs, and any website whose URL contained a category keyword in an appropriate place (e.g. \textbf{sports}.sina.com.cn or aljazeera.net/\textbf{arts}). Before parsing, the URLs were filtered into categories using this matching system, and any articles which didn't match were discarded. Any of these articles which could correctly parse were added to the database with their corresponding category. This process continued until enough articles (at least 10,000) were collected for training.
 
 \subsubsection{Model training} \hfill \par
     The steps involved in creating the trained model for use in the classifier module are as follows:
-    \begin{itemize}
-        \item Load the real-world dataset from file and reformat into a dataset object
-        \item Split the dataset into a train and test set
-        \item Load the model and tokenizer from huggingface
-        \item Perform a grid search in parameter space for hyperparameter optimisation using the training set to find the best model parameters
-        \item Using the best parameters, train a new copy of the model on the training data and evaluate on the test data
-        \item Save the trained model to a file, which can be imported by the classifier module
-    \end{itemize}
-    Models were loaded, trained and evaluated using the Huggingface\footnote{https://huggingface.co} libraries. Huggingface hosts many pre-trained transformer models and datasets uploaded by users on its website, which can easily be downloaded and imported into a python program using one line of code. The library also allows for saving pre-trained models on the website under a user account. The \emph{transformers}, \emph{datasets} and \emph{evaluate} libraries from Huggingface make each stage of model training and evaluation very easy by providing an intuitive API which can easily connect with standard machine learning libraries such as pytorch\footnote{https://pytorch.org}, which was used in this project. Hyperparameters were optimised using the Optuna\footnote{https://optuna.org} backend\par
+    \begin{enumerate}
+        \item Load the real-world dataset from file and reformat into a dataset object.
+        \item Split the dataset into a train and test set.
+        \item Load the model and tokenizer from Huggingface\footnote{https://huggingface.co}.
+        \item Perform a grid search in parameter space for hyperparameter optimisation using the training set to find the best model parameters.
+        \item Using the best parameters, train a new copy of the model on the training data and evaluate on the test data.
+        \item Save the trained model to a file, which can be imported by the classifier module.
+    \end{enumerate}
+    Models were loaded, trained and evaluated using the Huggingface libraries. Huggingface hosts many pre-trained transformer models and datasets uploaded by users on its website, which can easily be downloaded and imported into a Python program using one line of code. The library also allows for saving pre-trained models on the website under a user account. The \emph{transformers}, \emph{datasets} and \emph{evaluate} libraries from Huggingface make each stage of model training and evaluation very easy by providing an intuitive API which can easily connect with standard machine learning libraries such as pytorch\footnote{https://pytorch.org}, which was used in this project. Hyperparameters were optimised using the Optuna\footnote{https://optuna.org} backend\par
     
 \subsubsection{Batch inference} \hfill \par
     To obtain classifications from the model, the following steps are taken:
-    \begin{itemize}
-        \item Concatenate the article title and body text as model input
+    \begin{enumerate}
+        \item Concatenate the article title and body text as model input.
         \item Tokenize the concatenated models using the Huggingface model tokenizer.
-        \item Feed the model a batch of up to 32 inputs and obtain the logits (log likelioods) of each item using model(inputs).logits
-        \item For each input item, select the most likely category by selecting the largest logit value
-        \item Using the models map of category ID to category name, obtain the category name of each input item's most likely category
-    \end{itemize}
+        \item Feed the model a batch of up to 32 inputs and obtain the logits (log likelihoods) of each item using model(inputs).
+        \item For each input item, select the most likely category by selecting the largest logit value.
+        \item Using the models map of category ID to category name, obtain the category name of each input item's most likely category.
+    \end{enumerate}
 
 
 \section{Database and Visualisation}
-The data from the article collection and processing system is stored on an elasticsearch\footnote{https://www.elastic.co} database. Elasticsearch is the database system used in the original BioCaster system, and allows for easy integration into the python article collection code and into the visualisation system. It is a noSQL no-schema database which stores entries in unstructured JSON format. The unstructured nature of the data means there are no foreign keys, so some data must be duplicated (source name, country and data type must be stored for each article despite being inherited from the original source). The lack of structure will make the queries required for loading sources and checking for duplicate articles less efficient, but these queries are required at a low enough rate that the system should be able to easily process them. The advantages of elasticsearch are the ease of creating real-time visualisations from the data using the Elastic software stack\footnote{https://www.elastic.co/elastic-stack/} and the ease of integrating the new system into the current BioCaster system as the infrastructure is already in place for an elasticsearch database.\par
+The data from the article collection and processing system is stored on an elasticsearch\footnote{https://www.elastic.co} database. Elasticsearch is the database system used in the original BioCaster system, and allows for easy integration into the Python article collection code and into the visualisation system. It is a noSQL no-schema database which stores entries in unstructured JSON format. The unstructured nature of the data means there are no foreign keys, so some data must be duplicated (source name, country and data type must be stored for each article despite being inherited from the original source). The lack of structure will make the queries required for loading sources and checking for duplicate articles less efficient, but these queries are required at a low enough rate that the system should be able to easily process them. The advantages of elasticsearch are the ease of creating real-time visualisations from the data using the Elastic software stack\footnote{https://www.elastic.co/elastic-stack/} and the ease of integrating the new system into the current BioCaster system as the infrastructure is already in place for an elasticsearch database.\par
 The BioCaster visualisation is created using Elastic Kibana\footnote{https://www.elastic.co/kibana/}, which provides an interface for creating highly customised interfaces by combining different pre-made modules with different attributes and aggregations from the underlying elasticsearch data. These visualisations can be embedded onto an HTML page and will automatically refresh to represent new data collected. This project uses a locally hosted database and visualisation system, hosting two separate docker containers for elasticsearch and kibana, but elastic supports cloud storage and data visualisation. 
 
 \subsection{Database Connector}
-The database connector is written using the \emph{elasticsearch}\footnote{https://elasticsearch-py.readthedocs.io/en/v8.6.2/} python library, which provides an interface which abstracts some of the JSON request-response system used by elasticsearch, The library establishes a connection with the elasticsearch cluster, authenticating securely through HTTPS using a username and password, and for local connections with an SSL\footnote{Secure Sockets Layer} certificate. This connection is saved as an object which is used to perform all requests to the database system. Updates and searches are performed by specifying a JSON body containing the request details, and responses are returned in a JSON format which is processed by the connector system to retrieve specific attributes, An example request and response is shown in Figure \textbf{add figure}. The library also provides a bulk request API, which is used to upload large batches of documents. In the event of a failed batch upload, the system will attempt to upload each article individually.
+The database connector is written using the \emph{elasticsearch}\footnote{https://elasticsearch-py.readthedocs.io/en/v8.6.2/} Python library, which provides an interface which abstracts some of the JSON request-response system used by elasticsearch, The library establishes a connection with the elasticsearch cluster, authenticating securely through HTTPS using a username and password, and for local connections with an SSL\footnote{Secure Sockets Layer} certificate. This connection is saved as an object which is used to perform all requests to the database system. Updates and searches are performed by specifying a JSON body containing the request details, and responses are returned in a JSON format which is processed by the connector system to retrieve specific attributes, An example request and response is shown in Figure \textbf{add figure}. The library also provides a bulk request API, which is used to upload large batches of documents. In the event of a failed batch upload, the system will attempt to upload each article individually.
 
 \section{Visualisation}
 The BioCaster visualisation is created using a dashboard on Elastic Kibana. A map widget shows the articles collected by country using the ISO 3166-1 alpha-2 country codes stored in the "Country" attribute of each article. The final visualisation is shown in Figure \ref{fig:visualisation}
@@ -487,7 +499,7 @@ I chose to change the article density to cover the whole country instead of bein
 
 \begin{figure}[h]
 \includegraphics[width=\textwidth]{/Visualisation.png}
-\caption{The finished visualisation shown on the web interface}
+\caption{The finished visualisation shown on the web interface.}
 \label{fig:visualisation}
 \end{figure}
 
@@ -520,14 +532,14 @@ The manage sources page shows when sources found their last article, and splits 
 The implementation details of the JavaScript responsive elements are contained in the following section, as the logic is connected with requests to and responses from the Python controller.
 
 \section{Web Connector}
-The plain HTML/CSS/JavaScript connects to the pythonhttps://github.com/python-eel/Eel code for the scraping system using the python library \emph{eel}\footnote{https://github.com/python-eel/Eel}. This library creates an offline web server using a specified directory and by calling a start method with a specified file, will begin running the web server from the python code.
+The plain HTML/CSS/JavaScript connects to the code for the scraping system using the Python library \emph{eel}\footnote{https://github.com/python-eel/Eel}. This library creates an offline web server using a specified directory and by calling a start method with a specified file, will begin running the web server from the Python code.
 
 \subsection{Communication between Python and JavaScript}
-By importing "eel.js" in the head section of the index HTML page, an interface is established where the Python and JavaScript modules can pass information aynchronously between each other. Python methods can be exposed to JavaScript using a method decorator, where they can be called in the JavaScript code by calling "eel.<python method name>(<params>)(<callback function>)" where the return values of the python function will be given to the callback function which is called when the values are available. No callback function can be specified to return the value into the function giving the original call (but the value must be awaited as communication is asynchronous). Python modules can also call JavaScript functions but this is not used in this project. The communication between JavaScript and Python is illustrated in figure \ref{fig:eel-communication}
+By importing "eel.js" in the head section of the index HTML page, an interface is established where the Python and JavaScript modules can pass information aynchronously between each other. Python methods can be exposed to JavaScript using a method decorator, where they can be called in the JavaScript code by calling "eel.<Python method name>(<params>)(<callback function>)" where the return values of the Python function will be given to the callback function which is called when the values are available. No callback function can be specified to return the value into the function giving the original call (but the value must be awaited as communication is asynchronous). Python modules can also call JavaScript functions but this is not used in this project. The communication between JavaScript and Python is illustrated in figure \ref{fig:eel-communication}
 
 \begin{figure}[!ht]
 \includegraphics[width=\textwidth]{images/eel-communication.png}
-\caption{A diagram showing the process of calling a Python method from the JavaScript code on the web server, using eel. This uses a simple example where jsFunc1 initialises a value, sends the value to python function python\_func which doubles the value and returns it to jsFunc2, which prints the result. The @eel.expose decorator on python\_func makes the function available from the JavaScript file}
+\caption{A diagram showing the process of calling a Python method from the JavaScript code on the web server, using eel. This uses a simple example where jsFunc1 initialises a value, sends the value to Python function python\_func which doubles the value and returns it to jsFunc2, which prints the result. The @eel.expose decorator on python\_func makes the function available from the JavaScript file}
 \label{fig:eel-communication}
 \end{figure}
 
@@ -535,34 +547,34 @@ By importing "eel.js" in the head section of the index HTML page, an interface i
 The dynamic elements of the page are implemented using JavaScript events: functionality is triggered when the page loads and when buttons are clicked. The visual changes to buttons (e.g. a change in colour of the enable/disable button when toggled) are achieved by adding and removing predefined CSS classes to the clicked elements, and any updates to the state of the system or sources are achieved through communication with the Python controller using eel. An overview of the JavaScript functionality and necessary Python methods for communication is given below:
 \subsubsection{Adding sources to the table} \hfill \par
 Given a new source, the following steps are performed:
-\begin{itemize}
+\begin{enumerate}
     \item If the source is active, increment the number of active sources.
     \item Get the difference in time between the current time and the time of last new article.
     \item Check if the source is stale (if this difference is larger than the number of days until a source is stale).
     \item Generate a string for the last scrape time (e.g. "5 minutes ago") given this difference.
     \item Decide which table the row should be in (disabled table if it is not active, stale table if it is active and stale, active table otherwise).
-    \item Using the date string, stale boolean value and the data from python, build the HTML for a table row.
+    \item Using the date string, stale boolean value and the data from Python, build the HTML for a table row.
     \item The ID of the buttons on this new table row will contain the source ID, so that it can be tracked for modifying the source later.    
-\end{itemize}
+\end{enumerate}
 The implementation of this functionality is shown in Appendix \ref{appendix:js-add-sources}.
 
 \subsubsection{JavaScript Events}
 \begin{itemize}
-    \item \textbf{Page loads: } On page load, the number of days until stale and system state are obtained from the python code, and the state of the Start/stop scraping button is updated accordingly. A method is also started that periodically (once per specified number of seconds) calls the python \textbf{get sources list} method and uses the results to repopulate the tables.
+    \item \textbf{Page loads: } On page load, the number of days until stale and system state are obtained from the Python code, and the state of the Start/stop scraping button is updated accordingly. A method is also started that periodically (once per specified number of seconds) calls the Python \textbf{get sources list} method and uses the results to repopulate the tables.
     \item \textbf{Start/stop scraping button:} When clicked, the button calls a method which changes its own text to "Stopping..." or "Starting..." and calls the Python \textbf{toggle scraper} method. When it gets a response, it changes the text and colour of the button (by changing CSS class) to represent the new state and also changes the subtext of the webpage between "Scraping <no. active sources> sources" and "Not currently scraping".
     \item \textbf{Show/hide visualisation button: } When clicked, the button calls a method which changes its own text and sets the display of the visualisation embed to "none" (making it invisible) or "block" (making it appear on the page, below the button).
     \item \textbf{Manage sources button: } When clicked, the button calls a method which toggles the visibility of the div containing the entire manage sources page (changes display from "none" to "block").
     \item \textbf{Back to dashboard button: } When clicked, the button returns the user to the dashboard by setting the display of the div containing the manage sources section to "none".
     \item \textbf{Add source / cancel button: } When clicked, the button changes its own name and colour (from "Add source" in blue to "Cancel" in red) and toggles the visibility of the form for adding sources (shown in Figure \ref{fig:add-sources-box}).
-    \item \textbf{Submit button: } When the submit button is clicked, all information is extracted from the form inputs. If the input is valid (contains a name, URL and specifies source type), it is sent to the python \textbf{add source} method. When the source details are returned from this method, the source is added to the active table. If the input is invalid error text is shown.
-    \item \textbf{Disable/Enable buttons: } When clicked, the button changes its text to "Disabling..." or "Enabling..." and calls the python \textbf{toggle source} method. When the value is returned, it checks whether the operation was successful. If it was successful, it copies the information from the original table row and deleted the table row. It then creates a new table row in the next table (disabled table if being disabled, otherwise active or stale table depending on the last scrape time of the source). If the operation was unsuccessful, the button text is reverted back to its original value.
-    \item \textbf{Delete buttons: } When clicked, the button changes its text to "Deleting..." and calls the python \textbf{delete source} method. When the value is returned, it checks whether the operation was successful. If it was successful, it deletes the table row. If the operation was unsuccessful, the button text is reverted back to "Delete".
+    \item \textbf{Submit button: } When the submit button is clicked, all information is extracted from the form inputs. If the input is valid (contains a name, URL and specifies source type), it is sent to the Python \textbf{add source} method. When the source details are returned from this method, the source is added to the active table. If the input is invalid error text is shown.
+    \item \textbf{Disable/Enable buttons: } When clicked, the button changes its text to "Disabling..." or "Enabling..." and calls the Python \textbf{toggle source} method. When the value is returned, it checks whether the operation was successful. If it was successful, it copies the information from the original table row and deleted the table row. It then creates a new table row in the next table (disabled table if being disabled, otherwise active or stale table depending on the last scrape time of the source). If the operation was unsuccessful, the button text is reverted back to its original value.
+    \item \textbf{Delete buttons: } When clicked, the button changes its text to "Deleting..." and calls the Python \textbf{delete source} method. When the value is returned, it checks whether the operation was successful. If it was successful, it deletes the table row. If the operation was unsuccessful, the button text is reverted back to "Delete".
 \end{itemize}
 \hfill \par
 \subsubsection{Python Methods}
 \begin{itemize}
-    \item \textbf{Get days until stale: } Returns the number of days until a source becomes stale
-    \item \textbf{Get system state: } Returns a boolean, indicating whether the system is currently active
+    \item \textbf{Get days until stale: } Returns the number of days until a source becomes stale.
+    \item \textbf{Get system state: } Returns a boolean, indicating whether the system is currently active.
     \item \textbf{Get sources list: } Returns a list of source crawler objects, including every parameter needed by the JavaScript code (ID, URL, name, language, source type, time of last scrape, if the crawler is active).
     \item \textbf{Toggle system: } Turns the system on or off, returning the new state.
     \item \textbf{Toggle source: } Given a source ID, finds the source in the list of sources and enables/disables it. Returns a boolean indicating whether the action was successful.
@@ -573,49 +585,49 @@ The implementation of this functionality is shown in Appendix \ref{appendix:js-a
 \section{Controller}
 The controller is the module which is run to start the entire system, and when run will perform the following tasks:
 \begin{itemize}
-    \item Define the web connector python methods
-    \item Load variables from the config (whether to auto-disable stale sources, maximum number of sources to scrape, whether to run the web app, days until crawlers are considered stale, minimum number of seconds between scrapes)
-    \item Ensures the database indices are created through the database connector
-    \item Load the sources from the database and instantiate the crawlers
-    \item Instantiate parser(s) and classifier(s)
-    \item Build pipelines from data collection to storage in database
-    \item If the web app is enabled, start the web app
-    \item Start the scraping system
+    \item Define the web connector Python methods.
+    \item Load variables from the config (whether to auto-disable stale sources, maximum number of sources to scrape, whether to run the web app, days until crawlers are considered stale, minimum number of seconds between scrapes).
+    \item Ensures the database indices are created through the database connector.
+    \item Load the sources from the database and instantiate the crawlers.
+    \item Instantiate parser(s) and classifier(s).
+    \item Build pipelines from data collection to storage in database.
+    \item If the web app is enabled, start the web app.
+    \item Start the scraping system.
 \end{itemize}
 
 \subsection{Multi-threading}
-As the eel web server will block the code when running, only continuing to run when the web server is stopped, it is necessary to start the scraping system on a separate thread to allow both to run simultaneously. Some components are required to ensure components are properly synchronised, such as a lock on the list of crawlers, which is passed to parsers and acquired by any part of the code (parser or python web interface function) intending to make changes to the internal state of a scraper, to ensure all operations are performed properly. The scraping system thread also uses an event, which is used to communicate between threads that some condition has been met. In this case, when the web server is stopped it will set the event, and the scraping system periodically checks if the event is set, and will stop if it is. 
+As the eel web server will block the code when running, only continuing to run when the web server is stopped, it is necessary to start the scraping system on a separate thread to allow both to run simultaneously. Some components are required to ensure components are properly synchronised, such as a lock on the list of crawlers, which is passed to parsers and acquired by any part of the code (parser or Python web interface function) intending to make changes to the internal state of a scraper, to ensure all operations are performed properly. The scraping system thread also uses an event, which is used to communicate between threads that some condition has been met. In this case, when the web server is stopped it will set the event, and the scraping system periodically checks if the event is set, and will stop if it is. 
 
 \subsection{Pipelines}
 The controller defines data pipelines, which control which sources are passed to which parser and classifier, allowing for different sources of data to be processed differently. The pipelines take the form (list of data source types, parser), where the parser is an initialised parser object (with a given classifier). Any sources in the list which are in the list of data source types will be sent to the corresponding parser. To ensure no data duplication, each type of data source can only be sent to one type of parser.
 
 \subsection{Scraping System}
 The scraping system is given the list of crawlers and list of pipelines on execution. The algorithm is as follows:
-\begin{itemize}
-    \item Initialise a list of article URLs for each pipeline
-    \item Save the current time as the start time
-    \item For each crawler in the list of crawlers
-    \begin{itemize}
-        \item Block until the scraper system is enabled, checking for the event to be set
-        \item Run the crawler to obtain a list of article URLs
-        \item Find the first pipeline which includes the type of crawler (or discard the data if there is none)
-        \item Add the URLs to the pipelines list
-    \end{itemize}
-    \item For each pipeline, run the parser on the corresponding list of article URLs
-    \item Reset the list of URLs for each pipeline
-    \item Get the time elapsed by subtracting the start time from the current time
-    \item If the time elapsed is less than the minimum time per scrape, sleep for the rest of the time, checking periodically for the event to be set
-    \item Repeat from step 2
-\end{itemize}
+\begin{enumerate}
+    \item Initialise a list of article URLs for each pipeline.
+    \item Save the current time as the start time.
+    \item For each crawler in the list of crawlers.
+    \begin{enumerate}
+        \item Block until the scraper system is enabled, checking for the event to be set.
+        \item Run the crawler to obtain a list of article URLs.
+        \item Find the first pipeline which includes the type of crawler (or discard the data if there is none).
+        \item Add the URLs to the pipelines list.
+    \end{enumerate}
+    \item For each pipeline, run the parser on the corresponding list of article URLs.
+    \item Reset the list of URLs for each pipeline.
+    \item Get the time elapsed by subtracting the start time from the current time.
+    \item If the time elapsed is less than the minimum time per scrape, sleep for the rest of the time, checking periodically for the event to be set.
+    \item Repeat from step 2.
+\end{enumerate}
 
 \section{Summary}
-The system is primarily written in python although the web application uses JavaScript. The crawlers use the database connector to update their own state, and concrete implementations use an RSS parser to crawl RSS feeds and a web crawling library to build the profile of a news website and find all article links. The article parser uses the Newspaper3K library to turn the list of URLs into parsed objects, which it sends to the classifier. The BERT classifier is built using Huggingface transformers and uses a previously trained transformer model to categorise each article object from its headline and body, selecting the maximum log likelihood category on inference. The categorised objects are sent by a python database connector to a noSQL elasticsearch database, which directly feeds into the Elastic Kibana visualisation system. These visualisations are embedded on a locally hosted web app by eel, which provides an interface for communication between the web app code and the python code. This interface is used to send the web app updates on the state of sources, and for the web app to send instructions to change source states. The controller orchestrates this process, hosting the web connector functions and building pipelines for data collection and processing.
+The system is primarily written in Python although the web application uses JavaScript. The crawlers use the database connector to update their own state, and concrete implementations use an RSS parser to crawl RSS feeds and a web crawling library to build the profile of a news website and find all article links. The article parser uses the Newspaper3K library to turn the list of URLs into parsed objects, which it sends to the classifier. The BERT classifier is built using Huggingface transformers and uses a previously trained transformer model to categorise each article object from its headline and body, selecting the maximum log likelihood category on inference. The categorised objects are sent by a Python database connector to a noSQL elasticsearch database, which directly feeds into the Elastic Kibana visualisation system. These visualisations are embedded on a locally hosted web app by eel, which provides an interface for communication between the web app code and the Python code. This interface is used to send the web app updates on the state of sources, and for the web app to send instructions to change source states. The controller orchestrates this process, hosting the web connector functions and building pipelines for data collection and processing.
 
 
 %==================================================================================================================================
 
 
-\chapter{News Article Classification Experiment}
+\chapter{News Article Classification}
 
 \section{Task Definition}
 By researching the topics used by the news sources previously collected, as well as considering the topics used in publicly available news classification datasets, a set of six news topic categories was chosen, $C = \{$Entertainment/Arts(0), Sports(1), Politics(2), Science/Technology(3), Business/Finance(4), Health/Welfare(5)$\}$ \par
@@ -624,7 +636,7 @@ Given a dataset of news articles $N$ with and corresponding labels $L\in C$, whi
  \begin{figure}[h]
 \centering
 \includegraphics[width=0.8\textwidth]{images/Task Definition.png}
-\caption{A diagram representing the flow of a model classifying a news article n, composed of sentences which are composed of words. The news article is eventually assigned a category from C/}
+\caption{A diagram representing the flow of a model classifying a news article n, composed of sentences which are composed of words. The news article is eventually assigned a category from C.}
 \label{fig:task-definition}
 \end{figure}
 
@@ -650,7 +662,7 @@ Important features of the transformer model which enable its success on text cla
 \end{itemize}
 
 \subsubsection{BERT models and fine-tuning} \hfill \par
-A paper by \cite{devlin2018bert} introduced The BERT model (Bidirectional Encoder Representations from Transformers). This model is based on the original transformer architecture, but removes the decoder section in order to become sequence-to-sequence (the model transforms an input sequence to an output sequence). BERT is trained using masked language modelling (MLM), where a percentage of input sentences are hidden from the model and it attempts to guess the missing words. It is also trained on next sentence prediction (NSP) where the model guesses if one sentence follows another. These training tasks allow the model to contextualise words and sentences to create a better understanding and representation of the context of words. When trained on a multilingual corpus, the idea is that these representations are language-agnostic, and allow for successful classification of unseen multilingual data. These representations achieved from pre-training can be fine-tuned to complete a down-stream task, such as multilabel classification, by ignoring all but one of the model outputs and training a classifier on top of this output using a new dataset for the exact downstream task (e.g. news articles with categories) to convert the contextual embeddings of words into a classification label. This process is illustrated in Figure \ref{fig:bert-finetuning}
+A paper by \cite{devlin2018bert} introduced the BERT model (Bidirectional Encoder Representations from Transformers). This model is based on the original transformer architecture, but removes the decoder section in order to become sequence-to-sequence (the model transforms an input sequence to an output sequence). BERT is trained using masked language modelling (MLM), where a percentage of input sentences are hidden from the model and it attempts to guess the missing words. It is also trained on next sentence prediction (NSP) where the model guesses if one sentence follows another. These training tasks allow the model to contextualise words and sentences to create a better understanding and representation of the context of words. When trained on a multilingual corpus, the idea is that these representations are language-agnostic, and allow for successful classification of unseen multilingual data. These representations achieved from pre-training can be fine-tuned to complete a down-stream task, such as multilabel classification, by ignoring all but one of the model outputs and training a classifier on top of this output using a new dataset for the exact downstream task (e.g. news articles with categories) to convert the contextual embeddings of words into a classification label. This process is illustrated in Figure \ref{fig:bert-finetuning}
 
  \begin{figure}[h]
 \centering
@@ -673,8 +685,7 @@ These transformer models are very powerful in "understanding" text based on its 
 
 \subsection{Models Used}
 \par
-The models being used for this experiment are Multilingual BERT (mBERT) and XLM-RoBERTa. The models were trained on many languages, including the six considered here. The key differences between the models are highlighted below:
-\subsubsection{Training} \hfill \par
+The models being used for this experiment were introduced in Section \ref{section:transformer-based-models}: Multilingual BERT (mBERT) and XLM-RoBERTa. The models were trained on many languages, including the six considered here. The key differences between the models are highlighted below:
 \begin{itemize}
     \item The models are pre-trained on different corpora: mBERT is trained on the Wikipedias of the 104 languages with the most content. XLM-RoBERTa is trained on a larger corpus, using 2.5TB of CommonCrawl data across 100 languages. 
     \item mBERT uses WordPiece tokenization, where each sentence is split into words by spaces or punctuation, and each word is broken into one or more subwords. Each unique subword is associated with a token ID, and input data is converted into a sequence of these token ID's, which are input into the mBERT model for classification. XLM-RoBERTa uses SentencePiece tokenization, a similar subword tokenization scheme which is lossless (it can exactly replicate the input sequence as it retains whitespace and punctuation information) and language independent \citep{kudo2018sentencepiece}. 
@@ -691,13 +702,13 @@ Information on each dataset is detailed in Section \ref{section:datasets}. Data 
     \item The previously trained models on \textbf{DS2} were evaluated on the real-world collected data (\textbf{DS3}).
     \item The models were trained and evaluated on the real-world collected data (\textbf{DS3}).
 \end{enumerate}
-A diagram of these experiments is shown in Figure \ref{fig:fintuning-scheme}
+A diagram of these experiments is shown in Figure \ref{fig:finetuning-scheme}
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.6\textwidth]{images/Finetuning Scheme.png}
-\caption{A diagram of the finetuning scheme for the news article classification experiment, showing how datasets were obtained and the experiments run for each model (training dataset and evaluation dataset.}
-\label{fig:bert-finetuning}
+\caption{A diagram of the fine-tuning scheme for the news article classification experiment, showing how datasets were obtained and the experiments run for each model (training dataset and evaluation dataset.}
+\label{fig:finetuning-scheme}
 \end{figure}
 
 
@@ -710,7 +721,7 @@ We conducted a usability test on a static version of the web app (not connected 
 The purpose of the evaluation was to answer the following research questions:
 \begin{itemize}
     \item \textbf{RQ1.1: } Does the visualisation provide a complete and effective overview of the data collected?
-    \item \textbf{RQ1.2: }Does the interface allow users to easily and effectively manage the underlying web scraping system?
+    \item \textbf{RQ1.2: } Does the interface allow users to easily and effectively manage the underlying web scraping system?
 \end{itemize}
 
 The respondents were asked to perform the following tasks, and answer questions on their experiences and opinions on the visualisation and web scraper:
@@ -786,7 +797,7 @@ In many languages, particularly minority languages, little to no labelled public
 \subsection{Datasets}
 \label{section:datasets}
 \subsubsection{Public data} \hfill \par
-The dataset used is a dataset made available on huggingface by \cite{valurankdata}. The data originally consists of 3,722 classified English-language news articles scraped from various online news sources with 7 topic labels: World, Politics, Tech, Entertainment, Sport, Business, Health, and Science. To match the categories being considered in this experiment, articles belonging to the "World" category were dropped, and those belonging to the "Tech" and "Science" categories were merged into a new "Science/Technology" category. An augmented dataset was also created by adding copies of each article translated into each of the other five languages (French, Spanish, Portuguese, Mandarin and Indonesian). Translations were obtained using the Google translate API through the python library \emph{googletrans}\footnote{https://pypi.org/project/googletrans/}. The distribution of topics in the original and augmented datasets is shown in Table \ref{table:valurankstats} and Figure \ref{fig:public_cat_dist}.
+The dataset used is a dataset made available on huggingface by \cite{valurankdata}. The data originally consists of 3,722 classified English-language news articles scraped from various online news sources with 7 topic labels: World, Politics, Tech, Entertainment, Sport, Business, Health, and Science. To match the categories being considered in this experiment, articles belonging to the "World" category were dropped, and those belonging to the "Tech" and "Science" categories were merged into a new "Science/Technology" category. An augmented dataset was also created by adding copies of each article translated into each of the other five languages (French, Spanish, Portuguese, Mandarin and Indonesian). Translations were obtained using the Google translate API through the Python library \emph{googletrans}\footnote{https://pypi.org/project/googletrans/}. The distribution of topics in the original and augmented datasets is shown in Table \ref{table:valurankstats} and Figure \ref{fig:public_cat_dist}.
 
 \begin{table}[h]
 \begin{tabular}{llllllll}
@@ -925,7 +936,7 @@ Table \ref{table:transferability} shows the results of transferring the models t
 \end{table}
 
 \subsection{RQ2.3: Classifying Real-world Data}
-
+\label{section:rq2.3}
 Table \ref{table:realworld-effectiveness} shows the results of training and testing the multilingual models on the real-world collected dataset. There is little significant difference between the two multilingual models, with XLM-RoBERTa achieving slightly higher accuracy and F1 scores of ~89.5\%. Both models achieve a lower accuracy on the collected dataset than on either of the public datasets, but perform significantly better when trained on the same dataset than on the public dataset. This suggests that real-world news may be more difficult to accurately classify. \par
 Table \ref{table:confusion_matrix} shows the confusion matrix for the best performing model (XLM-RoBERTA-base) on the real-world test data. We can see that the most common misclassifications are predicting Business/Finance as Science/Technology (55 occurrences), predicting Politics as Business/Finance (48 occurrences) and predicting Science/Technology as Business/Finance (39 occurrences). This suggests that there may be large similarities or overlap between these three categories.
 
