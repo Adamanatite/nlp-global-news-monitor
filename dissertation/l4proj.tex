@@ -22,7 +22,7 @@
 %==============================================================================
 %% ABSTRACT
 \begin{abstract}
-    Current digital news surveillance systems for disease monitoring lack diversity in their data collection systems, and require results to be translated into English before processing. We developed a more robust data collection system which integrates various types of online data into one system, as well as a web interface to manage the system and view result visualisations. Various multilingual machine learning techniques were explored in an experiment on multilingual news category classification, and a classifier to assign categories to incoming multilingual articles was trained and integrated into the collection system. The classifier achieves 89.4\% accuracy on real-world collected data.
+    Current digital news surveillance systems for disease monitoring are lacking in some areas. They lack diversity in their data collection systems, only retrieving data from a selection of popular news sources and under-representing low-resource areas. They also require results to be translated into English before processing, using a potentially biased machine translation process. We redesign an existing system, BioCaster, to create an improved digital news surveillance system. This system collects news from a wider range of sources across 10 different languages. It produces real-time multi-component visualisations from this data, and has a web interface where the data collection system can be managed. We find that the visualisations are easy to understand and represent collected data well. We also find the web interface to be intuitive, clearly presented and mostly aesthetically appealing. \par We also explore various machine learning techniques and strategies in an experiment on multilingual news category classification. In particular, we find that machine translation as a data augmentation technique can yield increased performance, and that classifiers can apply some learning from public datasets to multilingual self-collected data. Finally, we train a multilingual classifier which achieves 89.4\% accuracy on real-world collected multilingual data.
 \end{abstract}
 
 %==============================================================================
@@ -291,20 +291,13 @@ A full diagram of database functionality is shown in Figure \ref{fig:database_di
 The data presentation subsystem is concerned with creating an easy interface for a user to view, analyse and understand the data collected, as well as easily interact with the system to modify its behaviour. The system should have interfaces which are easy to use and understand and provide useful insight and control on the data collection process.
 
 \subsection{Visualisation}
-The visualisation is mainly based on the current BioCaster interface, as shown in Figure \ref{fig:biocaster-visualisation}. This design has been updated to reflect the changes from my project to the current system, including the addition of news article topics and different source types of information retrieved. I also did not have the specific region or disease information to create the alerts seen on the BioCaster interface. Shown in Figure \ref{fig:visualisation-wireframe} is an initial wireframe of the new visualisation: \par
+The visualisation is mainly based on the current BioCaster interface, as shown in Figure \ref{fig:biocaster-visualisation}. This design has been updated to reflect the changes from my project to the current system, including the addition of news article topics and different source types of information retrieved. I also did not have the specific region or disease information to create the alerts seen on the BioCaster interface. Shown in Appendix \ref{appendix:visualisation-wireframe} is an initial wireframe of the new visualisation. \par
 
  \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{images/biocaster_interface.png}
 \caption{The current BioCaster visualisation. Available at http://biocaster.org.}
 \label{fig:biocaster-visualisation}
-\end{figure}
-
- \begin{figure}[h]
-\centering
-\includegraphics[width=\textwidth]{images/visualisation-wireframe.png}
-\caption{The wireframe for the new visualisation.}
-\label{fig:visualisation-wireframe}
 \end{figure}
 
 
@@ -328,13 +321,7 @@ The web interface is designed to show the visualisation on a webpage, as well as
     \item Adding new sources.
     \item Viewing stale sources (this was requested by a member of the BioCaster team in a meeting).
 \end{itemize}
-The wireframe for the manage sources page of the web interface is shown in Figure \ref{fig:interface-wireframe} 
- \begin{figure}[h]
-\centering
-\includegraphics[width=\textwidth]{images/interface-wireframe-sources.png}
-\caption{The wireframe for the manage sources page of the web interface.}
-\label{fig:interface-wireframe}
-\end{figure}
+The wireframes for the web interface can be seen in Appendix \ref{appendix:interface-wireframe}.
 
 \section{System Coordination}
 The system coordination subsystem is responsible for orchestrating the data collection process and connecting subsystems, as well as allowing the interface to communicate with the scraping system.
@@ -658,11 +645,15 @@ Important features of the transformer model which enable its success on text cla
 \begin{itemize}
     \item Residual connections which allow previous layers output to directly propagate to later layers in the network.
     \item Positional encoding using sine functions to create normalised representation of an items position, instead of using a single index.
-    \item Multi-head attention which can represent the importance of other words in the sequence on the current word (explained in later sections)
+    \item Multi-head attention which can represent the importance of other words in the sequence on the current word. 
+    \begin{itemize}
+        \item Attention is a mechanism which allows a weighted sum of surrounding words to factor into the context of the current word, improving the representation of words with different definitions (e.g. a river \textbf{bank} vs a financial \textbf{bank}).
+        \item Multi-head attention repeats this process across multiple attention heads. The results of these heads are concatenated and combined using a fully connected neural network. This can capture the fact that words may relate to each other in multiple ways \citep{vaswani2017attention}.
+    \end{itemize}
 \end{itemize}
 
 \subsubsection{BERT models and fine-tuning} \hfill \par
-A paper by \cite{devlin2018bert} introduced the BERT model (Bidirectional Encoder Representations from Transformers). This model is based on the original transformer architecture, but removes the decoder section in order to become sequence-to-sequence (the model transforms an input sequence to an output sequence). BERT is trained using masked language modelling (MLM), where a percentage of input sentences are hidden from the model and it attempts to guess the missing words. It is also trained on next sentence prediction (NSP) where the model guesses if one sentence follows another. These training tasks allow the model to contextualise words and sentences to create a better understanding and representation of the context of words. When trained on a multilingual corpus, the idea is that these representations are language-agnostic, and allow for successful classification of unseen multilingual data. These representations achieved from pre-training can be fine-tuned to complete a down-stream task, such as multilabel classification, by ignoring all but one of the model outputs and training a classifier on top of this output using a new dataset for the exact downstream task (e.g. news articles with categories) to convert the contextual embeddings of words into a classification label. This process is illustrated in Figure \ref{fig:bert-finetuning}
+A paper by \cite{devlin2018bert} introduced the BERT model (Bidirectional Encoder Representations from Transformers). This model is based on the original transformer architecture, but removes the decoder section in order to become sequence-to-sequence (the model transforms an input sequence to an output sequence). BERT is trained using masked language modelling (MLM), where a percentage of input sentences are hidden from the model and it attempts to guess the missing words. It is also trained on next sentence prediction (NSP) where the model guesses if one sentence follows another. These training tasks allow the model to contextualise words and sentences to create a better understanding and representation of the context of words. When trained on a multilingual corpus, the idea is that these representations are language-agnostic, and allow for successful classification of unseen multilingual data. These representations achieved from pre-training can be fine-tuned to complete a down-stream task, such as multilabel classification, by ignoring all but one of the model outputs and training a classifier on top of this output using a new dataset for the exact downstream task (e.g. news articles with categories) to convert the contextual embeddings of words into a classification label. This process is illustrated in Figure \ref{fig:bert-finetuning}. The fine-tuning process allows the models to leverage their advanced representations of words to adapt to many different tasks with far less training time on each individual task.
 
  \begin{figure}[h]
 \centering
@@ -670,17 +661,6 @@ A paper by \cite{devlin2018bert} introduced the BERT model (Bidirectional Encode
 \caption{A diagram of the architecture of a fine-tuned BERT model on text classification. Obtained from \cite{pappagari2019hierarchical}.}
 \label{fig:bert-finetuning}
 \end{figure}
-
-\subsubsection{Self-attention} \hfill \par
-    BERT models attempt to learn three weight matrices during training, $W_q$, $W_k$ and $W_v$. These are the query, key and value matrices respectively. We can multiply each of the input vectors with these matrices in order to obtain a key, query and value vector for each input. For a given input, we multiply the query vector of the input with the key vector of the other inputs
-    to form an attention mask (a representation of how much other words are important to the meaning of this word). This mask is scaled down by the square root of the dimension of the key vector, and a softmax function is performed to normalise values to sum to 1. For each other input, we multiply this weighting by the value vector, and then we sum the result to obtain a weighted combination of the values of other words. This gives the formula, for input query, key and value matrices Q, K, V (which are the concatenation of all input query, key and value vectors):
-    $$Attention(Q, K, V) = softmax(\frac{QK^T}{\sqrt{d_k}})V$$
-    
-\subsubsection{Multi-head attention} \hfill \par
-Multi-head attention is an extension of the previous attention mechanism used in models such as BERT. We create multiple attenttion heads which each have different query, key and value weight matrices. We obtain an output matrix for each attention head and concatenate the results. These concatenated results are fed into a fully connected neural network (FCNN) which combines the outputs.
-
-\subsubsection{Fine-tuning the pre-trained models}
-These transformer models are very powerful in "understanding" text based on its context, but they are designed to output a text sequence. To allow these models to be used in a classification task, we add a layer on top of the initial BERT model, and only consider one of its outputs (the given class). We train the new model to maximise the number of times this output is correct. This technique allows for training time to be cut down massively in the larger BERT model, as most of the training has been done already and we must only train the model to turn the context embeddings into a classification.
 
 
 \subsection{Models Used}
@@ -761,7 +741,8 @@ Specific examples of feedback given on the visualisation are:
     \item The "new articles by time" component can be difficult to interpret
 \end{itemize}
 
-The feedback is reasonable, and although many of the recommendations are outside the scope of this project (e.g. source bias and geographic proximity), many of these changes are easy to implement and would immediately improve the visualisation, such as better distinction in the colours and more easily readable language names. The requested additional visualisations could be used to replace less effective visualisations in the current system, such as articles by time.
+The feedback is reasonable, and although many of the recommendations are outside the scope of this project (e.g. source bias and geographic proximity), many of these changes are easy to implement and would immediately improve the visualisation, such as better distinction in the colours and more easily readable language names. The requested additional visualisations could be used to replace less effective visualisations in the current system, such as articles by time. \par
+To answer \textbf{RQ1.1}, the results suggest we have succeeded in creating a visualisation which provides a complete and effective overview of the data. There were some suggestions for extra features or visualisation components and criticism of existing components, but overall the respondents believed the visualisation was a complete representation of the data, giving a 4.78/5 average rating. Respondents also found the visualisation easy to understand, giving a 4.44/5 average rating. There are some issues to be fixed: The colour of the map could use some clarity, both in displaying its purpose and in more visual distinction between different levels of density. The full names of languages should also be added to make the data more clear to people viewing it.
 
 \subsection{RQ1.2: Web Interface}
 Respondents were asked to rate the web interface on how intuitive it is, how clearly information is presented and how aesthetically appealing it is. Results are shown in Figure. Respondents thought the information was clearly presented, with 55.6\% reponding with 5, and the rest with 4, however 12.5\% and 33.3\% of particpants gave the web interface a 3 on intuition and aesthetic appeal respectively, suggesting there is area for improvement on these metrics. 
@@ -773,15 +754,12 @@ Specific examples of feedback on the web interface are:
     \item The web app could benefit from an "about" page to describe the purpose
 \end{itemize}
 
-Most of the negative feedback come from the problems with the visualisation. The lack of clear purpose shown to some of the respondents may have worsened the experience but this will not be an issue in the final product, as the web app is only intended to be used by internal team members.
-
-\subsection{Conclusions}
-From the results, the visualisation and web interface seems to at least moderately succeed in all of its goals. There were some suggestions for extra features or visualisation components and criticism of existing components, but overall the respondents believed the visualisation was a complete representation of the data. The visualisations are mostly clear and effective, but particularly the colour of the map could use some clarity, both in displaying its purpose and in more visual distinction between different levels of density. The full names of languages should also be added to make the data more clear to people viewing it. \par
-Despite the limitations of the usability test, the web interface shows promise as an effective method of managing the underlying scraping system. Feedback was less positive overall than with the visualisation, but the opinion seems to be tied to technical issues with the visualisation and the lack of clarity in the experiment and mock interface itself, rather than as a product of interface design (which had only a few minor complaints and some compliments).
+Most of the negative feedback come from the problems with the visualisation. The lack of clear purpose shown to some of the respondents may have worsened the experience but this will not be an issue in the final product, as the web app is only intended to be used by internal team members. \par 
+To answer \textbf{RQ1.2}, despite the limitations of the usability test, the web interface shows promise as an effective method of managing the underlying scraping system. The interface makes controlling the scraping system simple, as participants found it intuitive (giving a 4/5 average raring) and clearly presented (giving a 4.56/5 average rating). Feedback was less positive overall than with the visualisation, particularly in aethetic appeal, which had an average rating of 3.89/5. The comments suggest, however, that this opinion seems to be tied to technical issues with the visualisation and the lack of clarity in the experiment and mock interface itself, rather than as a product of interface design (which had only a few minor complaints and some compliments). A future experiment using a version of this interface linked to the scraping system would provide more evidence to validate \textbf{RQ1.2}, as participants couldn't observe the results of their actions on a real system.
 
 \subsection{Limitations}
-Due to the nature of the web interface (hosted on a local web server), it was difficult to host an online version of the site which would be connected to a real scraping system. This meant that it was only possible to evaluate on a mock interface, which some respondents mentioned made the web interface less intuitive as they cannot directly see the results of their actions on the system. In addition, due to many of the respondents working in different countries and having busy schedules, it was impossible to conduct a live evaluation where respondents could be monitored using the app. This would have been more useful to understand the exact feedback given and directly view any bugs or technical issues. The low sample size (n=9) of the evaluation also reduces the ability to generalise findings on the effectiveness of the web interface and visualisation, and limits the range of feedback available.
-
+\label{section:interface-limitations}
+Due to the nature of the web interface (hosted on a local web server), it was difficult to host an online version of the site which would be connected to a real scraping system. This meant that it was only possible to evaluate on a mock interface, which some respondents mentioned made the web interface less intuitive as they cannot directly see the results of their actions on the system. In addition, due to many of the respondents working in different countries and having busy schedules, it was impossible to conduct a live evaluation where respondents could be monitored using the app. This would have been more useful to understand the exact feedback given and directly view any bugs or technical issues. The low sample size (n=9) of the evaluation also reduces the ability to generalise findings on the effectiveness of the web interface and visualisation, and limits the range of feedback available. Future research could address these limitations and provide stronger evidence to answer the research questions.
 
 
 \section{Multilingual News Article Classification}
@@ -892,7 +870,7 @@ Learning rate       & \SI{5e-5}, \SI{4e-5}, \SI{3e-5}, \SI{2e-5}. \\ \hline
 Because the categories in our datasets were not too imbalanced (the largest category disparity is around 2:1) we decided that data can be split randomly into a train and a test split. For each dataset, a train/test split of 80/20 (80\% training data) was used.
 
 \subsubsection{Evaluation metrics}
-We will evaluate each model's performance using the  classification accuracy (which percentage of predicted categories are correct), as well as its weighted F1 score. These ratings are widely used in machine learning literature, including classification tasks \citep{alam2020bangla, al2020multiple, ranasinghe2020multilingual}. F1 score is a common metric for effectiveness in classification problems, which aims to balance precision and recall. In binary (two label) classification, precision measures the proportion of predicted positive labels (true positives and false positives) are true positives. Recall measures how many of the true positive data items (true positive and false negative predictions) were classified correctly as positive (true positive). F1 score is the harmonic mean of precision and recall, and aims to balance these metrics to favour a model which avoids false positives but also misses as few positive examples. \par
+We will evaluate the performance of each model using the classification accuracy (which percentage of predicted categories are correct), as well as its weighted F1 score. These ratings are widely used in machine learning literature, including classification tasks \citep{alam2020bangla, al2020multiple, ranasinghe2020multilingual}. F1 score is a common metric for effectiveness in classification problems, which aims to balance precision and recall. In binary (two label) classification, precision measures the proportion of predicted positive labels (true positives and false positives) are true positives. Recall measures how many of the true positive data items (true positive and false negative predictions) were classified correctly as positive (true positive). F1 score is the harmonic mean of precision and recall, and aims to balance these metrics to favour a model which avoids false positives but also misses as few positive examples. \par
 In a multiclass context, the F1 score for each possible label is calculated separately and combined. There are different methods for combining these scores, including taking a global average (micro-F1) or taking an unweighted sum of per-category averages (macro-F!). In this experiment we will use weighted F1 score, which takes a weighted average of category F1 scores based on the category weighting (the proportion of the data represented by this category). The weighted F1 score for a dataset $D$ with categories $\{c_1, c_2, ..., c_N\}$ can be calculated as:
 $$Precision=\frac{TP}{TP+FP}$$ 
 $$Recall=\frac{TP}{TP+FN}
@@ -902,7 +880,7 @@ $$Weighted \ F1=\sum_{i=1}^{N}w_i \cdot F1 \ score_i \quad \quad \quad \quad w_i
 Where TP, FP and FN are the number of true positive, false positive and false negative classifications. Each experiment will be repeated for three training runs, and the mean and standard deviation of the accuracy and weighted F1 scores will be used as metrics for the effectiveness of each model.
 
 \subsection{RQ2.1: Effectiveness of Translation Upsampling}
-Shown in Table \ref{table:backtranslation-effectiveness} are the results of training and testing the multilingual models in the original English-only and augmented translated Valurank public dataset. The results show that all models achieve very high ($>95\%$) accuracy and F1 score for the public dataset. We can also see that both models achieve an increased performance of 2-3\% on the larger translated dataset, reaching near-perfect ($>98\%$) accuracy and F1 score in both cases. In both cases, the mBERT model performs slightly better than the XLM-RoBERTa model, but there is very little difference ($<1\%$) in accuracy. This suggests that upsampling can be an effective method of improving classification accuracy by providing more samples.
+Shown in Table \ref{table:backtranslation-effectiveness} are the results of training and testing the multilingual models in the original English-only and augmented translated Valurank public dataset. The results show that all models achieve very high ($>95\%$) accuracy and F1 score for the public dataset. We can also see that both models achieve an increased performance of 2-3\% on the larger translated dataset, reaching near-perfect ($>98\%$) accuracy and F1 score in both cases. In both cases, the mBERT model performs slightly better than the XLM-RoBERTa model, but there is very little difference ($<1\%$) in accuracy.
 
 \begin{table}[h]
 \begin{tabular}{lllll}
@@ -916,6 +894,8 @@ Shown in Table \ref{table:backtranslation-effectiveness} are the results of trai
 \caption{Accuracy and weighted F1 score (mean $\pm$ standard deviation) of models trained and tested on the Valurank public dataset, both in English only and translated into 5 additional languages, over 3 training runs. The most effective model for each dataset is denoted in \textbf{bold.}}
 \label{table:backtranslation-effectiveness}
 \end{table}
+
+To answer \textbf{RQ2.1}, machine translation of news articles does show some promise as an effective means of upsampling annotated public data, yielding an improvement in classification accuracy and F1 score over training on the monolingual dataset. For smaller datasets, this could be an effective way of synthesising much more training data to allow multilingual models to learn more effectively and achieve increased performance. Future research is required to determine if machine translation is also effective in upsampling multilingual data.
 
 \subsection{RQ2.2: Transfer of Models to Real-world Data}  \hfill \par
 
@@ -934,6 +914,8 @@ Table \ref{table:transferability} shows the results of transferring the models t
 \caption{Accuracy and weighted F1 score (mean $\pm$ standard deviation) of stratified sampling and most common static baseline models, as well as multilingual models trained on the Valurank public dataset (English only and translated into 5 additional languages). All models were evaluated on the collected multilingual dataset, over 3 training runs. The most effective model for each dataset is denoted in \textbf{bold.}}
 \label{table:transferability}
 \end{table}
+
+To answer \textbf{RQ2.2}, the large increase in performance from the baseline models when the multilingual models are trained on public data and evaluated on collected data suggests that the multilingual models have learned some patterns which still apply to real-world data. However there is enough difference to create a significant decrease in performance from the public dataset. The decrease in accuracy and F1 score when generalising to real-world data is likely due to the differences in how news articles are categorised and written across languages. Even when translated into multiple other languages, the public dataset only captures the writing and categorisation conventions of English-language news and these may not generalise effectively between language and source type. As an example, some Chinese sources categorise lottery results as "Sports", whereas English-language sources almost never do this. This suggests that for effective classification of news in minority languages, effort should be taken to obtain training data which is written in the language instead of relying on machine translation.
 
 \subsection{RQ2.3: Classifying Real-world Data}
 \label{section:rq2.3}
@@ -964,17 +946,15 @@ Table \ref{table:confusion_matrix} shows the confusion matrix for the best perfo
 \textbf{Business/Finance}                 & \cellcolor[HTML]{FFCCC9}6            & \cellcolor[HTML]{FFCCC9}3            & \cellcolor[HTML]{FFCCC9}8            & \cellcolor[HTML]{FE0000}55           & \cellcolor[HTML]{67FD9A}\textbf{486} & \cellcolor[HTML]{FFCCC9}8            \\
 \textbf{Health/Welfare}                   & \cellcolor[HTML]{FFCCC9}3            & \cellcolor[HTML]{FFCCC9}2            & 0                                    & \cellcolor[HTML]{FD6864}14           & \cellcolor[HTML]{FD6864}14           & \cellcolor[HTML]{67FD9A}\textbf{211} \\ \hline
 \end{tabular}
-\caption{Confusion matrix for the XLM-RoBERTa-base on real-world multilingual test data. The matrix shows where the prediction errors lay, and is colour coded so that deeper reds indicate more common misclassifications (the green diagonal shows correct classifications)}
+\caption{Confusion matrix for the XLM-RoBERTa-base on real-world multilingual test data. The matrix shows where the prediction errors lay, and is colour coded so that deeper reds indicate more common incorrect classifications (the green diagonal shows correct classifications).}
 \label{table:confusion_matrix}
 \end{table}
 
-\subsection{Conclusions}
-\textbf{RQ2.1: } Machine translation of news articles shows some promise as a means of upsampling annotated public data, yielding an improvement in classification accuracy and F1 score over training on the monolingual dataset (as shown in Table \ref{table:backtranslation-effectiveness}. For smaller datasets, this could be an effective way of synthesising much more training data to allow multilingual models to learn more effectively and achieve increased performance. Future research is required to determine if machine translation is as effective on multilingual data. \par
-\textbf{RQ2.2: } The large increase in performance from the baseline models when the multilingual models are trained on public data and evaluated on collected data (as shown in Table \ref{table:transferability}) suggests that the multilingual models have learned some patterns which still apply to real-world data. The decrease in accuracy and F1 score when generalising to real-world data is likely due to the differences in how news articles are categorised and written across languages. Even when translated into multiple other languages, the public dataset only captures the writing and categorisation conventions of English-language news and these may not generalise effectively between language and source type. As an example, some Chinese sources categorise lottery results as "Sports", whereas English-language sources almost never do this. This suggests that for effective classification of news in minority languages, effort should be taken to obtain training data which is written in the language instead of relying on machine translation. \par
-\textbf{RQ2.3: } While performance on real-world datasets (shown in Table \ref{table:realworld-effectiveness}) remains high (~89\% accuracy) there is a significant decrease in performance in the models from the public dataset evaluation (shown in table \ref{table:backtranslation-effectiveness}. This is likely because real-world data is less simple to sort into one category than most publicly annotated data: category boundaries are often not clear and even human annotators may disagree on classifications, many articles could be considered to fit into multiple categories and some are even given multiple categories by the original news source. The model performs very well on Sports articles, where there is less overlap with other categories and hence less ambiguity, but often confuses Business/Finance, Politics and Science/Technology articles. In real-world articles, these subject areas often overlap: many political decisions affect the economy, and technology is often a topic of political debate. Future research could consider a more appropriate task for news article classification, such as multiclass classification with more labels, using human-annotated data.
+To answer \textbf{RQ2.3}, While performance of the multilingual models on real-world datasets (shown in Table \ref{table:realworld-effectiveness}) remains high (~89\% accuracy) there is a significant decrease in performance in the models from the public dataset evaluation (shown in table \ref{table:backtranslation-effectiveness}. This is likely because real-world data is less simple to sort into one category than most publicly annotated data: category boundaries are often not clear and even human annotators may disagree on classifications, many articles could be considered to fit into multiple categories and some are even given multiple categories by the original news source. The model performs very well on Sports articles, where there is less overlap with other categories and hence less ambiguity, but often confuses Business/Finance, Politics and Science/Technology articles. In real-world articles, these subject areas often overlap: many political decisions affect the economy, and technology is often a topic of political debate. Future research could consider a more appropriate task for news article classification, such as multiclass classification with more labels, using human-annotated data.
 
 \subsection{Limitations}
-Due to the lack of public labelled data for news article topic classification in many languages, in order to consider this task in a multilingual setting it was necessary to collect my own public data using RSS feeds and web scraping. The data collected is not annotated or reviewed by a human, and instead solely relies on the tagging of the news sources being used. This means that training data may be mislabelled or contain errors, and results achieved through experiments using these data may not be as valid as results obtained from manually annotated data. \par
+\label{section:classification-limitations}
+Due to the lack of public labelled data for news article topic classification in many languages, in order to consider this task in a multilingual setting it was necessary to collect my own public data using RSS feeds and web scraping. The data collected is not annotated or reviewed by a human, and instead solely relies on the tagging of the news sources being used. This means that training data may be mislabelled or contain errors, and results achieved through experiments using these data may not be as valid as results obtained from manually annotated data. A human-validated multilingual dataset would provide stronger evidence for the research questions, and future research could consider collecting this data.\par
 
 
 %==================================================================================================================================
@@ -982,16 +962,37 @@ Due to the lack of public labelled data for news article topic classification in
 
 \chapter{Conclusion}    
 \section{Project Summary}
-In this project, we considered an existing digital disease surveillance system, BioCaster, and attempted to improve the areas in which it was lacking. In particular, we designed a robust news collection system which can retrieve information from a wide variety of sources at a higher level of detail than the current BioCaster system. We developed a system which is easily extensible and configurable and allows for many different types of data source to be collected and used in disease alerts, and implemented 2 of these methods: RSS feeds and news website scraping. We implemented a system for extracting details from these news articles and a classifier system to assign each article a topic. In addition, we reworked the original BioCaster visualisations to reflect the new data collected and created a web interface where this visualisation can be viewed, and the web scraping system can be controlled. Data from the usability test suggests that this visualisation represents the data well and the web interface is mostly intuitive and clearly presents the information to the user. \par
+In this project, we improved an existing digital disease surveillance system, BioCaster, by analysing the areas the current system is lacking and developing improvements in these areas. In particular, we found two main issues. The first main issue is that the data collection methods in the current system are very limited, relying on published RSS feeds. These feeds are typically only published by popular news sources in high-resource countries, which means BioCaster is lacking in coverage of disease outbreaks in low-resource areas. We designed an extensible digital news surveillance system based on the BioCaster system, which improves the range of data which can be collected, adding functionality for the scraping of news website HTML, and providing infrastructure to easily extend to other online sources of data, such as social media posts. The system has the following components:
+\begin{itemize}
+    \item \textbf{Crawlers} produce a list of possible data URL's from a source URL.
+    \item The \textbf{parser} scrapes a data URL for structured information, such as headline and publish date.
+    \item The \textbf{classifier} assigns a category to structured articles. The classifier used was trained in the multilingual news classification experiment.
+    \item The \textbf{database} provides a permanent store for parsed and classified articles. The \textbf{database connector} facilitates communication between the database and the news collection and prcocessing system.
+    \item The \textbf{visualisation} component provides real-time multi-component visualisations using the data from the database.
+    \item The \textbf{Web interface} provides functionality for a user to control the news collection system, by sending instructions and receivign updates through the \textbf{web connector}.
+    \item The \textbf{controller} starts the program, initialising crawlers from sources stored in the database, creating and running data processing pipelines and communicating with the web interface through the web connector.
+\end{itemize}
+The system was designed in Python, using the \emph{Newspape3K} and \emph{feedparser} libraries for collecting news data, and using \emph{huggingface transformers} to classify the news data using transformer models. The database system uses noSQL database elasticsearch, connected to the Python code through thr \emph{elasticsearch} library, and real-time visualisations are produced from this data using Elastic Kibana. The web interface uses standard HTML, CSS and JavaScript, but is connected to the python code through the \emph{Eel} library, which creates a local web server where information and instructions can be passed between the Python and JavaScript code.
 
-We also obtained results from experimentation with multilingual news classification which suggests machine translation upsampling is plausible to increase the accuracy of multilingual models, and trained a model which can achieve ~90\% accuracy on real-world collected news. 
+We also conducted an experiment with two state-of-the-art multilingual transformer models using the task of classifying a news article in one of 6 languages to one of 6 selected categories. This evaluation used three datasets: A public, English-language dataset available online, an augmented version of this dataset with all items translated into all 6 languages, and a dataset of real-world data collected by the previously developed scraping system. This collected dataset is composed of articles self-categorised by the news sources. We investigated the effectiveness of machine translation as a data augmentation technique to upsample datasets, how effectively models trained on public datasets perform on real-world data. Finally, we trained and evaluated the models on real-world data to evaluate the current accuracy on multilingual news article classification tasks.
+
+\section{Evaluation Results}
+We conducted evaluations on the visualisation, web interface and the multilingual classification experiment, and came to the following conclusions:
+\begin{itemize}
+    \item \textbf{RQ1.1}: The visualisation is easy to understand and represents the data collected well
+    \item \textbf{RQ1.2}: The web interface provides is intuitive and clear, but the effectiveness of managing the scraping system was difficult to measure due to experiment limitations.
+    \item \textbf{RQ2.1}: Machine translation upsampling yields some improvement in classification accuracy
+    \item \textbf{RQ2.2}: Models trained on public data far outperform static baselines on real-world data, but still suffer a significant performance decrease.
+    \item \textbf{RQ2.3}: Our best model on real-world collected data  was XLM-RoBERTa, which achieves 89.4\% accuracy.
+\end{itemize}
 
 \section{Future Work}
 \subsection{Web Scraping System}
-While being designed to easily accommodate the adding of new sources, there are many potentially useful sources of information which this project doesn't implement, which could be implemented by future projects. These include google news data, social media data and search trends. \par
-The system has some room to improve in efficiency. For example, a future system may use multi-threading to parse multiple articles at once, removing the bottleneck of communication with the internet in the current single-threaded system. 
+As discussed in Section \ref{section:interface-limitations}, the evaluation on the interface was limited, as respondents were only able to use a mock version of the interface not connected to the news collection system. Future work could find a method for this interface to be hosted online, so that an evaluation can be conducted on a live system. \par
+While being designed to easily accommodate the adding of new sources, there are many potentially useful sources of information which this project doesn't implement, which could be implemented by future projects. Potential sources include data aggregated from google news, social media data and search trends. The system also has some room to improve in efficiency. For example, a future system may use multi-threading to parse multiple articles at once, removing the bottleneck of communication with news URLs in the current single-threaded system. 
 \subsection{Multilingual News Article Classification}
-Research by \cite{wu2020all} suggests that multilingual BERT is less effective in transferring its results to low-resource languages, and pre-training on a multilingual task instead of masked language modelling (MLM) would produce a better model for language transfer. Due to limited resources and time, this pre-training was not possible in this evaluation, but a future study could consider how these methods are applied to the task of multilingual news classification. To impeove the validity of results, future research could collect human-labelled news category datasets for use in training the multilingual models, instead of assuming the validity of articles scraped from the internet and labelled by the data source.
+As discussed in Section \ref{section:classification-limitations}, future work may consider multiclass classification as it may be more appropriate for this task. Due to limited online resources and time, the real-world dataset is unlabelled and relies on categorisations from the source themselves. To improve the validity of results and strengthen conclusions, future research could collect human-labelled multilingual news category datasets for use in training the multilingual models, instead of assuming the validity of articles scraped from the internet and labelled by the data source. \par
+Research by \cite{wu2020all} suggests that multilingual BERT is less effective in transferring its results to low-resource languages, and pre-training on a multilingual task instead of masked language modelling (MLM) would produce a better model for language transfer. Due to limited resources and time, this pre-training was not possible in this evaluation, but a future study could consider how these methods are applied to the task of multilingual news classification and what results can be obtained from models trained using these methods. 
 
 
 
@@ -1006,6 +1007,40 @@ Research by \cite{wu2020all} suggests that multilingual BERT is less effective i
 %==================================================================================================================================
 %  APPENDICES  
 \begin{appendices}
+\chapter{Wireframe of proposed new visualisation}
+\label{appendix:visualisation-wireframe}
+ \begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{images/visualisation-wireframe.png}
+\caption{The wireframe for the proposed new visualisation.}
+\label{fig:visualisation-wireframe}
+\end{figure}
+
+
+\chapter{Wireframe of proposed web interface}
+\label{appendix:interface-wireframe}
+
+ \begin{figure}[h]
+\centering
+\includegraphics[width=0.5\textwidth]{images/wireframe-home-1.png}
+\caption{The wireframe for the homepage of the web interface when the scraper is enabled. White space has been removed for clarity.}
+\label{fig:interface-wireframe}
+\end{figure}
+
+ \begin{figure}[h]
+\centering
+\includegraphics[width=0.5\textwidth]{images/wireframe-home-2.png}
+\caption{The wireframe for the homepage of the web interface when the scraper is disabled. White space has been removed for clarity.}
+\label{fig:interface-wireframe}
+\end{figure}
+
+ \begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{images/interface-wireframe-sources.png}
+\caption{The wireframe for the manage sources page of the web interface. White space has been removed for clarity.}
+\label{fig:interface-wireframe}
+\end{figure}
+
 \chapter{List of data sources for real-world dataset}
 \label{appendix:data-sources}
 \begin{obeylines}

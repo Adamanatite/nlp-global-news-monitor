@@ -453,3 +453,6 @@
 * *0.5 hour* Writing build and run instructions
 * *1.5 hour* More documentation, meeting preparation, meeting
 * *8 hour* Work on presentation and dissertation
+
+### 24 Mar 2023
+* *4 hour* Final dissertation changes and submission
